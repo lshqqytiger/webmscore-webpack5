@@ -64,8 +64,13 @@ option(USE_SYSTEM_FREETYPE "Use system FreeType" OFF)          # requires freety
 
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -std=gnu++11")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -fPIC")
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-copy")
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_ZLIB=1")      # 1 = use zlib from emscripten-ports
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")  # 1 = use freetype from emscripten-ports
 set(CMAKE_CXX_FLAGS_DEBUG   "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -DQT_NO_DEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG -DQT_NO_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Woverloaded-virtual")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 
@@ -86,26 +91,6 @@ SET(MUSESCORE_NAME_VERSION "${MUSESCORE_NAME} ${MUSESCORE_VERSION_MAJOR}")
 # Version schema x.x.x is hardcoded in source
 #
 SET(MUSESCORE_VERSION_FULL  "${MUSESCORE_VERSION}.${MUSESCORE_VERSION_PATCH}")
-
-
-##
-## freetype2 >= 2.5.2
-##
-
-if (USE_SYSTEM_FREETYPE)
-      if (APPLE)
-            PKGCONFIG (freetype2 2.5.2 FREETYPE_INCLUDE_DIRS FREETYPE_LIBDIR FREETYPE_LIBRARIES FREETYPE_CPP)
-            if (FREETYPE_INCLUDE_DIRS)
-                  STRING(REGEX REPLACE  "\"" "" FREETYPE_INCLUDE_DIRS ${FREETYPE_INCLUDE_DIRS})
-                  STRING(REGEX REPLACE  "\"" "" FREETYPE_LIBDIR ${FREETYPE_LIBDIR})
-                  message("freetype2 detected ${FREETYPE_INCLUDE_DIRS} ${FREETYPE_LIBDIR} ${FREETYPE_LIBRARIES}")
-            else (FREETYPE_INCLUDE_DIRS)
-                  message(FATAL_ERROR "freetype >= 2.5.2 is required\n")
-            endif (FREETYPE_INCLUDE_DIRS)
-      else (APPLE)
-            find_package(Freetype REQUIRED)
-      endif (APPLE)
-endif (USE_SYSTEM_FREETYPE)
 
 
 #
@@ -146,12 +131,6 @@ include_directories(
 #    ${LAME_INCLUDE_DIR}
 )
 
-if (USE_SYSTEM_FREETYPE)
-      include_directories(${FREETYPE_INCLUDE_DIRS})
-else (USE_SYSTEM_FREETYPE)
-      include_directories(${PROJECT_SOURCE_DIR}/thirdparty/freetype/include)
-endif (USE_SYSTEM_FREETYPE)
-
 # add_subdirectory(global)
 # add_subdirectory(main)
 
@@ -177,3 +156,6 @@ subdirs(
 if (NOT USE_SYSTEM_FREETYPE)
       subdirs (thirdparty/freetype)
 endif (NOT USE_SYSTEM_FREETYPE)
+
+# main
+add_subdirectory(web)

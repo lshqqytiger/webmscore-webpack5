@@ -1,6 +1,6 @@
 set(_components
     Core
-    Gui
+    # Gui
     #Designer
     # Network
     # Test

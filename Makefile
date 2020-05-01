@@ -96,7 +96,6 @@ debug:
       -DCOVERAGE="${COVERAGE}"                 \
    	  -DDOWNLOAD_SOUNDFONT="${DOWNLOAD_SOUNDFONT}"        \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;            \
-      make lrelease;                                        \
       make -j ${CPUS};                                      \
 
 #
