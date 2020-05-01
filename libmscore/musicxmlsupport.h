@@ -20,9 +20,9 @@
 #ifndef __MUSICXMLSUPPORT_H__
 #define __MUSICXMLSUPPORT_H__
 
-#include "libmscore/fraction.h"
-#include "libmscore/mscore.h"
-#include "libmscore/note.h"
+#include "fraction.h"
+#include "mscore.h"
+#include "note.h"
 
 namespace Ms {
 

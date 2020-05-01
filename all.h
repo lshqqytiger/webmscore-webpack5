@@ -60,15 +60,15 @@
 #endif
 
 #include <QtGui>
-#include <QLoggingCategory>
-#include <QModelIndex>
+// #include <QLoggingCategory>
+// #include <QModelIndex>
 
-#ifdef QT_WEBENGINE_LIB
-// no precompiled QtWebEngine in Qt 5.6 windows gcc
-#include <QWebEngineView>
-#include <QWebEngineUrlRequestInterceptor>
-#include <QWebEngineProfile>
-#endif
+// #ifdef QT_WEBENGINE_LIB
+// // no precompiled QtWebEngine in Qt 5.6 windows gcc
+// #include <QWebEngineView>
+// #include <QWebEngineUrlRequestInterceptor>
+// #include <QWebEngineProfile>
+// #endif
 
 #include <QtXml>
 #include <QAbstractMessageHandler>
@@ -98,114 +98,110 @@
 #include <QKeyEvent>
 
 #include <QFontDatabase>
-#include <QProcess>
-#include <QDesktopServices>
-#include <QDesktopWidget>
+// #include <QProcess>
+// #include <QDesktopServices>
 #include <QTextDocument>
 #include <QTextDocumentFragment>
 #include <QTextCursor>
 #include <QAbstractTextDocumentLayout>
-#include <QTextBlock>
-#include <QTextList>
+// #include <QTextBlock>
+// #include <QTextList>
 #include <QClipboard>
-#include <QPlainTextEdit>
-#include <QStyledItemDelegate>
+// #include <QPlainTextEdit>
+// #include <QStyledItemDelegate>
 
-#include <QDateTimeEdit>
-#include <QInputDialog>
-#include <QFormLayout>
-#include <QItemDelegate>
-#include <QStandardItemModel>
-#include <QSpinBox>
-#include <QScrollArea>
-#include <QScrollBar>
-#include <QToolBar>
-#include <QTreeWidget>
-#include <QFileDialog>
-#ifdef QT_PRINTSUPPORT_LIB
-#include <QPrintDialog>
-#include <QPrinter>
-#endif
+// #include <QDateTimeEdit>
+// #include <QInputDialog>
+// #include <QFormLayout>
+// #include <QItemDelegate>
+// #include <QStandardItemModel>
+// #include <QSpinBox>
+// #include <QScrollArea>
+// #include <QScrollBar>
+// #include <QToolBar>
+// #include <QTreeWidget>
+// #include <QFileDialog>
+// #ifdef QT_PRINTSUPPORT_LIB
+// #include <QPrintDialog>
+// #include <QPrinter>
+// #endif
 #include <QColorDialog>
-#include <QDockWidget>
-#include <QStackedWidget>
-#include <QStackedLayout>
-#include <QListWidget>
+// #include <QDockWidget>
+// #include <QStackedWidget>
+// #include <QStackedLayout>
+// #include <QListWidget>
 #include <QMessageBox>
 #include <QComboBox>
-#include <QMainWindow>
-#include <QMenu>
-#include <QMenuBar>
-#include <QSplitter>
-#include <QAction>
-#include <QActionGroup>
-#include <QLayout>
-#include <QBoxLayout>
-#include <QStandardItemModel>
-#include <QToolTip>
-#include <QToolBox>
-#include <QToolButton>
-#include <QPushButton>
-#include <QWizard>
-#include <QGroupBox>
-#include <QDial>
-#include <QTextEdit>
-#include <QLineEdit>
-#include <QCheckBox>
-#include <QDialogButtonBox>
-#include <QProgressBar>
-#include <QProgressDialog>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QSplashScreen>
-#include <QFontComboBox>
+// #include <QMainWindow>
+// #include <QMenu>
+// #include <QMenuBar>
+// #include <QSplitter>
+// #include <QAction>
+// #include <QActionGroup>
+// #include <QLayout>
+// #include <QBoxLayout>
+// #include <QStandardItemModel>
+// #include <QToolTip>
+// #include <QToolBox>
+// #include <QToolButton>
+// #include <QPushButton>
+// #include <QWizard>
+// #include <QGroupBox>
+// #include <QDial>
+// #include <QTextEdit>
+// #include <QLineEdit>
+// #include <QCheckBox>
+// #include <QDialogButtonBox>
+// #include <QProgressBar>
+// #include <QProgressDialog>
+// #include <QRadioButton>
+// #include <QButtonGroup>
+// #include <QSplashScreen>
+// #include <QFontComboBox>
 #include <QApplication>
-#include <QStatusBar>
-#include <QStyle>
-#include <QStylePainter>
-#include <QStyleOptionButton>
-#include <QHeaderView>
-#include <QUndoGroup>
-#include <QUndoStack>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QGraphicsRectItem>
-#include <QLabel>
-#include <QFocusFrame>
-#include <QMouseEventTransition>
-#include <QCommonStyle>
-#include <QMdiSubWindow>
-#include <QSpacerItem>
-#include <QGraphicsSceneMouseEvent>
-#include <QtConcurrent>
-#include <QScreen>
-#include <QGestureEvent>
+// #include <QStatusBar>
+// #include <QStyle>
+// #include <QStylePainter>
+// #include <QStyleOptionButton>
+// #include <QHeaderView>
+// #include <QUndoGroup>
+// #include <QUndoStack>
+// #include <QGraphicsView>
+// #include <QGraphicsScene>
+// #include <QGraphicsRectItem>
+// #include <QLabel>
+// #include <QFocusFrame>
+// #include <QMouseEventTransition>
+// #include <QCommonStyle>
+// #include <QMdiSubWindow>
+// #include <QSpacerItem>
+// #include <QGraphicsSceneMouseEvent>
+// #include <QScreen>
+// #include <QGestureEvent>
 
 #include <QSvgRenderer>
 #include <QSvgGenerator>
 
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkCookie>
-#include <QNetworkCookieJar>
-#include <QNetworkProxyFactory>
-#include <QHostAddress>
-#include <QUdpSocket>
+// #include <QNetworkAccessManager>
+// #include <QNetworkReply>
+// #include <QNetworkCookie>
+// #include <QNetworkCookieJar>
+// #include <QNetworkProxyFactory>
+// #include <QHostAddress>
+// #include <QUdpSocket>
 
-#include <QHttpPart>
-#include <QHttpMultiPart>
+// #include <QHttpPart>
+// #include <QHttpMultiPart>
 
-#include <QQmlEngine>
-#include <QQmlComponent>
-#include <QQuickItem>
-#include <QQuickPaintedItem>
-#include <QQuickView>
-#include <QQuickWidget>
+// #include <QQmlEngine>
+// #include <QQmlComponent>
+// #include <QQuickItem>
+// #include <QQuickPaintedItem>
+// #include <QQuickView>
+// #include <QQuickWidget>
 
-#include <QHelpEngine>
-#include <QWidgetAction>
-#include <QHelpIndexModel>
-#include <QTextBrowser>
+// #include <QWidgetAction>
+// #include <QTextBrowser>
 
 #include <QJsonDocument>
 

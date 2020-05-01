@@ -37,70 +37,70 @@
 #include <math.h>
 #include "config.h"
 //#include "musescore.h"
-#include "file.h"
-#include "libmscore/score.h"
-#include "libmscore/rest.h"
-#include "libmscore/chord.h"
-#include "libmscore/sig.h"
-#include "libmscore/key.h"
-#include "libmscore/clef.h"
-#include "libmscore/note.h"
-#include "libmscore/segment.h"
-#include "libmscore/xml.h"
-#include "libmscore/beam.h"
-#include "libmscore/staff.h"
-#include "libmscore/part.h"
-#include "libmscore/measure.h"
-#include "libmscore/style.h"
+// #include "file.h"
+#include "score.h"
+#include "rest.h"
+#include "chord.h"
+#include "sig.h"
+#include "key.h"
+#include "clef.h"
+#include "note.h"
+#include "segment.h"
+#include "xml.h"
+#include "beam.h"
+#include "staff.h"
+#include "part.h"
+#include "measure.h"
+#include "style.h"
 #include "musicxml.h"
-#include "libmscore/slur.h"
-#include "libmscore/hairpin.h"
-#include "libmscore/dynamic.h"
-#include "libmscore/barline.h"
-#include "libmscore/timesig.h"
-#include "libmscore/ottava.h"
-#include "libmscore/pedal.h"
-#include "libmscore/text.h"
-#include "libmscore/tuplet.h"
-#include "libmscore/lyrics.h"
-#include "libmscore/volta.h"
-#include "libmscore/keysig.h"
-#include "libmscore/bracket.h"
-#include "libmscore/arpeggio.h"
-#include "libmscore/jump.h"
-#include "libmscore/marker.h"
-#include "libmscore/tremolo.h"
-#include "libmscore/trill.h"
-#include "libmscore/harmony.h"
-#include "libmscore/tempotext.h"
-#include "libmscore/sym.h"
-#include "libmscore/pitchspelling.h"
-#include "libmscore/utils.h"
-#include "libmscore/articulation.h"
-#include "libmscore/page.h"
-#include "libmscore/system.h"
-#include "libmscore/element.h"
-#include "libmscore/glissando.h"
-#include "libmscore/navigate.h"
-#include "libmscore/spanner.h"
-#include "libmscore/drumset.h"
-#include "preferences.h"
-#include "libmscore/mscore.h"
-#include "libmscore/accidental.h"
-#include "libmscore/breath.h"
-#include "libmscore/chordline.h"
-#include "libmscore/figuredbass.h"
-#include "libmscore/stringdata.h"
-#include "libmscore/rehearsalmark.h"
+#include "slur.h"
+#include "hairpin.h"
+#include "dynamic.h"
+#include "barline.h"
+#include "timesig.h"
+#include "ottava.h"
+#include "pedal.h"
+#include "text.h"
+#include "tuplet.h"
+#include "lyrics.h"
+#include "volta.h"
+#include "keysig.h"
+#include "bracket.h"
+#include "arpeggio.h"
+#include "jump.h"
+#include "marker.h"
+#include "tremolo.h"
+#include "trill.h"
+#include "harmony.h"
+#include "tempotext.h"
+#include "sym.h"
+#include "pitchspelling.h"
+#include "utils.h"
+#include "articulation.h"
+#include "page.h"
+#include "system.h"
+#include "element.h"
+#include "glissando.h"
+#include "navigate.h"
+#include "spanner.h"
+#include "drumset.h"
+// #include "preferences.h"
+#include "mscore.h"
+#include "accidental.h"
+#include "breath.h"
+#include "chordline.h"
+#include "figuredbass.h"
+#include "stringdata.h"
+#include "rehearsalmark.h"
 #include "thirdparty/qzip/qzipwriter_p.h"
-#include "libmscore/fret.h"
-#include "libmscore/tie.h"
-#include "libmscore/undo.h"
-#include "libmscore/textline.h"
-#include "libmscore/fermata.h"
+#include "fret.h"
+#include "tie.h"
+#include "undo.h"
+#include "textline.h"
+#include "fermata.h"
 #include "musicxmlfonthandler.h"
-#include "libmscore/textframe.h"
-#include "libmscore/instrchange.h"
+#include "textframe.h"
+#include "instrchange.h"
 
 namespace Ms {
 
@@ -348,8 +348,8 @@ public:
 
 static QString addPositioningAttributes(Element const* const el, bool isSpanStart = true)
       {
-      if (!preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
-            return "";
+      // if (!preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
+      //       return "";
 
       //qDebug("single el %p _pos x,y %f %f _userOff x,y %f %f spatium %f",
       //       el, el->ipos().x(), el->ipos().y(), el->offset().x(), el->offset().y(), el->spatium());
@@ -2770,7 +2770,7 @@ static QString notePosition(const ExportMusicXml* const expMxml, const Note* con
       {
       QString res;
 
-      if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
+      // if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
             const double pageHeight  = expMxml->getTenthsFromInches(expMxml->score()->styleD(Sid::pageHeight));
 
             const auto chord = note->chord();
@@ -2782,7 +2782,7 @@ static QString notePosition(const ExportMusicXml* const expMxml, const Note* con
 
             res += QString(" default-x=\"%1\"").arg(QString::number(noteX - measureX,'f',2));
             res += QString(" default-y=\"%1\"").arg(QString::number(noteY - measureY,'f',2));
-            }
+            // }
 
       return res;
       }
@@ -4765,15 +4765,15 @@ static void identification(XmlWriter& xml, Score const* const score)
       xml.tagE("supports element=\"beam\" type=\"yes\"");
       // set support for print new-page and new-system to match user preference
       // for MusicxmlExportBreaks::MANUAL support is "no" because "yes" breaks Finale NotePad import
-      if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)
-          && preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL) {
+      // if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)
+      //     && preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL) {
             xml.tagE("supports element=\"print\" attribute=\"new-page\" type=\"yes\" value=\"yes\"");
             xml.tagE("supports element=\"print\" attribute=\"new-system\" type=\"yes\" value=\"yes\"");
-            }
-      else {
-            xml.tagE("supports element=\"print\" attribute=\"new-page\" type=\"no\"");
-            xml.tagE("supports element=\"print\" attribute=\"new-system\" type=\"no\"");
-            }
+      //       }
+      // else {
+      //       xml.tagE("supports element=\"print\" attribute=\"new-page\" type=\"no\"");
+      //       xml.tagE("supports element=\"print\" attribute=\"new-system\" type=\"no\"");
+      //       }
       xml.tagE("supports element=\"stem\" type=\"yes\"");
 
       xml.etag();
@@ -4922,27 +4922,27 @@ void ExportMusicXml::print(const Measure* const m, const int partNr, const int f
 
             // determine if a new-system or new-page is required
             QString newThing;       // new-[system|page]="yes" or empty
-            if (preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL) {
+            // if (preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL) {
                   if (currentSystem == NewSystem)
                         newThing = " new-system=\"yes\"";
                   else if (currentSystem == NewPage)
                         newThing = " new-page=\"yes\"";
-                  }
-            else if (preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::MANUAL) {
-                  if (currentSystem == NewSystem && (prevMeasLineBreak || prevMeasSectionBreak))
-                        newThing = " new-system=\"yes\"";
-                  else if (currentSystem == NewPage && prevMeasPageBreak)
-                        newThing = " new-page=\"yes\"";
-                  }
+            //       }
+            // else if (preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::MANUAL) {
+            //       if (currentSystem == NewSystem && (prevMeasLineBreak || prevMeasSectionBreak))
+            //             newThing = " new-system=\"yes\"";
+            //       else if (currentSystem == NewPage && prevMeasPageBreak)
+            //             newThing = " new-page=\"yes\"";
+            //       }
 
             // determine if layout information is required
             bool doLayout = false;
-            if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
+            // if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
                   if (currentSystem == TopSystem
-                      || (preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL && newThing != "")) {
+                      || (/** preferences.musicxmlExportBreaks() == MusicxmlExportBreaks::ALL && **/ newThing != "")) {
                         doLayout = true;
                         }
-                  }
+                  // }
 
             if (doLayout) {
                   _xml.stag(QString("print%1").arg(newThing));
@@ -5594,10 +5594,10 @@ void ExportMusicXml::write(QIODevice* dev)
 
       identification(_xml, _score);
 
-      if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
+      // if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT)) {
             defaults(_xml, _score, millimeters, tenths);
             credits(_xml);
-            }
+            // }
 
       const auto& il = _score->parts();
       partList(_xml, _score, il, instrMap);
@@ -5632,7 +5632,7 @@ void ExportMusicXml::write(QIODevice* dev)
                   measureTag += mnsh.measureNumber();
                   const bool isFirstActualMeasure = mnsh.isFirstActualMeasure();
 
-                  if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
+                  // if (preferences.getBool(PREF_EXPORT_MUSICXML_EXPORTLAYOUT))
                         measureTag += QString(" width=\"%1\"").arg(QString::number(m->bbox().width() / DPMM / millimeters * tenths,'f',2));
 
                   _xml.stag(measureTag);

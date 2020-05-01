@@ -23,8 +23,8 @@
 
 #include "globals.h"
 #include "musicxmlsupport.h"
-#include "libmscore/sym.h"
-#include "libmscore/accidental.h"
+#include "sym.h"
+#include "accidental.h"
 
 namespace Ms {
 

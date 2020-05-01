@@ -55,20 +55,20 @@ release:
       cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
   	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
   	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
-  	  -DMSCORE_INSTALL_SUFFIX="${SUFFIX}"      \
-  	  -DMUSESCORE_LABEL="${LABEL}"             \
   	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"   \
-  	  -DTELEMETRY_TRACK_ID="${TELEMETRY_TRACK_ID}" \
-  	  -DBUILD_LAME="${BUILD_LAME}"             \
-  	  -DBUILD_PULSEAUDIO="${BUILD_PULSEAUDIO}" \
-  	  -DBUILD_JACK="${BUILD_JACK}"             \
-   	  -DBUILD_PORTAUDIO="${BUILD_PORTAUDIO}"   \
-   	  -DBUILD_WEBENGINE="${BUILD_WEBENGINE}"   \
-   	  -DUSE_SYSTEM_FREETYPE="${USE_SYSTEM_FREETYPE}" \
-   	  -DDOWNLOAD_SOUNDFONT="${DOWNLOAD_SOUNDFONT}"   \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
-      make lrelease;                             \
       make -j ${CPUS};                           \
+
+wasm:
+	if test ! -d build.wasm; then mkdir build.wasm; fi; \
+      cd build.wasm;                          \
+      export PATH=${BINPATH};                    \
+      emcmake cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
+  	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
+  	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
+  	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"   \
+  	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
+      emmake make -j ${CPUS};                           \
 
 
 #freetype:
@@ -129,6 +129,7 @@ win32:
 
 clean:
 	-rm -rf build.debug build.release
+	-rm -rf build.wasm build.js
 	-rm -rf win32build win32install
 
 revision:
