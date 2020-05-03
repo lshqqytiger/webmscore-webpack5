@@ -37,8 +37,8 @@ include_directories(
       ${PROJECT_SOURCE_DIR}/thirdparty/dtl
       )
 
-add_library (
-      libmscore STATIC
+add_executable (
+   webmscore
       ${_all_h_file}
       ${INCS}
 
@@ -105,6 +105,7 @@ add_library (
       unrollrepeats.cpp
       exportxml.cpp importxmlfirstpass.cpp musicxmlfonthandler.cpp musicxmlsupport.cpp
       svggenerator.cpp
+      ../web/main.cpp
       )
 
 ##
@@ -116,7 +117,7 @@ if (NOT APPLE AND NOT MINGW AND NOT MSVC AND CMAKE_BUILD_TYPE MATCHES "DEBUG")
    if (COVERAGE)
       set(COVERAGE_OPTIONS "-O0 --coverage")
       set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
-      target_link_libraries(libmscore gcov)
+      target_link_libraries(webmscore gcov)
    endif (COVERAGE)
 endif (NOT APPLE AND NOT MINGW AND NOT MSVC AND CMAKE_BUILD_TYPE MATCHES "DEBUG")
 
@@ -124,25 +125,37 @@ endif (NOT APPLE AND NOT MINGW AND NOT MSVC AND CMAKE_BUILD_TYPE MATCHES "DEBUG"
 
 if (NOT MSVC)
    set_target_properties (
-      libmscore
+      webmscore
       PROPERTIES
          COMPILE_FLAGS "-g ${PCH_INCLUDE} -Wall -Wextra -Winvalid-pch -Woverloaded-virtual ${COVERAGE_OPTIONS}"
       )
 else (NOT MSVC)
    set_target_properties (
-      libmscore
+      webmscore
       PROPERTIES
          COMPILE_FLAGS "${PCH_INCLUDE}"
       )
 endif (NOT MSVC)
 
-xcode_pch(libmscore all)
+xcode_pch(webmscore all)
 
 # Use MSVC pre-compiled headers
-vstudio_pch( libmscore )
+vstudio_pch( webmscore )
 
 # MSVC does not depend on mops1 & mops2 for PCH
 if (NOT MSVC)
-   ADD_DEPENDENCIES(libmscore mops1)
-   ADD_DEPENDENCIES(libmscore mops2)
+   ADD_DEPENDENCIES(webmscore mops1)
+   ADD_DEPENDENCIES(webmscore mops2)
 endif (NOT MSVC)
+
+target_link_libraries(webmscore  
+   ${QT_LIBRARIES}
+   qzip
+   synthesizer
+)
+
+set_target_properties (
+   webmscore
+   PROPERTIES
+      LINK_FLAGS ${WASM_LINK_FLAGS}
+)

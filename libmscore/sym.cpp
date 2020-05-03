@@ -34,10 +34,10 @@ namespace Ms {
 static const int FALLBACK_FONT = 0;       // Bravura
 
 QVector<ScoreFont> ScoreFont::_scoreFonts {
-      ScoreFont("Bravura",    "Bravura",     ":/fonts/bravura/",   "Bravura.otf"  ),
-      ScoreFont("Emmentaler", "MScore",      ":/fonts/mscore/",    "mscore.ttf"   ),
-      ScoreFont("Gonville",   "Gootville",   ":/fonts/gootville/", "Gootville.otf" ),
-      ScoreFont("MuseJazz",   "MuseJazz",     ":/fonts/musejazz/", "MuseJazz.otf" ),
+      ScoreFont("Bravura",    "Bravura",     "/fonts/bravura/",   "Bravura.otf"  ),
+      ScoreFont("Emmentaler", "MScore",      "/fonts/mscore/",    "mscore.ttf"   ),
+      ScoreFont("Gonville",   "Gootville",   "/fonts/gootville/", "Gootville.otf" ),
+      ScoreFont("MuseJazz",   "MuseJazz",     "/fonts/musejazz/", "MuseJazz.otf" ),
       };
 
 std::array<uint, size_t(SymId::lastSym)+1> ScoreFont::_mainSymCodeTable { {0} };

@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/include/**",
-                "/usr/local/include/**"
+                "/usr/local/include/**",
+                "/usr/emsdk/upstream/emscripten/system/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -45,7 +46,8 @@
                     "${workspaceFolder}/zerberus/",
                     "${workspaceFolder}/*"
                 ]
-            }
+            },
+            "configurationProvider": "vector-of-bool.cmake-tools"
         }
     ],
     "version": 4
