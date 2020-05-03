@@ -2483,6 +2483,8 @@ void MStyle::precomputeValues()
       qreal _spatium = value(Sid::spatium).toDouble();
       for (const StyleType& t : styleTypes) {
             if (!strcmp(t.valueType(), "Ms::Spatium"))
+                  // qDebug("precomputeValues name %s", t.name());
+                  // qDebug("precomputeValues valptr %p", &_values[t.idx()]);
                   _precomputedValues[t.idx()] = _values[t.idx()].value<Spatium>().val() * _spatium;
             }
       }

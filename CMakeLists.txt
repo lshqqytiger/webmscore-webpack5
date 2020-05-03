@@ -74,14 +74,14 @@ set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHOD
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -std=gnu++11")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -fPIC")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")
-# set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated")
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated")
 # set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-copy")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_ZLIB=1")      # 1 = use zlib from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")  # 1 = use freetype from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s DEMANGLE_SUPPORT=1")
 
-set(CMAKE_CXX_FLAGS_DEBUG   "-g4 -s ASSERTIONS=2 -s STACK_OVERFLOW_CHECK=2 -s SAFE_HEAP=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0")
+set(CMAKE_CXX_FLAGS_DEBUG   "-g4 -s ASSERTIONS=2 -s STACK_OVERFLOW_CHECK=2")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG -DQT_NO_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -Woverloaded-virtual")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
@@ -112,13 +112,17 @@ set(_preload_files
     fonts/bravura/metadata.json
     
     fonts/mscore/mscore.ttf
-    fonts/bravura/metadata.json
+    fonts/mscore/metadata.json
 
     fonts/gootville/Gootville.otf
     fonts/gootville/metadata.json
 
     fonts/musejazz/MuseJazz.otf
     fonts/musejazz/metadata.json
+
+    fonts/smufl/glyphnames.json
+    fonts/fonts_tablature.xml
+    fonts/fonts_figuredbass.xml
 
     # fonts/musejazz/MuseJazzText.otf
     # fonts/campania/Campania.otf
@@ -131,6 +135,8 @@ set(_preload_files
 foreach(_file ${_preload_files})
     set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --embed-file ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
 endforeach()
+
+set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --embed-file ${PROJECT_SOURCE_DIR}/share/styles@/styles")
 
 
 #

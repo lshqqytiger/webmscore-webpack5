@@ -1203,7 +1203,7 @@ bool StaffType::readConfigFile(const QString& fileName)
             path = rpath + QString("/fonts_tablature.xml");
             }
 #else
-            path = ":/fonts/fonts_tablature.xml";
+            path = "/fonts/fonts_tablature.xml";
 #endif
             _durationFonts.clear();
             _fretFonts.clear();

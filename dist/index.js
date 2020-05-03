@@ -49,16 +49,48 @@ class WebMscore {
         freePtr(nameptr)
         freePtr(dataptr)
 
-        return scoreptr
+        return new WebMscore(scoreptr)
     }
 
     /**
      * @hideconstructor use `WebMscore.load`
+     * @param {number} scoreptr the pointer to the MasterScore class instance in C++
      */
-    constructor() {
-
+    constructor(scoreptr) {
+        this.scoreptr = scoreptr
     }
 
+    /**
+     * Get the score title
+     * @returns {string}
+     */
+    title() {
+        const strptr = Module.ccall('title', 'number', ['number'], [this.scoreptr])
+        const str = Module.UTF8ToString(strptr)
+        freePtr(strptr)
+        return str
+    }
+
+    /**
+     * Export score as MusicXML file
+     * @returns {Uint8Array}
+     */
+    saveXml() {
+        const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
+        
+        // MusicXML is a plain text file
+        const data = Module.UTF8ToString(dataptr)
+        freePtr(dataptr)
+    
+        return data
+    }
+
+    /**
+     * @returns {void}
+     */
+    destroy() {
+        freePtr(this.scoreptr)
+    }
 
 }
 

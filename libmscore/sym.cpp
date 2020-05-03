@@ -6277,7 +6277,7 @@ const char* ScoreFont::fallbackTextFont()
 
 QJsonObject ScoreFont::initGlyphNamesJson()
       {
-      QFile fi(":fonts/smufl/glyphnames.json");
+      QFile fi("/fonts/smufl/glyphnames.json");
       if (!fi.open(QIODevice::ReadOnly)) {
             qDebug("ScoreFont: open glyph names file <%s> failed", qPrintable(fi.fileName()));
             return QJsonObject();

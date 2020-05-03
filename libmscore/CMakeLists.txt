@@ -57,7 +57,7 @@ add_executable (
       stemslash.h stringdata.h style.h sym.h symbol.h synthesizerstate.h system.h systemdivider.h systemtext.h tempo.h
       tempotext.h text.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h velo.h vibrato.h volta.h xml.h
-      musicxml.h importxmlfirstpass.h musicxmlfonthandler.h musicxmlsupport.h
+      musicxml.h importxmlfirstpass.h musicxmlfonthandler.h musicxmlsupport.h exportxml.h
       svggenerator.h
 
       segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp

@@ -53,7 +53,10 @@ const freePtr = (bufPtr) => {
  * this promise is resolved when the runtime is fully initialized
  */
 const RuntimeInitialized = new Promise((resolve) => {
-    Module.onRuntimeInitialized = () => resolve()
+    Module.onRuntimeInitialized = () => {
+        Module.ccall('init')  // init libmscore
+        resolve()
+    }
 })
 
 

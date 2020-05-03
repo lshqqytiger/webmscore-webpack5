@@ -1626,7 +1626,7 @@ bool FiguredBass::readConfigFile(const QString& fileName)
             path = rpath + QString("/fonts_figuredbass.xml");
             }
 #else
-            path = ":/fonts/fonts_figuredbass.xml";
+            path = "/fonts/fonts_figuredbass.xml";
 #endif
             g_FBFonts.clear();
             }

@@ -1798,24 +1798,12 @@ bool ChordList::read(const QString& name)
       if (ftest.isAbsolute())
             path = name;
       else {
-#if defined(Q_OS_IOS)
-            path = QString("%1/%2").arg(MScore::globalShare()).arg(name);
-#elif defined(Q_OS_ANDROID)
-            path = QString(":/styles/%1").arg(name);
-#else
-            path = QString("%1styles/%2").arg(MScore::globalShare()).arg(name);
-#endif
-            }
+            path = QString("/styles/%1").arg(name);
+      }
       // default to chords_std.xml
       QFileInfo fi(path);
       if (!fi.exists())
-#if defined(Q_OS_IOS)
-            path = QString("%1/%2").arg(MScore::globalShare()).arg("chords_std.xml");
-#elif defined(Q_OS_ANDROID)
-            path = QString(":/styles/chords_std.xml");
-#else
-            path = QString("%1styles/%2").arg(MScore::globalShare()).arg("chords_std.xml");
-#endif
+            path = QString("/styles/chords_std.xml");
 
       if (name.isEmpty())
             return false;
