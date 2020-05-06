@@ -71,8 +71,16 @@ export class WebMscore {
     }
 
     /**
+     * Get the number of pages in the score
+     * @returns {number}
+     */
+    npages() {
+        return Module.ccall('npages', 'number', ['number'], [this.scoreptr])
+    }
+
+    /**
      * Export score as MusicXML file
-     * @returns {string}
+     * @returns {string} contents of the MusicXML file (plain text)
      */
     saveXml() {
         const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
@@ -85,9 +93,10 @@ export class WebMscore {
     }
 
     /**
-     * Export score as SVG file
+     * Export score as the SVG file of one page
      * @param {number} pageNumber integer
      * @param {boolean} drawPageBackground 
+     * @returns {string} contents of the SVG file (plain text)
      */
     saveSvg(pageNumber = 0, drawPageBackground = false) {
         const dataptr = Module.ccall('saveSvg',
@@ -101,6 +110,19 @@ export class WebMscore {
         freePtr(dataptr)
 
         return data
+    }
+
+    /**
+     * Iteratively export score as SVG files of each page
+     * @param {boolean=} drawPageBackground 
+     * @returns {Generator<[number, string]>} [index, svg contents]
+     */
+    * saveSvgIt(drawPageBackground) {
+        const pagesN = this.npages()
+
+        for (let i = 0; i < pagesN; i++) {
+            yield [i, this.saveSvg(i, drawPageBackground)]
+        }
     }
 
     /**

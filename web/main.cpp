@@ -4,9 +4,9 @@
 #include <QBuffer>
 #include <QtGui>
 
+#include "libmscore/exports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
-#include "libmscore/exports.h"
 
 /**
  * helper functions
@@ -23,7 +23,7 @@ int _version() {
 /**
  * init libmscore
  */
-void _init(int argc, char **argv) {
+void _init(int argc, char** argv) {
     QApplication* app = new QApplication(argc, argv);
 
     Ms::MScore::noGui = true;
@@ -64,6 +64,14 @@ QByteArray _title(uintptr_t score_ptr) {
 }
 
 /**
+ * get the number of pages
+ */
+int _npages(uintptr_t score_ptr) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+    return score->npages();
+}
+
+/**
  * export score as MusicXML file
  */
 const char* _saveXml(uintptr_t score_ptr) {
@@ -89,7 +97,7 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     buffer.open(QIODevice::WriteOnly);
 
     Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
-    qDebug("saveSvg size %d bytes", buffer.size());
+    qDebug("saveSvg: page index %d, size %d bytes", pageNumber, buffer.size());
 
     // SVG is plain text
     return QString(buffer.data()).toUtf8();
@@ -125,7 +133,7 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    void init(int argc, char **argv) {
+    void init(int argc, char** argv) {
         return _init(argc, argv);
     };
 
@@ -137,6 +145,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* title(uintptr_t score_ptr) {
         return _title(score_ptr);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    int npages(uintptr_t score_ptr) {
+        return _npages(score_ptr);
     };
 
     EMSCRIPTEN_KEEPALIVE
