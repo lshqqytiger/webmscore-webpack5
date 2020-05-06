@@ -1,0 +1,26 @@
+
+import { createRequire } from 'module'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import JSDOM from 'jsdom'
+
+const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
+
+if (IS_NODE) {
+
+    // cjs require
+    if (typeof require == "undefined") {
+        global.require = createRequire(import.meta.url)
+    }
+
+    // __dirname
+    if (typeof __dirname == "undefined") {
+        global.__dirname = dirname(fileURLToPath(import.meta.url))
+    }
+
+    // inject jsdom
+    const dom = new (JSDOM.JSDOM || JSDOM)('', { url: 'https://localhost' })
+    global.window = dom.window
+    global.navigator = dom.window.navigator
+
+}

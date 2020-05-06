@@ -1,15 +1,14 @@
-// @ts-check
 
-const {
+import {
     Module,
     RuntimeInitialized,
     getStrPtr,
     getTypedArrayPtr,
     freePtr,
-} = require('./helper')
+} from './helper.js'
 
 
-class WebMscore {
+export class WebMscore {
 
     /**
      * This promise is resolved when the runtime is fully initialized
@@ -73,12 +72,12 @@ class WebMscore {
 
     /**
      * Export score as MusicXML file
-     * @returns {Uint8Array}
+     * @returns {string}
      */
     saveXml() {
         const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
         
-        // MusicXML is a plain text file
+        // MusicXML is plain text
         const data = Module.UTF8ToString(dataptr)
         freePtr(dataptr)
     
@@ -93,5 +92,5 @@ class WebMscore {
     }
 
 }
-
-module.exports = WebMscore
+ 
+export default WebMscore

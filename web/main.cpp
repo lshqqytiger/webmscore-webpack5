@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 
 #include <QBuffer>
+#include <QtGui>
 
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
@@ -22,7 +23,11 @@ int _version() {
 /**
  * init libmscore
  */
-void _init() {
+void _init(int argc, char **argv) {
+    QApplication* app = new QApplication(argc, argv);
+
+    Ms::MScore::noGui = true;
+    Ms::MScore::debugMode = true;
     Ms::MScore::init();
 }
 
@@ -36,12 +41,16 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
     buffer.setData(data, size);
     buffer.open(QIODevice::ReadOnly);
 
-    Ms::MasterScore* score = new Ms::MasterScore();
+    Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
     score->setMovements(new Ms::Movements());
-    score->setStyle(Ms::MScore::baseStyle());
     score->setName(_name);
 
     score->loadMsc(_name, &buffer, true);
+
+    score->doLayout();
+    // for (Ms::Score* s : score->scoreList()) {
+    //     s->doLayout();
+    // }
 
     return reinterpret_cast<uintptr_t>(score);
 }
@@ -63,12 +72,31 @@ const char* _saveXml(uintptr_t score_ptr) {
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
-    // MusicXML is a plain text file
+    // MusicXML is plain text
     Ms::saveXml(score, &buffer);
 
     qDebug("saveXml size %d", buffer.size());
 
     return QString(buffer.data()).toUtf8();
+}
+
+/**
+ * export score as compressed MusicXML file
+ */
+const char* _saveMxl(uintptr_t score_ptr) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+
+    // compressed MusicXML
+    Ms::saveMxl(score, &buffer);
+
+    uint32_t size = buffer.size();
+    const char* data = buffer.data().data();
+    qDebug("saveMxl size %d", size);
+
+    return QByteArray::number(size).append(data);
 }
 
 /**
@@ -82,8 +110,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    void init() {
-        return _init();
+    void init(int argc, char **argv) {
+        return _init(argc, argv);
     };
 
     EMSCRIPTEN_KEEPALIVE
@@ -99,6 +127,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveXml(uintptr_t score_ptr) {
         return _saveXml(score_ptr);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveMxl(uintptr_t score_ptr) {
+        return _saveMxl(score_ptr);
     };
 
 }

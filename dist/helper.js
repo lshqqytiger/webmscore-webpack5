@@ -1,6 +1,9 @@
-// @ts-check
 
-const Module = require("./webmscore")
+import LibMscore from './webmscore.js'
+import './shim.js'
+
+const Module = LibMscore()
+export { Module }
 
 /**
  * stdout
@@ -21,7 +24,7 @@ Module['onAbort'] = console.error
  * @param {string} str 
  * @returns {number}
  */
-const getStrPtr = (str) => {
+export const getStrPtr = (str) => {
     const maxSize = str.length * 4 + 1
     const buf = Module._malloc(maxSize)
     Module.stringToUTF8(str, buf, maxSize)
@@ -34,7 +37,7 @@ const getStrPtr = (str) => {
  * @param {TypedArray} data 
  * @returns {number}
  */
-const getTypedArrayPtr = (data) => {
+export const getTypedArrayPtr = (data) => {
     const size = data.length * data.BYTES_PER_ELEMENT
     const buf = Module._malloc(size)
     Module.HEAPU8.set(data, buf)
@@ -45,25 +48,16 @@ const getTypedArrayPtr = (data) => {
  * free a pointer
  * @param {number} bufPtr 
  */
-const freePtr = (bufPtr) => {
+export const freePtr = (bufPtr) => {
     Module._free(bufPtr)
 }
 
 /**
  * this promise is resolved when the runtime is fully initialized
  */
-const RuntimeInitialized = new Promise((resolve) => {
+export const RuntimeInitialized = new Promise((resolve) => {
     Module.onRuntimeInitialized = () => {
         Module.ccall('init')  // init libmscore
         resolve()
     }
 })
-
-
-module.exports = {
-    Module,
-    RuntimeInitialized,
-    getStrPtr,
-    getTypedArrayPtr,
-    freePtr,
-}
