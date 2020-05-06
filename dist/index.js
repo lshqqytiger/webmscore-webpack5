@@ -4,6 +4,7 @@ import {
     RuntimeInitialized,
     getStrPtr,
     getTypedArrayPtr,
+    readData,
     freePtr,
 } from './helper.js'
 
@@ -90,6 +91,15 @@ export class WebMscore {
         freePtr(dataptr)
 
         return data
+    }
+
+    /**
+     * Export score as compressed MusicXML file
+     * @returns {Uint8Array}
+     */
+    saveMxl() {
+        const dataptr = Module.ccall('saveMxl', 'number', ['number'], [this.scoreptr])
+        return readData(dataptr)
     }
 
     /**

@@ -81,7 +81,7 @@ const char* _saveXml(uintptr_t score_ptr) {
     buffer.open(QIODevice::WriteOnly);
 
     Ms::saveXml(score, &buffer);
-    qDebug("saveXml size %d bytes", buffer.size());
+    qDebug("saveXml size %lld bytes", buffer.size());
 
     // MusicXML is plain text
     return QString(buffer.data()).toUtf8();
@@ -97,7 +97,7 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     buffer.open(QIODevice::WriteOnly);
 
     Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
-    qDebug("saveSvg: page index %d, size %d bytes", pageNumber, buffer.size());
+    qDebug("saveSvg: page index %d, size %lld bytes", pageNumber, buffer.size());
 
     // SVG is plain text
     return QString(buffer.data()).toUtf8();
@@ -110,16 +110,17 @@ const char* _saveMxl(uintptr_t score_ptr) {
     Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
 
     QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly);
+    buffer.open(QIODevice::ReadWrite);
 
     // compressed MusicXML
     Ms::saveMxl(score, &buffer);
 
-    uint32_t size = buffer.size();
-    const char* data = buffer.data().data();
-    qDebug("saveMxl size %d", size);
+    auto size = buffer.size();
+    qDebug("saveMxl size %lld", size);
+    QByteArray sizeData = QByteArray((const char*)&size, 4);
 
-    return QByteArray::number(size).append(data);
+    auto data = buffer.data().constData();
+    return sizeData.append(data);
 }
 
 /**

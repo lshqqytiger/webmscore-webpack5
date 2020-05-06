@@ -8,12 +8,12 @@ const IS_NODE = typeof process === 'object' && typeof process.versions === 'obje
 
 if (IS_NODE) {
 
-    // cjs require
+    // cjs require for the native Node.js ES Modules support
     if (typeof require == "undefined") {
         global.require = createRequire(import.meta.url)
     }
 
-    // __dirname
+    // __dirname for the native Node.js ES Modules support
     if (typeof __dirname == "undefined") {
         global.__dirname = dirname(fileURLToPath(import.meta.url))
     }

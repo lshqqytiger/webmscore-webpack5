@@ -45,6 +45,26 @@ export const getTypedArrayPtr = (data) => {
 }
 
 /**
+ * read length-prefixed data (char*) as Uint8Array
+ * @param {number} ptr 
+ * @returns {Uint8Array}
+ */
+export const readData = (ptr) => {
+    const sizeData = new DataView(
+        new Uint8Array(  // make a copy
+            Module.HEAPU8.subarray(ptr, ptr + 4)
+        ).buffer
+    )
+
+    const size = sizeData.getUint32(0, true)
+    const data = new Uint8Array(Module.HEAPU8.subarray(ptr + 4, ptr + 4 + size))  // make a copy
+
+    freePtr(ptr)
+
+    return data
+}
+
+/**
  * free a pointer
  * @param {number} bufPtr 
  */
