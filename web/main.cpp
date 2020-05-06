@@ -6,7 +6,7 @@
 
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
-#include "libmscore/exportxml.h"
+#include "libmscore/exports.h"
 
 /**
  * helper functions
@@ -72,11 +72,26 @@ const char* _saveXml(uintptr_t score_ptr) {
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
-    // MusicXML is plain text
     Ms::saveXml(score, &buffer);
+    qDebug("saveXml size %d bytes", buffer.size());
 
-    qDebug("saveXml size %d", buffer.size());
+    // MusicXML is plain text
+    return QString(buffer.data()).toUtf8();
+}
 
+/**
+ * export score as SVG
+ */
+const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+
+    Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
+    qDebug("saveSvg size %d bytes", buffer.size());
+
+    // SVG is plain text
     return QString(buffer.data()).toUtf8();
 }
 
@@ -127,6 +142,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveXml(uintptr_t score_ptr) {
         return _saveXml(score_ptr);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
+        return _saveSvg(score_ptr, pageNumber, drawPageBackground);
     };
 
     EMSCRIPTEN_KEEPALIVE

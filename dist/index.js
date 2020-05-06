@@ -76,11 +76,30 @@ export class WebMscore {
      */
     saveXml() {
         const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
-        
+
         // MusicXML is plain text
         const data = Module.UTF8ToString(dataptr)
         freePtr(dataptr)
-    
+
+        return data
+    }
+
+    /**
+     * Export score as SVG file
+     * @param {number} pageNumber integer
+     * @param {boolean} drawPageBackground 
+     */
+    saveSvg(pageNumber = 0, drawPageBackground = false) {
+        const dataptr = Module.ccall('saveSvg',
+            'number',
+            ['number', 'number', 'boolean'],
+            [this.scoreptr, pageNumber, drawPageBackground]
+        )
+
+        // SVG is plain text
+        const data = Module.UTF8ToString(dataptr)
+        freePtr(dataptr)
+
         return data
     }
 
@@ -92,5 +111,5 @@ export class WebMscore {
     }
 
 }
- 
+
 export default WebMscore

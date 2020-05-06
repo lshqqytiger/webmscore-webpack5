@@ -57,8 +57,9 @@ add_executable (
       stemslash.h stringdata.h style.h sym.h symbol.h synthesizerstate.h system.h systemdivider.h systemtext.h tempo.h
       tempotext.h text.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h velo.h vibrato.h volta.h xml.h
-      musicxml.h importxmlfirstpass.h musicxmlfonthandler.h musicxmlsupport.h exportxml.h
+      musicxml.h importxmlfirstpass.h musicxmlfonthandler.h musicxmlsupport.h 
       svggenerator.h
+      exports.h
 
       segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp
       fermata.cpp articulation.cpp barline.cpp beam.cpp bend.cpp box.cpp
@@ -104,7 +105,7 @@ add_executable (
       scorediff.cpp
       unrollrepeats.cpp
       exportxml.cpp importxmlfirstpass.cpp musicxmlfonthandler.cpp musicxmlsupport.cpp
-      svggenerator.cpp
+      svggenerator.cpp exportsvg.cpp
       ../web/main.cpp
       )
 
