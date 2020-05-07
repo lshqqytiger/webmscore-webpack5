@@ -43,6 +43,8 @@ DOWNLOAD_SOUNDFONT="ON"   # Override with "OFF" to disable latest soundfont down
 UPDATE_CACHE="TRUE"# Override if building a DEB or RPM, or when installing to a non-standard location.
 NO_RPATH="FALSE"# Package maintainers may want to override this (e.g. Debian)
 
+EMBED_PRELOADS="ON"
+
 #
 # change path to include your Qt5 installation
 #
