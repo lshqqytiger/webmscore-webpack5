@@ -1,22 +1,27 @@
 
 import LibMscore from './webmscore.js'
 
-const Module = LibMscore()
+const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
+
+const moduleOptions = IS_NODE
+    ? {
+        getPreloadedPackage(remotePackageName) {
+            // fix loading the preload pack in Node.js
+            const path = require('path').join(__dirname, remotePackageName)
+            const buf = require('fs').readFileSync(path).buffer
+            return buf
+        }
+    }
+    : {
+        locateFile(path) {
+            // fix loading the preload pack in Browsers
+            const prefix = import.meta.url
+            return new URL(path, prefix).href
+        }
+    }
+
+const Module = LibMscore(moduleOptions)
 export { Module }
-
-/**
- * stdout
- */
-Module['print'] = console.log
-/**
- * stderr
- */
-Module['printErr'] = console.error
-/**
- * log on fatal error
- */
-Module['onAbort'] = console.error
-
 
 /**
  * get the pointer to a js string, as utf-8 encoded char*
