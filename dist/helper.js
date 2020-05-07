@@ -1,6 +1,5 @@
 
 import LibMscore from './webmscore.js'
-import './shim.js'
 
 const Module = LibMscore()
 export { Module }
