@@ -134,10 +134,10 @@ set(_preload_files
     fonts/fonts_figuredbass.xml
 )
 foreach(_file ${_preload_files})
-    set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --embed-file ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
+    set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --preload-file ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
 endforeach()
 
-set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --embed-file ${PROJECT_SOURCE_DIR}/share/styles@/styles")
+set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --preload-file ${PROJECT_SOURCE_DIR}/share/styles@/styles")
 
 
 #
