@@ -4038,7 +4038,7 @@ Score::FileError MasterScore::read206(XmlReader& e)
 
       // fix positions
       //    offset = saved offset - layout position
-      doLayout();
+      // doLayout();
       for (auto i : e.fixOffsets()) {
             i.first->setOffset(i.second - i.first->pos());
             }
