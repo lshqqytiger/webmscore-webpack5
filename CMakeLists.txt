@@ -109,6 +109,14 @@ SET(MUSESCORE_VERSION_FULL  "${MUSESCORE_VERSION}.${MUSESCORE_VERSION_PATCH}")
 ## Set preload/embedded files
 ##
 set(_preload_files
+    fonts/musejazz/MuseJazzText.otf
+    fonts/campania/Campania.otf
+    fonts/mscoreTab.ttf
+    fonts/mscore-BC.ttf
+    fonts/bravura/BravuraText.otf
+    fonts/gootville/GootvilleText.otf
+    fonts/mscore/MScoreText.ttf
+
     fonts/bravura/Bravura.otf
     fonts/bravura/metadata.json
     
@@ -124,14 +132,6 @@ set(_preload_files
     fonts/smufl/glyphnames.json
     fonts/fonts_tablature.xml
     fonts/fonts_figuredbass.xml
-
-    # fonts/musejazz/MuseJazzText.otf
-    # fonts/campania/Campania.otf
-    # fonts/mscoreTab.ttf
-    # fonts/mscore-BC.ttf
-    # fonts/bravura/BravuraText.otf
-    # fonts/gootville/GootvilleText.otf
-    # fonts/mscore/MScoreText.ttf
 )
 foreach(_file ${_preload_files})
     set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --embed-file ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
