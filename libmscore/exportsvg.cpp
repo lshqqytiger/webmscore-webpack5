@@ -42,7 +42,7 @@
 #include "sym.h"
 #include "image.h"
 #include "stafflines.h"
-#include "svggenerator.h"
+#include "mscore/svggenerator.h"
 
 #include "chordlist.h"
 #include "mscore.h"

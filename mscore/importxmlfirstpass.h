@@ -13,7 +13,7 @@
 #ifndef __IMPORTXMLFIRSTPASS_H__
 #define __IMPORTXMLFIRSTPASS_H__
 
-#include "fraction.h"
+#include "libmscore/fraction.h"
 #include "musicxmlsupport.h"
 
 namespace Ms {

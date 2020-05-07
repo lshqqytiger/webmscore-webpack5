@@ -20,7 +20,7 @@
 #ifndef __MUSICXMLFONTHANDLER_H__
 #define __MUSICXMLFONTHANDLER_H__
 
-#include "text.h"
+#include "libmscore/text.h"
 
 namespace Ms {
 

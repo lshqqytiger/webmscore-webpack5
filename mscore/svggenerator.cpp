@@ -40,10 +40,10 @@
 ****************************************************************************/
 
 #include "svggenerator.h"
-#include "element.h"
-#include "image.h"
-#include "imageStore.h"
-#include "mscore.h"
+#include "libmscore/element.h"
+#include "libmscore/image.h"
+#include "libmscore/imageStore.h"
+#include "libmscore/mscore.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // FOR GRADIENT FUNCTIONALITY THAT IS NOT IMPLEMENTED (YET):

@@ -25,10 +25,10 @@
  Definition of class MusicXML
 */
 
-#include "fraction.h"
-#include "mscore.h"
-#include "pitchspelling.h"
-#include "line.h"
+#include "libmscore/fraction.h"
+#include "libmscore/mscore.h"
+#include "libmscore/pitchspelling.h"
+#include "libmscore/line.h"
 #include "importxmlfirstpass.h"
 #include "musicxmlsupport.h"
 
