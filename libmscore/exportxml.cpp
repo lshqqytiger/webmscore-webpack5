@@ -5569,7 +5569,7 @@ void ExportMusicXml::write(QIODevice* dev)
       // before export and restore it after export
       bool concertPitch = score()->styleB(Sid::concertPitch);
       if (concertPitch) {
-            score()->startCmd();
+            // score()->startCmd();
             score()->undo(new ChangeStyleVal(score(), Sid::concertPitch, false));
             score()->doLayout();    // this is only allowed in a cmd context to not corrupt the undo/redo stack
             }
@@ -5766,10 +5766,10 @@ void ExportMusicXml::write(QIODevice* dev)
 
       _xml.etag();
 
-      if (concertPitch) {
-            // restore concert pitch
-            score()->endCmd(true);        // rollback
-            }
+      // if (concertPitch) {
+      //       // restore concert pitch
+      //       score()->endCmd(true);        // rollback
+      //       }
       }
 
 //---------------------------------------------------------
