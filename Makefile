@@ -30,7 +30,7 @@ SUFFIX=""# E.g.: SUFFIX="dev" --> "mscore" becomes "mscoredev"
 LABEL=""# E.g.: LABEL="Development Build" --> "MuseScore 2" becomes "MuseScore 2 Development Build"
 
 NO_RPATH="FALSE"# Package maintainers may want to override this (e.g. Debian)
-EMBED_PRELOADS="ON"
+# EMBED_PRELOADS="ON"
 
 #
 # change path to include your Qt5 installation
