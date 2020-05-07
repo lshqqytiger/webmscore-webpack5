@@ -3,6 +3,7 @@
 
 #include <QBuffer>
 #include <QtGui>
+#include <QTemporaryFile>
 
 #include "libmscore/exports.h"
 #include "libmscore/mscore.h"
@@ -11,7 +12,22 @@
 /**
  * helper functions
  */
-//  Ms::MScore::noGui = true;
+
+/**
+ * pack length-prefixed data
+ */
+QByteArray packData(QByteArray data , qint64 size) {
+    QByteArray sizeData = QByteArray((const char*)&size, 4);
+
+    QBuffer result;
+    result.open(QIODevice::ReadWrite);
+    result.write(QByteArray(8, '\0'));  // padding
+    result.write(sizeData);
+    result.write(data);
+    result.close();
+
+    return result.data();
+}
 
 /**
  * the MSCZ/MSCX file format version
@@ -117,10 +133,8 @@ const char* _saveMxl(uintptr_t score_ptr) {
 
     auto size = buffer.size();
     qDebug("saveMxl size %lld", size);
-    QByteArray sizeData = QByteArray((const char*)&size, 4);
 
-    auto data = buffer.data().constData();
-    return sizeData.append(data);
+    return packData(buffer.data(), size);
 }
 
 /**
