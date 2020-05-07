@@ -3,7 +3,6 @@
 
 #include <QBuffer>
 #include <QtGui>
-#include <QTemporaryFile>
 
 #include "libmscore/exports.h"
 #include "libmscore/mscore.h"
@@ -16,7 +15,7 @@
 /**
  * pack length-prefixed data
  */
-QByteArray packData(QByteArray data , qint64 size) {
+QByteArray packData(QByteArray data, qint64 size) {
     QByteArray sizeData = QByteArray((const char*)&size, 4);
 
     QBuffer result;
@@ -27,6 +26,14 @@ QByteArray packData(QByteArray data , qint64 size) {
     result.close();
 
     return result.data();
+}
+
+/**
+ * It's so weird that the first 8 bytes of data would be overwritten by some random things
+ * @todo PLEASE HELP - I'm not familiar with emscripten
+ */
+QByteArray padData(QByteArray data) {
+    return QByteArray(8, '\0').append(data);
 }
 
 /**
@@ -76,7 +83,9 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
  */
 QByteArray _title(uintptr_t score_ptr) {
     Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
-    return score->title().toUtf8();
+    return padData(
+        score->title().toUtf8()
+    );
 }
 
 /**
@@ -100,7 +109,9 @@ const char* _saveXml(uintptr_t score_ptr) {
     qDebug("saveXml size %lld bytes", buffer.size());
 
     // MusicXML is plain text
-    return QString(buffer.data()).toUtf8();
+    return padData(
+        QString(buffer.data()).toUtf8()
+    );
 }
 
 /**
@@ -116,7 +127,9 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     qDebug("saveSvg: page index %d, size %lld bytes", pageNumber, buffer.size());
 
     // SVG is plain text
-    return QString(buffer.data()).toUtf8();
+    return padData(
+        QString(buffer.data()).toUtf8()
+    );
 }
 
 /**

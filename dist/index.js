@@ -66,7 +66,7 @@ export class WebMscore {
      */
     title() {
         const strptr = Module.ccall('title', 'number', ['number'], [this.scoreptr])
-        const str = Module.UTF8ToString(strptr)
+        const str = Module.UTF8ToString(strptr + 8)  // 8 bytes of padding
         freePtr(strptr)
         return str
     }
@@ -87,7 +87,7 @@ export class WebMscore {
         const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
 
         // MusicXML is plain text
-        const data = Module.UTF8ToString(dataptr)
+        const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
         freePtr(dataptr)
 
         return data
@@ -116,7 +116,7 @@ export class WebMscore {
         )
 
         // SVG is plain text
-        const data = Module.UTF8ToString(dataptr)
+        const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
         freePtr(dataptr)
 
         return data
