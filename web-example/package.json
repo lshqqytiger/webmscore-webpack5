@@ -1,0 +1,14 @@
+{
+    "type": "module",
+    "engines": {
+        "node": "> 8.9.0"
+    },
+    "dependencies": {
+        "jsdom": "^16.2.2",
+        "webmscore": "../web-public"
+    },
+    "scripts": {
+        "start": "node --experimental-modules example.js",
+        "start:browser": "npx http-server . -o -c-1"
+    }
+}

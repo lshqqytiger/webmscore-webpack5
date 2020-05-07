@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMscore</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver/dist/FileSaver.min.js"></script>
+    <script type="module">
+        import WebMscore from './node_modules/webmscore/index.js'
+
+        const name = 'Aequale_No_1.mscz'
+
+        WebMscore.ready.then(async () => {
+            const r = await fetch(`./${name}`)
+            const filedata = new Uint8Array(await r.arrayBuffer())
+
+            const score = await WebMscore.load(name, filedata)
+            console.log(score)
+
+            const title = score.title()
+            console.log('score title:', title)
+            console.log('number of pages:', score.npages())
+
+            saveAs(new Blob([score.saveXml()]), `${title}.musicxml`)
+            console.log('generated MusicXML file')
+
+            for (const [index, svg] of score.saveSvgIt(true)) {
+                const f = `${title}-${index}.svg`
+                saveAs(new Blob([svg]), f)
+                console.log(`generated SVG page ${index}`)
+            }
+
+            saveAs(new Blob([score.saveMxl()]), `${title}.mxl`)
+            console.log('generated compressed MusicXML file')
+
+            score.destroy()
+            console.log('destroyed')
+        })
+    </script>
+</body>
+
+</html>
