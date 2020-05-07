@@ -51,29 +51,33 @@ PREFIX_PATH = /usr/qt515/qtbase
 
 release:
 	if test ! -d build.release; then mkdir build.release; fi; \
-      cd build.release;                          \
-      export PATH=${BINPATH};                    \
-	  export CMAKE_PREFIX_PATH=${PREFIX_PATH};      \
-      emcmake cmake -DCMAKE_BUILD_TYPE=RELEASE	       \
-  	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
-  	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
-  	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"   \
-  	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
-      emmake make -j ${CPUS};                           \
-	  mv ./libmscore/webmscore.* ../dist;               \
+      cd build.release;                                        \
+      export PATH=${BINPATH};                                   \
+	  export CMAKE_PREFIX_PATH=${PREFIX_PATH};                   \
+	  export NODE_OPTIONS=--max_old_space_size=4096;              \
+      emcmake cmake -DCMAKE_BUILD_TYPE=RELEASE	                   \
+	  -DEMBED_PRELOADS="${EMBED_PRELOADS}"                          \
+  	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"               \
+  	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"                              \
+  	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"                           \
+  	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;                          \
+      emmake make -j ${CPUS};                                            \
+	  mv ./libmscore/webmscore.* ../dist;                                 \
 
 debug:
 	if test ! -d build.debug; then mkdir build.debug; fi; \
-      cd build.debug;                                       \
+      cd build.debug;                                      \
       export PATH=${BINPATH};                               \
-	  export CMAKE_PREFIX_PATH=${PREFIX_PATH};      \
-      emcmake cmake -DCMAKE_BUILD_TYPE=DEBUG	                    \
-  	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"       \
-  	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"       \
-  	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"   \
-  	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..; \
-      emmake make -j ${CPUS};                           \
-	  mv ./libmscore/webmscore.* ../dist;               \
+	  export CMAKE_PREFIX_PATH=${PREFIX_PATH};               \
+	  export NODE_OPTIONS=--max_old_space_size=4096;          \
+      emcmake cmake -DCMAKE_BUILD_TYPE=DEBUG	               \
+	  -DEMBED_PRELOADS="${EMBED_PRELOADS}"                      \
+  	  -DCMAKE_TOOLCHAIN_FILE="${CMAKE_TOOLCHAIN_FILE}"           \
+  	  -DCMAKE_INSTALL_PREFIX="${PREFIX}"                          \
+  	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"                       \
+  	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;                      \
+      emmake make -j ${CPUS};                                        \
+	  mv ./libmscore/webmscore.* ../dist;                             \
 
 #
 # clean out of source build

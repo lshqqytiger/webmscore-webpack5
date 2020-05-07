@@ -59,6 +59,7 @@ set(USE_SSE           FALSE)
 SET (USE_WEBENGINE 0)
 
 option(BUILD_PCH "Build using precompiled headers." ON)
+option(EMBED_PRELOADS "Embed preload files in the .js file, otherwise pack into a separate .data file." OFF)
 
 
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
@@ -108,6 +109,12 @@ SET(MUSESCORE_VERSION_FULL  "${MUSESCORE_VERSION}.${MUSESCORE_VERSION_PATCH}")
 
 ## Set preload/embedded files
 ##
+if (EMBED_PRELOADS)
+    SET (PRELOAD_TYPE_FLAG "--embed-file")
+else (EMBED_PRELOADS)
+    SET (PRELOAD_TYPE_FLAG "--preload-file")
+endif (EMBED_PRELOADS)
+
 set(_preload_files
     fonts/musejazz/MuseJazzText.otf
     fonts/campania/Campania.otf
@@ -134,10 +141,10 @@ set(_preload_files
     fonts/fonts_figuredbass.xml
 )
 foreach(_file ${_preload_files})
-    set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --preload-file ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
+    set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
 endforeach()
 
-set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} --preload-file ${PROJECT_SOURCE_DIR}/share/styles@/styles")
+set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/styles@/styles")
 
 
 #
