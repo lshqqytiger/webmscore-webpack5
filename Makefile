@@ -25,24 +25,11 @@ PREFIX    = "/usr/local"
 VERSION   = 3.4.2
 BUILD_NUMBER=""
 
-TELEMETRY_TRACK_ID=""
-
 # Override SUFFIX and LABEL when multiple versions are installed to avoid conflicts.
 SUFFIX=""# E.g.: SUFFIX="dev" --> "mscore" becomes "mscoredev"
 LABEL=""# E.g.: LABEL="Development Build" --> "MuseScore 2" becomes "MuseScore 2 Development Build"
 
-BUILD_LAME="ON" # Non-free, required for MP3 support. Override with "OFF" to disable.
-BUILD_PULSEAUDIO="ON" # Override with "OFF" to disable.
-BUILD_JACK="ON"       # Override with "OFF" to disable.
-BUILD_PORTAUDIO="ON"  # Override with "OFF" to disable.
-BUILD_WEBENGINE="ON"  # Override with "OFF" to disable.
-USE_SYSTEM_FREETYPE="OFF" # Override with "ON" to enable. Requires freetype >= 2.5.2.
-COVERAGE="OFF"        # Override with "ON" to enable.
-DOWNLOAD_SOUNDFONT="ON"   # Override with "OFF" to disable latest soundfont download.
-
-UPDATE_CACHE="TRUE"# Override if building a DEB or RPM, or when installing to a non-standard location.
 NO_RPATH="FALSE"# Package maintainers may want to override this (e.g. Debian)
-
 EMBED_PRELOADS="ON"
 
 #
@@ -64,7 +51,7 @@ release:
   	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"                           \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;                          \
       emmake make -j ${CPUS};                                            \
-	  mv ./libmscore/webmscore.* ../dist;                                 \
+	  mv ./libmscore/webmscore.* ../web-public;                           \
 
 debug:
 	if test ! -d build.debug; then mkdir build.debug; fi; \
@@ -79,7 +66,7 @@ debug:
   	  -DCMAKE_BUILD_NUMBER="${BUILD_NUMBER}"                       \
   	  -DCMAKE_SKIP_RPATH="${NO_RPATH}"     ..;                      \
       emmake make -j ${CPUS};                                        \
-	  mv ./libmscore/webmscore.* ../dist;                             \
+	  mv ./libmscore/webmscore.* ../web-public;                       \
 
 #
 # clean out of source build
@@ -88,15 +75,12 @@ clean:
 	-rm -rf build.debug build.release
 	-rm -rf build.wasm build.js
 	-rm -rf win32build win32install
-	-rm dist/webmscore.*
+	-rm web-public/webmscore.*
 
 revision:
 	@git rev-parse --short=7 HEAD > mscore/revision.h
 
 version:
 	@echo ${VERSION}
-
-zip:
-	zip -q -r MuseScore-${VERSION}.zip * -x .git\* -x vtest/html\*
 
 
