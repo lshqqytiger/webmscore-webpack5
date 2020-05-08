@@ -139,6 +139,12 @@ set(_preload_files
     fonts/smufl/glyphnames.json
     fonts/fonts_tablature.xml
     fonts/fonts_figuredbass.xml
+
+    fonts/FreeSans.ttf
+    fonts/FreeSerif.ttf
+    fonts/FreeSerifBold.ttf
+    fonts/FreeSerifItalic.ttf
+    fonts/FreeSerifBoldItalic.ttf
 )
 foreach(_file ${_preload_files})
     set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
