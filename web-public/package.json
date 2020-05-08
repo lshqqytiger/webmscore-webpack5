@@ -4,8 +4,5 @@
     "exports": {
         "browser": "./index.js",
         "node": "./nodejs.js"
-    },
-    "dependencies": {
-        "jsdom": "^16.2.2"
     }
 }
