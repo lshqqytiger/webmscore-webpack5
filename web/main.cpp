@@ -123,6 +123,7 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
+    score->switchToPageMode(); // not really required, as the default _layoutMode is LayoutMode::PAGE
     Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
     qDebug("saveSvg: page index %d, size %lld bytes", pageNumber, buffer.size());
 
