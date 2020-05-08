@@ -10,5 +10,6 @@ namespace Ms {
 
     bool saveSvg(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false);
 
+    bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs);
 }
 

@@ -33,6 +33,9 @@ WebMscore.ready.then(async () => {
     fs.writeFileSync(`./${exportedPrefix}.mxl`, score.saveMxl())
     console.log(`generated compressed MusicXML file: ./${exportedPrefix}.mxl`)
 
+    fs.writeFileSync(`./${exportedPrefix}.mid`, score.saveMidi())
+    console.log(`generated MIDI file: ./${exportedPrefix}.mid`)
+
     score.destroy()
     console.log('destroyed')
 })

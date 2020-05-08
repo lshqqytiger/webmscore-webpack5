@@ -59,6 +59,7 @@ add_executable (
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h velo.h vibrato.h volta.h xml.h
       ../mscore/musicxml.h ../mscore/importxmlfirstpass.h ../mscore/musicxmlfonthandler.h ../mscore/musicxmlsupport.h 
       ../mscore/svggenerator.h
+      ../mscore/exportmidi.h
       exports.h
 
       segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp
@@ -105,7 +106,9 @@ add_executable (
       scorediff.cpp
       unrollrepeats.cpp
       ../mscore/exportxml.cpp ../mscore/importxmlfirstpass.cpp ../mscore/musicxmlfonthandler.cpp ../mscore/musicxmlsupport.cpp
-      ../mscore/svggenerator.cpp exportsvg.cpp
+      ../mscore/svggenerator.cpp
+      ../mscore/exportmidi.cpp
+      exports.cpp
       ../web/main.cpp
       )
 
@@ -153,6 +156,7 @@ target_link_libraries(webmscore
    ${QT_LIBRARIES}
    qzip
    synthesizer
+   midi
 )
 
 set_target_properties (

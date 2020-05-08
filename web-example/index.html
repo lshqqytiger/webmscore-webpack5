@@ -37,6 +37,9 @@
             saveAs(new Blob([score.saveMxl()]), `${title}.mxl`)
             console.log('generated compressed MusicXML file')
 
+            saveAs(new Blob([score.saveMidi()]), `${title}.mid`)
+            console.log('generated MIDI file')
+
             score.destroy()
             console.log('destroyed')
         })

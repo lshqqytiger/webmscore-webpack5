@@ -1,4 +1,5 @@
 
+#include "mscore/exportmidi.h"
 #include "shape.h"
 #include "xml.h"
 #include "element.h"
@@ -199,5 +200,14 @@ bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
     MScore::svgPrinting = false;
     return true;
 }
+
+//---------------------------------------------------------
+//   saveMidi
+//---------------------------------------------------------
+bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs)
+    {
+        ExportMidi em(score);
+        return em.write(device, midiExpandRepeats, exportRPNs);
+    }
 
 }  // namespace Ms

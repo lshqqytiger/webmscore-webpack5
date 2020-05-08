@@ -151,6 +151,23 @@ const char* _saveMxl(uintptr_t score_ptr) {
 }
 
 /**
+ * export score as MIDI
+ */
+const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite);
+
+    Ms::saveMidi(score, &buffer, midiExpandRepeats, exportRPNs);
+
+    auto size = buffer.size();
+    qDebug("saveMidi: midiExpandRepeats %d, exportRPNs %d, size %lld", midiExpandRepeats, exportRPNs, size);
+
+    return packData(buffer.data(), size);
+}
+
+/**
  * export functions (can only be C functions)
  */
 extern "C" {
@@ -193,6 +210,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveMxl(uintptr_t score_ptr) {
         return _saveMxl(score_ptr);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs) {
+        return _saveMidi(score_ptr, midiExpandRepeats, exportRPNs);
     };
 
 }

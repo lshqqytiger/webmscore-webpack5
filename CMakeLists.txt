@@ -204,6 +204,7 @@ add_subdirectory(synthesizer)
 
 subdirs(
       libmscore
+      midi
       thirdparty/qzip
       thirdparty/freetype
       )

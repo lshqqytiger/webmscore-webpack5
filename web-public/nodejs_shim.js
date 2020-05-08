@@ -18,7 +18,11 @@ if (IS_NODE) {
     }
 
     // mock dom objects
-    global.window = global.window || { addEventListener() { } }
+    global.window = global.window || {
+        addEventListener() { },
+        location: { pathname: '' },
+        encodeURIComponent,
+    }
     global.navigator = global.navigator || {}
 
 }

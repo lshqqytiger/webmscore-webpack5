@@ -136,6 +136,21 @@ export class WebMscore {
     }
 
     /**
+     * Export score as MIDI file
+     * @param {boolean} midiExpandRepeats 
+     * @param {boolean} exportRPNs 
+     * @returns {Uint8Array}
+     */
+    saveMidi(midiExpandRepeats = true, exportRPNs = true) {
+        const dataptr = Module.ccall('saveMidi',
+            'number',
+            ['number', 'boolean', 'boolean'],
+            [this.scoreptr, midiExpandRepeats, exportRPNs]
+        )
+        return readData(dataptr)
+    }
+
+    /**
      * @returns {void}
      */
     destroy() {

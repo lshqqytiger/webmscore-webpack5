@@ -23,7 +23,7 @@
 #include "libmscore/measure.h"
 #include "libmscore/repeatlist.h"
 #include "libmscore/synthesizerstate.h"
-#include "preferences.h"
+// #include "preferences.h"
 
 namespace Ms {
 
