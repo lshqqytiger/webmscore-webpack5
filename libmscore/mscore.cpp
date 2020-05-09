@@ -364,7 +364,10 @@ void MScore::init()
             "/fonts/bravura/BravuraText.otf",
             "/fonts/gootville/GootvilleText.otf",
             "/fonts/mscore/MScoreText.ttf",
-            "/fonts/SourceHanSans-Regular.ttc",  // CJK characters support
+
+            // CJK characters support
+            "/fonts/SourceHanSansCN-Regular.otf",  // only contains the CN variation (style) of Chinese characters (the range of GB18030), including traditional and simplified
+            "/fonts/SourceHanSansKR-Regular.otf",  // to support hangul syllables
             };
 
       for (unsigned i = 0; i < sizeof(fonts)/sizeof(*fonts); ++i) {
