@@ -108,6 +108,7 @@ add_executable (
       ../mscore/exportxml.cpp ../mscore/importxmlfirstpass.cpp ../mscore/musicxmlfonthandler.cpp ../mscore/musicxmlsupport.cpp
       ../mscore/svggenerator.cpp
       ../mscore/exportmidi.cpp
+      ../mscore/savePositions.cpp
       exports.cpp
       ../web/main.cpp
       )

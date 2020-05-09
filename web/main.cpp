@@ -204,6 +204,26 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
 }
 
 /**
+ * save positions of measures or segments (if the `ofSegments` param == true) as XML
+ */
+const char* _savePositions(uintptr_t score_ptr, bool ofSegments) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+
+    score->switchToPageMode();
+    Ms::savePositions(score, &buffer, ofSegments);
+
+    qDebug("savePositions: ofSegments %d, size %lld", ofSegments, buffer.size());
+
+    // XML is plain text
+    return padData(
+        QString(buffer.data()).toUtf8()
+    );
+}
+
+/**
  * export functions (can only be C functions)
  */
 extern "C" {
@@ -261,6 +281,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs) {
         return _saveMidi(score_ptr, midiExpandRepeats, exportRPNs);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* savePositions(uintptr_t score_ptr, bool ofSegments) {
+        return _savePositions(score_ptr, ofSegments);
     };
 
 }

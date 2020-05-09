@@ -176,6 +176,25 @@ export class WebMscore {
     }
 
     /**
+     * Export positions of measures or segments (if `ofSegments` == true) as XML
+     * @param {boolean} ofSegments
+     * @returns {string}
+     */
+    savePositions(ofSegments) {
+        const dataptr = Module.ccall('savePositions',
+            'number',
+            ['number', 'boolean'],
+            [this.scoreptr, ofSegments]
+        )
+
+        // XML is plain text
+        const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
+        freePtr(dataptr)
+
+        return data
+    }
+
+    /**
      * @returns {void}
      */
     destroy() {

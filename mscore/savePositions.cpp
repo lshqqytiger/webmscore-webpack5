@@ -17,24 +17,22 @@
 #include "libmscore/system.h"
 #include "libmscore/xml.h"
 #include "mscore/globals.h"
-#include "mscore/preferences.h"
-#include "mscore/musescore.h"
+// #include "mscore/preferences.h"
+// #include "mscore/musescore.h"
 
 
 
 namespace Ms {
 
-static QHash<void*, int> segs;
-
 //---------------------------------------------------------
 //   saveMeasureEvents
 //---------------------------------------------------------
 
-static void saveMeasureEvents(XmlWriter& xml, Measure* m, int offset)
+void saveMeasureEvents(XmlWriter& xml, Measure* m, int offset, QHash<void*, int>* segs)
       {
       for (Segment* s = m->first(SegmentType::ChordRest); s; s = s->next(SegmentType::ChordRest)) {
             int tick = s->tick().ticks() + offset;
-            int id = segs[(void*)s];
+            int id = (*segs)[(void*)s];
             int time = lrint(m->score()->repeatList().utick2utime(tick) * 1000);
             xml.tagE(QString("event elid=\"%1\" position=\"%2\"")
                .arg(id)
@@ -48,16 +46,20 @@ static void saveMeasureEvents(XmlWriter& xml, Measure* m, int offset)
 //    output in 100 dpi
 //---------------------------------------------------------
 
-bool MuseScore::savePositions(Score* score, QIODevice* device, bool segments)
+bool savePositions(Score* score, QIODevice* device, bool segments)
       {
-      segs.clear();
+      QHash<void*, int> segs;
+
       XmlWriter xml(score, device);
       xml.header();
       xml.stag("score");
       xml.stag("elements");
       int id = 0;
 
-      qreal ndpi = ((qreal) preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION) / DPI) * 12.0;
+      // qreal ndpi = ((qreal) preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION) / DPI) * 12.0;
+      // -> qreal ndpi = ((qreal) DPI / DPI) * 12.0;
+      qreal ndpi = 12.0;
+      
       if (segments) {
             for (Segment* s = score->firstMeasureMM()->first(SegmentType::ChordRest);
                s; s = s->next1MM(SegmentType::ChordRest)) {
@@ -122,7 +124,7 @@ bool MuseScore::savePositions(Score* score, QIODevice* device, bool segments)
             int tickOffset = rs->utick - rs->tick;
             for (Measure* m = score->tick2measureMM(Fraction::fromTicks(startTick)); m; m = m->nextMeasureMM()) {
                         if (segments)
-                              saveMeasureEvents(xml, m, tickOffset);
+                              saveMeasureEvents(xml, m, tickOffset, &segs);
                         else {
                               int tick = m->tick().ticks() + tickOffset;
                               int i = segs[(void*)m];
@@ -140,9 +142,9 @@ bool MuseScore::savePositions(Score* score, QIODevice* device, bool segments)
 
       xml.etag(); // score
       return true;
-      }
+}
 
-bool MuseScore::savePositions(Score* score, const QString& name, bool segments)
+bool savePositions(Score* score, const QString& name, bool segments)
       {
       QFile fp(name);
       if (!fp.open(QIODevice::WriteOnly)) {

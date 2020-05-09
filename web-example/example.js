@@ -30,6 +30,9 @@ WebMscore.ready.then(async () => {
         console.log(`generated SVG page ${index}: ${f}`)
     }
 
+    fs.writeFileSync(`./${exportedPrefix}-2.png`, score.savePng(2))
+    console.log(`generated PNG page 2: ./${exportedPrefix}-2.png`)
+
     fs.writeFileSync(`./${exportedPrefix}.pdf`, score.savePdf())
     console.log(`generated PDF file: ./${exportedPrefix}.pdf`)
 
@@ -38,6 +41,12 @@ WebMscore.ready.then(async () => {
 
     fs.writeFileSync(`./${exportedPrefix}.mid`, score.saveMidi())
     console.log(`generated MIDI file: ./${exportedPrefix}.mid`)
+
+    fs.writeFileSync(`./${exportedPrefix}.spos`, score.savePositions(true))
+    console.log(`exported positions of segments: ./${exportedPrefix}.spos`)
+
+    fs.writeFileSync(`./${exportedPrefix}.mpos`, score.savePositions(false))
+    console.log(`exported positions of measures: ./${exportedPrefix}.mpos`)
 
     score.destroy()
     console.log('destroyed')
