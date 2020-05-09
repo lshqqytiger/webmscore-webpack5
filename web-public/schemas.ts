@@ -36,6 +36,9 @@ interface ScorePageFormat {
     twosided: BoolString;
 }
 
+/**
+ * The score metadata
+ */
 export interface ScoreMetadata {
     title: string;
     subtitle: string;
@@ -105,4 +108,56 @@ export interface ScoreMetadata {
      * text frames metadata
      */
     textFramesData: ScoreTextFramesData;
+}
+
+interface PositionElement {
+    /**
+     * element index
+     */
+    id: number;
+
+    /**
+     * The x coordinate (the top-left corner of the page to the top-left corner of the element)
+     */
+    x: number;
+    /**
+     * The x coordinate (the top-left corner of the page to the top-left corner of the element)
+     */
+    y: number;
+
+    /**
+     * The width of the element
+     */
+    sx: number;
+    /**
+     * The height of the element
+     */
+    sy: number;
+
+    /**
+     * The page index (zero-based) where the measure or segment presents
+     */
+    page: number;
+}
+
+interface PositionEvent {
+    /**
+     * The element index …
+     * @todo explanations
+     */
+    elid: number;
+
+    /**
+     * time
+     * @todo explanations
+     */
+    position: number;
+}
+
+/**
+ * The position information of measures or segments
+ */
+export interface Positions {
+    elements: PositionElement[];
+    events: PositionEvent[];
 }

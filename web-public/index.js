@@ -88,7 +88,7 @@ export class WebMscore {
 
     /**
      * Get score metadata
-     * @returns {import("./metadata-schema").ScoreMetadata}
+     * @returns {import("./schemas").ScoreMetadata}
      */
     metadata() {
         return JSON.parse(this.saveMetadata())
@@ -96,6 +96,7 @@ export class WebMscore {
 
     /**
      * Get the positions of measures
+     * @returns {import("./schemas").Positions}
      */
     measurePositions() {
         return JSON.parse(this.savePositions(false))
@@ -103,6 +104,7 @@ export class WebMscore {
 
     /**
      * Get the positions of segments
+     * @returns {import("./schemas").Positions}
      */
     segmentPositions() {
         return JSON.parse(this.savePositions(true))
