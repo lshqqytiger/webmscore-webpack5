@@ -202,6 +202,82 @@ bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
 }
 
 //---------------------------------------------------------
+//   savePng with options
+//    return true on success
+//---------------------------------------------------------
+
+bool savePng(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground, bool transparent)
+      {
+      const bool screenshot = false;
+      const bool _transparent = transparent && !drawPageBackground;
+      qDebug("savePng: _transparent %d", _transparent)
+    //   const double convDpi = preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION);
+      const double convDpi = DPI;
+      const int localTrimMargin = trimMargin;
+      const QImage::Format format = QImage::Format_ARGB32_Premultiplied;
+
+      bool rv = true;
+      score->setPrinting(!screenshot);    // don’t print page break symbols etc.
+      double pr = MScore::pixelRatio;
+
+      QImage::Format f;
+      if (format != QImage::Format_Indexed8)
+          f = format;
+      else
+          f = QImage::Format_ARGB32_Premultiplied;
+
+      const QList<Page*>& pl = score->pages();
+
+      Page* page = pl.at(pageNumber);
+      QRectF r;
+      if (localTrimMargin >= 0) {
+            QMarginsF margins(localTrimMargin, localTrimMargin, localTrimMargin, localTrimMargin);
+            r = page->tbbox() + margins;
+            }
+      else
+            r = page->abbox();
+      int w = lrint(r.width()  * convDpi / DPI);
+      int h = lrint(r.height() * convDpi / DPI);
+
+      QImage printer(w, h, f);
+      printer.setDotsPerMeterX(lrint((convDpi * 1000) / INCH));
+      printer.setDotsPerMeterY(lrint((convDpi * 1000) / INCH));
+
+      printer.fill(_transparent ? 0 : 0xffffffff);
+      double mag_ = convDpi / DPI;
+      MScore::pixelRatio = 1.0 / mag_;
+
+      QPainter p(&printer);
+      p.setRenderHint(QPainter::Antialiasing, true);
+      p.setRenderHint(QPainter::TextAntialiasing, true);
+      p.scale(mag_, mag_);
+      if (localTrimMargin >= 0)
+            p.translate(-r.topLeft());
+
+      QList< Element*> pel = page->elements();
+      qStableSort(pel.begin(), pel.end(), elementLessThan);
+      paintElements(p, pel);
+       if (format == QImage::Format_Indexed8) {
+            //convert to grayscale & respect alpha
+            QVector<QRgb> colorTable;
+            colorTable.push_back(QColor(0, 0, 0, 0).rgba());
+            if (!_transparent) {
+                  for (int i = 1; i < 256; i++)
+                        colorTable.push_back(QColor(i, i, i).rgb());
+                  }
+            else {
+                  for (int i = 1; i < 256; i++)
+                        colorTable.push_back(QColor(0, 0, 0, i).rgba());
+                  }
+            printer = printer.convertToFormat(QImage::Format_Indexed8, colorTable);
+            }
+      printer.save(device, "png");
+      score->setPrinting(false);
+      MScore::pixelRatio = pr;
+      return rv;
+      }
+
+//---------------------------------------------------------
 //   saveMidi
 //---------------------------------------------------------
 bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs)

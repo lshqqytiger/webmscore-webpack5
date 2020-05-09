@@ -136,6 +136,22 @@ export class WebMscore {
     }
 
     /**
+     * Export score as the PNG file of one page
+     * @param {number} pageNumber integer
+     * @param {boolean} drawPageBackground 
+     * @param {boolean} transparent
+     * @returns {ArrayBuffer}
+     */
+    savePng(pageNumber = 0, drawPageBackground = false, transparent = true) {
+        const dataptr = Module.ccall('savePng',
+            'number',
+            ['number', 'number', 'boolean', 'boolean'],
+            [this.scoreptr, pageNumber, drawPageBackground, transparent]
+        )
+        return readData(dataptr)
+    }
+
+    /**
      * Export score as MIDI file
      * @param {boolean} midiExpandRepeats 
      * @param {boolean} exportRPNs 

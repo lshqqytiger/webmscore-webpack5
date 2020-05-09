@@ -134,6 +134,24 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
 }
 
 /**
+ * export score as PNG
+ */
+const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+
+    score->switchToPageMode();
+    Ms::savePng(score, &buffer, pageNumber, drawPageBackground, transparent);
+
+    auto size = buffer.size();
+    qDebug("savePng: page index %d, drawPageBackground %d, transparent %d, size %lld bytes", pageNumber, drawPageBackground, transparent, size);
+
+    return packData(buffer.data(), size);
+}
+
+/**
  * export score as compressed MusicXML file
  */
 const char* _saveMxl(uintptr_t score_ptr) {
@@ -206,6 +224,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
         return _saveSvg(score_ptr, pageNumber, drawPageBackground);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent) {
+        return _savePng(score_ptr, pageNumber, drawPageBackground, transparent);
     };
 
     EMSCRIPTEN_KEEPALIVE
