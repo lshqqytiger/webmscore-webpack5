@@ -88,6 +88,7 @@ export class WebMscore {
 
     /**
      * Get score metadata
+     * @returns {import("./metadata-schema").ScoreMetadata}
      */
     metadata() {
         return JSON.parse(this.saveMetadata())
