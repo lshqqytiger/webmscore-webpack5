@@ -21,7 +21,7 @@
             const score = await WebMscore.load(name, filedata)
             console.log(score)
 
-            const title = score.title()
+            const title = score.titleFilenameSafe()
             console.log('score title:', title)
             console.log('number of pages:', score.npages())
 

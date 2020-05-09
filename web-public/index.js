@@ -72,6 +72,13 @@ export class WebMscore {
     }
 
     /**
+     * Get the score title (filename safe, replaced some characters)
+     */
+    titleFilenameSafe() {
+        return this.title().replace(/[\s<>:{}"/\\|?*~.\0\cA-\cZ]+/g, "_")
+    }
+
+    /**
      * Get the number of pages in the score
      * @returns {number}
      */

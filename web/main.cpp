@@ -7,6 +7,7 @@
 #include "libmscore/exports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
+#include "libmscore/text.h"
 
 /**
  * helper functions
@@ -83,8 +84,19 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
  */
 QByteArray _title(uintptr_t score_ptr) {
     Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    // code from MuseScore::saveMetadataJSON
+    QString title;
+    Ms::Text* t = score->getText(Ms::Tid::TITLE);
+    if (t)
+        title = t->plainText();
+    if (title.isEmpty())
+        title = score->metaTag("workTitle");
+    if (title.isEmpty())
+        title = score->title();
+
     return padData(
-        score->title().toUtf8()
+        title.toUtf8()
     );
 }
 
