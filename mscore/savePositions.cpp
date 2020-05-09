@@ -45,7 +45,7 @@ void saveMeasureEvents(QJsonArray& jsonEventsArray, Measure* m, int offset, QHas
 
 //---------------------------------------------------------
 //   savePositions
-//    output in 100 dpi
+//    All in pixels of the exported SVG/PNG/PDF files
 //---------------------------------------------------------
 
 QJsonObject savePositions(Score* score, bool segments)
@@ -57,7 +57,8 @@ QJsonObject savePositions(Score* score, bool segments)
 
       // qreal ndpi = ((qreal) preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION) / DPI) * 12.0;
       // -> qreal ndpi = ((qreal) DPI / DPI) * 12.0;
-      qreal ndpi = 12.0;
+      // qreal ndpi = 12.0;
+      qreal ndpi = 1.0;
       
       QJsonArray jsonElementsArray;
       if (segments) {

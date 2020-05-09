@@ -156,8 +156,16 @@ interface PositionEvent {
 
 /**
  * The position information of measures or segments
+ * 
+ * All coordinates are in pixels of the exported SVG/PNG/PDF files
  */
 export interface Positions {
+    /**
+     * The `space` property in space.jsonp
+     */
     elements: PositionElement[];
+    /**
+     * The `time` property in space.jsonp
+     */
     events: PositionEvent[];
 }
