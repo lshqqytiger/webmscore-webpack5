@@ -142,30 +142,32 @@ interface PositionElement {
 
 interface PositionEvent {
     /**
-     * The element index …
-     * @todo explanations
+     * The element index corresponding to the envent
      */
     elid: number;
 
     /**
-     * time
-     * @todo explanations
+     * The time position (in ms) of the element (measure or segment) in the exported audio
      */
     position: number;
 }
 
 /**
  * The position information of measures or segments
- * 
- * All coordinates are in pixels of the exported SVG/PNG/PDF files
  */
 export interface Positions {
     /**
-     * The `space` property in space.jsonp
+     * The position information of each element (measure or segment) on the sheet,  
+     * in pixels of the exported SVG/PNG/PDF file
+     * 
+     * the `space` property in space.jsonp
      */
     elements: PositionElement[];
+
     /**
-     * The `time` property in space.jsonp
+     * The time position/offset (in ms) of each element in the exported audio
+     * 
+     * the `time` property in space.jsonp
      */
     events: PositionEvent[];
 }
