@@ -216,23 +216,20 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
 }
 
 /**
- * save positions of measures or segments (if the `ofSegments` param == true) as XML
+ * save positions of measures or segments (if the `ofSegments` param == true) as JSON
  */
 const char* _savePositions(uintptr_t score_ptr, bool ofSegments) {
     Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
 
-    QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly);
-
     score->switchToPageMode();
-    Ms::savePositions(score, &buffer, ofSegments);
+    QJsonObject json = Ms::savePositions(score, ofSegments);
+    QJsonDocument saveDoc(json);
 
-    qDebug("savePositions: ofSegments %d, size %lld", ofSegments, buffer.size());
+    auto data = saveDoc.toJson();  // UTF-8 encoded JSON data
+    qDebug("savePositions: ofSegments %d, file size %lld", ofSegments, data.size());
 
-    // XML is plain text
-    return padData(
-        QString(buffer.data()).toUtf8()
-    );
+    // JSON is plain text
+    return padData(data);
 }
 
 /**
@@ -246,7 +243,7 @@ const char* _saveMetadata(uintptr_t score_ptr) {
 
     // JSON is plain text
     return padData(
-        saveDoc.toJson()  // UTF-8 encoded JSON document
+        saveDoc.toJson()  // UTF-8 encoded JSON data
     );
 }
 

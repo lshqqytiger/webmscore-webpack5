@@ -42,11 +42,11 @@ WebMscore.ready.then(async () => {
     fs.writeFileSync(`./${exportedPrefix}.mid`, score.saveMidi())
     console.log(`generated MIDI file: ./${exportedPrefix}.mid`)
 
-    fs.writeFileSync(`./${exportedPrefix}.spos`, score.savePositions(true))
-    console.log(`exported positions of segments: ./${exportedPrefix}.spos`)
+    fs.writeFileSync(`./${exportedPrefix}-mpos.json`, score.savePositions(false))
+    console.log(`exported positions of measures: ./${exportedPrefix}-mpos.json`)
 
-    fs.writeFileSync(`./${exportedPrefix}.mpos`, score.savePositions(false))
-    console.log(`exported positions of measures: ./${exportedPrefix}.mpos`)
+    fs.writeFileSync(`./${exportedPrefix}-spos.json`, score.savePositions(true))
+    console.log(`exported positions of segments: ./${exportedPrefix}.spos.json`)
 
     console.log('score metadata', score.metadata())
 

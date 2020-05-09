@@ -95,6 +95,20 @@ export class WebMscore {
     }
 
     /**
+     * Get the positions of measures
+     */
+    measurePositions() {
+        return JSON.parse(this.savePositions(false))
+    }
+
+    /**
+     * Get the positions of segments
+     */
+    segmentPositions() {
+        return JSON.parse(this.savePositions(true))
+    }
+
+    /**
      * Export score as MusicXML file
      * @returns {string} contents of the MusicXML file (plain text)
      */
@@ -191,8 +205,9 @@ export class WebMscore {
     }
 
     /**
-     * Export positions of measures or segments (if `ofSegments` == true) as XML
+     * Export positions of measures or segments (if `ofSegments` == true) as JSON
      * @param {boolean} ofSegments
+     * @also `score.measurePositions()` and `score.segmentPositions()`
      * @returns {string}
      */
     savePositions(ofSegments) {
@@ -202,7 +217,7 @@ export class WebMscore {
             [this.scoreptr, ofSegments]
         )
 
-        // XML is plain text
+        // JSON is plain text
         const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
         freePtr(dataptr)
 

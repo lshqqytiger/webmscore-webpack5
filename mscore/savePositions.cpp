@@ -15,7 +15,7 @@
 #include "libmscore/segment.h"
 #include "libmscore/repeatlist.h"
 #include "libmscore/system.h"
-#include "libmscore/xml.h"
+// #include "libmscore/xml.h"
 #include "mscore/globals.h"
 // #include "mscore/preferences.h"
 // #include "mscore/musescore.h"
@@ -28,38 +28,38 @@ namespace Ms {
 //   saveMeasureEvents
 //---------------------------------------------------------
 
-void saveMeasureEvents(XmlWriter& xml, Measure* m, int offset, QHash<void*, int>* segs)
-      {
+void saveMeasureEvents(QJsonArray& jsonEventsArray, Measure* m, int offset, QHash<void*, int>* segs)
+{
       for (Segment* s = m->first(SegmentType::ChordRest); s; s = s->next(SegmentType::ChordRest)) {
             int tick = s->tick().ticks() + offset;
             int id = (*segs)[(void*)s];
             int time = lrint(m->score()->repeatList().utick2utime(tick) * 1000);
-            xml.tagE(QString("event elid=\"%1\" position=\"%2\"")
-               .arg(id)
-               .arg(time)
-               );
-            }
+
+            QJsonObject jsonEvent;
+            jsonEvent.insert("elid", id);
+            jsonEvent.insert("position", time);
+            jsonEventsArray.append(jsonEvent);
+
       }
+}
 
 //---------------------------------------------------------
 //   savePositions
 //    output in 100 dpi
 //---------------------------------------------------------
 
-bool savePositions(Score* score, QIODevice* device, bool segments)
+QJsonObject savePositions(Score* score, bool segments)
       {
       QHash<void*, int> segs;
 
-      XmlWriter xml(score, device);
-      xml.header();
-      xml.stag("score");
-      xml.stag("elements");
+      QJsonObject json;
       int id = 0;
 
       // qreal ndpi = ((qreal) preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION) / DPI) * 12.0;
       // -> qreal ndpi = ((qreal) DPI / DPI) * 12.0;
       qreal ndpi = 12.0;
       
+      QJsonArray jsonElementsArray;
       if (segments) {
             for (Segment* s = score->firstMeasureMM()->first(SegmentType::ChordRest);
                s; s = s->next1MM(SegmentType::ChordRest)) {
@@ -79,19 +79,19 @@ bool savePositions(Score* score, QIODevice* device, bool segments)
                   Page* p  = s->measure()->system()->page();
                   int page = score->pageIdx(p);
 
-                  xml.tagE(QString("element id=\"%1\" x=\"%2\" y=\"%3\" sx=\"%4\""
-                  " sy=\"%5\" page=\"%6\"")
-                     .arg(id)
-                     .arg(x)
-                     .arg(y)
-                     .arg(sx)
-                     .arg(sy)
-                     .arg(page));
+                  QJsonObject jsonElement;
+                  jsonElement.insert("id", id);
+                  jsonElement.insert("x", x);
+                  jsonElement.insert("y", y);
+                  jsonElement.insert("sx", sx);
+                  jsonElement.insert("sy", sy);
+                  jsonElement.insert("page", page);
+
+                  jsonElementsArray.append(jsonElement);
 
                   segs[(void*)s] = id++;
-                  }
-            xml.etag();
             }
+      }
       else {
             for (Measure* m = score->firstMeasureMM(); m; m = m->nextMeasureMM()) {
                   qreal sx   = m->bbox().width() * ndpi;
@@ -102,21 +102,22 @@ bool savePositions(Score* score, QIODevice* device, bool segments)
                   Page* p  = m->system()->page();
                   int page = score->pageIdx(p);
 
-                  xml.tagE(QString("element id=\"%1\" x=\"%2\" y=\"%3\" sx=\"%4\""
-                  " sy=\"%5\" page=\"%6\"")
-                     .arg(id)
-                     .arg(x)
-                     .arg(y)
-                     .arg(sx)
-                     .arg(sy)
-                     .arg(page));
+                  QJsonObject jsonElement;
+                  jsonElement.insert("id", id);
+                  jsonElement.insert("x", x);
+                  jsonElement.insert("y", y);
+                  jsonElement.insert("sx", sx);
+                  jsonElement.insert("sy", sy);
+                  jsonElement.insert("page", page);
+
+                  jsonElementsArray.append(jsonElement);
 
                   segs[(void*)m] = id++;
-                  }
-            xml.etag();
             }
+      }
+      json.insert("elements", jsonElementsArray);
 
-      xml.stag("events");
+      QJsonArray jsonEventsArray;
       score->masterScore()->setExpandRepeats(true);
       for (const RepeatSegment* rs : score->repeatList()) {
             int startTick  = rs->tick;
@@ -124,34 +125,24 @@ bool savePositions(Score* score, QIODevice* device, bool segments)
             int tickOffset = rs->utick - rs->tick;
             for (Measure* m = score->tick2measureMM(Fraction::fromTicks(startTick)); m; m = m->nextMeasureMM()) {
                         if (segments)
-                              saveMeasureEvents(xml, m, tickOffset, &segs);
+                              saveMeasureEvents(jsonEventsArray, m, tickOffset, &segs);
                         else {
                               int tick = m->tick().ticks() + tickOffset;
                               int i = segs[(void*)m];
                               int time = lrint(m->score()->repeatList().utick2utime(tick) * 1000);
-                              xml.tagE(QString("event elid=\"%1\" position=\"%2\"")
-                                 .arg(i)
-                                 .arg(time)
-                                 );
-                              }
+                              
+                              QJsonObject jsonEvent;
+                              jsonEvent.insert("elid", i);
+                              jsonEvent.insert("position", time);
+                              jsonEventsArray.append(jsonEvent);
+                        }
                   if (m->endTick().ticks() >= endTick)
                         break;
-                  }
             }
-      xml.etag();
-
-      xml.etag(); // score
-      return true;
-}
-
-bool savePositions(Score* score, const QString& name, bool segments)
-      {
-      QFile fp(name);
-      if (!fp.open(QIODevice::WriteOnly)) {
-            qDebug("Open <%s> failed", qPrintable(name));
-            return false;
-            }
-      return savePositions(score, &fp, segments);
       }
+      json.insert("events", jsonEventsArray);
+
+      return json;
 }
 
+}  // namespace Ms
