@@ -145,6 +145,8 @@ set(_preload_files
     fonts/FreeSerifBold.ttf
     fonts/FreeSerifItalic.ttf
     fonts/FreeSerifBoldItalic.ttf
+
+    fonts/SourceHanSans-Regular.ttc
 )
 foreach(_file ${_preload_files})
     set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")

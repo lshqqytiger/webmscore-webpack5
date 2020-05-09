@@ -364,6 +364,7 @@ void MScore::init()
             "/fonts/bravura/BravuraText.otf",
             "/fonts/gootville/GootvilleText.otf",
             "/fonts/mscore/MScoreText.ttf",
+            "/fonts/SourceHanSans-Regular.ttc",  // CJK characters support
             };
 
       for (unsigned i = 0; i < sizeof(fonts)/sizeof(*fonts); ++i) {
