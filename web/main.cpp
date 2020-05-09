@@ -115,6 +115,24 @@ const char* _saveXml(uintptr_t score_ptr) {
 }
 
 /**
+ * export score as compressed MusicXML file
+ */
+const char* _saveMxl(uintptr_t score_ptr) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite);
+
+    // compressed MusicXML
+    Ms::saveMxl(score, &buffer);
+
+    auto size = buffer.size();
+    qDebug("saveMxl size %lld", size);
+
+    return packData(buffer.data(), size);
+}
+
+/**
  * export score as SVG
  */
 const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
@@ -152,19 +170,18 @@ const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
 }
 
 /**
- * export score as compressed MusicXML file
+ * export score as PDF
  */
-const char* _saveMxl(uintptr_t score_ptr) {
+const char* _savePdf(uintptr_t score_ptr) {
     Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
 
     QBuffer buffer;
     buffer.open(QIODevice::ReadWrite);
 
-    // compressed MusicXML
-    Ms::saveMxl(score, &buffer);
+    Ms::savePdf(score, &buffer);
 
     auto size = buffer.size();
-    qDebug("saveMxl size %lld", size);
+    qDebug("savePdf size %lld", size);
 
     return packData(buffer.data(), size);
 }
@@ -222,6 +239,11 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
+    const char* saveMxl(uintptr_t score_ptr) {
+        return _saveMxl(score_ptr);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
     const char* saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
         return _saveSvg(score_ptr, pageNumber, drawPageBackground);
     };
@@ -232,8 +254,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveMxl(uintptr_t score_ptr) {
-        return _saveMxl(score_ptr);
+    const char* savePdf(uintptr_t score_ptr) {
+        return _savePdf(score_ptr);
     };
 
     EMSCRIPTEN_KEEPALIVE

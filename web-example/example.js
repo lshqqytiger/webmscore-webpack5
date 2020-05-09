@@ -30,6 +30,9 @@ WebMscore.ready.then(async () => {
         console.log(`generated SVG page ${index}: ${f}`)
     }
 
+    fs.writeFileSync(`./${exportedPrefix}.pdf`, score.savePdf())
+    console.log(`generated PDF file: ./${exportedPrefix}.pdf`)
+
     fs.writeFileSync(`./${exportedPrefix}.mxl`, score.saveMxl())
     console.log(`generated compressed MusicXML file: ./${exportedPrefix}.mxl`)
 

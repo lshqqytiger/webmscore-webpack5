@@ -210,7 +210,7 @@ bool savePng(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
       {
       const bool screenshot = false;
       const bool _transparent = transparent && !drawPageBackground;
-      qDebug("savePng: _transparent %d", _transparent)
+      qDebug("savePng: _transparent %d", _transparent);
     //   const double convDpi = preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION);
       const double convDpi = DPI;
       const int localTrimMargin = trimMargin;
@@ -275,7 +275,70 @@ bool savePng(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
       score->setPrinting(false);
       MScore::pixelRatio = pr;
       return rv;
-      }
+}
+
+//---------------------------------------------------------
+//   savePdf using QPdfWriter
+//---------------------------------------------------------
+
+bool savePdf(Score* cs_, QIODevice* device)
+{
+    cs_->setPrinting(true);
+    MScore::pdfPrinting = true;
+
+    QPdfWriter pdfWriter(device);
+
+    pdfWriter.setResolution(300);
+    // printer.setResolution(preferences.getInt(PREF_EXPORT_PDF_DPI));
+    QSizeF size(cs_->styleD(Sid::pageWidth), cs_->styleD(Sid::pageHeight));
+    pdfWriter.setPageSize(QPageSize(size, QPageSize::Inch));
+    // printer.setFullPage(true);
+    // printer.setColorMode(QPrinter::Color);
+
+    pdfWriter.setCreator("MuseScore Version: " VERSION);
+    if (!pdfWriter.setPageMargins(QMarginsF()))
+        qDebug("unable to clear printer margins");
+
+    QString title = cs_->metaTag("workTitle");
+    if (title.isEmpty()) // workTitle unset?
+        title = cs_->masterScore()->title(); // fall back to (master)score's tab title
+    if (!cs_->isMaster()) { // excerpt?
+        QString partname = cs_->metaTag("partName");
+        if (partname.isEmpty()) // partName unset?
+                partname = cs_->title(); // fall back to excerpt's tab title
+        title += " - " + partname;
+        }
+    pdfWriter.setTitle(title); // set PDF's meta data for Title
+
+    QPainter p;
+    if (!p.begin(&pdfWriter))
+        return false;
+    p.setRenderHint(QPainter::Antialiasing, true);
+    p.setRenderHint(QPainter::TextAntialiasing, true);
+
+    p.setViewport(QRect(0.0, 0.0, size.width() * pdfWriter.logicalDpiX(),
+        size.height() * pdfWriter.logicalDpiY()));
+    p.setWindow(QRect(0.0, 0.0, size.width() * DPI, size.height() * DPI));
+
+    double pr = MScore::pixelRatio;
+    MScore::pixelRatio = DPI / pdfWriter.logicalDpiX();
+
+    const QList<Page*> pl = cs_->pages();
+    int pages = pl.size();
+    bool firstPage = true;
+    for (int n = 0; n < pages; ++n) {
+        if (!firstPage)
+                pdfWriter.newPage();
+        firstPage = false;
+        cs_->print(&p, n);
+        }
+    p.end();
+    cs_->setPrinting(false);
+
+    MScore::pixelRatio = pr;
+    MScore::pdfPrinting = false;
+    return true;
+}
 
 //---------------------------------------------------------
 //   saveMidi

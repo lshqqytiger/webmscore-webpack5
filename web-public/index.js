@@ -152,6 +152,15 @@ export class WebMscore {
     }
 
     /**
+     * Export score as PDF file
+     * @returns {Uint8Array}
+     */
+    savePdf() {
+        const dataptr = Module.ccall('savePdf', 'number', ['number'], [this.scoreptr])
+        return readData(dataptr)
+    }
+
+    /**
      * Export score as MIDI file
      * @param {boolean} midiExpandRepeats 
      * @param {boolean} exportRPNs 

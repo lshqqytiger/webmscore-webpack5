@@ -179,6 +179,8 @@
 // #include <QScreen>
 // #include <QGestureEvent>
 
+#include <QPageSize>
+#include <QPdfWriter>
 #include <QSvgRenderer>
 #include <QSvgGenerator>
 
