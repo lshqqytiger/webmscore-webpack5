@@ -48,6 +48,8 @@ WebMscore.ready.then(async () => {
     fs.writeFileSync(`./${exportedPrefix}.mpos`, score.savePositions(false))
     console.log(`exported positions of measures: ./${exportedPrefix}.mpos`)
 
+    console.log('score metadata', score.metadata())
+
     score.destroy()
     console.log('destroyed')
 })

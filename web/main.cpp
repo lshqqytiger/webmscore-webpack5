@@ -224,6 +224,21 @@ const char* _savePositions(uintptr_t score_ptr, bool ofSegments) {
 }
 
 /**
+ * save score metadata as JSON
+ */
+const char* _saveMetadata(uintptr_t score_ptr) {
+    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QJsonObject json = saveMetadataJSON(score);
+    QJsonDocument saveDoc(json);
+
+    // JSON is plain text
+    return padData(
+        saveDoc.toJson()  // UTF-8 encoded JSON document
+    );
+}
+
+/**
  * export functions (can only be C functions)
  */
 extern "C" {
@@ -286,6 +301,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* savePositions(uintptr_t score_ptr, bool ofSegments) {
         return _savePositions(score_ptr, ofSegments);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveMetadata(uintptr_t score_ptr) {
+        return _saveMetadata(score_ptr);
     };
 
 }

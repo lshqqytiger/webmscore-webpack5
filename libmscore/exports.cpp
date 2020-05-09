@@ -54,29 +54,55 @@ namespace Ms {
 int trimMargin = -1;
 
 //---------------------------------------------------------
+//   Helper Function:
 //   paintElement(s)
 //---------------------------------------------------------
 
 void paintElement(QPainter& p, const Element* e)
-      {
-      QPointF pos(e->pagePos());
-      p.translate(pos);
-      e->draw(&p);
-      p.translate(-pos);
-      }
+{
+    QPointF pos(e->pagePos());
+    p.translate(pos);
+    e->draw(&p);
+    p.translate(-pos);
+}
 
 void paintElements(QPainter& p, const QList<Element*>& el)
-      {
-      for (Element* e : el) {
-            if (!e->visible())
-                  continue;
-            paintElement(p, e);
-            }
-      }
+{
+    for (Element* e : el) {
+        if (!e->visible())
+            continue;
+        paintElement(p, e);
+    }
+}
 
 //---------------------------------------------------------
-//   MuseScore::saveSvg
-///  Save a single page
+//   Helper Function:
+// 
+//   findTextByType
+//    @data must contain std::pair<Tid, QStringList*>*
+//          Tid specifies text style
+//          QStringList* specifies the container to keep found text
+//
+//    For usage with Score::scanElements().
+//    Finds all text elements with specified style.
+//---------------------------------------------------------
+void findTextByType(void* data, Element* element)
+{
+    if (!element->isTextBase())
+        return;
+    TextBase* text = toTextBase(element);
+    auto* typeStringsData = static_cast<std::pair<Tid, QStringList*>*>(data);
+    if (text->tid() == typeStringsData->first) {
+        // or if score->getTextStyleUserName().contains("Title") ???
+        // That is bad since it may be localized
+        QStringList* titleStrings = typeStringsData->second;
+        Q_ASSERT(titleStrings);
+        titleStrings->append(text->plainText());
+    }
+}
+
+//---------------------------------------------------------
+///  Save a single page as SVG
 //---------------------------------------------------------
 bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground) 
     {
@@ -344,9 +370,149 @@ bool savePdf(Score* cs_, QIODevice* device)
 //   saveMidi
 //---------------------------------------------------------
 bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs)
-    {
-        ExportMidi em(score);
-        return em.write(device, midiExpandRepeats, exportRPNs);
-    }
+{
+    ExportMidi em(score);
+    return em.write(device, midiExpandRepeats, exportRPNs);
+}
+
+//---------------------------------------------------------
+//   saveMetadataJSON
+//---------------------------------------------------------
+
+QJsonObject saveMetadataJSON(Score* score)
+{
+    auto boolToString = [](bool b) { return b ? "true" : "false"; };
+    QJsonObject json;
+
+    // title
+    QString title;
+    Text* t = score->getText(Tid::TITLE);
+    if (t)
+        title = t->plainText();
+    if (title.isEmpty())
+        title = score->metaTag("workTitle");
+    if (title.isEmpty())
+        title = score->title();
+    json.insert("title", title);
+
+    // subtitle
+    QString subtitle;
+    t = score->getText(Tid::SUBTITLE);
+    if (t)
+        subtitle = t->plainText();
+    json.insert("subtitle", subtitle);
+
+    // composer
+    QString composer;
+    t = score->getText(Tid::COMPOSER);
+    if (t)
+        composer = t->plainText();
+    if (composer.isEmpty())
+        composer = score->metaTag("composer");
+    json.insert("composer", composer);
+
+    // poet
+    QString poet;
+    t = score->getText(Tid::POET);
+    if (t)
+        poet = t->plainText();
+    if (poet.isEmpty())
+        poet = score->metaTag("lyricist");
+    json.insert("poet", poet);
+
+    json.insert("mscoreVersion", score->mscoreVersion());
+    json.insert("fileVersion", score->mscVersion());
+
+    json.insert("pages", score->npages());
+    json.insert("measures", score->nmeasures());
+    json.insert("hasLyrics", boolToString(score->hasLyrics()));
+    json.insert("hasHarmonies", boolToString(score->hasHarmonies()));
+    json.insert("keysig", score->keysig());
+
+    // timeSig
+    QString timeSig;
+    int staves = score->nstaves();
+    int tracks = staves * VOICES;
+    Segment* tss = score->firstSegmentMM(SegmentType::TimeSig);
+    if (tss) {
+        Element* e = nullptr;
+        for (int track = 0; track < tracks; ++track) {
+                e = tss->element(track);
+                if (e) break;
+                }
+        if (e && e->isTimeSig()) {
+                TimeSig* ts = toTimeSig(e);
+                timeSig = QString("%1/%2").arg(ts->numerator()).arg(ts->denominator());
+                }
+        }
+    json.insert("timesig", timeSig);
+
+    json.insert("duration", score->duration());
+    json.insert("lyrics", score->extractLyrics());
+
+    // tempo
+    int tempo = 0;
+    QString tempoText;
+    for (Segment* seg = score->firstSegmentMM(SegmentType::All); seg; seg = seg->next1MM()) {
+            auto annotations = seg->annotations();
+            for (Element* a : annotations) {
+                if (a && a->isTempoText()) {
+                        TempoText* tt = toTempoText(a);
+                        tempo = round(tt->tempo() * 60);
+                        tempoText = tt->xmlText();
+                        }
+                }
+            }
+    json.insert("tempo", tempo);
+    json.insert("tempoText", tempoText);
+
+    // parts
+    QJsonArray jsonPartsArray;
+    for (Part* p : score->parts()) {
+        QJsonObject jsonPart;
+        jsonPart.insert("name", p->longName().replace("\n", ""));
+        int midiProgram = p->midiProgram();
+        if (p->midiChannel() == 9)
+            midiProgram = 128;
+        jsonPart.insert("program", midiProgram);
+        jsonPart.insert("instrumentId", p->instrumentId());
+        jsonPart.insert("lyricCount", p->lyricCount());
+        jsonPart.insert("harmonyCount", p->harmonyCount());
+        jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));
+        jsonPart.insert("hasTabStaff", boolToString(p->hasTabStaff()));
+        jsonPart.insert("hasDrumStaff", boolToString(p->hasDrumStaff()));
+        jsonPart.insert("isVisible", boolToString(p->show()));
+        jsonPartsArray.append(jsonPart);
+        }
+    json.insert("parts", jsonPartsArray);
+
+    // pageFormat
+    QJsonObject jsonPageformat;
+    jsonPageformat.insert("height",round(score->styleD(Sid::pageHeight) * INCH));
+    jsonPageformat.insert("width", round(score->styleD(Sid::pageWidth) * INCH));
+    jsonPageformat.insert("twosided", boolToString(score->styleB(Sid::pageTwosided)));
+    json.insert("pageFormat", jsonPageformat);
+
+    //text frames metadata
+    QJsonObject jsonTypeData;
+    static std::vector<std::pair<QString, Tid>> namesTypesList {
+        {"titles", Tid::TITLE},
+        {"subtitles", Tid::SUBTITLE},
+        {"composers", Tid::COMPOSER},
+        {"poets", Tid::POET}
+        };
+    for (auto nameType : namesTypesList) {
+        QJsonArray typeData;
+        QStringList typeTextStrings;
+        std::pair<Tid, QStringList*> extendedTitleData = std::make_pair(nameType.second, &typeTextStrings);
+        score->scanElements(&extendedTitleData, findTextByType);
+        for (auto typeStr : typeTextStrings)
+                typeData.append(typeStr);
+        jsonTypeData.insert(nameType.first, typeData);
+        }
+    json.insert("textFramesData", jsonTypeData);
+
+    return json;
+}
 
 }  // namespace Ms

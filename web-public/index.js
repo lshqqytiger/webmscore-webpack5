@@ -80,6 +80,13 @@ export class WebMscore {
     }
 
     /**
+     * Get score metadata
+     */
+    metadata() {
+        return JSON.parse(this.saveMetadata())
+    }
+
+    /**
      * Export score as MusicXML file
      * @returns {string} contents of the MusicXML file (plain text)
      */
@@ -188,6 +195,21 @@ export class WebMscore {
         )
 
         // XML is plain text
+        const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
+        freePtr(dataptr)
+
+        return data
+    }
+
+    /**
+     * Export score metadata as JSON
+     * @also `score.metadata()`
+     * @returns {string} contents of the JSON file
+     */
+    saveMetadata() {
+        const dataptr = Module.ccall('saveMetadata', 'number', ['number'], [this.scoreptr])
+
+        // JSON is plain text
         const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
         freePtr(dataptr)
 
