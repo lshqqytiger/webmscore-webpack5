@@ -225,7 +225,7 @@ const char* _savePositions(uintptr_t score_ptr, bool ofSegments) {
     QJsonObject json = Ms::savePositions(score, ofSegments);
     QJsonDocument saveDoc(json);
 
-    auto data = saveDoc.toJson();  // UTF-8 encoded JSON data
+    auto data = saveDoc.toJson(QJsonDocument::Compact);  // UTF-8 encoded JSON data
     qDebug("savePositions: ofSegments %d, file size %lld", ofSegments, data.size());
 
     // JSON is plain text
