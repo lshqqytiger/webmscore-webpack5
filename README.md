@@ -1,128 +1,121 @@
-![MuseScore](mscore/data/musescore_logo_full.png)  
-Music notation and composition software
 
-[![Travis CI](https://secure.travis-ci.org/musescore/MuseScore.svg?branch=master)](https://travis-ci.org/musescore/MuseScore)
-[![Appveyor](https://ci.appveyor.com/api/projects/status/bp3ww6v985i64ece/branch/master?svg=true)](https://ci.appveyor.com/project/MuseScore/musescore/branch/master)
-[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+# webmscore
 
-MuseScore is an open source and free music notation software. For support, contribution, and bug reports visit MuseScore.org. Fork and make pull requests!
+> MuseScore's libmscore (the core library) in WebAssembly!  
 
 ## Features
 
-- WYSIWYG design, notes are entered on a "virtual notepaper"
-- TrueType font(s) for printing & display allows for high quality scaling to all sizes
-- Easy & fast note entry
-- Many editing functions
-- MusicXML import/export
-- MIDI (SMF) import/export
-- MuseData import
-- MIDI input for note entry
-- Integrated sequencer and software synthesizer to play the score
-- Print or create pdf files
+* Parse `mscz` file data
+* Get score metadata
+* Generate music sheets in SVG/PNG/PDF formats
+* Generate MIDI
+* Export as MusicXML compressed/uncompressed
+* Generate position information of measures or segments on the generated sheets
 
-## More info
-- [MuseScore Homepage](https://musescore.org)
-- [MuseScore Git workflow instructions](https://musescore.org/en/developers-handbook/git-workflow)
-- [How to compile MuseScore?](https://musescore.org/en/developers-handbook/compilation)
+## Installation
 
-## License
-MuseScore is licensed under GPL version 2.0. See [LICENSE.GPL](https://github.com/musescore/MuseScore/blob/master/LICENSE.GPL) in the same directory.
+The package is available on npm: https://www.npmjs.com/package/webmscore
 
-## Packages
-- **aeolus:** Clone of [Aeolus](http://kokkinizita.linuxaudio.org/linuxaudio/aeolus/). Disabled by default in the stable releases. See http://dev-list.musescore.org/Aeolus-Organ-Synth-td7578364.html. Kept as an example of how to integrate with a complex synthesizer.
+```sh
+npm i webmscore
+```
 
-- **assets:** Graphical assets, use them if you need a MuseScore icon. For logo, color, etc., see https://musescore.org/en/about/logos-and-graphics.
+## Use webmscore
 
-- **awl:** Audio Widget Library, from the MusE project.
+### Load in browsers
 
-- **build:** Utility files for build.
+```html
+<!-- using a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/webmscore/webmscore.js"></script>
+<script>
+    WebMscore.ready.then(async () => {
+        const score = await WebMscore.load(name, msczdata)
+    })
+</script>
+```
 
-- **bww2mxml:** Command line tool to convert BWW files to MusicXML. BWW parser is used by MuseScore to import BWW files.
+### Run in Node.js directly
 
-- **demos:** A few MuseScore files to demonstrate what can be done.
+Minimum version: v8.9.0 with ES Modules support
 
-- **fluid:** Clone of [FluidSynth@sourceforge](https://sourceforge.net/projects/fluidsynth), ported to C++ and customized. Code now at [fluidsynth@github](https://github.com/FluidSynth/fluidsynth).
+The `--experimental-modules` flag is required for Node.js versions under 14,  
+Also require `"type": "module"` in `package.json`
 
-- **fonts:** Contains fontforge source (sfd) + ttf/otf fonts. MuseScore includes the "Emmentaler" font from the Lilypond project.
+```js
+import WebMscore from 'webmscore'
+WebMscore.ready.then(async () => {
+    const score = await WebMscore.load(name, msczdata)
+})
+```
 
-- **libmscore:** Data model of MuseScore.
+### Use a JavaScript bundler
 
-- **mscore:** Main code for the MuseScore UI.
+*(TBD)*
 
-- **msynth:** Abstract interface to Fluid + Aeolus.
+### Note: 
 
-- **mtest:** Unit testing using QTest.
+**Important!**
 
-- **omr:** Optical music recognition.
+Copy `webmscore.lib.data` and `webmscore.lib.wasm` to your artifact dir (the same directory as your final js bundle).
 
-- **share:** Files moved to /usr/share/... on install.
+## Compiling
 
-- **test:** Old tests. Should move to mtest.
+1. Install essential tools like `make`, `cmake`, `llvm`, etc.
 
-- **vtest:** Visual tests. Compare reference images with current implementation.
+2. Install `emscripten` using `emsdk`
+https://emscripten.org/docs/getting_started/downloads.html
 
-- **thirdparty:** Contains projects which are included for convenience, usually to integrate them into the build system to make them available for all supported platforms.
+3. Get and compile Qt5 for WebAssembly
 
-    - **thirdparty/rtf2html:**
-    Used for capella import. Clone from [rtf2html@sourceforge](https://sourceforge.net/projects/rtf2html), code now at [rtf2html@github](https://github.com/lvu/rtf2html).
+```sh
+CPUS=$(getconf _NPROCESSORS_ONLN 2>/dev/null || getconf NPROCESSORS_ONLN 2>/dev/null || 8)
 
-    - **thirdparty/dtl:**
-    Used for the score comparison tool. [Diff Template Library](https://github.com/cubicdaiya/dtl).
+QT_PATH=/usr/qt515/
+# If you want to use other directory, make sure you changed `PREFIX_PATH` to your Qt5WASM installation dir in the Makefile
 
-    - **thirdparty/ofqf:**
-    OSC server interface. Based on [OSC for Qt4](http://www.arnoldarts.de/projects/ofqf/), code now at [ofq@github](https://github.com/kampfschlaefer/ofq).
+git clone git://code.qt.io/qt/qt5.git --depth=1 -b 5.15.0 $QT_PATH
+# or
+# download and extract qt-everywhere 5.15.0 (https://download.qt.io/development_releases/qt/5.15/5.15.0-rc/single/ later https://download.qt.io/official_releases/qt/5.15/5.15.0/single/)
 
-    - **thirdparty/singleapp:**
-    Clone from [Qt Single Application](https://github.com/qtproject/qt-solutions/tree/master/qtsingleapplication).
+cd $QT_PATH
+./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
+make -j$CPUS
+```
 
-    - **thirdparty/portmidi:**
-    Clone from [PortMidi](https://sourceforge.net/projects/portmedia/).
+4. Compile `webmscore`
 
-    - **thirdparty/beatroot:**
-    It's a core part of [BeatRoot Vamp Plugin](https://code.soundsoftware.ac.uk/projects/beatroot-vamp/repository) by Simon Dixon and Chris Cannam, used in MIDI import for beat detection.
+```sh
+make release
+```
 
+Build artifacts are in the [web-public](./web-public) directory
 
-## Building
-**Read the developer handbook for a [complete build walkthrough](https://musescore.org/en/developers-handbook/compilation) and a list of dependencies.**
+## Browser Support 
 
-### Getting sources
-If using git to download repo of entire code history, type:
+All modern browsers
 
-    git clone https://github.com/musescore/MuseScore.git
-    cd MuseScore
+| Name | [Minimum Version](https://caniuse.com/#feat=wasm) |
+|---|---|
+| Chrome | 57 |
+| Firefox | 53, 52 (non-ESR) |
+| Edge | 16 (Fall Creators Update) |
+| Safari | 11 |
+| IE | NO! |
+| Other browsers | I don't know! |
 
-Otherwise, you can just download the latest source release tarball from the [Releases page](https://github.com/musescore/MuseScore/releases), and then from your download directory type:
+Only tested on the latest version of Chrome and Firefox.
 
-    tar xzf MuseScore-x.x.x.tar.gz
-    cd MuseScore-x.x.x
+## Examples
 
-### Release Build
-To compile MuseScore, type:
+see files in the [web-example](./web-example) directory
 
-    make release
+```sh
+cd ./web-example
+npm i
+npm start  # Node.js example
+npm run start:browser  # browser example
+```
 
-If something goes wrong, then remove the whole build subdirectory with `make clean` and start new with `make release`.
+---
 
-### Running
-To start MuseScore, type:
-
-    ./build.release/mscore/mscore
-
-The Start Center window will appear on every invocation until you disable that setting via the "Preferences" dialog.
-
-### Installing
-To install to default prefix using root user, type:
-
-    sudo make install
-
-### Debug Build
-A debug version can be built by doing `make debug` instead of `make release`.
-
-To run the debug version, type:
-
-    ./build.debug/mscore/mscore
-
-### Testing
-See [mtest/README.md](/mtest/README.md) or [the developer handbook](https://musescore.org/handbook/developers-handbook/finding-your-way-around/automated-tests) for instructions on how to run the test suite.
-
-The new [script testing facility](https://musescore.org/node/278278) is also available to create your own automated tests. Please try it out!
+webmscore is part of the [LibreScore](https://github.com/LibreScore/) project.
