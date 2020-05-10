@@ -9,7 +9,7 @@ import {
 } from './helper.js'
 
 
-export class WebMscore {
+class WebMscore {
 
     /**
      * This promise is resolved when the runtime is fully initialized
