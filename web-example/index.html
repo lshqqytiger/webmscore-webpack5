@@ -40,9 +40,9 @@
             saveAs(new Blob([score.saveMidi()]), `${title}.mid`)
             console.log('generated MIDI file')
 
-            const metadataJson = score.metadata()
-            saveAs(new Blob([metadataJson]), `metadata.json`)
-            console.log('score metadata', JSON.parse(metadataJson))
+            const metadata = score.metadata()
+            saveAs(new Blob([JSON.stringify(metadata)]), `metadata.json`)
+            console.log('score metadata', metadata)
 
             score.destroy()
             console.log('destroyed')
