@@ -106,7 +106,7 @@
 #include <QAbstractTextDocumentLayout>
 // #include <QTextBlock>
 // #include <QTextList>
-#include <QClipboard>
+// #include <QClipboard>
 // #include <QPlainTextEdit>
 // #include <QStyledItemDelegate>
 
@@ -125,13 +125,13 @@
 // #include <QPrintDialog>
 // #include <QPrinter>
 // #endif
-#include <QColorDialog>
+// #include <QColorDialog>
 // #include <QDockWidget>
 // #include <QStackedWidget>
 // #include <QStackedLayout>
 // #include <QListWidget>
-#include <QMessageBox>
-#include <QComboBox>
+// #include <QMessageBox>
+// #include <QComboBox>
 // #include <QMainWindow>
 // #include <QMenu>
 // #include <QMenuBar>

@@ -211,13 +211,13 @@ QString toUserString(Direction val)
 //   fillComboBox
 //---------------------------------------------------------
 
-void fillComboBoxDirection(QComboBox* cb)
-      {
-      cb->clear();
-      cb->addItem(toUserString(Direction::AUTO), QVariant::fromValue<Direction>(Direction::AUTO));
-      cb->addItem(toUserString(Direction::UP),   QVariant::fromValue<Direction>(Direction::UP));
-      cb->addItem(toUserString(Direction::DOWN), QVariant::fromValue<Direction>(Direction::DOWN));
-      }
+// void fillComboBoxDirection(QComboBox* cb)
+//       {
+//       cb->clear();
+//       cb->addItem(toUserString(Direction::AUTO), QVariant::fromValue<Direction>(Direction::AUTO));
+//       cb->addItem(toUserString(Direction::UP),   QVariant::fromValue<Direction>(Direction::UP));
+//       cb->addItem(toUserString(Direction::DOWN), QVariant::fromValue<Direction>(Direction::DOWN));
+//       }
 
 //---------------------------------------------------------
 //   doubleToSpatium

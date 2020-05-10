@@ -764,7 +764,7 @@ class Score : public QObject, public ScoreElement {
 
       void changeVoice(int);
 
-      void colorItem(Element*);
+      // void colorItem(Element*);
       QList<Part*>& parts()                { return _parts; }
       const QList<Part*>& parts() const    { return _parts; }
 

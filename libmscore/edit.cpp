@@ -2732,30 +2732,30 @@ void Score::cmdCreateTuplet(ChordRest* ocr, Tuplet* tuplet)
 //   colorItem
 //---------------------------------------------------------
 
-void Score::colorItem(Element* element)
-      {
-      QColor sc(element->color());
-      QColor c = QColorDialog::getColor(sc);
-      if (!c.isValid())
-            return;
+// void Score::colorItem(Element* element)
+//       {
+//       QColor sc(element->color());
+//       QColor c = QColorDialog::getColor(sc);
+//       if (!c.isValid())
+//             return;
 
-      foreach(Element* e, selection().elements()) {
-            if (e->color() != c) {
-                  e->undoChangeProperty(Pid::COLOR, c);
-                  e->setGenerated(false);
-                  addRefresh(e->abbox());
-                  if (e->isBarLine()) {
-//                        Element* ep = e->parent();
-//                        if (ep->isSegment() && toSegment(ep)->isEndBarLineType()) {
-//                              Measure* m = toSegment(ep)->measure();
-//                              BarLine* bl = toBarLine(e);
-//                              m->setEndBarLineType(bl->barLineType(), false, e->visible(), e->color());
-//                              }
-                        }
-                  }
-            }
-      deselectAll();
-      }
+//       foreach(Element* e, selection().elements()) {
+//             if (e->color() != c) {
+//                   e->undoChangeProperty(Pid::COLOR, c);
+//                   e->setGenerated(false);
+//                   addRefresh(e->abbox());
+//                   if (e->isBarLine()) {
+// //                        Element* ep = e->parent();
+// //                        if (ep->isSegment() && toSegment(ep)->isEndBarLineType()) {
+// //                              Measure* m = toSegment(ep)->measure();
+// //                              BarLine* bl = toBarLine(e);
+// //                              m->setEndBarLineType(bl->barLineType(), false, e->visible(), e->color());
+// //                              }
+//                         }
+//                   }
+//             }
+//       deselectAll();
+//       }
 
 //---------------------------------------------------------
 //   cmdExchangeVoice
@@ -3187,9 +3187,9 @@ bool Score::checkTimeDelete(Segment* startSegment, Segment* endSegment)
             etick = endTick;
             }
       if (!canDeleteTime) {
-            QMessageBox::information(0, "MuseScore",
-               tr("Please select the complete tuplet and retry the command"),
-               QMessageBox::Ok, QMessageBox::NoButton);
+            // QMessageBox::information(0, "MuseScore",
+            //    tr("Please select the complete tuplet and retry the command"),
+            //    QMessageBox::Ok, QMessageBox::NoButton);
             return false;
             }
       return true;

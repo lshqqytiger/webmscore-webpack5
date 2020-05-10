@@ -299,8 +299,8 @@ class Element : public ScoreElement {
       virtual void endEditDrag(EditData&);
       virtual void endEdit(EditData&);
 
-      virtual void editCut(EditData&)            {}
-      virtual void editCopy(EditData&)           {}
+      // virtual void editCut(EditData&)            {}
+      // virtual void editCopy(EditData&)           {}
 
       void updateGrips(EditData&) const;
       virtual bool nextGrip(EditData&) const;
@@ -378,7 +378,7 @@ class Element : public ScoreElement {
  delivers mouseEvent to element in edit mode
  returns true if mouse event is accepted by element
  */
-      virtual bool mousePress(EditData&) { return false; }
+      // virtual bool mousePress(EditData&) { return false; }
 
       mutable bool itemDiscovered      { false };     ///< helper flag for bsp
 

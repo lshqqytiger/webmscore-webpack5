@@ -262,7 +262,7 @@ class TextBase : public Element {
       TextBase(Score*, ElementFlags);
       TextBase(const TextBase&);
 
-      virtual bool mousePress(EditData&) override;
+      // virtual bool mousePress(EditData&) override;
 
       Text &operator=(const Text&) = delete;
 
@@ -290,8 +290,8 @@ class TextBase : public Element {
 
       virtual void startEdit(EditData&) override;
       virtual bool edit(EditData&) override;
-      virtual void editCut(EditData&) override;
-      virtual void editCopy(EditData&) override;
+      // virtual void editCut(EditData&) override;
+      // virtual void editCopy(EditData&) override;
       virtual void endEdit(EditData&) override;
       void movePosition(EditData&, QTextCursor::MoveOperation);
 
@@ -309,7 +309,7 @@ class TextBase : public Element {
       void writeProperties(XmlWriter&, bool, bool) const;
       bool readProperties(XmlReader&);
 
-      virtual void paste(EditData&);
+      // virtual void paste(EditData&);
 
       QRectF pageRectangle() const;
 
