@@ -34,6 +34,12 @@ npm i webmscore
 </script>
 ```
 
+For latest browsers which support ES Modules
+
+```js
+import WebMscore from 'https://cdn.jsdelivr.net/npm/webmscore/webmscore.mjs'
+```
+
 ### Run in Node.js directly
 
 Minimum version: v8.9.0 with ES Modules support
