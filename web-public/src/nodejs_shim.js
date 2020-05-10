@@ -20,7 +20,7 @@ if (IS_NODE) {
     // mock dom objects
     global.window = global.window || {
         addEventListener() { },
-        location: { pathname: '' },
+        location: new URL("../", import.meta.url),
         encodeURIComponent,
     }
     global.navigator = global.navigator || {}

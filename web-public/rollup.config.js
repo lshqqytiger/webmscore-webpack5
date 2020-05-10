@@ -1,8 +1,8 @@
 
 export default {
-    input: "index.js",
+    input: "src/index.js",
     output: {
-        file: "dist/webmscore.js",
+        file: "webmscore.js",
         format: "iife",
         name: 'WebMscore',
         exports: 'default',

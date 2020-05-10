@@ -1,14 +1,16 @@
 
-import LibMscore from './webmscore.lib.js'
+import LibMscore from '../webmscore.lib.js'
 
 const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
 
 const moduleOptions = IS_NODE
     ? {
+        locateFile(path) {
+            const { join, dirname } = require('path')
+            return join(dirname(__dirname), path)
+        },
         getPreloadedPackage(remotePackageName) {
-            // fix loading the preload pack in Node.js
-            const path = require('path').join(__dirname, remotePackageName)
-            const buf = require('fs').readFileSync(path).buffer
+            const buf = require('fs').readFileSync(remotePackageName).buffer
             return buf
         }
     }

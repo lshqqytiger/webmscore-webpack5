@@ -1,8 +1,9 @@
 {
     "type": "module",
-    "main": "./index.js",
+    "main": "./webmscore.js",
+    "module": "./src/index.js",
     "exports": {
-        "browser": "./index.js",
-        "node": "./nodejs.js"
+        "browser": "./src/index.js",
+        "node": "./src/nodejs.js"
     }
 }
