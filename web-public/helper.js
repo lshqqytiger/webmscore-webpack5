@@ -14,11 +14,20 @@ const moduleOptions = IS_NODE
     }
     : {
         locateFile(path) {
-            // fix loading the preload pack in Browsers
-            const prefix = import.meta.url
+            // fix loading the preload pack in Browsers and WebWorkers
+            let prefix = import.meta.url  // transforms to "" in the generated bundle
+            if (!prefix) {
+                if (typeof document !== "undefined") {
+                    prefix = document.currentScript && document.currentScript.src || document.baseURI
+                } else if (typeof location !== "undefined") {
+                    prefix = location.href
+                }
+            }
             return new URL(path, prefix).href
         }
     }
+
+typeof importScripts === "function"
 
 const Module = LibMscore(moduleOptions)
 export { Module }

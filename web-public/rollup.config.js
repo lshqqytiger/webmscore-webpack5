@@ -8,4 +8,14 @@ export default {
         exports: 'default',
         sourcemap: false,
     },
+    plugins: [
+        {
+            resolveImportMeta(property) {
+                if (property === 'url') {
+                    return '""';
+                }
+                return null;
+            },
+        },
+    ],
 }
