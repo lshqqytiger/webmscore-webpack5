@@ -75,7 +75,7 @@ class WebMscore {
      * Get the score title (filename safe, replaced some characters)
      */
     titleFilenameSafe() {
-        return this.title().replace(/[\s<>:{}"/\\|?*~.\0\cA-\cZ]+/g, "_")
+        return this.title().replace(/[\s<>:{}"/\\|?*~.\0\cA-\cZ]+/g, '_')
     }
 
     /**
@@ -88,7 +88,7 @@ class WebMscore {
 
     /**
      * Get score metadata
-     * @returns {import("../schemas").ScoreMetadata}
+     * @returns {import('../schemas').ScoreMetadata}
      */
     metadata() {
         return JSON.parse(this.saveMetadata())
@@ -96,7 +96,7 @@ class WebMscore {
 
     /**
      * Get the positions of measures
-     * @returns {import("../schemas").Positions}
+     * @returns {import('../schemas').Positions}
      */
     measurePositions() {
         return JSON.parse(this.savePositions(false))
@@ -104,7 +104,7 @@ class WebMscore {
 
     /**
      * Get the positions of segments
-     * @returns {import("../schemas").Positions}
+     * @returns {import('../schemas').Positions}
      */
     segmentPositions() {
         return JSON.parse(this.savePositions(true))
