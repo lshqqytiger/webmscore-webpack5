@@ -1,9 +1,6 @@
 
 #include <emscripten/emscripten.h>
 
-#include <QBuffer>
-#include <QtGui>
-
 #include "libmscore/exports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
@@ -48,7 +45,7 @@ int _version() {
  * init libmscore
  */
 void _init(int argc, char** argv) {
-    QApplication* app = new QApplication(argc, argv);
+    QGuiApplication* app = new QGuiApplication(argc, argv);
 
     Ms::MScore::noGui = true;
     Ms::MScore::debugMode = true;

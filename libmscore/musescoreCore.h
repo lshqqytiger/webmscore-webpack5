@@ -36,7 +36,7 @@ class MuseScoreCore
 
       virtual bool saveAs(Score*, bool /*saveCopy*/, const QString& /*path*/, const QString& /*ext*/) { return false; }
       virtual void closeScore(Score*) {}
-      virtual void cmd(QAction* /*a*/) {}
+      // virtual void cmd(QAction* /*a*/) {}
       virtual void setCurrentView(int /*tabIdx*/, int /*idx*/) {}
 
       virtual int appendScore(MasterScore* s)               { scoreList.append(s); return 0;  }

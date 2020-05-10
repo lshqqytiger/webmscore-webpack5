@@ -60,6 +60,7 @@
 #endif
 
 #include <QtGui>
+#include <QWidget>
 // #include <QLoggingCategory>
 // #include <QModelIndex>
 
@@ -72,8 +73,8 @@
 
 #include <QtXml>
 #include <QAbstractMessageHandler>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
+// #include <QXmlSchema>
+// #include <QXmlSchemaValidator>
 #include <QXmlStreamReader>
 
 #include <QPointF>
@@ -85,12 +86,12 @@
 #include <QtDebug>
 #include <QSharedData>
 #include <QHash>
-#include <QKeySequence>
-#include <QAction>
+// #include <QKeySequence>
+// #include <QAction>
 
-#include <QAtomicInt>
-#include <QErrorMessage>
-#include <QEventLoop>
+// #include <QAtomicInt>
+// #include <QErrorMessage>
+// #include <QEventLoop>
 
 #include <QPainterPath>
 #include <QPixmap>
@@ -103,7 +104,7 @@
 #include <QTextDocument>
 #include <QTextDocumentFragment>
 #include <QTextCursor>
-#include <QAbstractTextDocumentLayout>
+// #include <QAbstractTextDocumentLayout>
 // #include <QTextBlock>
 // #include <QTextList>
 // #include <QClipboard>
@@ -158,7 +159,7 @@
 // #include <QButtonGroup>
 // #include <QSplashScreen>
 // #include <QFontComboBox>
-#include <QApplication>
+#include <QGuiApplication>
 // #include <QStatusBar>
 // #include <QStyle>
 // #include <QStylePainter>

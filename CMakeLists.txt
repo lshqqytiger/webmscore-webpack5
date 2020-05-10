@@ -209,7 +209,7 @@ configure_file (
 ## Add subdirs
 ##
 # add_subdirectory(effects)
-add_subdirectory(synthesizer)
+# add_subdirectory(synthesizer)
 
 subdirs(
       libmscore

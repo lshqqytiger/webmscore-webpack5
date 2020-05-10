@@ -105,6 +105,7 @@ add_executable (
       connector.cpp location.cpp skyline.cpp
       scorediff.cpp
       unrollrepeats.cpp
+      ../synthesizer/event.cpp
       ../mscore/exportxml.cpp ../mscore/importxmlfirstpass.cpp ../mscore/musicxmlfonthandler.cpp ../mscore/musicxmlsupport.cpp
       ../mscore/svggenerator.cpp
       ../mscore/exportmidi.cpp
@@ -156,7 +157,6 @@ endif (NOT MSVC)
 target_link_libraries(webmscore  
    ${QT_LIBRARIES}
    qzip
-   synthesizer
    midi
 )
 

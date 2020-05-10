@@ -3758,6 +3758,7 @@ void Score::cmdToggleAutoplace(bool all)
 //---------------------------------------------------------
 //   cmd
 //---------------------------------------------------------
+#if 0
 
 void Score::cmd(const QAction* a, EditData& ed)
       {
@@ -3928,6 +3929,7 @@ void Score::cmd(const QAction* a, EditData& ed)
       qDebug("unknown cmd <%s>", qPrintable(cmd));
       }
 
+#endif
 
 }
 
