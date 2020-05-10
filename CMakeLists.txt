@@ -62,10 +62,11 @@ option(BUILD_PCH "Build using precompiled headers." ON)
 option(EMBED_PRELOADS "Embed preload files in the .js file, otherwise pack into a separate .data file." OFF)
 
 
-set(CMAKE_EXECUTABLE_SUFFIX ".js")
+set(CMAKE_EXECUTABLE_SUFFIX ".lib.js")
 
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} --bind")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} --source-map-base ./")
+# set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s WASM=0 -s SINGLE_FILE=1")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s WASM=1")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXPORT_ES6=1 -s USE_ES6_IMPORT_META=0 -s MODULARIZE=1")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s ALLOW_MEMORY_GROWTH=1")

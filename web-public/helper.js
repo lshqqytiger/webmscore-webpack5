@@ -1,5 +1,5 @@
 
-import LibMscore from './webmscore.js'
+import LibMscore from './webmscore.lib.js'
 
 const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
 
