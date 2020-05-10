@@ -1,10 +1,10 @@
 {
     "name": "webmscore",
-    "version": "0.1.0-rc.1",
+    "version": "0.1.0",
     "description": "MuseScore's libmscore in WebAssembly! Read mscz data, and generate MIDI/MusicXML/SVG/PNG/PDF sheets right in browsers",
     "type": "module",
     "main": "./webmscore.js",
-    "module": "./src/index.js",
+    "module": "./webmscore.mjs",
     "exports": {
         "browser": "./src/index.js",
         "node": "./src/nodejs.js"
@@ -13,6 +13,7 @@
         "src",
         "schemas.ts",
         "webmscore.js",
+        "webmscore.mjs",
         "webmscore.lib.*"
     ],
     "keywords": [
@@ -40,8 +41,10 @@
         "rollup": "^2.8.2"
     },
     "scripts": {
+        "build": "npm run clean && npm run compile && npm run bundle",
         "bundle": "rollup -c",
-        "build": "cd ../ && make release",
+        "compile": "cd ../ && make release",
+        "clean": "cd ../ && make clean",
         "prepack": "cp ../README.md ."
     }
 }
