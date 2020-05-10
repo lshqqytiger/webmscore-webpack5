@@ -1,9 +1,47 @@
 {
+    "name": "webmscore",
+    "version": "0.1.0-rc.1",
+    "description": "MuseScore's libmscore in WebAssembly! Read mscz data, and generate MIDI/MusicXML/SVG/PNG/PDF sheets right in browsers",
     "type": "module",
     "main": "./webmscore.js",
     "module": "./src/index.js",
     "exports": {
         "browser": "./src/index.js",
         "node": "./src/nodejs.js"
+    },
+    "files": [
+        "src",
+        "schemas.ts",
+        "webmscore.js",
+        "webmscore.lib.*"
+    ],
+    "keywords": [
+        "musescore",
+        "mscz",
+        "svg",
+        "midi",
+        "musicxml",
+        "sheet-music",
+        "scorefile",
+        "webassembly",
+        "LibreScore"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/LibreScore/webmscore.git"
+    },
+    "bugs": {
+        "url": "https://github.com/LibreScore/webmscore/issues"
+    },
+    "homepage": "https://github.com/LibreScore/webmscore#readme",
+    "author": "LibreScore",
+    "license": "GPL",
+    "devDependencies": {
+        "rollup": "^2.8.2"
+    },
+    "scripts": {
+        "bundle": "rollup -c",
+        "build": "cd ../ && make release",
+        "prepack": "cp ../README.md ."
     }
 }
