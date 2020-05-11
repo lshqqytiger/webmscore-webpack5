@@ -98,9 +98,9 @@ Build artifacts are in the [web-public](./web-public) directory
 
 ## Browser Support 
 
-All modern browsers
+All modern browsers which support [WebAssembly](https://caniuse.com/#feat=wasm) and [Async Functions](https://caniuse.com/#feat=async-functions)
 
-| Name | [Minimum Version](https://caniuse.com/#feat=wasm) |
+| Name | Minimum Version |
 |---|---|
 | Chrome | 57 |
 | Firefox | 53, 52 (non-ESR) |
