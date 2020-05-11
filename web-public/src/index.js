@@ -22,12 +22,12 @@ class WebMscore {
     }
 
     /**
-     * The MSCZ/MSCX file format version  (e.g. `301`)
-     * @returns {Promise<number>}
+     * The maximum MSCZ/MSCX file format version supported by webmscore 
+     * @returns {Promise<number>} e.g. `301`
      */
     static async version() {
         await WebMscore.ready
-        return Module.ccall('version', null, ['number'])
+        return Module.ccall('version', 'number')
     }
 
     /**
