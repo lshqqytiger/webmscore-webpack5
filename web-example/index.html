@@ -22,26 +22,28 @@
             const score = await WebMscore.load(name, filedata)
             console.log(score)
 
-            const title = score.titleFilenameSafe()
+            const title = await score.titleFilenameSafe()
             console.log('score title:', title)
-            console.log('number of pages:', score.npages())
+            console.log('number of pages:', await score.npages())
 
-            saveAs(new Blob([score.saveXml()]), `${title}.musicxml`)
+            saveAs(new Blob([await score.saveXml()]), `${title}.musicxml`)
             console.log('generated MusicXML file')
 
-            for (const [index, svg] of score.saveSvgIt(true)) {
+            const n = await score.npages()
+            for (let index = 0; index < n; index++) {
                 const f = `${title}-${index}.svg`
+                const svg = await score.saveSvg(index, true)
                 saveAs(new Blob([svg]), f)
                 console.log(`generated SVG page ${index}`)
             }
 
-            saveAs(new Blob([score.saveMxl()]), `${title}.mxl`)
+            saveAs(new Blob([await score.saveMxl()]), `${title}.mxl`)
             console.log('generated compressed MusicXML file')
 
-            saveAs(new Blob([score.saveMidi()]), `${title}.mid`)
+            saveAs(new Blob([await score.saveMidi()]), `${title}.mid`)
             console.log('generated MIDI file')
 
-            const metadata = score.metadata()
+            const metadata = await score.metadata()
             saveAs(new Blob([JSON.stringify(metadata)]), `metadata.json`)
             console.log('score metadata', metadata)
 

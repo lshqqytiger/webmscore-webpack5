@@ -1,4 +1,6 @@
 
+// @ts-check
+
 import {
     Module,
     RuntimeInitialized,
@@ -62,9 +64,9 @@ class WebMscore {
 
     /**
      * Get the score title
-     * @returns {string}
+     * @returns {Promise<string>}
      */
-    title() {
+    async title() {
         const strptr = Module.ccall('title', 'number', ['number'], [this.scoreptr])
         const str = Module.UTF8ToString(strptr + 8)  // 8 bytes of padding
         freePtr(strptr)
@@ -74,47 +76,48 @@ class WebMscore {
     /**
      * Get the score title (filename safe, replaced some characters)
      */
-    titleFilenameSafe() {
-        return this.title().replace(/[\s<>:{}"/\\|?*~.\0\cA-\cZ]+/g, '_')
+    async titleFilenameSafe() {
+        const title = await this.title()
+        return title.replace(/[\s<>:{}"/\\|?*~.\0\cA-\cZ]+/g, '_')
     }
 
     /**
      * Get the number of pages in the score
-     * @returns {number}
+     * @returns {Promise<number>}
      */
-    npages() {
+    async npages() {
         return Module.ccall('npages', 'number', ['number'], [this.scoreptr])
     }
 
     /**
      * Get score metadata
-     * @returns {import('../schemas').ScoreMetadata}
+     * @returns {Promise<import('../schemas').ScoreMetadata>}
      */
-    metadata() {
-        return JSON.parse(this.saveMetadata())
+    async metadata() {
+        return JSON.parse(await this.saveMetadata())
     }
 
     /**
      * Get the positions of measures
-     * @returns {import('../schemas').Positions}
+     * @returns {Promise<import('../schemas').Positions>}
      */
-    measurePositions() {
-        return JSON.parse(this.savePositions(false))
+    async measurePositions() {
+        return JSON.parse(await this.savePositions(false))
     }
 
     /**
      * Get the positions of segments
-     * @returns {import('../schemas').Positions}
+     * @returns {Promise<import('../schemas').Positions>}
      */
-    segmentPositions() {
-        return JSON.parse(this.savePositions(true))
+    async segmentPositions() {
+        return JSON.parse(await this.savePositions(true))
     }
 
     /**
      * Export score as MusicXML file
-     * @returns {string} contents of the MusicXML file (plain text)
+     * @returns {Promise<string>} contents of the MusicXML file (plain text)
      */
-    saveXml() {
+    async saveXml() {
         const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
 
         // MusicXML is plain text
@@ -126,9 +129,9 @@ class WebMscore {
 
     /**
      * Export score as compressed MusicXML file
-     * @returns {Uint8Array}
+     * @returns {Promise<Uint8Array>}
      */
-    saveMxl() {
+    async saveMxl() {
         const dataptr = Module.ccall('saveMxl', 'number', ['number'], [this.scoreptr])
         return readData(dataptr)
     }
@@ -137,9 +140,9 @@ class WebMscore {
      * Export score as the SVG file of one page
      * @param {number} pageNumber integer
      * @param {boolean} drawPageBackground 
-     * @returns {string} contents of the SVG file (plain text)
+     * @returns {Promise<string>} contents of the SVG file (plain text)
      */
-    saveSvg(pageNumber = 0, drawPageBackground = false) {
+    async saveSvg(pageNumber = 0, drawPageBackground = false) {
         const dataptr = Module.ccall('saveSvg',
             'number',
             ['number', 'number', 'boolean'],
@@ -154,26 +157,13 @@ class WebMscore {
     }
 
     /**
-     * Iteratively export score as SVG files of each page
-     * @param {boolean=} drawPageBackground 
-     * @returns {Generator<[number, string]>} [index, svg contents]
-     */
-    * saveSvgIt(drawPageBackground) {
-        const pagesN = this.npages()
-
-        for (let i = 0; i < pagesN; i++) {
-            yield [i, this.saveSvg(i, drawPageBackground)]
-        }
-    }
-
-    /**
      * Export score as the PNG file of one page
      * @param {number} pageNumber integer
      * @param {boolean} drawPageBackground 
      * @param {boolean} transparent
-     * @returns {ArrayBuffer}
+     * @returns {Promise<Uint8Array>}
      */
-    savePng(pageNumber = 0, drawPageBackground = false, transparent = true) {
+    async savePng(pageNumber = 0, drawPageBackground = false, transparent = true) {
         const dataptr = Module.ccall('savePng',
             'number',
             ['number', 'number', 'boolean', 'boolean'],
@@ -184,9 +174,9 @@ class WebMscore {
 
     /**
      * Export score as PDF file
-     * @returns {Uint8Array}
+     * @returns {Promise<Uint8Array>}
      */
-    savePdf() {
+    async savePdf() {
         const dataptr = Module.ccall('savePdf', 'number', ['number'], [this.scoreptr])
         return readData(dataptr)
     }
@@ -195,9 +185,9 @@ class WebMscore {
      * Export score as MIDI file
      * @param {boolean} midiExpandRepeats 
      * @param {boolean} exportRPNs 
-     * @returns {Uint8Array}
+     * @returns {Promise<Uint8Array>}
      */
-    saveMidi(midiExpandRepeats = true, exportRPNs = true) {
+    async saveMidi(midiExpandRepeats = true, exportRPNs = true) {
         const dataptr = Module.ccall('saveMidi',
             'number',
             ['number', 'boolean', 'boolean'],
@@ -210,9 +200,9 @@ class WebMscore {
      * Export positions of measures or segments (if `ofSegments` == true) as JSON
      * @param {boolean} ofSegments
      * @also `score.measurePositions()` and `score.segmentPositions()`
-     * @returns {string}
+     * @returns {Promise<string>}
      */
-    savePositions(ofSegments) {
+    async savePositions(ofSegments) {
         const dataptr = Module.ccall('savePositions',
             'number',
             ['number', 'boolean'],
@@ -229,9 +219,9 @@ class WebMscore {
     /**
      * Export score metadata as JSON
      * @also `score.metadata()`
-     * @returns {string} contents of the JSON file
+     * @returns {Promise<string>} contents of the JSON file
      */
-    saveMetadata() {
+    async saveMetadata() {
         const dataptr = Module.ccall('saveMetadata', 'number', ['number'], [this.scoreptr])
 
         // JSON is plain text

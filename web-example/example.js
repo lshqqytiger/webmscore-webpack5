@@ -17,38 +17,40 @@ WebMscore.ready.then(async () => {
     console.log(score)
     console.log()
 
-    console.log('score title:', score.title())
-    console.log('number of pages:', score.npages())
+    console.log('score title:', await score.title())
+    console.log('number of pages:', await score.npages())
     console.log()
 
-    fs.writeFileSync(`./${exportedPrefix}.musicxml`, score.saveXml())
+    fs.writeFileSync(`./${exportedPrefix}.musicxml`, await score.saveXml())
     console.log(`generated MusicXML file: ./${exportedPrefix}.musicxml`)
 
-    for (const [index, svg] of score.saveSvgIt(true)) {
+    const n = await score.npages()
+    for (let index = 0; index < n; index++) {
         const f = `./${exportedPrefix}-${index}.svg`
+        const svg = await score.saveSvg(index, true)
         fs.writeFileSync(f, svg)
         console.log(`generated SVG page ${index}: ${f}`)
     }
 
-    fs.writeFileSync(`./${exportedPrefix}-2.png`, score.savePng(2))
+    fs.writeFileSync(`./${exportedPrefix}-2.png`, await score.savePng(2))
     console.log(`generated PNG page 2: ./${exportedPrefix}-2.png`)
 
-    fs.writeFileSync(`./${exportedPrefix}.pdf`, score.savePdf())
+    fs.writeFileSync(`./${exportedPrefix}.pdf`, await score.savePdf())
     console.log(`generated PDF file: ./${exportedPrefix}.pdf`)
 
-    fs.writeFileSync(`./${exportedPrefix}.mxl`, score.saveMxl())
+    fs.writeFileSync(`./${exportedPrefix}.mxl`, await score.saveMxl())
     console.log(`generated compressed MusicXML file: ./${exportedPrefix}.mxl`)
 
-    fs.writeFileSync(`./${exportedPrefix}.mid`, score.saveMidi())
+    fs.writeFileSync(`./${exportedPrefix}.mid`, await score.saveMidi())
     console.log(`generated MIDI file: ./${exportedPrefix}.mid`)
 
-    fs.writeFileSync(`./${exportedPrefix}-mpos.json`, score.savePositions(false))
+    fs.writeFileSync(`./${exportedPrefix}-mpos.json`, await score.savePositions(false))
     console.log(`exported positions of measures: ./${exportedPrefix}-mpos.json`)
 
-    fs.writeFileSync(`./${exportedPrefix}-spos.json`, score.savePositions(true))
+    fs.writeFileSync(`./${exportedPrefix}-spos.json`, await score.savePositions(true))
     console.log(`exported positions of segments: ./${exportedPrefix}.spos.json`)
 
-    console.log('score metadata', score.metadata())
+    console.log('score metadata', await score.metadata())
 
     score.destroy()
     console.log('destroyed')
