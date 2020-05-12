@@ -38,6 +38,11 @@ interface ScorePageFormat {
 
 interface ScoreExcerptData {
     /**
+     * excerpt id
+     */
+    id: number;
+
+    /**
      * title of the excerpt
      */
     title: string;

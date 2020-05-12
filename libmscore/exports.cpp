@@ -520,11 +520,13 @@ QJsonObject saveMetadataJSON(Score* score)
 
     // excerpts (linked parts)
     QJsonArray jsonExcerptsArray;
-    for (Excerpt* e : score->excerpts())
-    {
+    auto excerpts = score->excerpts();
+    for (int i = 0; i < excerpts.size(); i++)
+    {   
         QJsonObject jsonExcerpt;
+        Excerpt* e = excerpts[i];
 
-        // jsonExcerpt.insert("id", i);
+        jsonExcerpt.insert("id", i);
         jsonExcerpt.insert("title", e->title());
         QJsonArray parts;
         for (Part* p : e->parts()) {
