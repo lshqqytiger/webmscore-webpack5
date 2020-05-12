@@ -4,6 +4,7 @@
 // implements the same API set as './index.js'
 
 import { WebMscoreWorker } from '../.cache/worker'
+import { getSelfURL } from './utils'
 
 /**
  * Use webmscore as a web worker
@@ -15,7 +16,11 @@ class WebMscoreW extends Worker {
      */
     constructor() {
         const url = URL.createObjectURL(
-            new Blob(['(' + WebMscoreWorker.toString() + ')()'])
+            new Blob([
+                `(function () { var MSCORE_SCRIPT_URL = "${getSelfURL()}";`  // set the environment variable for worker
+                + '(' + WebMscoreWorker.toString() + ')()'
+                + '})()'
+            ])
         )
         super(url)
     }
