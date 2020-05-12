@@ -2,7 +2,7 @@
 import { createRequire } from 'module'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { IS_NODE } from './utils.js'
+import { IS_NODE, shimDom } from './utils.js'
 
 if (IS_NODE) {
 
@@ -16,12 +16,5 @@ if (IS_NODE) {
         global.__dirname = dirname(fileURLToPath(import.meta.url))
     }
 
-    // mock dom objects
-    global.window = global.window || {
-        addEventListener() { },
-        location: new URL("../", import.meta.url),
-        encodeURIComponent,
-    }
-    global.navigator = global.navigator || {}
-
+    shimDom()
 }

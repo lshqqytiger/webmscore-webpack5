@@ -4,7 +4,7 @@
 // implements the same API set as './index.js'
 
 import { WebMscoreWorker } from '../.cache/worker.js'
-import { getSelfURL } from './utils.js'
+import { getSelfURL, shimDom } from './utils.js'
 
 /**
  * Use webmscore as a web worker
@@ -18,6 +18,7 @@ class WebMscoreW extends Worker {
         const url = URL.createObjectURL(
             new Blob([
                 `(function () { var MSCORE_SCRIPT_URL = "${getSelfURL()}";`  // set the environment variable for worker
+                + '(' + shimDom.toString() + ')();'
                 + '(' + WebMscoreWorker.toString() + ')()'
                 + '})()'
             ])
@@ -61,7 +62,7 @@ class WebMscoreW extends Worker {
      * @param {any[]} params 
      * @param {Transferable[]} transfer
      */
-    async rpc(method, params = null, transfer = undefined) {
+    async rpc(method, params = [], transfer = undefined) {
         const id = Math.random()
 
         return new Promise((resolve, reject) => {
