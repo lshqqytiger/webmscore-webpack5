@@ -12,17 +12,6 @@ const plugins = [
 
 export default [
     {
-        input: "src/index.js",
-        output: {
-            file: "webmscore.js",
-            format: "iife",
-            name: 'WebMscore',
-            exports: 'default',
-            sourcemap: false,
-        },
-        plugins,
-    },
-    {
         input: "src/worker.js",
         output: {
             file: ".cache/worker.js",
@@ -36,7 +25,17 @@ export default [
     {
         input: "src/worker-helper.js",
         output: {
-            file: "webmscore.worker.mjs",
+            file: "webmscore.js",
+            format: "iife",
+            name: 'WebMscore',
+            sourcemap: false,
+        },
+        plugins,
+    },
+    {
+        input: "src/worker-helper.js",
+        output: {
+            file: "webmscore.mjs",
             format: "esm",
             sourcemap: false,
         }
