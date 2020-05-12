@@ -1,6 +1,7 @@
 
 #include <emscripten/emscripten.h>
 
+#include "libmscore/excerpt.h"
 #include "libmscore/exports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
@@ -34,6 +35,22 @@ QByteArray padData(QByteArray data) {
     return QByteArray(8, '\0').append(data);
 }
 
+Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
+    // -1 means the full score
+    if (excerptId >= 0) {
+        QList<Ms::Excerpt*> excerpts = score->excerpts();
+
+        if (excerptId >= excerpts.size()) {
+            throw(QString("Not a valid excerptId.")); 
+        }
+
+        qDebug("useExcerpt: %d", excerptId);
+        score = excerpts[excerptId]->partScore();
+    }
+
+    return score;
+}
+
 /**
  * the MSCZ/MSCX file format version
  */
@@ -45,7 +62,7 @@ int _version() {
  * init libmscore
  */
 void _init(int argc, char** argv) {
-    QGuiApplication* app = new QGuiApplication(argc, argv);
+    new QGuiApplication(argc, argv);
 
     Ms::MScore::noGui = true;
     Ms::MScore::debugMode = true;
@@ -68,10 +85,18 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
 
     score->loadMsc(_name, &buffer, true);
 
-    score->doLayout();
-    // for (Ms::Score* s : score->scoreList()) {
-    //     s->doLayout();
-    // }
+    // mscore/file.cpp#L2257 readScore
+    score->rebuildMidiMapping();
+    score->setSoloMute();
+    for (auto s : score->scoreList()) {
+        s->setPlaylistDirty();
+        s->addLayoutFlags(Ms::LayoutFlag::FIX_PITCH_VELO);
+        s->setLayoutAll();
+    }
+    score->updateChannel();
+
+    // do layout ...
+    score->update();
 
     return reinterpret_cast<uintptr_t>(score);
 }
@@ -100,22 +125,24 @@ QByteArray _title(uintptr_t score_ptr) {
 /**
  * get the number of pages
  */
-int _npages(uintptr_t score_ptr) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+int _npages(uintptr_t score_ptr, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
     return score->npages();
 }
 
 /**
  * export score as MusicXML file
  */
-const char* _saveXml(uintptr_t score_ptr) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _saveXml(uintptr_t score_ptr, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
     Ms::saveXml(score, &buffer);
-    qDebug("saveXml size %lld bytes", buffer.size());
+    qDebug("saveXml: excerpt %d, size %lld bytes", excerptId, buffer.size());
 
     // MusicXML is plain text
     return padData(
@@ -126,8 +153,9 @@ const char* _saveXml(uintptr_t score_ptr) {
 /**
  * export score as compressed MusicXML file
  */
-const char* _saveMxl(uintptr_t score_ptr) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _saveMxl(uintptr_t score_ptr, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::ReadWrite);
@@ -136,7 +164,7 @@ const char* _saveMxl(uintptr_t score_ptr) {
     Ms::saveMxl(score, &buffer);
 
     auto size = buffer.size();
-    qDebug("saveMxl size %lld", size);
+    qDebug("saveMxl: excerpt %d, size %lld", excerptId, size);
 
     return packData(buffer.data(), size);
 }
@@ -144,15 +172,16 @@ const char* _saveMxl(uintptr_t score_ptr) {
 /**
  * export score as SVG
  */
-const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
     score->switchToPageMode(); // not really required, as the default _layoutMode is LayoutMode::PAGE
     Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
-    qDebug("saveSvg: page index %d, size %lld bytes", pageNumber, buffer.size());
+    qDebug("saveSvg: excerpt %d, page index %d, size %lld bytes", excerptId, pageNumber, buffer.size());
 
     // SVG is plain text
     return padData(
@@ -163,8 +192,9 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
 /**
  * export score as PNG
  */
-const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
@@ -173,7 +203,7 @@ const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     Ms::savePng(score, &buffer, pageNumber, drawPageBackground, transparent);
 
     auto size = buffer.size();
-    qDebug("savePng: page index %d, drawPageBackground %d, transparent %d, size %lld bytes", pageNumber, drawPageBackground, transparent, size);
+    qDebug("savePng: excerpt %d, page index %d, drawPageBackground %d, transparent %d, size %lld bytes", excerptId, pageNumber, drawPageBackground, transparent, size);
 
     return packData(buffer.data(), size);
 }
@@ -181,8 +211,9 @@ const char* _savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
 /**
  * export score as PDF
  */
-const char* _savePdf(uintptr_t score_ptr) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _savePdf(uintptr_t score_ptr, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::ReadWrite);
@@ -190,7 +221,7 @@ const char* _savePdf(uintptr_t score_ptr) {
     Ms::savePdf(score, &buffer);
 
     auto size = buffer.size();
-    qDebug("savePdf size %lld", size);
+    qDebug("savePdf: excerpt %d, size %lld", excerptId, size);
 
     return packData(buffer.data(), size);
 }
@@ -198,8 +229,9 @@ const char* _savePdf(uintptr_t score_ptr) {
 /**
  * export score as MIDI
  */
-const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     QBuffer buffer;
     buffer.open(QIODevice::ReadWrite);
@@ -207,7 +239,7 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
     Ms::saveMidi(score, &buffer, midiExpandRepeats, exportRPNs);
 
     auto size = buffer.size();
-    qDebug("saveMidi: midiExpandRepeats %d, exportRPNs %d, size %lld", midiExpandRepeats, exportRPNs, size);
+    qDebug("saveMidi: excerpt %d, midiExpandRepeats %d, exportRPNs %d, size %lld", excerptId, midiExpandRepeats, exportRPNs, size);
 
     return packData(buffer.data(), size);
 }
@@ -215,15 +247,16 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
 /**
  * save positions of measures or segments (if the `ofSegments` param == true) as JSON
  */
-const char* _savePositions(uintptr_t score_ptr, bool ofSegments) {
-    Ms::MasterScore* score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+const char* _savePositions(uintptr_t score_ptr, bool ofSegments, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
 
     score->switchToPageMode();
     QJsonObject json = Ms::savePositions(score, ofSegments);
     QJsonDocument saveDoc(json);
 
     auto data = saveDoc.toJson(QJsonDocument::Compact);  // UTF-8 encoded JSON data
-    qDebug("savePositions: ofSegments %d, file size %lld", ofSegments, data.size());
+    qDebug("savePositions: excerpt %d, ofSegments %d, file size %d", excerptId, ofSegments, data.size());
 
     // JSON is plain text
     return padData(data);
@@ -270,43 +303,43 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    int npages(uintptr_t score_ptr) {
-        return _npages(score_ptr);
+    int npages(uintptr_t score_ptr, int excerptId) {
+        return _npages(score_ptr, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveXml(uintptr_t score_ptr) {
-        return _saveXml(score_ptr);
+    const char* saveXml(uintptr_t score_ptr, int excerptId = -1) {
+        return _saveXml(score_ptr, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveMxl(uintptr_t score_ptr) {
-        return _saveMxl(score_ptr);
+    const char* saveMxl(uintptr_t score_ptr, int excerptId = -1) {
+        return _saveMxl(score_ptr, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground) {
-        return _saveSvg(score_ptr, pageNumber, drawPageBackground);
+    const char* saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, int excerptId = -1) {
+        return _saveSvg(score_ptr, pageNumber, drawPageBackground, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent) {
-        return _savePng(score_ptr, pageNumber, drawPageBackground, transparent);
+    const char* savePng(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, bool transparent, int excerptId = -1) {
+        return _savePng(score_ptr, pageNumber, drawPageBackground, transparent, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* savePdf(uintptr_t score_ptr) {
-        return _savePdf(score_ptr);
+    const char* savePdf(uintptr_t score_ptr, int excerptId = -1) {
+        return _savePdf(score_ptr, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs) {
-        return _saveMidi(score_ptr, midiExpandRepeats, exportRPNs);
+    const char* saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs, int excerptId = -1) {
+        return _saveMidi(score_ptr, midiExpandRepeats, exportRPNs, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* savePositions(uintptr_t score_ptr, bool ofSegments) {
-        return _savePositions(score_ptr, ofSegments);
+    const char* savePositions(uintptr_t score_ptr, bool ofSegments, int excerptId = -1) {
+        return _savePositions(score_ptr, ofSegments, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE

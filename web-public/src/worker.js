@@ -7,7 +7,7 @@ import WebMscore from './index.js'
 let score
 
 /**
- * @typedef {{ id: number; method: Exclude<keyof import('./index').default, 'scoreptr'> | 'load' | 'ready'; params: any[]; }} RPCReq
+ * @typedef {{ id: number; method: Exclude<keyof import('./index').default, 'scoreptr' | 'excerptId'> | 'load' | 'ready'; params: any[]; }} RPCReq
  * @typedef {{ id: number; result?: any; error?: any; }} RPCRes
  * @param {number} id 
  * @param {any} result 

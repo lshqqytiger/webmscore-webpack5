@@ -61,6 +61,22 @@ class WebMscore {
     constructor(scoreptr) {
         /** @private */
         this.scoreptr = scoreptr
+
+        /** @private */
+        this.excerptId = -1
+    }
+
+    /**
+     * Only save this excerpt (linked parts) of the score  
+     * (-1 means the full score) 
+     * @param {number} id
+     */
+    async setExcerptId(id) {
+        this.excerptId = id
+    }
+
+    async getExcerptId() {
+        return this.excerptId
     }
 
     /**
@@ -83,11 +99,11 @@ class WebMscore {
     }
 
     /**
-     * Get the number of pages in the score
+     * Get the number of pages in the score (or the excerpt if `excerptId` is set)
      * @returns {Promise<number>}
      */
     async npages() {
-        return Module.ccall('npages', 'number', ['number'], [this.scoreptr])
+        return Module.ccall('npages', 'number', ['number', 'number'], [this.scoreptr, this.excerptId])
     }
 
     /**
@@ -119,7 +135,7 @@ class WebMscore {
      * @returns {Promise<string>} contents of the MusicXML file (plain text)
      */
     async saveXml() {
-        const dataptr = Module.ccall('saveXml', 'number', ['number'], [this.scoreptr])
+        const dataptr = Module.ccall('saveXml', 'number', ['number', 'number'], [this.scoreptr, this.excerptId])
 
         // MusicXML is plain text
         const data = Module.UTF8ToString(dataptr + 8)  // 8 bytes of padding
@@ -133,7 +149,7 @@ class WebMscore {
      * @returns {Promise<Uint8Array>}
      */
     async saveMxl() {
-        const dataptr = Module.ccall('saveMxl', 'number', ['number'], [this.scoreptr])
+        const dataptr = Module.ccall('saveMxl', 'number', ['number', 'number'], [this.scoreptr, this.excerptId])
         return readData(dataptr)
     }
 
@@ -146,8 +162,8 @@ class WebMscore {
     async saveSvg(pageNumber = 0, drawPageBackground = false) {
         const dataptr = Module.ccall('saveSvg',
             'number',
-            ['number', 'number', 'boolean'],
-            [this.scoreptr, pageNumber, drawPageBackground]
+            ['number', 'number', 'boolean', 'number'],
+            [this.scoreptr, pageNumber, drawPageBackground, this.excerptId]
         )
 
         // SVG is plain text
@@ -167,8 +183,8 @@ class WebMscore {
     async savePng(pageNumber = 0, drawPageBackground = false, transparent = true) {
         const dataptr = Module.ccall('savePng',
             'number',
-            ['number', 'number', 'boolean', 'boolean'],
-            [this.scoreptr, pageNumber, drawPageBackground, transparent]
+            ['number', 'number', 'boolean', 'boolean', 'number'],
+            [this.scoreptr, pageNumber, drawPageBackground, transparent, this.excerptId]
         )
         return readData(dataptr)
     }
@@ -178,7 +194,7 @@ class WebMscore {
      * @returns {Promise<Uint8Array>}
      */
     async savePdf() {
-        const dataptr = Module.ccall('savePdf', 'number', ['number'], [this.scoreptr])
+        const dataptr = Module.ccall('savePdf', 'number', ['number', 'number'], [this.scoreptr, this.excerptId])
         return readData(dataptr)
     }
 
@@ -191,8 +207,8 @@ class WebMscore {
     async saveMidi(midiExpandRepeats = true, exportRPNs = true) {
         const dataptr = Module.ccall('saveMidi',
             'number',
-            ['number', 'boolean', 'boolean'],
-            [this.scoreptr, midiExpandRepeats, exportRPNs]
+            ['number', 'boolean', 'boolean', 'number'],
+            [this.scoreptr, midiExpandRepeats, exportRPNs, this.excerptId]
         )
         return readData(dataptr)
     }
@@ -206,8 +222,8 @@ class WebMscore {
     async savePositions(ofSegments) {
         const dataptr = Module.ccall('savePositions',
             'number',
-            ['number', 'boolean'],
-            [this.scoreptr, ofSegments]
+            ['number', 'boolean', 'number'],
+            [this.scoreptr, ofSegments, this.excerptId]
         )
 
         // JSON is plain text

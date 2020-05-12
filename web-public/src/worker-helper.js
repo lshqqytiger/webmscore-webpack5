@@ -89,6 +89,19 @@ class WebMscoreW extends Worker {
     }
 
     /**
+     * Only save this excerpt (linked parts) of the score  
+     * (-1 means the full score) 
+     * @param {number} id
+     */
+    async setExcerptId(id) {
+        return this.rpc('setExcerptId', [id])
+    }
+
+    async getExcerptId() {
+        return this.rpc('getExcerptId')
+    }
+
+    /**
      * Get the score title
      * @returns {Promise<string>}
      */
@@ -105,7 +118,7 @@ class WebMscoreW extends Worker {
     }
 
     /**
-     * Get the number of pages in the score
+     * Get the number of pages in the score (or the excerpt if `excerptId` is set)
      * @returns {Promise<number>}
      */
     npages() {
