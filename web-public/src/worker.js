@@ -1,7 +1,7 @@
 
 // The main entry point inside a Web Worker
 
-import WebMscore from './index'
+import WebMscore from './index.js'
 
 /** @type {WebMscore} */
 let score

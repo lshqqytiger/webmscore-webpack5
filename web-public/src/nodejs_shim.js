@@ -2,7 +2,7 @@
 import { createRequire } from 'module'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { IS_NODE } from './utils'
+import { IS_NODE } from './utils.js'
 
 if (IS_NODE) {
 

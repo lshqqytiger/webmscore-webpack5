@@ -1,6 +1,6 @@
 
 import LibMscore from '../webmscore.lib.js'
-import { IS_NODE, getSelfURL } from './utils'
+import { IS_NODE, getSelfURL } from './utils.js'
 
 const moduleOptions = IS_NODE
     ? {

@@ -3,8 +3,8 @@
 // The main entry point to use webmscore as a web worker,  
 // implements the same API set as './index.js'
 
-import { WebMscoreWorker } from '../.cache/worker'
-import { getSelfURL } from './utils'
+import { WebMscoreWorker } from '../.cache/worker.js'
+import { getSelfURL } from './utils.js'
 
 /**
  * Use webmscore as a web worker
