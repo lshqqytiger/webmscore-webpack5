@@ -75,6 +75,7 @@ clean:
 	-rm -rf build.debug build.release
 	-rm -rf build.wasm build.js
 	-rm -rf win32build win32install
+	-rm web-public/.cache
 	-rm web-public/webmscore.*
 
 revision:

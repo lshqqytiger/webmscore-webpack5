@@ -1,4 +1,15 @@
 
+const plugins = [
+    {
+        resolveImportMeta(property) {
+            if (property === 'url') {
+                return '""';
+            }
+            return null;
+        },
+    },
+]
+
 export default [
     {
         input: "src/index.js",
@@ -9,21 +20,23 @@ export default [
             exports: 'default',
             sourcemap: false,
         },
-        plugins: [
-            {
-                resolveImportMeta(property) {
-                    if (property === 'url') {
-                        return '""';
-                    }
-                    return null;
-                },
-            },
-        ],
+        plugins,
     },
     {
-        input: "src/index.js",
+        input: "src/worker.js",
         output: {
-            file: "webmscore.mjs",
+            file: ".cache/worker.js",
+            format: "iife",
+            sourcemap: false,
+            banner: "export const WebMscoreWorker = function () { ",
+            footer: "}\n",
+        },
+        plugins,
+    },
+    {
+        input: "src/worker-helper.js",
+        output: {
+            file: "webmscore.worker.mjs",
             format: "esm",
             sourcemap: false,
         }
