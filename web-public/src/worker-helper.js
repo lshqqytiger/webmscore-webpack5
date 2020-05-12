@@ -6,6 +6,8 @@
 import { WebMscoreWorker } from '../.cache/worker.js'
 import { getSelfURL, shimDom } from './utils.js'
 
+const MSCORE_SCRIPT_URL = getSelfURL()
+
 /**
  * Use webmscore as a web worker
  * @implements {import('./index').default}
@@ -17,7 +19,7 @@ class WebMscoreW extends Worker {
     constructor() {
         const url = URL.createObjectURL(
             new Blob([
-                `(function () { var MSCORE_SCRIPT_URL = "${getSelfURL()}";`  // set the environment variable for worker
+                `(function () { var MSCORE_SCRIPT_URL = "${MSCORE_SCRIPT_URL}";`  // set the environment variable for worker
                 + '(' + shimDom.toString() + ')();'
                 + '(' + WebMscoreWorker.toString() + ')()'
                 + '})()'
