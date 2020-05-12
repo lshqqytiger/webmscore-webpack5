@@ -1,7 +1,6 @@
 
 import LibMscore from '../webmscore.lib.js'
-
-const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
+import { IS_NODE, getSelfURL } from './utils'
 
 const moduleOptions = IS_NODE
     ? {
@@ -17,14 +16,9 @@ const moduleOptions = IS_NODE
     : {
         locateFile(path) {
             // fix loading the preload pack in Browsers and WebWorkers
-            let prefix = import.meta.url  // transforms to "" in the generated bundle
-            if (!prefix) {
-                if (typeof document !== 'undefined') {
-                    prefix = document.currentScript && document.currentScript.src || document.baseURI
-                } else if (typeof location !== 'undefined') {
-                    prefix = location.href
-                }
-            }
+            const prefix = typeof MSCORE_SCRIPT_URL == "string"
+                ? MSCORE_SCRIPT_URL  // to use like an environment variable
+                : getSelfURL()
             return new URL(path, prefix).href
         }
     }

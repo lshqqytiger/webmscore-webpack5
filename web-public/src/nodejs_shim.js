@@ -2,8 +2,7 @@
 import { createRequire } from 'module'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-
-const IS_NODE = typeof process === 'object' && typeof process.versions === 'object' && typeof process.versions.node === 'string'
+import { IS_NODE } from './utils'
 
 if (IS_NODE) {
 
