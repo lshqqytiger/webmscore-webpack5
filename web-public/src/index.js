@@ -59,6 +59,7 @@ class WebMscore {
      * @param {number} scoreptr the pointer to the MasterScore class instance in C++
      */
     constructor(scoreptr) {
+        /** @private */
         this.scoreptr = scoreptr
     }
 
