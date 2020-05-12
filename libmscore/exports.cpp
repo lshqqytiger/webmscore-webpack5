@@ -379,9 +379,28 @@ bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool expo
 //   saveMetadataJSON
 //---------------------------------------------------------
 
+auto boolToString = [](bool b) { return b ? "true" : "false"; };
+
+QJsonObject savePartInfoJSON(Part* p) {
+    QJsonObject jsonPart;
+    jsonPart.insert("name", p->longName().replace("\n", ""));
+    int midiProgram = p->midiProgram();
+    if (p->midiChannel() == 9)
+        midiProgram = 128;
+    jsonPart.insert("program", midiProgram);
+    jsonPart.insert("instrumentId", p->instrumentId());
+    jsonPart.insert("lyricCount", p->lyricCount());
+    jsonPart.insert("harmonyCount", p->harmonyCount());
+    jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));
+    jsonPart.insert("hasTabStaff", boolToString(p->hasTabStaff()));
+    jsonPart.insert("hasDrumStaff", boolToString(p->hasDrumStaff()));
+    jsonPart.insert("isVisible", boolToString(p->show()));
+    return jsonPart;
+}
+
+
 QJsonObject saveMetadataJSON(Score* score)
 {
-    auto boolToString = [](bool b) { return b ? "true" : "false"; };
     QJsonObject json;
 
     // title
@@ -469,21 +488,8 @@ QJsonObject saveMetadataJSON(Score* score)
     // parts
     QJsonArray jsonPartsArray;
     for (Part* p : score->parts()) {
-        QJsonObject jsonPart;
-        jsonPart.insert("name", p->longName().replace("\n", ""));
-        int midiProgram = p->midiProgram();
-        if (p->midiChannel() == 9)
-            midiProgram = 128;
-        jsonPart.insert("program", midiProgram);
-        jsonPart.insert("instrumentId", p->instrumentId());
-        jsonPart.insert("lyricCount", p->lyricCount());
-        jsonPart.insert("harmonyCount", p->harmonyCount());
-        jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));
-        jsonPart.insert("hasTabStaff", boolToString(p->hasTabStaff()));
-        jsonPart.insert("hasDrumStaff", boolToString(p->hasDrumStaff()));
-        jsonPart.insert("isVisible", boolToString(p->show()));
-        jsonPartsArray.append(jsonPart);
-        }
+        jsonPartsArray.append(savePartInfoJSON(p));
+    }
     json.insert("parts", jsonPartsArray);
 
     // pageFormat
@@ -511,6 +517,24 @@ QJsonObject saveMetadataJSON(Score* score)
         jsonTypeData.insert(nameType.first, typeData);
         }
     json.insert("textFramesData", jsonTypeData);
+
+    // excerpts (linked parts)
+    QJsonArray jsonExcerptsArray;
+    for (Excerpt* e : score->excerpts())
+    {
+        QJsonObject jsonExcerpt;
+
+        // jsonExcerpt.insert("id", i);
+        jsonExcerpt.insert("title", e->title());
+        QJsonArray parts;
+        for (Part* p : e->parts()) {
+            parts.append(savePartInfoJSON(p));
+        }
+        jsonExcerpt.insert("parts", parts);
+
+        jsonExcerptsArray.append(jsonExcerpt);
+    }
+    json.insert("excerpts", jsonExcerptsArray);
 
     return json;
 }

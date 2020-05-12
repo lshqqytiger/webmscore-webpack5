@@ -36,6 +36,18 @@ interface ScorePageFormat {
     twosided: BoolString;
 }
 
+interface ScoreExcerptData {
+    /**
+     * title of the excerpt
+     */
+    title: string;
+
+    /**
+     * linked parts in the excerpt
+     */
+    parts: ScorePartData[];
+}
+
 /**
  * The score metadata
  */
@@ -96,6 +108,11 @@ export interface ScoreMetadata {
      * tempo marker which determines the midi tempo.
      */
     tempoText: string;
+
+    /**
+     * excerpts (linked parts) 
+     */
+    excerpts: ScoreExcerptData[];
 
     parts: ScorePartData[];
 
