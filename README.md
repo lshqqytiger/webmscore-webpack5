@@ -11,6 +11,7 @@
 * Generate MIDI
 * Export as MusicXML compressed/uncompressed
 * Generate position information of measures or segments on the generated sheets
+* Run inside a Web Worker thread
 
 ## Installation
 
