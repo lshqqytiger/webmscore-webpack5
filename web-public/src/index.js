@@ -82,6 +82,14 @@ class WebMscore {
     }
 
     /**
+     * Generate excerpts from Parts (only parts that are visible) if no existing excerpts
+     * @returns {Promise<void>}
+     */
+    async generateExcerpts() {
+        return Module.ccall('generateExcerpts', null, ['number'], [this.scoreptr])
+    }
+
+    /**
      * Get the score title
      * @returns {Promise<string>}
      */

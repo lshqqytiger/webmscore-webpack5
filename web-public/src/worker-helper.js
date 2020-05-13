@@ -104,6 +104,14 @@ class WebMscoreW extends Worker {
     }
 
     /**
+     * Generate excerpts from Parts (only parts that are visible) if no existing excerpts
+     * @returns {Promise<void>}
+     */
+    generateExcerpts() {
+        return this.rpc('generateExcerpts')
+    }
+
+    /**
      * Get the score title
      * @returns {Promise<string>}
      */

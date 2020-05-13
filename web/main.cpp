@@ -40,30 +40,9 @@ Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
     // -1 means the full score
     if (excerptId >= 0) {
         QList<Ms::Excerpt*> excerpts = score->excerpts();
-        bool fromParts = false;
-
-        if (excerpts.size() == 0) {
-            // generate excerpts from each Part (only ones that are visible)
-            excerpts = Ms::Excerpt::createAllExcerpt(
-                reinterpret_cast<Ms::MasterScore*>(score)
-            );
-            fromParts = true;  // mark that the excerpts are generated here
-            qDebug("Generated excerpts: size %d", excerpts.size());
-        }
 
         if (excerptId >= excerpts.size()) {
             throw(QString("Not a valid excerptId.")); 
-        }
-
-        if (fromParts) {
-            for (auto e: excerpts) {
-                auto nscore = new Ms::Score(e->oscore());
-                e->setPartScore(nscore);
-                nscore->style().set(Ms::Sid::createMultiMeasureRests, true);
-                auto excerptCmdFake = new Ms::AddExcerpt(e);
-                excerptCmdFake->redo(nullptr);
-                Ms::Excerpt::createExcerpt(e);
-            }
         }
 
         score = excerpts[excerptId]->partScore();
@@ -125,6 +104,35 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
     score->update();
 
     return reinterpret_cast<uintptr_t>(score);
+}
+
+/**
+ * Generate excerpts from Parts (only parts that are visible) if no existing excerpts
+ */
+void _generateExcerpts (uintptr_t score_ptr) {
+    auto score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
+
+    QList<Ms::Excerpt*> scoreExcerpts = score->excerpts();
+    if (scoreExcerpts.size() > 0) {
+        // has existing excerpts
+        return;
+    }
+
+    auto excerpts = Ms::Excerpt::createAllExcerpt(score);
+
+    for (auto e: excerpts) {
+        auto nscore = new Ms::Score(e->oscore());
+        e->setPartScore(nscore);
+        nscore->style().set(Ms::Sid::createMultiMeasureRests, true);
+        auto excerptCmdFake = new Ms::AddExcerpt(e);
+        excerptCmdFake->redo(nullptr);
+        Ms::Excerpt::createExcerpt(e);
+
+        // add this excerpt back to the score excerpt list
+        scoreExcerpts.append(e);
+    }
+
+    qDebug("Generated excerpts: size %d", excerpts.size());
 }
 
 /**
@@ -321,6 +329,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     uintptr_t load(const char* type, const char* data, const uint32_t size) {
         return _load(type, data, size);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    void generateExcerpts(uintptr_t score_ptr) {
+        return _generateExcerpts(score_ptr);
     };
 
     EMSCRIPTEN_KEEPALIVE
