@@ -74,6 +74,9 @@ void _init(int argc, char** argv) {
  */
 uintptr_t _load(const char* name, const char* data, const uint32_t size) {
     QString _name = QString::fromUtf8(name);
+    _name.replace('/', '_');    // for sanity, libmscore/score.cpp#L4586
+    if (!(_name.endsWith(".mscz") || _name.endsWith(".mscx")))
+        _name += ".mscz";
 
     QBuffer buffer;
     buffer.setData(data, size);
@@ -81,7 +84,6 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
 
     Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
     score->setMovements(new Ms::Movements());
-    score->setName(_name);
 
     score->loadMsc(_name, &buffer, true);
 
