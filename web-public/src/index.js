@@ -68,8 +68,10 @@ class WebMscore {
 
     /**
      * Only save this excerpt (linked parts) of the score  
-     * (-1 means the full score) 
-     * @param {number} id
+     * 
+     * if no excerpts, generate excerpts from existing instrument parts
+     * 
+     * @param {number} id  `-1` means the full score 
      */
     async setExcerptId(id) {
         this.excerptId = id

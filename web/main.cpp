@@ -6,6 +6,7 @@
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
 #include "libmscore/text.h"
+#include "libmscore/undo.h"
 
 /**
  * helper functions
@@ -39,6 +40,24 @@ Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
     // -1 means the full score
     if (excerptId >= 0) {
         QList<Ms::Excerpt*> excerpts = score->excerpts();
+
+        if (excerpts.size() == 0) {  
+            // generate excerpts from each Part (only ones that are visible)
+            excerpts = Ms::Excerpt::createAllExcerpt(
+                reinterpret_cast<Ms::MasterScore*>(score)
+            );
+
+            for (auto e: excerpts) {
+                auto nscore = new Ms::Score(e->oscore());
+                e->setPartScore(nscore);
+                nscore->style().set(Ms::Sid::createMultiMeasureRests, true);
+                auto excerptCmdFake = new Ms::AddExcerpt(e);
+                excerptCmdFake->redo(nullptr);
+                Ms::Excerpt::createExcerpt(e);
+            }
+
+            qDebug("Generated excerpts: size %d", excerpts.size());
+        }
 
         if (excerptId >= excerpts.size()) {
             throw(QString("Not a valid excerptId.")); 
