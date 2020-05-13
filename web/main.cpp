@@ -40,13 +40,22 @@ Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
     // -1 means the full score
     if (excerptId >= 0) {
         QList<Ms::Excerpt*> excerpts = score->excerpts();
+        bool fromParts = false;
 
-        if (excerpts.size() == 0) {  
+        if (excerpts.size() == 0) {
             // generate excerpts from each Part (only ones that are visible)
             excerpts = Ms::Excerpt::createAllExcerpt(
                 reinterpret_cast<Ms::MasterScore*>(score)
             );
+            fromParts = true;  // mark that the excerpts are generated here
+            qDebug("Generated excerpts: size %d", excerpts.size());
+        }
 
+        if (excerptId >= excerpts.size()) {
+            throw(QString("Not a valid excerptId.")); 
+        }
+
+        if (fromParts) {
             for (auto e: excerpts) {
                 auto nscore = new Ms::Score(e->oscore());
                 e->setPartScore(nscore);
@@ -55,16 +64,10 @@ Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
                 excerptCmdFake->redo(nullptr);
                 Ms::Excerpt::createExcerpt(e);
             }
-
-            qDebug("Generated excerpts: size %d", excerpts.size());
         }
 
-        if (excerptId >= excerpts.size()) {
-            throw(QString("Not a valid excerptId.")); 
-        }
-
-        qDebug("useExcerpt: %d", excerptId);
         score = excerpts[excerptId]->partScore();
+        qDebug("useExcerpt: %d", excerptId);
     }
 
     return score;
