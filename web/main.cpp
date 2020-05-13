@@ -72,11 +72,13 @@ void _init(int argc, char** argv) {
 /**
  * load the score data (a MSCZ/MSCX file buffer)
  */
-uintptr_t _load(const char* name, const char* data, const uint32_t size) {
-    QString _name = QString::fromUtf8(name);
-    _name.replace('/', '_');    // for sanity, libmscore/score.cpp#L4586
-    if (!(_name.endsWith(".mscz") || _name.endsWith(".mscx")))
-        _name += ".mscz";
+uintptr_t _load(const char* type, const char* data, const uint32_t size) {
+    QString _type = QString::fromUtf8(type);  // file type of the data, ("mscz" or "mscx")
+    if (!(_type == "mscz" || _type == "mscx")) {
+        throw QString("Invalid file type");
+    }
+
+    QString filename = "temp." + _type;
 
     QBuffer buffer;
     buffer.setData(data, size);
@@ -85,7 +87,7 @@ uintptr_t _load(const char* name, const char* data, const uint32_t size) {
     Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
     score->setMovements(new Ms::Movements());
 
-    score->loadMsc(_name, &buffer, true);
+    score->loadMsc(filename, &buffer, true);
 
     // mscore/file.cpp#L2257 readScore
     score->rebuildMidiMapping();
@@ -295,8 +297,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    uintptr_t load(const char* name, const char* data, const uint32_t size) {
-        return _load(name, data, size);
+    uintptr_t load(const char* type, const char* data, const uint32_t size) {
+        return _load(type, data, size);
     };
 
     EMSCRIPTEN_KEEPALIVE

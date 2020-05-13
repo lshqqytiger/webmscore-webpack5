@@ -32,23 +32,23 @@ class WebMscore {
 
     /**
      * Load the score data (from a MSCZ/MSCX file)
-     * @param {string} filename 
+     * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
      */
-    static async load(filename, data) {
+    static async load(filetype, data) {
         await WebMscore.ready
 
-        const nameptr = getStrPtr(filename)
+        const filetypeptr = getStrPtr(filetype)
         const dataptr = getTypedArrayPtr(data)
 
         // get the pointer to the MasterScore class instance in C
         const scoreptr = Module.ccall('load',  // name of C function
             'number',  // return type
             ['number', 'number', 'number'],  // argument types
-            [nameptr, dataptr, data.byteLength]  // arguments
+            [filetypeptr, dataptr, data.byteLength]  // arguments
         )
 
-        freePtr(nameptr)
+        freePtr(filetypeptr)
         freePtr(dataptr)
 
         return new WebMscore(scoreptr)

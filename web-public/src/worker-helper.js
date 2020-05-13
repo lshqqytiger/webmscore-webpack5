@@ -46,13 +46,13 @@ class WebMscoreW extends Worker {
 
     /**
      * Load the score (MSCZ/MSCX file) data 
-     * @param {string} filename 
+     * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
      */
-    static async load(filename, data) {
+    static async load(filetype, data) {
         const instance = new WebMscoreW()
         await instance.rpc('ready')
-        await instance.rpc('load', [filename, data], [data.buffer])
+        await instance.rpc('load', [filetype, data], [data.buffer])
         return instance
     }
 

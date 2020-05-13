@@ -13,7 +13,7 @@ const filedata = fs.readFileSync(`./${name}`)
 WebMscore.ready.then(async () => {
     console.log('supported file format version:', await WebMscore.version())
 
-    const score = await WebMscore.load(name, filedata)
+    const score = await WebMscore.load('mscz', filedata)
     console.log(score)
     console.log()
 

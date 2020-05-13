@@ -19,7 +19,7 @@
             const r = await fetch(`./${name}`)
             const filedata = new Uint8Array(await r.arrayBuffer())
 
-            const score = await WebMscore.load(name, filedata)
+            const score = await WebMscore.load('mscz', filedata)
             console.log(score)
 
             const title = await score.titleFilenameSafe()

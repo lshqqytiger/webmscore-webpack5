@@ -30,7 +30,7 @@ npm i webmscore
 <script src="https://cdn.jsdelivr.net/npm/webmscore/webmscore.js"></script>
 <script>
     WebMscore.ready.then(async () => {
-        const score = await WebMscore.load(name, msczdata)
+        const score = await WebMscore.load('mscz', msczdata)
     })
 </script>
 ```
@@ -51,7 +51,7 @@ Also require `"type": "module"` in `package.json`
 ```js
 import WebMscore from 'webmscore'
 WebMscore.ready.then(async () => {
-    const score = await WebMscore.load(name, msczdata)
+    const score = await WebMscore.load('mscz', msczdata)
 })
 ```
 
