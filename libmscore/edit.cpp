@@ -2732,30 +2732,32 @@ void Score::cmdCreateTuplet(ChordRest* ocr, Tuplet* tuplet)
 //   colorItem
 //---------------------------------------------------------
 
-// void Score::colorItem(Element* element)
-//       {
-//       QColor sc(element->color());
-//       QColor c = QColorDialog::getColor(sc);
-//       if (!c.isValid())
-//             return;
+#if 0
+void Score::colorItem(Element* element)
+      {
+      QColor sc(element->color());
+      QColor c = QColorDialog::getColor(sc);
+      if (!c.isValid())
+            return;
 
-//       foreach(Element* e, selection().elements()) {
-//             if (e->color() != c) {
-//                   e->undoChangeProperty(Pid::COLOR, c);
-//                   e->setGenerated(false);
-//                   addRefresh(e->abbox());
-//                   if (e->isBarLine()) {
-// //                        Element* ep = e->parent();
-// //                        if (ep->isSegment() && toSegment(ep)->isEndBarLineType()) {
-// //                              Measure* m = toSegment(ep)->measure();
-// //                              BarLine* bl = toBarLine(e);
-// //                              m->setEndBarLineType(bl->barLineType(), false, e->visible(), e->color());
-// //                              }
-//                         }
-//                   }
-//             }
-//       deselectAll();
-//       }
+      foreach(Element* e, selection().elements()) {
+            if (e->color() != c) {
+                  e->undoChangeProperty(Pid::COLOR, c);
+                  e->setGenerated(false);
+                  addRefresh(e->abbox());
+                  if (e->isBarLine()) {
+//                        Element* ep = e->parent();
+//                        if (ep->isSegment() && toSegment(ep)->isEndBarLineType()) {
+//                              Measure* m = toSegment(ep)->measure();
+//                              BarLine* bl = toBarLine(e);
+//                              m->setEndBarLineType(bl->barLineType(), false, e->visible(), e->color());
+//                              }
+                        }
+                  }
+            }
+      deselectAll();
+      }
+#endif
 
 //---------------------------------------------------------
 //   cmdExchangeVoice

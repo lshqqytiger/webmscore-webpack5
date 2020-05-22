@@ -371,73 +371,75 @@ void Lyrics::layout2(int nAbove)
 //   paste
 //---------------------------------------------------------
 
-// void Lyrics::paste(EditData& ed)
-//       {
-//       MuseScoreView* scoreview = ed.view;
-// #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
-//       QClipboard::Mode mode = QClipboard::Clipboard;
-// #else
-//       QClipboard::Mode mode = QClipboard::Selection;
-// #endif
-//       QString txt = QApplication::clipboard()->text(mode);
-//       QString regex = QString("[^\\S") + QChar(0xa0) + QChar(0x202F) + "]+";
-//       QStringList sl = txt.split(QRegExp(regex), QString::SkipEmptyParts);
-//       if (sl.empty())
-//             return;
+#if 0
+void Lyrics::paste(EditData& ed)
+      {
+      MuseScoreView* scoreview = ed.view;
+#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
+      QClipboard::Mode mode = QClipboard::Clipboard;
+#else
+      QClipboard::Mode mode = QClipboard::Selection;
+#endif
+      QString txt = QApplication::clipboard()->text(mode);
+      QString regex = QString("[^\\S") + QChar(0xa0) + QChar(0x202F) + "]+";
+      QStringList sl = txt.split(QRegExp(regex), QString::SkipEmptyParts);
+      if (sl.empty())
+            return;
 
-//       QStringList hyph = sl[0].split("-");
-//       bool minus = false;
-//       bool underscore = false;
-//       score()->startCmd();
+      QStringList hyph = sl[0].split("-");
+      bool minus = false;
+      bool underscore = false;
+      score()->startCmd();
 
-//       if(hyph.length() > 1) {
-//             score()->undo(new InsertText(cursor(ed), hyph[0]), &ed);
-//             hyph.removeFirst();
-//             sl[0] =  hyph.join("-");
-//             minus = true;
-//             }
-//       else if (sl.length() > 1 && sl[1] == "-") {
-//             score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
-//             sl.removeFirst();
-//             sl.removeFirst();
-//             minus = true;
-//             }
-//       else if (sl[0].startsWith("_")) {
-//             sl[0].remove(0, 1);
-//             if (sl[0].isEmpty())
-//                   sl.removeFirst();
-//             underscore = true;
-//             }
-//       else if (sl[0].contains("_")) {
-//             int p = sl[0].indexOf("_");
-//             score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
-//             sl[0] = sl[0].mid(p + 1);
-//             if (sl[0].isEmpty())
-//                   sl.removeFirst();
-//             underscore = true;
-//             }
-//       else if (sl.length() > 1 && sl[1] == "_") {
-//             score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
-//             sl.removeFirst();
-//             sl.removeFirst();
-//             underscore = true;
-//             }
-//       else {
-//             score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
-//             sl.removeFirst();
-//             }
+      if(hyph.length() > 1) {
+            score()->undo(new InsertText(cursor(ed), hyph[0]), &ed);
+            hyph.removeFirst();
+            sl[0] =  hyph.join("-");
+            minus = true;
+            }
+      else if (sl.length() > 1 && sl[1] == "-") {
+            score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
+            sl.removeFirst();
+            sl.removeFirst();
+            minus = true;
+            }
+      else if (sl[0].startsWith("_")) {
+            sl[0].remove(0, 1);
+            if (sl[0].isEmpty())
+                  sl.removeFirst();
+            underscore = true;
+            }
+      else if (sl[0].contains("_")) {
+            int p = sl[0].indexOf("_");
+            score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
+            sl[0] = sl[0].mid(p + 1);
+            if (sl[0].isEmpty())
+                  sl.removeFirst();
+            underscore = true;
+            }
+      else if (sl.length() > 1 && sl[1] == "_") {
+            score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
+            sl.removeFirst();
+            sl.removeFirst();
+            underscore = true;
+            }
+      else {
+            score()->undo(new InsertText(cursor(ed), sl[0]), &ed);
+            sl.removeFirst();
+            }
 
-//       score()->endCmd();
-//       txt = sl.join(" ");
+      score()->endCmd();
+      txt = sl.join(" ");
 
-//       QApplication::clipboard()->setText(txt, mode);
-//       if (minus)
-//             scoreview->lyricsMinus();
-//       else if (underscore)
-//             scoreview->lyricsUnderscore();
-//       else
-//             scoreview->lyricsTab(false, false, true);
-//       }
+      QApplication::clipboard()->setText(txt, mode);
+      if (minus)
+            scoreview->lyricsMinus();
+      else if (underscore)
+            scoreview->lyricsUnderscore();
+      else
+            scoreview->lyricsTab(false, false, true);
+      }
+#endif
 
 //---------------------------------------------------------
 //   endTick

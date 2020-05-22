@@ -1888,17 +1888,19 @@ QLineF TextBase::dragAnchor() const
 //    set text cursor
 //---------------------------------------------------------
 
-// bool TextBase::mousePress(EditData& ed)
-//       {
-//       bool shift = ed.modifiers & Qt::ShiftModifier;
-//       TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
-//       if (!ted->cursor.set(ed.startMove, shift ? QTextCursor::KeepAnchor : QTextCursor::MoveAnchor))
-//             return false;
-//       if (ed.buttons == Qt::MidButton)
-//             paste(ed);
-//       score()->setUpdateAll();
-//       return true;
-//       }
+#if 0
+bool TextBase::mousePress(EditData& ed)
+      {
+      bool shift = ed.modifiers & Qt::ShiftModifier;
+      TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
+      if (!ted->cursor.set(ed.startMove, shift ? QTextCursor::KeepAnchor : QTextCursor::MoveAnchor))
+            return false;
+      if (ed.buttons == Qt::MidButton)
+            paste(ed);
+      score()->setUpdateAll();
+      return true;
+      }
+#endif
 
 //---------------------------------------------------------
 //   layoutEdit
@@ -2566,36 +2568,40 @@ void TextBase::initTid(Tid tid)
 //   editCut
 //---------------------------------------------------------
 
-// void TextBase::editCut(EditData& ed)
-//       {
-//       TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
-//       TextCursor* _cursor = &ted->cursor;
-//       QString s = _cursor->selectedText();
+#if 0
+void TextBase::editCut(EditData& ed)
+      {
+      TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
+      TextCursor* _cursor = &ted->cursor;
+      QString s = _cursor->selectedText();
 
-//       if (!s.isEmpty()) {
-//             QApplication::clipboard()->setText(s, QClipboard::Clipboard);
-//             ed.curGrip = Grip::START;
-//             ed.key     = Qt::Key_Delete;
-//             ed.s       = QString();
-//             edit(ed);
-//             }
-//       }
+      if (!s.isEmpty()) {
+            QApplication::clipboard()->setText(s, QClipboard::Clipboard);
+            ed.curGrip = Grip::START;
+            ed.key     = Qt::Key_Delete;
+            ed.s       = QString();
+            edit(ed);
+            }
+      }
+#endif
 
 //---------------------------------------------------------
 //   editCopy
 //---------------------------------------------------------
 
-// void TextBase::editCopy(EditData& ed)
-//       {
-//       //
-//       // store selection as plain text
-//       //
-//       TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
-//       TextCursor* _cursor = &ted->cursor;
-//       QString s = _cursor->selectedText();
-//       if (!s.isEmpty())
-//             QApplication::clipboard()->setText(s, QClipboard::Clipboard);
-//       }
+#if 0
+void TextBase::editCopy(EditData& ed)
+      {
+      //
+      // store selection as plain text
+      //
+      TextEditData* ted = static_cast<TextEditData*>(ed.getData(this));
+      TextCursor* _cursor = &ted->cursor;
+      QString s = _cursor->selectedText();
+      if (!s.isEmpty())
+            QApplication::clipboard()->setText(s, QClipboard::Clipboard);
+      }
+#endif
 
 //---------------------------------------------------------
 //   cursor
