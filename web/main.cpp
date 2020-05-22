@@ -103,6 +103,8 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
     // do layout ...
     score->update();
 
+    score->switchToPageMode(); // the default _layoutMode is LayoutMode::PAGE, but the score file may be saved in continuous mode
+
     return reinterpret_cast<uintptr_t>(score);
 }
 
@@ -213,7 +215,7 @@ const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackgroun
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
 
-    score->switchToPageMode(); // not really required, as the default _layoutMode is LayoutMode::PAGE
+    score->switchToPageMode();
     Ms::saveSvg(score, &buffer, pageNumber, drawPageBackground);
     qDebug("saveSvg: excerpt %d, page index %d, size %lld bytes", excerptId, pageNumber, buffer.size());
 
