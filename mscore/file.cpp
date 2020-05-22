@@ -14,34 +14,35 @@
  File handling: loading and saving.
  */
 
-#include "config.h"
-#include "globals.h"
-#include "musescore.h"
-#include "scoreview.h"
+// #include "config.h"
+// #include "globals.h"
+// #include "musescore.h"
+// #include "scoreview.h"
 #include "exportmidi.h"
 #include "libmscore/xml.h"
+#include "libmscore/shape.h"
 #include "libmscore/element.h"
 #include "libmscore/note.h"
 #include "libmscore/rest.h"
 #include "libmscore/sig.h"
 #include "libmscore/clef.h"
 #include "libmscore/key.h"
-#include "instrdialog.h"
+// #include "instrdialog.h"
 #include "libmscore/score.h"
 #include "libmscore/page.h"
 #include "libmscore/dynamic.h"
-#include "file.h"
+// #include "file.h"
 #include "libmscore/style.h"
 #include "libmscore/tempo.h"
 #include "libmscore/select.h"
-#include "preferences.h"
-#include "playpanel.h"
+// #include "preferences.h"
+// #include "playpanel.h"
 #include "libmscore/staff.h"
 #include "libmscore/part.h"
 #include "libmscore/utils.h"
 #include "libmscore/barline.h"
-#include "palette.h"
-#include "symboldialog.h"
+// #include "palette.h"
+// #include "symboldialog.h"
 #include "libmscore/slur.h"
 #include "libmscore/hairpin.h"
 #include "libmscore/ottava.h"
@@ -49,21 +50,21 @@
 #include "libmscore/pedal.h"
 #include "libmscore/trill.h"
 #include "libmscore/volta.h"
-#include "newwizard.h"
+// #include "newwizard.h"
 #include "libmscore/timesig.h"
 #include "libmscore/box.h"
 #include "libmscore/excerpt.h"
 #include "libmscore/system.h"
 #include "libmscore/tuplet.h"
 #include "libmscore/keysig.h"
-#include "magbox.h"
+// #include "magbox.h"
 #include "libmscore/measure.h"
 #include "libmscore/undo.h"
 #include "libmscore/repeatlist.h"
-#include "scoretab.h"
+// #include "scoretab.h"
 #include "libmscore/beam.h"
 #include "libmscore/stafftype.h"
-#include "seq.h"
+// #include "seq.h"
 #include "libmscore/revisions.h"
 #include "libmscore/lyrics.h"
 #include "libmscore/segment.h"
@@ -71,31 +72,35 @@
 #include "libmscore/sym.h"
 #include "libmscore/image.h"
 #include "libmscore/stafflines.h"
-#include "synthesizer/msynthesizer.h"
+// #include "synthesizer/msynthesizer.h"
 #include "svggenerator.h"
-#include "scorePreview.h"
-#include "scorecmp/scorecmp.h"
-#include "extension.h"
-#include "tourhandler.h"
+// #include "scorePreview.h"
+// #include "scorecmp/scorecmp.h"
+// #include "extension.h"
+// #include "tourhandler.h"
 
-#ifdef OMR
-#include "omr/omr.h"
-#include "omr/omrpage.h"
-#include "omr/importpdf.h"
-#endif
+// #ifdef OMR
+// #include "omr/omr.h"
+// #include "omr/omrpage.h"
+// #include "omr/importpdf.h"
+// #endif
 
 #include "libmscore/chordlist.h"
 #include "libmscore/mscore.h"
-#include "thirdparty/qzip/qzipreader_p.h"
+#include "libmscore/exports.h"
+// #include "thirdparty/qzip/qzipreader_p.h"
 
 
 namespace Ms {
 
-extern void importSoundfont(QString name);
+int trimMargin = -1;
 
-extern MasterSynthesizer* synti;
+// extern void importSoundfont(QString name);
+
+// extern MasterSynthesizer* synti;
 
 //---------------------------------------------------------
+//   Helper Function:
 //   paintElement(s)
 //---------------------------------------------------------
 
@@ -116,6 +121,7 @@ static void paintElements(QPainter& p, const QList<Element*>& el)
             }
       }
 
+#if 0
 //---------------------------------------------------------
 //   createDefaultFileName
 //---------------------------------------------------------
@@ -2024,10 +2030,19 @@ bool MuseScore::saveAs(Score* cs_, bool saveCopy, const QString& path, const QSt
       return rv;
       }
 
+#endif
+
 //---------------------------------------------------------
 //   saveMidi
 //---------------------------------------------------------
 
+bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs)
+{
+    ExportMidi em(score);
+    return em.write(device, midiExpandRepeats, exportRPNs);
+}
+
+#if 0
 bool MuseScore::saveMidi(Score* score, const QString& name)
       {
       ExportMidi em(score);
@@ -2056,24 +2071,28 @@ bool MuseScore::savePdf(Score* cs_, const QString& saveName)
       return savePdf(cs_, printer);
       }
 
-bool MuseScore::savePdf(Score* cs_, QPrinter& printer)
+#endif
+
+//---------------------------------------------------------
+//   savePdf using QPdfWriter
+//---------------------------------------------------------
+
+bool savePdf(Score* cs_, QIODevice* device)
       {
       cs_->setPrinting(true);
       MScore::pdfPrinting = true;
 
-      printer.setResolution(preferences.getInt(PREF_EXPORT_PDF_DPI));
-      QSizeF size(cs_->styleD(Sid::pageWidth), cs_->styleD(Sid::pageHeight));
-      printer.setPaperSize(size, QPrinter::Inch);
-      printer.setFullPage(true);
-      printer.setColorMode(QPrinter::Color);
-#if defined(Q_OS_MAC)
-      printer.setOutputFormat(QPrinter::NativeFormat);
-#else
-      printer.setOutputFormat(QPrinter::PdfFormat);
-#endif
+      QPdfWriter pdfWriter(device);
 
-      printer.setCreator("MuseScore Version: " VERSION);
-      if (!printer.setPageMargins(QMarginsF()))
+      pdfWriter.setResolution(300);
+      // printer.setResolution(preferences.getInt(PREF_EXPORT_PDF_DPI));
+      QSizeF size(cs_->styleD(Sid::pageWidth), cs_->styleD(Sid::pageHeight));
+      pdfWriter.setPageSize(QPageSize(size, QPageSize::Inch));
+      // printer.setFullPage(true);
+      // printer.setColorMode(QPrinter::Color);
+
+      pdfWriter.setCreator("MuseScore Version: " VERSION);
+      if (!pdfWriter.setPageMargins(QMarginsF()))
             qDebug("unable to clear printer margins");
 
       QString title = cs_->metaTag("workTitle");
@@ -2085,27 +2104,27 @@ bool MuseScore::savePdf(Score* cs_, QPrinter& printer)
                   partname = cs_->title(); // fall back to excerpt's tab title
             title += " - " + partname;
             }
-      printer.setDocName(title); // set PDF's meta data for Title
+      pdfWriter.setTitle(title); // set PDF's meta data for Title
 
       QPainter p;
-      if (!p.begin(&printer))
+      if (!p.begin(&pdfWriter))
             return false;
       p.setRenderHint(QPainter::Antialiasing, true);
       p.setRenderHint(QPainter::TextAntialiasing, true);
 
-      p.setViewport(QRect(0.0, 0.0, size.width() * printer.logicalDpiX(),
-         size.height() * printer.logicalDpiY()));
+      p.setViewport(QRect(0.0, 0.0, size.width() * pdfWriter.logicalDpiX(),
+         size.height() * pdfWriter.logicalDpiY()));
       p.setWindow(QRect(0.0, 0.0, size.width() * DPI, size.height() * DPI));
 
       double pr = MScore::pixelRatio;
-      MScore::pixelRatio = DPI / printer.logicalDpiX();
+      MScore::pixelRatio = DPI / pdfWriter.logicalDpiX();
 
       const QList<Page*> pl = cs_->pages();
       int pages = pl.size();
       bool firstPage = true;
       for (int n = 0; n < pages; ++n) {
             if (!firstPage)
-                  printer.newPage();
+                  pdfWriter.newPage();
             firstPage = false;
             cs_->print(&p, n);
             }
@@ -2116,6 +2135,8 @@ bool MuseScore::savePdf(Score* cs_, QPrinter& printer)
       MScore::pdfPrinting = false;
       return true;
       }
+
+#if 0
 
 bool MuseScore::savePdf(QList<Score*> cs_, const QString& saveName)
       {
@@ -2525,6 +2546,9 @@ void MuseScore::addImage(Score* score, Element* e)
       score->undoAddElement(s);
       }
 
+#endif
+
+
 #if 0
 //---------------------------------------------------------
 //   trim
@@ -2562,6 +2586,7 @@ static QRect trim(QImage source, int margin)
       }
 #endif
 
+#if 0
 //---------------------------------------------------------
 //   savePng
 //    return true on success.  Works with editor, shows additional windows.
@@ -2613,16 +2638,20 @@ bool MuseScore::savePng(Score* score, const QString& name)
       return true;
       }
 
+#endif
+
 //---------------------------------------------------------
 //   savePng with options
 //    return true on success
 //---------------------------------------------------------
 
-bool MuseScore::savePng(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground)
+bool savePng(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground, bool transparent)
       {
       const bool screenshot = false;
-      const bool transparent = preferences.getBool(PREF_EXPORT_PNG_USETRANSPARENCY) && !drawPageBackground;
-      const double convDpi = preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION);
+      const bool _transparent = transparent && !drawPageBackground;
+      qDebug("savePng: _transparent %d", _transparent);
+    //   const double convDpi = preferences.getDouble(PREF_EXPORT_PNG_RESOLUTION);
+      const double convDpi = DPI;
       const int localTrimMargin = trimMargin;
       const QImage::Format format = QImage::Format_ARGB32_Premultiplied;
 
@@ -2653,7 +2682,7 @@ bool MuseScore::savePng(Score* score, QIODevice* device, int pageNumber, bool dr
       printer.setDotsPerMeterX(lrint((convDpi * 1000) / INCH));
       printer.setDotsPerMeterY(lrint((convDpi * 1000) / INCH));
 
-      printer.fill(transparent ? 0 : 0xffffffff);
+      printer.fill(_transparent ? 0 : 0xffffffff);
       double mag_ = convDpi / DPI;
       MScore::pixelRatio = 1.0 / mag_;
 
@@ -2671,7 +2700,7 @@ bool MuseScore::savePng(Score* score, QIODevice* device, int pageNumber, bool dr
             //convert to grayscale & respect alpha
             QVector<QRgb> colorTable;
             colorTable.push_back(QColor(0, 0, 0, 0).rgba());
-            if (!transparent) {
+            if (!_transparent) {
                   for (int i = 1; i < 256; i++)
                         colorTable.push_back(QColor(i, i, i).rgb());
                   }
@@ -2686,6 +2715,8 @@ bool MuseScore::savePng(Score* score, QIODevice* device, int pageNumber, bool dr
       MScore::pixelRatio = pr;
       return rv;
       }
+
+#if 0
 
 //---------------------------------------------------------
 //   WallpaperPreview
@@ -2780,6 +2811,10 @@ QString MuseScore::getWallpaper(const QString& caption)
       return QString();
       }
 
+#endif
+
+#if 0
+
 //---------------------------------------------------------
 //   MuseScore::saveSvg
 //---------------------------------------------------------
@@ -2840,12 +2875,12 @@ bool MuseScore::saveSvg(Score* score, const QString& saveName)
       return true;
       }
 
-//---------------------------------------------------------
-//   MuseScore::saveSvg
-///  Save a single page
-//---------------------------------------------------------
+#endif
 
-bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground)
+//---------------------------------------------------------
+///  Save a single page as SVG
+//---------------------------------------------------------
+bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground)
       {
       QString title(score->title());
       score->setPrinting(true);
@@ -2972,6 +3007,8 @@ bool MuseScore::saveSvg(Score* score, QIODevice* device, int pageNumber, bool dr
       return true;
       }
 
+#if 0
+
 //---------------------------------------------------------
 //   createThumbnail
 //---------------------------------------------------------
@@ -3013,6 +3050,9 @@ QPixmap MuseScore::extractThumbnail(const QString& name)
       return pm;
       }
 
+#endif
+
+#if 0
 //---------------------------------------------------------
 //   saveMetadataJSON
 //---------------------------------------------------------
@@ -3029,8 +3069,11 @@ bool MuseScore::saveMetadataJSON(Score* score, const QString& name)
       f.close();
       return true;
       }
+#endif
 
 //---------------------------------------------------------
+//   Helper Function:
+// 
 //   findTextByType
 //    @data must contain std::pair<Tid, QStringList*>*
 //          Tid specifies text style
@@ -3054,9 +3097,32 @@ static void findTextByType(void* data, Element* element)
             }
       }
 
-QJsonObject MuseScore::saveMetadataJSON(Score* score)
+//---------------------------------------------------------
+//   saveMetadataJSON
+//---------------------------------------------------------
+
+static auto boolToString = [](bool b) { return b ? "true" : "false"; };
+
+QJsonObject savePartInfoJSON(Part* p) {
+      QJsonObject jsonPart;
+      jsonPart.insert("name", p->longName().replace("\n", ""));
+      int midiProgram = p->midiProgram();
+      if (p->midiChannel() == 9)
+            midiProgram = 128;
+      jsonPart.insert("program", midiProgram);
+      jsonPart.insert("instrumentId", p->instrumentId());
+      jsonPart.insert("lyricCount", p->lyricCount());
+      jsonPart.insert("harmonyCount", p->harmonyCount());
+      jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));
+      jsonPart.insert("hasTabStaff", boolToString(p->hasTabStaff()));
+      jsonPart.insert("hasDrumStaff", boolToString(p->hasDrumStaff()));
+      jsonPart.insert("isVisible", boolToString(p->show()));
+      return jsonPart;
+      }
+
+
+QJsonObject saveMetadataJSON(Score* score)
       {
-      auto boolToString = [](bool b) { return b ? "true" : "false"; };
       QJsonObject json;
 
       // title
@@ -3144,21 +3210,8 @@ QJsonObject MuseScore::saveMetadataJSON(Score* score)
       // parts
       QJsonArray jsonPartsArray;
       for (Part* p : score->parts()) {
-            QJsonObject jsonPart;
-            jsonPart.insert("name", p->longName().replace("\n", ""));
-            int midiProgram = p->midiProgram();
-            if (p->midiChannel() == 9)
-                midiProgram = 128;
-            jsonPart.insert("program", midiProgram);
-            jsonPart.insert("instrumentId", p->instrumentId());
-            jsonPart.insert("lyricCount", p->lyricCount());
-            jsonPart.insert("harmonyCount", p->harmonyCount());
-            jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));
-            jsonPart.insert("hasTabStaff", boolToString(p->hasTabStaff()));
-            jsonPart.insert("hasDrumStaff", boolToString(p->hasDrumStaff()));
-            jsonPart.insert("isVisible", boolToString(p->show()));
-            jsonPartsArray.append(jsonPart);
-            }
+            jsonPartsArray.append(savePartInfoJSON(p));
+      }
       json.insert("parts", jsonPartsArray);
 
       // pageFormat
@@ -3187,8 +3240,30 @@ QJsonObject MuseScore::saveMetadataJSON(Score* score)
             }
       json.insert("textFramesData", jsonTypeData);
 
+      // excerpts (linked parts)
+      QJsonArray jsonExcerptsArray;
+      auto excerpts = score->excerpts();
+      for (int i = 0; i < excerpts.size(); i++)
+      {   
+            QJsonObject jsonExcerpt;
+            Excerpt* e = excerpts[i];
+
+            jsonExcerpt.insert("id", i);
+            jsonExcerpt.insert("title", e->title());
+            QJsonArray parts;
+            for (Part* p : e->parts()) {
+                  parts.append(savePartInfoJSON(p));
+            }
+            jsonExcerpt.insert("parts", parts);
+
+            jsonExcerptsArray.append(jsonExcerpt);
+      }
+      json.insert("excerpts", jsonExcerptsArray);
+
       return json;
       }
+
+#if 0
 
 class CustomJsonWriter
 {
@@ -3515,5 +3590,7 @@ bool MuseScore::exportTransposedScoreToJSON(const QString& inFilePath, const QSt
       return res;
       }
 
-}
+#endif
+
+} // namespace Ms
 

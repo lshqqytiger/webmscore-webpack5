@@ -22,6 +22,8 @@
 
 namespace Ms {
 
+#if 0
+
 //---------------------------------------------------------
 //   WallpaperPreview
 //---------------------------------------------------------
@@ -42,6 +44,8 @@ class WallpaperPreview : public QFrame {
 
 
 extern QStringList getSoundFont(const QString&);
+
+#endif
 
 } // namespace Ms
 #endif

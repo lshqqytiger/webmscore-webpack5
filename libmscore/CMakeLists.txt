@@ -110,7 +110,7 @@ add_executable (
       ../mscore/svggenerator.cpp
       ../mscore/exportmidi.cpp
       ../mscore/savePositions.cpp
-      exports.cpp
+      ../mscore/file.cpp
       ../web/main.cpp
       )
 
