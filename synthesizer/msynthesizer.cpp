@@ -14,13 +14,13 @@
 #include "event.h"
 #include "synthesizer.h"
 #include "msynthesizer.h"
-#include "synthesizergui.h"
+// #include "synthesizergui.h"
 #include "libmscore/xml.h"
 #include "midipatch.h"
 
 namespace Ms {
 
-extern QString dataPath;
+// extern QString dataPath;
 
 //---------------------------------------------------------
 //   MasterSynthesizer
@@ -38,6 +38,9 @@ MasterSynthesizer::MasterSynthesizer()
 
 void MasterSynthesizer::init()
       {
+      setState(defaultState);
+      return;
+#if 0
       SynthesizerState state;
       QString s(dataPath + "/synthesizer.xml");
       QFile f(s);
@@ -57,6 +60,7 @@ void MasterSynthesizer::init()
             f.remove();
             setState(defaultState);
             }
+#endif
       }
 
 //---------------------------------------------------------
@@ -243,7 +247,7 @@ void MasterSynthesizer::setSampleRate(float val)
       _sampleRate = val;
       for (Synthesizer* s : _synthesizer) {
             s->init(_sampleRate);
-            connect(s->gui(), SIGNAL(sfChanged()), SLOT(sfChanged()));
+            // connect(s->gui(), SIGNAL(sfChanged()), SLOT(sfChanged()));
             }
       for (Effect* e : _effectList[0])
             e->init(_sampleRate);
@@ -401,6 +405,7 @@ SynthesizerState MasterSynthesizer::state() const
 
 bool MasterSynthesizer::storeState()
       {
+#if 0
       QString s(dataPath + "/synthesizer.xml");
       QFile f(s);
       if (!f.open(QIODevice::WriteOnly)) {
@@ -412,6 +417,7 @@ bool MasterSynthesizer::storeState()
       // force the write, since the msynth state is created when state() is called and so will
       // automatically have _isDefault = true, when in fact we need to write the state here, default or not
       state().write(xml, true);
+#endif
       return true;
       }
 

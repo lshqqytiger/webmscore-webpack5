@@ -20,14 +20,14 @@ namespace Ms {
 //   gui
 //---------------------------------------------------------
 
-EffectGui* ZitaReverb::gui()
-      {
-      if (!_gui) {
-            _gui = new ZitaEffectGui(this);
-            _gui->setGeometry(0, 0, 640, 79);
-            }
-      return _gui;
-      }
+// EffectGui* ZitaReverb::gui()
+//       {
+//       if (!_gui) {
+//             _gui = new ZitaEffectGui(this);
+//             _gui->setGeometry(0, 0, 640, 79);
+//             }
+//       return _gui;
+//       }
 
 //---------------------------------------------------------
 // ZitaEffectGui

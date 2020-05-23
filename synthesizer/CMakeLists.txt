@@ -29,7 +29,7 @@ add_library (synthesizer STATIC
       ${PCH}
       msynthesizer.cpp
       event.cpp
-      synthesizergui.cpp
+      # synthesizergui.cpp
       ${INCS}
       )
 if (NOT MSVC)

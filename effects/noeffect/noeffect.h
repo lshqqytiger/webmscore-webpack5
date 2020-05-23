@@ -17,7 +17,7 @@
 
 namespace Ms {
 
-class EffectGui;
+// class EffectGui;
 
 //---------------------------------------------------------
 //   NoEffect
@@ -39,7 +39,7 @@ class NoEffect : public Effect
       virtual double nvalue(int) const override { return 0.0; }
 
       virtual const char* name() const override { return "NoEffect"; }
-      virtual EffectGui* gui() override;
+      // virtual EffectGui* gui() override;
       virtual const std::vector<ParDescr>& parDescr() const override;
       };
 }

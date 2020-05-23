@@ -14,7 +14,7 @@
  File handling: loading and saving.
  */
 
-// #include "config.h"
+#include "config.h"
 // #include "globals.h"
 // #include "musescore.h"
 // #include "scoreview.h"

@@ -152,6 +152,7 @@ foreach(_file ${_preload_files})
 endforeach()
 
 set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/styles@/styles")
+set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/sound/FluidR3Mono_GM.sf3@/sound/MuseScore_General.sf3")
 
 
 #
@@ -212,6 +213,9 @@ configure_file (
 subdirs(
       libmscore
       midi
+      synthesizer
+      effects
+      fluid
       thirdparty/qzip
       thirdparty/freetype
       )

@@ -133,7 +133,7 @@ class Compressor : public Effect
       virtual void init(float fsamp);
       virtual void process(int n, float* inp, float* out);
       virtual const char* name() const { return "SC4"; }
-      virtual EffectGui* gui();
+      // virtual EffectGui* gui();
       virtual const std::vector<ParDescr>& parDescr() const;
 
       virtual void setNValue(int parameter, double value);

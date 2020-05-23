@@ -20,8 +20,8 @@
 
 #include "synthesizer/event.h"
 #include "synthesizer/msynthesizer.h"
-#include "mscore/preferences.h"
-#include "mscore/extension.h"
+// #include "mscore/preferences.h"
+// #include "mscore/extension.h"
 
 #include "fluid.h"
 #include "sfont.h"
@@ -648,6 +648,7 @@ bool Fluid::loadSoundFonts(const QStringList& sl)
       QFileInfoList l = sfFiles();
       for (int i = sl.size() - 1; i >= 0; --i) {
             QString s = sl[i];
+            qDebug("Fluid: sf <%s>", qPrintable(s));
             if (s.isEmpty())
                   continue;
             QString path;
@@ -891,6 +892,7 @@ bool Fluid::setState(const SynthesizerGroup& sp)
 //   collectFiles
 //---------------------------------------------------------
 
+#if 0
 static void collectFiles(QFileInfoList* l, const QString& path)
       {
       QDir dir(path);
@@ -907,6 +909,7 @@ static void collectFiles(QFileInfoList* l, const QString& path)
                   }
             }
       }
+#endif
 
 //---------------------------------------------------------
 //   sfFiles
@@ -915,7 +918,9 @@ static void collectFiles(QFileInfoList* l, const QString& path)
 QFileInfoList Fluid::sfFiles()
       {
       QFileInfoList l;
+      l.append(QFileInfo("/sound/MuseScore_General.sf3"));
 
+#if 0
       QStringList pl = preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";");
       pl.prepend(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("sound")).absoluteFilePath());
 
@@ -929,6 +934,7 @@ QFileInfoList Fluid::sfFiles()
                   ss = QDir::homePath() + s.mid(1);
             collectFiles(&l, ss);
             }
+#endif
       return l;
       }
 }

@@ -18,7 +18,7 @@
 
 namespace Ms {
 
-class EffectGui;
+// class EffectGui;
 
 //---------------------------------------------------------
 //   ParDescr
@@ -41,8 +41,8 @@ struct ParDescr {
 class Effect : public QObject {
       Q_OBJECT
 
-   protected:
-      EffectGui* _gui { nullptr };
+   // protected:
+   //    EffectGui* _gui { nullptr };
 
    public slots:
       virtual void setValue(const QString& name, double value);
@@ -67,7 +67,7 @@ class Effect : public QObject {
       virtual SynthesizerGroup state() const { return SynthesizerGroup(); }
       virtual void setState(const SynthesizerGroup&) {}
 
-      virtual EffectGui* gui() { return _gui; }
+      // virtual EffectGui* gui() { return _gui; }
       };
 }
 #endif

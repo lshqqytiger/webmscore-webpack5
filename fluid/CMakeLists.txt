@@ -29,7 +29,7 @@ if (SOUNDFONT3)
       set(SF3_SRC sfont3.cpp)
 endif (SOUNDFONT3)
 
-QT5_WRAP_UI (fluidUi fluid_gui.ui)
+# QT5_WRAP_UI (fluidUi fluid_gui.ui)
 
 if (NOT MSVC)
    set(_all_h_file "${PROJECT_BINARY_DIR}/all.h")
@@ -40,11 +40,11 @@ endif (NOT MSVC)
 add_library (fluid STATIC
       ${_all_h_file}
       ${PCH}
-      ${fluidUi}
-      fluidgui.cpp
+      # ${fluidUi}
+      # fluidgui.cpp
       dsp.cpp fluid.cpp voice.cpp chan.cpp sfont.cpp
       conv.cpp gen.cpp mod.cpp
-      conv.h fluid.h fluidgui.h gen.h sfont.h voice.h
+      conv.h fluid.h gen.h sfont.h voice.h
       ${SF3_SRC}
       ${INCS}
       )

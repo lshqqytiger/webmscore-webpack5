@@ -23,7 +23,7 @@
 
 namespace Ms {
 
-class EffectGui;
+// class EffectGui;
 
 //---------------------------------------------------------
 //   Pareq
@@ -278,7 +278,7 @@ class ZitaReverb : public Effect
       float opmix() const     { return _opmix; }
 
       virtual const char* name() const { return "Zita1"; }
-      virtual EffectGui* gui();
+      // virtual EffectGui* gui();
       virtual const std::vector<ParDescr>& parDescr() const;
 
       virtual void setNValue(int parameter, double value);

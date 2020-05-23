@@ -35,14 +35,14 @@ class CompressorGui : public EffectGui {
 //   gui
 //---------------------------------------------------------
 
-EffectGui* Compressor::gui()
-      {
-      if (!_gui) {
-            _gui = new CompressorGui(this);
-            _gui->setGeometry(0, 0, 640, 79);
-            }
-      return _gui;
-      }
+// EffectGui* Compressor::gui()
+//       {
+//       if (!_gui) {
+//             _gui = new CompressorGui(this);
+//             _gui->setGeometry(0, 0, 640, 79);
+//             }
+//       return _gui;
+//       }
 
 //---------------------------------------------------------
 //    CompressorGui

@@ -413,7 +413,7 @@ class Fluid : public Synthesizer {
 
       QString error() const { return _error; }
 
-      virtual SynthesizerGui* gui();
+      // virtual SynthesizerGui* gui();
 
       static QFileInfoList sfFiles();
 

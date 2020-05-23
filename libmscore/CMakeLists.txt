@@ -158,6 +158,8 @@ target_link_libraries(webmscore
    ${QT_LIBRARIES}
    qzip
    midi
+   fluid
+   effects
 )
 
 set_target_properties (

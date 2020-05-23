@@ -11,9 +11,9 @@
 //=============================================================================
 
 #include "effects/effect.h"
-#include "effects/effectgui.h"
+// #include "effects/effectgui.h"
 #include "noeffect.h"
-#include "noeffectgui.h"
+// #include "noeffectgui.h"
 
 namespace Ms {
 
@@ -21,28 +21,28 @@ namespace Ms {
 //   gui
 //---------------------------------------------------------
 
-EffectGui* NoEffect::gui()
-      {
-      if (!_gui) {
-            _gui = new NoEffectGui(this);
-            _gui->setGeometry(0, 0, 644, 79);
-            }
-      return _gui;
-      }
+// EffectGui* NoEffect::gui()
+//       {
+//       if (!_gui) {
+//             _gui = new NoEffectGui(this);
+//             _gui->setGeometry(0, 0, 644, 79);
+//             }
+//       return _gui;
+//       }
 
 //---------------------------------------------------------
 //   NoEffectGui
 //---------------------------------------------------------
 
-NoEffectGui::NoEffectGui(Effect* e, QWidget* parent)
-   : EffectGui(e, parent)
-      {
-      QLabel* l = new QLabel;
-      l->setText(tr("No Plugin"));
-      QLayout* la = new QVBoxLayout;
-      la->addWidget(l);
-      setLayout(la);
-      }
+// NoEffectGui::NoEffectGui(Effect* e, QWidget* parent)
+//    : EffectGui(e, parent)
+//       {
+//       QLabel* l = new QLabel;
+//       l->setText(tr("No Plugin"));
+//       QLayout* la = new QVBoxLayout;
+//       la->addWidget(l);
+//       setLayout(la);
+//       }
 
 //---------------------------------------------------------
 //   parDescr
