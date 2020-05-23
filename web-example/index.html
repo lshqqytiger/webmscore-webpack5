@@ -15,11 +15,22 @@
 
         const name = 'Aequale_No_1.mscz'
 
+        async function fetchFont(url) {
+            const r = await fetch(url)
+            const data = await r.arrayBuffer()
+            return new Uint8Array(data)
+        }
+
         WebMscore.ready.then(async () => {
             const r = await fetch(`./${name}`)
             const filedata = new Uint8Array(await r.arrayBuffer())
 
-            const score = await WebMscore.load('mscz', filedata)
+            const fonts = [
+                await fetchFont("https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/CN/SourceHanSansCN-Regular.otf"),
+                await fetchFont("https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/KR/SourceHanSansKR-Regular.otf"),
+            ]
+
+            const score = await WebMscore.load('mscz', filedata, fonts)
             console.log(score)
 
             const title = await score.titleFilenameSafe()

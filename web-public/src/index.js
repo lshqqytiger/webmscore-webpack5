@@ -34,9 +34,14 @@ class WebMscore {
      * Load the score data (from a MSCZ/MSCX file)
      * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
+     * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
      */
-    static async load(filetype, data) {
+    static async load(filetype, data, fonts = []) {
         await WebMscore.ready
+
+        for (const f of fonts) {
+            await this.addFont(f)
+        }
 
         const filetypeptr = getStrPtr(filetype)
         const dataptr = getTypedArrayPtr(data)
@@ -52,6 +57,28 @@ class WebMscore {
         freePtr(dataptr)
 
         return new WebMscore(scoreptr)
+    }
+
+    /**
+     * Load (CJK) fonts on demand
+     * @private
+     * @param {string | Uint8Array} font
+     *        * path to the font file in the virtual file system, or
+     *        * the font file data
+     * @returns {Promise<boolean>} success
+     */
+    static async addFont(font) {
+        if (typeof font !== 'string') {
+            const name = '' + Math.random()  // a random name
+            // save the font data to the virtual file system
+            Module['FS_createDataFile']('/fonts/', name, font, true, true)
+            font = '/fonts/' + name
+        }
+
+        const fontpathptr = getStrPtr(font)
+        const success = Module.ccall('addFont', 'number', ['number'], [fontpathptr])
+        freePtr(fontpathptr)
+        return !!success
     }
 
     /**

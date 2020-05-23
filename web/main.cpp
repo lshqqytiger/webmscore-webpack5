@@ -71,6 +71,20 @@ void _init(int argc, char** argv) {
 }
 
 /**
+ * load (CJK) fonts on demand
+ */
+bool _addFont(const char* fontPath) {
+    QString _fontPath = QString::fromUtf8(fontPath);
+
+    if (-1 == QFontDatabase::addApplicationFont(_fontPath)) {
+        qDebug("Cannot load font <%s>", qPrintable(_fontPath));
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**
  * load the score data (a MSCZ/MSCX file buffer)
  */
 uintptr_t _load(const char* type, const char* data, const uint32_t size) {
@@ -326,6 +340,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     void init(int argc, char** argv) {
         return _init(argc, argv);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    bool addFont(const char* fontPath) {
+        return _addFont(fontPath);
     };
 
     EMSCRIPTEN_KEEPALIVE

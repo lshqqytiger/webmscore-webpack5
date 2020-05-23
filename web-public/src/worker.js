@@ -48,15 +48,15 @@ self.onmessage = async (e) => {
                 break
 
             case 'load':
-                const [filetype, filedata] = params
+                const [filetype, filedata, fonts] = params
                 await WebMscore.ready
-                score = await WebMscore.load(filetype, filedata)
+                score = await WebMscore.load(filetype, filedata, fonts)
                 rpcRes(id, 'done')
                 break;
 
             default:
                 if (!score) { rpcErr(id, new Error('Score not loaded')) }
-                const result = await score[method](...params)
+                const result = await score[method].apply(score, params)
                 let transfer
                 if (result instanceof Uint8Array) {
                     transfer = [result.buffer]

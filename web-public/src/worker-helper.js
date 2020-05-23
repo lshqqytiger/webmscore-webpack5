@@ -48,11 +48,12 @@ class WebMscoreW extends Worker {
      * Load the score (MSCZ/MSCX file) data 
      * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
+     * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
      */
-    static async load(filetype, data) {
+    static async load(filetype, data, fonts = []) {
         const instance = new WebMscoreW()
         await instance.rpc('ready')
-        await instance.rpc('load', [filetype, data], [data.buffer])
+        await instance.rpc('load', [filetype, data, fonts], [data.buffer, /** ...fonts.map(f => f.buffer) */])
         return instance
     }
 

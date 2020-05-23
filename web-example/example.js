@@ -13,7 +13,10 @@ const filedata = fs.readFileSync(`./${name}`)
 WebMscore.ready.then(async () => {
     console.log('supported file format version:', await WebMscore.version())
 
-    const score = await WebMscore.load('mscz', filedata)
+    const score = await WebMscore.load('mscz', filedata, [
+        fs.readFileSync('../fonts/SourceHanSansCN-Regular.otf'),  // only contains the CN variation (style) of Chinese characters (the range of GB18030), including traditional and simplified
+        fs.readFileSync('../fonts/SourceHanSansKR-Regular.otf'),  // to support hangul syllables
+    ])
     console.log(score)
     console.log()
 
