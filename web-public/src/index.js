@@ -251,6 +251,43 @@ class WebMscore {
     }
 
     /**
+     * Set the soundfont (sf2/sf3) data
+     * @param {Uint8Array} data 
+     */
+    async setSoundFont(data) {
+        if (this.hasSoundfont) {
+            // remove the old soundfont file
+            Module['FS_createDataFile']('/MuseScore_General.sf3')
+        }
+
+        // put the soundfont file into the virtual file system
+        // side effects: the soundfont is shared across all instances
+        Module['FS_createDataFile']('/', 'MuseScore_General.sf3', data, true, true)
+
+        /** @private */
+        this.hasSoundfont = true
+    }
+
+    /**
+     * Export score as audio file (wav/ogg)
+     * @param {'wav' | 'ogg'} type 
+     */
+    async saveAudio(type) {
+        if (!this.hasSoundfont) {
+            throw new Error('The soundfont is not set.')
+        }
+
+        const filetypeptr = getStrPtr(type)
+        const dataptr = Module.ccall('saveAudio',
+            'number',
+            ['number', 'number', 'number'],
+            [this.scoreptr, filetypeptr, this.excerptId]
+        )
+        freePtr(filetypeptr)
+        return readData(dataptr)
+    }
+
+    /**
      * Export positions of measures or segments (if `ofSegments` == true) as JSON
      * @param {boolean} ofSegments
      * @also `score.measurePositions()` and `score.segmentPositions()`

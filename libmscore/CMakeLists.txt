@@ -109,6 +109,7 @@ add_executable (
       ../mscore/exportxml.cpp ../mscore/importxmlfirstpass.cpp ../mscore/musicxmlfonthandler.cpp ../mscore/musicxmlsupport.cpp
       ../mscore/svggenerator.cpp
       ../mscore/exportmidi.cpp
+      ../mscore/exportaudio.cpp
       ../mscore/savePositions.cpp
       ../mscore/file.cpp
       ../web/main.cpp
@@ -160,6 +161,8 @@ target_link_libraries(webmscore
    midi
    fluid
    effects
+   audiofile
+   sndfile
 )
 
 set_target_properties (

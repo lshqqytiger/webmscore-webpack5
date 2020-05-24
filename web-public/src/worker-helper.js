@@ -216,6 +216,29 @@ class WebMscoreW extends Worker {
     }
 
     /**
+     * Set the soundfont (sf2/sf3) data
+     * @param {Uint8Array} data 
+     */
+    async setSoundFont(data) {
+        // side effects: the soundfont is shared across all instances
+        await this.rpc('setSoundFont', [data], [data.buffer])
+        /** @private */
+        this.hasSoundfont = true
+    }
+
+    /**
+     * Export score as audio file (wav/ogg)
+     * @param {'wav' | 'ogg'} type 
+     * @returns {Promise<Uint8Array>}
+     */
+    saveAudio(type) {
+        if (!this.hasSoundfont) {
+            throw new Error('The soundfont is not set.')
+        }
+        return this.rpc('saveAudio', [type])
+    }
+
+    /**
      * Export positions of measures or segments (if `ofSegments` == true) as JSON string
      * @param {boolean} ofSegments
      * @also `score.measurePositions()` and `score.segmentPositions()`

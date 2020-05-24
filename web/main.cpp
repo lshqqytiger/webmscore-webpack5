@@ -295,6 +295,38 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
 }
 
 /**
+ * export score as AudioFile (wav/ogg)
+ */
+const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
+
+    // type of the output file, "wav" or "ogg"
+    QString _type = QString::fromUtf8(type);  
+    if (!(_type == "wav" || _type == "ogg")) {
+        throw QString("Invalid output type");
+    }
+
+    // save audio data to a temporary file
+    QTemporaryFile tempfile("XXXXXX." + _type);  // filename template for the temporary file
+    if (!tempfile.open()) {
+        throw QString("Cannot create a temporary file");
+    }
+
+    auto filename = tempfile.fileName();
+    Ms::saveAudio(score, filename);
+
+    auto size = tempfile.size();
+    auto data = tempfile.readAll();
+    qDebug("saveAudio: excerpt %d, tempfile %s, size %lld", excerptId, qPrintable(filename), size);
+
+    // delete the temporary file
+    tempfile.remove();
+
+    return packData(data, size);
+}
+
+/**
  * save positions of measures or segments (if the `ofSegments` param == true) as JSON
  */
 const char* _savePositions(uintptr_t score_ptr, bool ofSegments, int excerptId) {
@@ -395,6 +427,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRPNs, int excerptId = -1) {
         return _saveMidi(score_ptr, midiExpandRepeats, exportRPNs, excerptId);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveAudio(uintptr_t score_ptr, const char* type, int excerptId = -1) {
+        return _saveAudio(score_ptr, type, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE

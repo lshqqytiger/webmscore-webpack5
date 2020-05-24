@@ -19,17 +19,45 @@
 
 #include "config.h"
 #ifdef HAS_AUDIOFILE
-#include <sndfile.h>
+#include "thirdparty/libsndfile/src/sndfile.h"
 #endif
 #include "libmscore/score.h"
 #include "libmscore/note.h"
 #include "libmscore/part.h"
 #include "libmscore/mscore.h"
 #include "synthesizer/msynthesizer.h"
-#include "musescore.h"
-#include "preferences.h"
+// #include "musescore.h"
+// #include "preferences.h"
+
+#include "effects/zita1/zita.h"
+#include "effects/compressor/compressor.h"
+#include "effects/noeffect/noeffect.h"
+#include "synthesizer/synthesizer.h"
+#include "synthesizer/synthesizergui.h"
+#include "synthesizer/msynthesizer.h"
+#include "synthesizer/event.h"
+#include "fluid/fluid.h"
 
 namespace Ms {
+
+MasterSynthesizer* synthesizerFactory() {
+        MasterSynthesizer* ms = new MasterSynthesizer();
+
+        FluidS::Fluid* fluid = new FluidS::Fluid();
+        ms->registerSynthesizer(fluid);
+
+        ms->registerEffect(0, new NoEffect);
+        ms->registerEffect(0, new ZitaReverb);
+        ms->registerEffect(0, new Compressor);
+        // ms->registerEffect(0, new Freeverb);
+        ms->registerEffect(1, new NoEffect);
+        ms->registerEffect(1, new ZitaReverb);
+        ms->registerEffect(1, new Compressor);
+        // ms->registerEffect(1, new Freeverb);
+        ms->setEffect(0, 1);
+        ms->setEffect(1, 0);
+        return ms;
+}
 
 ///
 /// \brief Function to synthesize audio and output it into a generic QIODevice
@@ -40,7 +68,7 @@ namespace Ms {
 ///
 /// If the callback function is non zero an returns false the export will be canceled.
 ///
-bool MuseScore::saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updateProgress)
+bool saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updateProgress)
     {
     if (!device) {
         qDebug() << "Invalid device";
@@ -57,32 +85,37 @@ bool MuseScore::saveAudio(Score* score, QIODevice *device, std::function<bool(fl
     // allow single note dynamics. See issue #289947.
     const bool useCurrentSynthesizerState = !MScore::noGui;
 
+#if 0
     if (useCurrentSynthesizerState) {
           score->renderMidi(&events, synthesizerState());
           if (events.empty())
                 return false;
           }
+#endif
 
     MasterSynthesizer* synth = synthesizerFactory();
     synth->init();
-    int sampleRate = preferences.getInt(PREF_EXPORT_AUDIO_SAMPLERATE);
+//     int sampleRate = preferences.getInt(PREF_EXPORT_AUDIO_SAMPLERATE);
+       int sampleRate = 44100;
     synth->setSampleRate(sampleRate);
     if (MScore::noGui) { // use score settings if possible
           bool r = synth->setState(score->synthesizerState());
           if (!r)
                 synth->init();
           }
+#if 0
     else { // use current synth settings
           bool r = synth->setState(mscore->synthesizerState());
           if (!r)
                 synth->init();
           }
+#endif
 
     if (!useCurrentSynthesizerState) {
           score->masterScore()->rebuildAndUpdateExpressive(synth->synthesizer("Fluid"));
           score->renderMidi(&events, score->synthesizerState());
-          if (synti)
-                score->masterScore()->rebuildAndUpdateExpressive(synti->synthesizer("Fluid"));
+      //     if (synti)
+      //           score->masterScore()->rebuildAndUpdateExpressive(synti->synthesizer("Fluid"));
 
           if (events.empty())
                 return false;
@@ -99,7 +132,8 @@ bool MuseScore::saveAudio(Score* score, QIODevice *device, std::function<bool(fl
     const int maxEndTime = (score->utick2utime(endPos->first) + 3) * MScore::sampleRate;
 
     bool cancelled = false;
-    int passes = preferences.getBool(PREF_EXPORT_AUDIO_NORMALIZE) ? 2 : 1;
+//     int passes = preferences.getBool(PREF_EXPORT_AUDIO_NORMALIZE) ? 2 : 1;
+    int passes = true ? 2 : 1;
     for (int pass = 0; pass < passes; ++pass) {
           EventMap::const_iterator playPos;
           playPos = events.cbegin();
@@ -217,7 +251,7 @@ bool MuseScore::saveAudio(Score* score, QIODevice *device, std::function<bool(fl
 //   saveAudio
 //---------------------------------------------------------
 
-bool MuseScore::saveAudio(Score* score, const QString& name)
+bool saveAudio(Score* score, const QString& name)
       {
     // QIODevice - SoundFile wrapper class
     class SoundFileDevice : public QIODevice {
@@ -284,13 +318,15 @@ bool MuseScore::saveAudio(Score* score, const QString& name)
             }
 
       EventMap events;
-      score->renderMidi(&events, synthesizerState());
+      // score->renderMidi(&events, synthesizerState());
+      score->renderMidi(&events, SynthesizerState());
       if(events.size() == 0)
             return false;
 
       MasterSynthesizer* synth = synthesizerFactory();
 	  synth->init();
-      int sampleRate = preferences.getInt(PREF_EXPORT_AUDIO_SAMPLERATE);
+      // int sampleRate = preferences.getInt(PREF_EXPORT_AUDIO_SAMPLERATE);
+      int sampleRate = 44100;
 	  synth->setSampleRate(sampleRate);
       bool r = synth->setState(score->synthesizerState());
       if (!r)
@@ -305,6 +341,7 @@ bool MuseScore::saveAudio(Score* score, const QString& name)
       // dummy callback function that will be used if there is no gui
       std::function<bool(float)> progressCallback = [](float) {return true;};
 
+#if 0
       QProgressDialog progress(this);
       progress.setWindowFlags(Qt::WindowFlags(Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowTitleHint));
       progress.setWindowModality(Qt::ApplicationModal);
@@ -331,18 +368,23 @@ bool MuseScore::saveAudio(Score* score, const QString& name)
       // which will be scaled into integer 0 to 1000 numbers
       // which allows a smooth transition.
       progress.setRange(0, 1000);
+#endif
 
       // Save the audio to the SoundFile device
       bool result = saveAudio(score, &device, progressCallback);
 
+#if 0
       bool wasCanceled = progress.wasCanceled();
       progress.close();
+#endif
 
       MScore::sampleRate = oldSampleRate;
       delete synth;
 
+#if 0
       if (wasCanceled)
             QFile::remove(name);
+#endif
 
       return result;
       }

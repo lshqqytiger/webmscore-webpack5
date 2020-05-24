@@ -15,20 +15,23 @@
 
         const name = 'Aequale_No_1.mscz'
 
-        async function fetchFont(url) {
+        const fontUrls = [
+            'https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/CN/SourceHanSansCN-Regular.otf',
+            'https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/KR/SourceHanSansKR-Regular.otf',
+        ]
+
+        const soundfontUrl = 'https://cdn.jsdelivr.net/gh/musescore/MuseScore@2.1/share/sound/FluidR3Mono_GM.sf3'
+
+        async function fetchData(url) {
             const r = await fetch(url)
             const data = await r.arrayBuffer()
             return new Uint8Array(data)
         }
 
         WebMscore.ready.then(async () => {
-            const r = await fetch(`./${name}`)
-            const filedata = new Uint8Array(await r.arrayBuffer())
-
-            const fonts = [
-                await fetchFont("https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/CN/SourceHanSansCN-Regular.otf"),
-                await fetchFont("https://cdn.jsdelivr.net/gh/adobe-fonts/source-han-sans@release/SubsetOTF/KR/SourceHanSansKR-Regular.otf"),
-            ]
+            const filedata = await fetchData(`./${name}`)
+            const fonts = await Promise.all(fontUrls.map(u => fetchData(u)))
+            const soundfont = await fetchData(soundfontUrl)
 
             const score = await WebMscore.load('mscz', filedata, fonts)
             console.log(score)
@@ -53,6 +56,10 @@
 
             saveAs(new Blob([await score.saveMidi()]), `${title}.mid`)
             console.log('generated MIDI file')
+
+            await score.setSoundFont(soundfont) // load soundfont
+            saveAs(new Blob([await score.saveAudio('ogg')]), `${title}.ogg`)
+            console.log('generated OGG audio file')
 
             const metadata = await score.metadata()
             saveAs(new Blob([JSON.stringify(metadata)]), `metadata.json`)

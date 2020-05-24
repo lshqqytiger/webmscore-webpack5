@@ -13,7 +13,7 @@
 #ifndef __AUDIOFILE_H__
 #define __AUDIOFILE_H__
 
-#include <sndfile.h>
+#include "thirdparty/libsndfile/src/sndfile.h"
 
 //---------------------------------------------------------
 //   AudioFile

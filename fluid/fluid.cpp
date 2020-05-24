@@ -918,7 +918,7 @@ static void collectFiles(QFileInfoList* l, const QString& path)
 QFileInfoList Fluid::sfFiles()
       {
       QFileInfoList l;
-      l.append(QFileInfo("/sound/MuseScore_General.sf3"));
+      l.append(QFileInfo("/MuseScore_General.sf3"));
 
 #if 0
       QStringList pl = preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";");

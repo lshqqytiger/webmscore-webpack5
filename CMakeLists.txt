@@ -60,6 +60,8 @@ SET (USE_WEBENGINE 0)
 
 option(BUILD_PCH "Build using precompiled headers." ON)
 option(EMBED_PRELOADS "Embed preload files in the .js file, otherwise pack into a separate .data file." OFF)
+option(SOUNDFONT3    "Ogg Vorbis compressed fonts" ON)         # Enable Ogg Vorbis compressed fonts, requires Ogg & Vorbis
+option(HAS_AUDIOFILE "Enable audio export" ON)                 # Requires libsndfile
 
 
 set(CMAKE_EXECUTABLE_SUFFIX ".lib.js")
@@ -82,6 +84,8 @@ set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_ZLIB=1")      # 1 = use zlib from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")  # 1 = use freetype from emscripten-ports
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_VORBIS=1")    # 1 = use vorbis from emscripten-ports
+set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_OGG=1")       # 1 = use ogg from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s DEMANGLE_SUPPORT=1")
 
 set(CMAKE_CXX_FLAGS_DEBUG   "-g3 -s ASSERTIONS=2 -s STACK_OVERFLOW_CHECK=2 -s SAFE_HEAP=1")
@@ -152,7 +156,6 @@ foreach(_file ${_preload_files})
 endforeach()
 
 set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/styles@/styles")
-set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/sound/FluidR3Mono_GM.sf3@/sound/MuseScore_General.sf3")
 
 
 #
@@ -216,7 +219,9 @@ subdirs(
       synthesizer
       effects
       fluid
+      audiofile
       thirdparty/qzip
       thirdparty/freetype
+      thirdparty/libsndfile/src
       )
 

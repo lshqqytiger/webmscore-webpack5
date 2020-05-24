@@ -89,7 +89,14 @@ cd $QT_PATH
 make -j$CPUS
 ```
 
-4. Compile `webmscore`
+4. Checkout submodules
+
+```sh
+git submodule init
+git submodule update
+```
+
+5. Compile `webmscore`
 
 ```sh
 make release
