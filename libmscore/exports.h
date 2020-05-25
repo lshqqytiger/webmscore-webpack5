@@ -15,6 +15,7 @@ namespace Ms {
 
     bool saveMidi(Score* score, QIODevice* device, bool midiExpandRepeats, bool exportRPNs);
 
+    bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)> updateProgress, float starttime = 0, bool audioNormalize = true);
     bool saveAudio(Score* score, const QString& filename);
 
     QJsonObject savePositions(Score* score, bool segments);

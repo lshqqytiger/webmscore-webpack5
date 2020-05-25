@@ -63,19 +63,23 @@ MasterSynthesizer* synthesizerFactory() {
 /// \brief Function to synthesize audio and output it into a generic QIODevice
 /// \param score The score to output
 /// \param device The output device
-/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1]
+/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1], and the current play time in seconds
+/// \param starttime The start time offset in seconds
+/// \param audioNormalize Process the audio twice
 /// \return True on success, false otherwise.
 ///
 /// If the callback function is non zero an returns false the export will be canceled.
 ///
-bool saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updateProgress)
+bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)> updateProgress, float starttime = 0, bool audioNormalize = true)
     {
+    qDebug("saveAudio: starttime %f, audioNormalize %d", starttime, audioNormalize);
+
     if (!device) {
         qDebug() << "Invalid device";
         return false;
     }
 
-    if (!device->open(QIODevice::WriteOnly)) {
+    if (!device->open(QIODevice::ReadWrite)) {
         qDebug() << "Could not write to device";
         return false;
     }
@@ -128,16 +132,30 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updat
     double gain = 1.0;
     EventMap::const_iterator endPos = events.cend();
     --endPos;
-    const int et = (score->utick2utime(endPos->first) + 1) * MScore::sampleRate;
+    const qreal _endt = (score->utick2utime(endPos->first) + 1); // in seconds
+    const int et = _endt * MScore::sampleRate;
     const int maxEndTime = (score->utick2utime(endPos->first) + 3) * MScore::sampleRate;
 
     bool cancelled = false;
 //     int passes = preferences.getBool(PREF_EXPORT_AUDIO_NORMALIZE) ? 2 : 1;
-    int passes = true ? 2 : 1;
+    int passes = audioNormalize ? 2 : 1;
     for (int pass = 0; pass < passes; ++pass) {
           EventMap::const_iterator playPos;
           playPos = events.cbegin();
           synth->allSoundsOff(-1);
+
+          // seek
+          for (;;) {
+                if (playPos == events.cend()) {  // starttime is greater than the max duration
+                      return false;
+                }
+                float t = score->utick2utime(playPos->first);
+                if (t >= starttime - 0.0005) {  // round to the nearest thousandth
+                      starttime = t;
+                      break;
+                }
+                ++playPos;
+          }
 
           //
           // init instruments
@@ -160,7 +178,8 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updat
 
           static const unsigned FRAMES = 512;
           float buffer[FRAMES * 2];
-          int playTime = 0;
+      //     int playTime = 0;
+          int playTime = starttime * MScore::sampleRate;
 
           for (;;) {
                 unsigned frames = FRAMES;
@@ -213,7 +232,7 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float)> updat
                 playTime = endTime;
                 if (updateProgress) {
                     // normalize to [0, 1] range
-                    if (!updateProgress(float(pass * et + playTime) / passes / et)) {
+                    if (!updateProgress(float(pass * et + playTime) / passes / et, float(playTime) / MScore::sampleRate)) {
                         cancelled = true;
                         break;
                     }
@@ -339,7 +358,7 @@ bool saveAudio(Score* score, const QString& name)
       SoundFileDevice device(sampleRate, format, name);
 
       // dummy callback function that will be used if there is no gui
-      std::function<bool(float)> progressCallback = [](float) {return true;};
+      std::function<bool(float, float)> progressCallback = [](float, float) {return true;};
 
 #if 0
       QProgressDialog progress(this);
@@ -352,7 +371,7 @@ bool saveAudio(Score* score, const QString& name)
           // callback function that will update the progress bar
           // it will return false and thus cancel the export if the user
           // cancels the progress dialog.
-          progressCallback = [&progress](float v) -> bool {
+          progressCallback = [&progress](float v, float) -> bool {
               if (progress.wasCanceled())
                     return false;
               progress.setValue(v * 1000);

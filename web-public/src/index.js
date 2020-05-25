@@ -288,6 +288,38 @@ class WebMscore {
     }
 
     /**
+     * Synthesis audio frames
+     * @param {number} starttime float
+     * @param {(playtime: number, chunk: Uint8Array) => Promise<boolean | void>} cb 
+     *        * playtime - the current play time in seconds
+     *        * chunk - the data chunk of audio frames
+     *        * returns `true` - cancel the process
+     * @returns {Promise<boolean>} success
+     */
+    async synthAudio(starttime, cb) {
+        if (!this.hasSoundfont) {
+            throw new Error('The soundfont is not set.')
+        }
+
+        // get a random callback id
+        const callbackId = Math.random() * 1e6 | 0  // integer
+
+        // register the callback into the C++ code
+        Module[callbackId] = cb
+
+        /** @type {0 | 1} */
+        const success = await Module.ccall('synthAudio',
+            'number',
+            ['number', 'number', 'number', 'number'],
+            [this.scoreptr, callbackId, starttime, this.excerptId]
+        )
+
+        delete Module[callbackId]
+
+        return !!success
+    }
+
+    /**
      * Export positions of measures or segments (if `ofSegments` == true) as JSON
      * @param {boolean} ofSegments
      * @also `score.measurePositions()` and `score.segmentPositions()`

@@ -104,7 +104,7 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
 
     score->loadMsc(filename, &buffer, true);
 
-    // mscore/file.cpp#L2257 readScore
+    // mscore/file.cpp#L2278 readScore
     score->rebuildMidiMapping();
     score->setSoloMute();
     for (auto s : score->scoreList()) {
@@ -113,6 +113,7 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
         s->setLayoutAll();
     }
     score->updateChannel();
+    // score->updateExpressive(MuseScore::synthesizer("Fluid"));
 
     // do layout ...
     score->update();
@@ -326,6 +327,45 @@ const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
     return packData(data, size);
 }
 
+EM_JS(bool, js_synth_cb, (int callbackId, float playtime, const char* chunkptr, int chunkSize), {
+    return Asyncify.handleSleep(wakeUp => {
+        const callback = Module[callbackId];
+        const chunk = new Uint8Array(Module.HEAPU8.subarray(chunkptr, chunkptr + chunkSize));
+        Promise.resolve(  // Promisify
+            callback(playtime, chunk)
+        ).then(wakeUp);
+    });
+});
+
+/**
+ * synthesis audio frames
+ */
+bool _synthAudio(uintptr_t score_ptr, int callbackId, float starttime, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
+
+    qDebug("synthAudio: excerpt %d, starttime %f", excerptId, starttime);
+
+    QBuffer buffer;
+
+    // mscore/exportaudio.cpp#L179
+    static const uint FRAMES = 512;
+    // mscore/exportaudio.cpp#L231
+    static const uint CHUNK_SIZE = 2 * FRAMES * sizeof(float);
+
+    auto cb = [&](float, float playtime) -> bool {
+        const char* chunk = buffer.read(CHUNK_SIZE);
+
+        bool cancel = js_synth_cb(callbackId, playtime, chunk, CHUNK_SIZE);
+
+        return !cancel;
+    };
+
+    bool success = Ms::saveAudio(score, &buffer, cb, starttime, false);
+
+    return success;
+}
+
 /**
  * save positions of measures or segments (if the `ofSegments` param == true) as JSON
  */
@@ -432,6 +472,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveAudio(uintptr_t score_ptr, const char* type, int excerptId = -1) {
         return _saveAudio(score_ptr, type, excerptId);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    bool synthAudio(uintptr_t score_ptr, int callbackId, float starttime, int excerptId = -1) {
+        return _synthAudio(score_ptr, callbackId, starttime, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE

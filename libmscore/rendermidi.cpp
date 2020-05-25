@@ -2523,7 +2523,7 @@ void MidiRenderer::renderChunk(const Chunk& chunk, EventMap* events, const Synth
                   // since sometimes the synth state is not init
                   method = 1;
                   cc = 2;
-                  qWarning("Had to fall back to defaults to render measure");
+                  qDebug("Had to fall back to defaults to render measure");
                   }
             }
 
