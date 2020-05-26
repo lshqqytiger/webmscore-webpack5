@@ -63,14 +63,14 @@ MasterSynthesizer* synthesizerFactory() {
 /// \brief Function to synthesize audio and output it into a generic QIODevice
 /// \param score The score to output
 /// \param device The output device
-/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1], and the current play time in seconds
+/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1], the current play time in seconds, and the frame data (if in the final pass)
 /// \param starttime The start time offset in seconds
 /// \param audioNormalize Process the audio twice
 /// \return True on success, false otherwise.
 ///
 /// If the callback function is non zero an returns false the export will be canceled.
 ///
-bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)> updateProgress, float starttime = 0, bool audioNormalize = true)
+bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float, const char*, int, int)> updateProgress, float starttime = 0, bool audioNormalize = true, int callbackId = -1)
     {
     qDebug("saveAudio: starttime %f, audioNormalize %d", starttime, audioNormalize);
 
@@ -79,7 +79,7 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)
         return false;
     }
 
-    if (!device->open(QIODevice::ReadWrite)) {
+    if (!device->open(QIODevice::WriteOnly)) {
         qDebug() << "Could not write to device";
         return false;
     }
@@ -227,12 +227,21 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)
                             peak = qMax(peak, qAbs(buffer[i]));
                             }
                       }
-                if (pass == (passes - 1))
-                      device->write(reinterpret_cast<const char*>(buffer), 2 * FRAMES * sizeof(float));
+                bool finalPass = pass == (passes - 1);
+                auto buf = reinterpret_cast<const char*>(buffer);
+                int bufSize = 2 * FRAMES * sizeof(float);
+                if (finalPass)
+                      device->write(buf, bufSize);
                 playTime = endTime;
                 if (updateProgress) {
                     // normalize to [0, 1] range
-                    if (!updateProgress(float(pass * et + playTime) / passes / et, float(playTime) / MScore::sampleRate)) {
+                    if (!updateProgress(
+                          float(pass * et + playTime) / passes / et,
+                          float(playTime) / MScore::sampleRate,
+                          finalPass ? buf : nullptr,
+                          finalPass ? bufSize : -1,
+                          callbackId
+                        )) {
                         cancelled = true;
                         break;
                     }
@@ -358,7 +367,7 @@ bool saveAudio(Score* score, const QString& name)
       SoundFileDevice device(sampleRate, format, name);
 
       // dummy callback function that will be used if there is no gui
-      std::function<bool(float, float)> progressCallback = [](float, float) {return true;};
+      std::function<bool(float, float, const char*, int, int)> progressCallback = [](float, float, const char*, int, int) {return true;};
 
 #if 0
       QProgressDialog progress(this);
@@ -371,7 +380,7 @@ bool saveAudio(Score* score, const QString& name)
           // callback function that will update the progress bar
           // it will return false and thus cancel the export if the user
           // cancels the progress dialog.
-          progressCallback = [&progress](float v, float) -> bool {
+          progressCallback = [&progress](float v, float, const char*, int, int) -> bool {
               if (progress.wasCanceled())
                     return false;
               progress.setValue(v * 1000);

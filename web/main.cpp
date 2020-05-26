@@ -327,15 +327,20 @@ const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
     return packData(data, size);
 }
 
-EM_JS(bool, js_synth_cb, (int callbackId, float playtime, const char* chunkptr, int chunkSize), {
+EM_JS(bool, js_synth_cb, (float, float playtime, const char* chunkptr, int chunkSize, int callbackId), {
     return Asyncify.handleSleep(wakeUp => {
         const callback = Module[callbackId];
         const chunk = new Uint8Array(Module.HEAPU8.subarray(chunkptr, chunkptr + chunkSize));
         Promise.resolve(  // Promisify
             callback(playtime, chunk)
-        ).then(wakeUp);
+        ).then(cancel => wakeUp(!cancel));
     });
 });
+
+class NoopDevice : public QIODevice {
+    virtual qint64 readData(char *, qint64) override final { return 0; };
+    virtual qint64 writeData(const char *, qint64) override final { return 0; };
+};
 
 /**
  * synthesis audio frames
@@ -346,22 +351,8 @@ bool _synthAudio(uintptr_t score_ptr, int callbackId, float starttime, int excer
 
     qDebug("synthAudio: excerpt %d, starttime %f", excerptId, starttime);
 
-    QBuffer buffer;
-
-    // mscore/exportaudio.cpp#L179
-    static const uint FRAMES = 512;
-    // mscore/exportaudio.cpp#L231
-    static const uint CHUNK_SIZE = 2 * FRAMES * sizeof(float);
-
-    auto cb = [&](float, float playtime) -> bool {
-        const char* chunk = buffer.read(CHUNK_SIZE);
-
-        bool cancel = js_synth_cb(callbackId, playtime, chunk, CHUNK_SIZE);
-
-        return !cancel;
-    };
-
-    bool success = Ms::saveAudio(score, &buffer, cb, starttime, false);
+    NoopDevice noop;
+    bool success = Ms::saveAudio(score, &noop, js_synth_cb, starttime, false, callbackId);
 
     return success;
 }
