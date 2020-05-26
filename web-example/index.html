@@ -65,6 +65,40 @@
             saveAs(new Blob([JSON.stringify(metadata)]), `metadata.json`)
             console.log('score metadata', metadata)
 
+            //
+            // synthesize audio, and output using the Web Audio API
+            //
+            const CHANNELS = 2
+            const FRAME_LENGTH = 512
+            const audioCtx = new (AudioContext || webkitAudioContext)()
+            const audioBuf = audioCtx.createBuffer(CHANNELS, (metadata.duration + 1) * 44100, 44100)
+
+            const fn = await score.synthAudio(0)
+            for (let i = 0; ; i += FRAME_LENGTH) {
+                const res = await fn()
+                const frames = new Float32Array(res.chunk.buffer)
+
+                // audio frames are interleaved 
+                for (let d = 0; d < FRAME_LENGTH; d++) {
+                    for (let c = 0; c < CHANNELS; c++) {
+                        const p = d * CHANNELS + c
+                        audioBuf.copyToChannel(frames.slice(p, p + 1), c, i + d)
+                    }
+                }
+
+                if (res.done) {
+                    break
+                }
+            }
+
+            const source = audioCtx.createBufferSource()
+            source.buffer = audioBuf
+            source.connect(audioCtx.destination)
+            source.start()
+
+            //
+            // destroy
+            //
             score.destroy()
             console.log('destroyed')
         })

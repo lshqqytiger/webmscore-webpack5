@@ -288,35 +288,69 @@ class WebMscore {
     }
 
     /**
-     * Synthesis audio frames
-     * @param {number} starttime float
-     * @param {(playtime: number, chunk: Uint8Array) => Promise<boolean | void>} cb 
-     *        * playtime - the current play time in seconds
-     *        * chunk - the data chunk of audio frames
-     *        * returns `true` - cancel the process
-     * @returns {Promise<boolean>} success
+     * Synthesize audio frames
+     * @param {number} starttime The start time offset in seconds
+     * @returns {Promise<(cancel: boolean) => Promise<{ done: boolean; playtime: number; chunk: Uint8Array; }>>} The iterator function, see `processSynth`
      */
-    async synthAudio(starttime, cb) {
+    async synthAudio(starttime) {
+        const fn = await this._synthAudio(starttime)
+        return (cancel) => {
+            return this.processSynth(fn, cancel)
+        }
+    }
+
+    /**
+     * Synthesize audio frames
+     * @private
+     * @param {number} starttime The start time offset in seconds
+     * @returns {Promise<number>} Pointer to the iterator function
+     */
+    async _synthAudio(starttime = 0) {
         if (!this.hasSoundfont) {
             throw new Error('The soundfont is not set.')
         }
 
-        // get a random callback id
-        const callbackId = Math.random() * 1e6 | 0  // integer
-
-        // register the callback into the C++ code
-        Module[callbackId] = cb
-
-        /** @type {0 | 1} */
-        const success = await Module.ccall('synthAudio',
+        const iteratorFnPtr = Module.ccall('synthAudio',
             'number',
-            ['number', 'number', 'number', 'number'],
-            [this.scoreptr, callbackId, starttime, this.excerptId]
+            ['number', 'number', 'number'],
+            [this.scoreptr, starttime, this.excerptId]
         )
 
-        delete Module[callbackId]
+        const success = iteratorFnPtr !== 0
+        if (!success) {
+            throw new Error('synthAudio: Internal Error.')
+        }
 
-        return !!success
+        return iteratorFnPtr
+    }
+
+    /**
+     * @private
+     * @param {number} fnptr - pointer to the iterator function
+     * @param {boolean} cancel - cancel the audio synthesis worklet 
+     */
+    async processSynth(fnptr, cancel = false) {
+        const resptr = Module.ccall('processSynth',
+            'number',
+            ['number', 'boolean'],
+            [fnptr, cancel]
+        )
+
+        // struct SynthRes
+        const done = Module.getValue(resptr + 0, 'i8')
+        const playtime = +Module.getValue(resptr + 4, 'float')  // in seconds
+        const chunksize = Module.getValue(resptr + 8, 'i32')
+        const chunkptr = Module.getValue(resptr + 12, '*')
+
+        const chunk = new Uint8Array(  // make a copy
+            Module.HEAPU8.subarray(chunkptr, chunkptr + chunksize)
+        )
+
+        return {
+            done: !!done,
+            playtime,  // The current play time in seconds
+            chunk,     // The data chunk of audio frames, interleaved, 512 frames, 44100 Hz (44.1 kHz), 0.0116 s (512/44100)
+        }
     }
 
     /**

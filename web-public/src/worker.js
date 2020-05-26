@@ -58,8 +58,12 @@ self.onmessage = async (e) => {
                 if (!score) { rpcErr(id, new Error('Score not loaded')) }
                 const result = await score[method].apply(score, params)
                 let transfer
-                if (result instanceof Uint8Array) {
-                    transfer = [result.buffer]
+                if (result) {
+                    if (result instanceof Uint8Array) {
+                        transfer = [result.buffer]
+                    } else if (result.chunk instanceof Uint8Array) {
+                        transfer = [result.chunk.buffer]
+                    }
                 }
                 rpcRes(id, result, transfer)
         }

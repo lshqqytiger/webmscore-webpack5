@@ -38,6 +38,8 @@
 #include "synthesizer/event.h"
 #include "fluid/fluid.h"
 
+#include "libmscore/exports.h"
+
 namespace Ms {
 
 MasterSynthesizer* synthesizerFactory() {
@@ -59,18 +61,154 @@ MasterSynthesizer* synthesizerFactory() {
         return ms;
 }
 
+static const unsigned SYNTH_FRAMES = 512;
+static const unsigned SYNTH_BUFFER_SIZE = sizeof(float) * SYNTH_FRAMES * 2;
+
+std::function<SynthRes(bool)> synthAudioWorklet(Score* score, float starttime) {
+      EventMap events;
+
+      int sampleRate = 44100;
+      int oldSampleRate  = MScore::sampleRate;
+      MScore::sampleRate = sampleRate;
+
+      MasterSynthesizer* synth = synthesizerFactory();
+      synth->init();
+      synth->setSampleRate(sampleRate);
+
+      // use score settings if possible
+      bool r = synth->setState(score->synthesizerState());
+      if (!r) {
+            synth->init();
+      }
+
+      score->masterScore()->rebuildAndUpdateExpressive(synth->synthesizer("Fluid"));
+      score->renderMidi(&events, score->synthesizerState());
+      if (events.empty()) {
+            return nullptr;
+      }
+
+      EventMap::const_iterator endPos = events.cend();
+      --endPos;
+      const int et = (score->utick2utime(endPos->first) + 1) * MScore::sampleRate;
+
+      EventMap::const_iterator playPos;
+      playPos = events.cbegin();
+      synth->allSoundsOff(-1);
+
+      // 
+      // seek
+      // 
+      int posIndex = 0;
+      for (;;) {
+            if (playPos == events.cend()) {  // starttime is greater than the max duration
+                  return nullptr;
+            }
+            float t = score->utick2utime(playPos->first);
+            if (t >= starttime - 0.0005) {  // round to the nearest thousandth
+                  starttime = t;
+                  break;
+            }
+            ++posIndex;
+            ++playPos;
+      }
+      int playTime = starttime * MScore::sampleRate;
+
+      //
+      // init instruments
+      //
+      for (Part* part : score->parts()) {
+            const InstrumentList* il = part->instruments();
+            for (auto i = il->begin(); i != il->end(); i++) {
+                  for (const Channel* instrChan : i->second->channel()) {
+                        const Channel* a = score->masterScore()->playbackChannel(instrChan);
+                        for (MidiCoreEvent e : a->initList()) {
+                              if (e.type() == ME_INVALID)
+                                    continue;
+                              e.setChannel(a->channel());
+                              int syntiIdx = synth->index(score->masterScore()->midiMapping(a->channel())->articulation()->synti());
+                              synth->play(e, syntiIdx);
+                        }
+                  }
+            }
+      }
+
+      bool done = false;
+      float buffer[SYNTH_FRAMES * 2];
+
+      auto synthIterator = [=](bool cancel = false) mutable -> SynthRes { 
+            if (done) {
+                  return SynthRes{done, -1, 0, nullptr};
+            }
+
+            // re-seek
+            playPos = events.cbegin();
+            for (int i = 0; i < posIndex; i++) {
+                  ++playPos;
+            }
+
+            unsigned frames = SYNTH_FRAMES;
+            //
+            // collect events for one segment
+            //
+            memset(buffer, 0, SYNTH_BUFFER_SIZE);
+            int endTime = playTime + frames;
+            float* p = buffer;
+
+            for (; playPos != events.cend(); ++playPos, ++posIndex) {
+                  int f = score->utick2utime(playPos->first) * MScore::sampleRate;
+                  if (f >= endTime)
+                        break;
+
+                  int n = f - playTime;
+                  if (n) {
+                        synth->process(n, p);
+                        p += 2 * n;
+                  }
+
+                  playTime  += n;
+                  frames    -= n;
+                  const NPlayEvent& e = playPos->second;
+                  if (e.isChannelEvent()) {
+                        int channelIdx = e.channel();
+                        const Channel* c = score->masterScore()->midiMapping(channelIdx)->articulation();
+                        if (!c->mute()) {
+                              synth->play(e, synth->index(c->synti()));
+                        }
+                  }
+            }
+      
+            if (frames) {
+                  synth->process(frames, p);
+                  playTime += frames;
+            }
+
+            playTime = endTime;
+
+            if (playTime >= et || cancel) {
+                  synth->allNotesOff(-1);
+                  MScore::sampleRate = oldSampleRate;
+                  delete synth;
+                  done = true;
+            }
+
+            return SynthRes{done, float(playTime) / MScore::sampleRate, SYNTH_BUFFER_SIZE, reinterpret_cast<const char*>(buffer)};
+      };
+
+      return synthIterator;
+}
+
 ///
 /// \brief Function to synthesize audio and output it into a generic QIODevice
 /// \param score The score to output
 /// \param device The output device
-/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1], the current play time in seconds, and the frame data (if in the final pass)
+/// \param updateProgress An optional callback function that will be notified with the progress in range [0, 1], and the current play time in seconds
 /// \param starttime The start time offset in seconds
 /// \param audioNormalize Process the audio twice
 /// \return True on success, false otherwise.
 ///
 /// If the callback function is non zero an returns false the export will be canceled.
 ///
-bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float, const char*, int, int)> updateProgress, float starttime = 0, bool audioNormalize = true, int callbackId = -1)
+bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)> updateProgress, float starttime, bool audioNormalize)
     {
     qDebug("saveAudio: starttime %f, audioNormalize %d", starttime, audioNormalize);
 
@@ -132,9 +270,9 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float,
     double gain = 1.0;
     EventMap::const_iterator endPos = events.cend();
     --endPos;
-    const qreal _endt = (score->utick2utime(endPos->first) + 1); // in seconds
-    const int et = _endt * MScore::sampleRate;
-    const int maxEndTime = (score->utick2utime(endPos->first) + 3) * MScore::sampleRate;
+    const qreal _endt = score->utick2utime(endPos->first); // in seconds
+    const int et = (_endt + 1) * MScore::sampleRate;
+    const int maxEndTime = (_endt + 3) * MScore::sampleRate;
 
     bool cancelled = false;
 //     int passes = preferences.getBool(PREF_EXPORT_AUDIO_NORMALIZE) ? 2 : 1;
@@ -227,21 +365,12 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float,
                             peak = qMax(peak, qAbs(buffer[i]));
                             }
                       }
-                bool finalPass = pass == (passes - 1);
-                auto buf = reinterpret_cast<const char*>(buffer);
-                int bufSize = 2 * FRAMES * sizeof(float);
-                if (finalPass)
-                      device->write(buf, bufSize);
+                if (pass == (passes - 1))
+                      device->write(reinterpret_cast<const char*>(buffer), 2 * FRAMES * sizeof(float));
                 playTime = endTime;
                 if (updateProgress) {
                     // normalize to [0, 1] range
-                    if (!updateProgress(
-                          float(pass * et + playTime) / passes / et,
-                          float(playTime) / MScore::sampleRate,
-                          finalPass ? buf : nullptr,
-                          finalPass ? bufSize : -1,
-                          callbackId
-                        )) {
+                    if (!updateProgress(float(pass * et + playTime) / passes / et, float(playTime) / MScore::sampleRate)) {
                         cancelled = true;
                         break;
                     }
@@ -367,7 +496,7 @@ bool saveAudio(Score* score, const QString& name)
       SoundFileDevice device(sampleRate, format, name);
 
       // dummy callback function that will be used if there is no gui
-      std::function<bool(float, float, const char*, int, int)> progressCallback = [](float, float, const char*, int, int) {return true;};
+      std::function<bool(float, float)> progressCallback = [](float, float) {return true;};
 
 #if 0
       QProgressDialog progress(this);
@@ -380,7 +509,7 @@ bool saveAudio(Score* score, const QString& name)
           // callback function that will update the progress bar
           // it will return false and thus cancel the export if the user
           // cancels the progress dialog.
-          progressCallback = [&progress](float v, float, const char*, int, int) -> bool {
+          progressCallback = [&progress](float v, float) -> bool {
               if (progress.wasCanceled())
                     return false;
               progress.setValue(v * 1000);

@@ -327,34 +327,26 @@ const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
     return packData(data, size);
 }
 
-EM_JS(bool, js_synth_cb, (float, float playtime, const char* chunkptr, int chunkSize, int callbackId), {
-    return Asyncify.handleSleep(wakeUp => {
-        const callback = Module[callbackId];
-        const chunk = new Uint8Array(Module.HEAPU8.subarray(chunkptr, chunkptr + chunkSize));
-        Promise.resolve(  // Promisify
-            callback(playtime, chunk)
-        ).then(cancel => wakeUp(!cancel));
-    });
-});
-
-class NoopDevice : public QIODevice {
-    virtual qint64 readData(char *, qint64) override final { return 0; };
-    virtual qint64 writeData(const char *, qint64) override final { return 0; };
-};
+std::function<Ms::SynthRes(bool)> synthFn = nullptr;
 
 /**
- * synthesis audio frames
+ * synthesize audio frames
  */
-bool _synthAudio(uintptr_t score_ptr, int callbackId, float starttime, int excerptId) {
+uintptr_t _synthAudio(uintptr_t score_ptr, float starttime, int excerptId) {
     auto score = reinterpret_cast<Ms::Score*>(score_ptr);
     score = maybeUseExcerpt(score, excerptId);
 
     qDebug("synthAudio: excerpt %d, starttime %f", excerptId, starttime);
 
-    NoopDevice noop;
-    bool success = Ms::saveAudio(score, &noop, js_synth_cb, starttime, false, callbackId);
+    synthFn = Ms::synthAudioWorklet(score, starttime);
 
-    return success;
+    return synthFn == nullptr ? 0 : reinterpret_cast<uintptr_t>(&synthFn);
+}
+
+const char* _processSynth(uintptr_t fn_ptr, bool cancel) {
+    auto fn = reinterpret_cast<std::function<Ms::SynthRes(bool)>*>(fn_ptr);
+    const auto res = (*fn)(cancel);
+    return reinterpret_cast<const char*>(&res);
 }
 
 /**
@@ -466,9 +458,14 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    bool synthAudio(uintptr_t score_ptr, int callbackId, float starttime, int excerptId = -1) {
-        return _synthAudio(score_ptr, callbackId, starttime, excerptId);
+    uintptr_t synthAudio(uintptr_t score_ptr, float starttime, int excerptId = -1) {
+        return _synthAudio(score_ptr, starttime, excerptId);
     };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* processSynth(uintptr_t fn_ptr, bool cancel = false) {
+        return _processSynth(fn_ptr, cancel);
+    }
 
     EMSCRIPTEN_KEEPALIVE
     const char* savePositions(uintptr_t score_ptr, bool ofSegments, int excerptId = -1) {

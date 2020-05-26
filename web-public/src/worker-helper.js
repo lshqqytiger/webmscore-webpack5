@@ -61,7 +61,7 @@ class WebMscoreW extends Worker {
      * Communicate with the worker thread with JSON-RPC
      * @private
      * @typedef {{ id: number; result?: any; error?: any; }} RPCRes
-     * @param {keyof import('./index').default | 'load' | 'ready'} method 
+     * @param {keyof import('./index').default | '_synthAudio' | 'processSynth' | 'load' | 'ready'} method 
      * @param {any[]} params 
      * @param {Transferable[]} transfer
      */
@@ -246,6 +246,18 @@ class WebMscoreW extends Worker {
      */
     savePositions(ofSegments) {
         return this.rpc('savePositions', [ofSegments])
+    }
+
+    /**
+     * Synthesize audio frames
+     * @param {number} starttime The start time offset in seconds
+     * @returns {Promise<(cancel: boolean) => Promise<{ done: boolean; playtime: number; chunk: Uint8Array; }>>} The iterator function
+     */
+    async synthAudio(starttime = 0) {
+        const fn = await this.rpc('_synthAudio', [starttime])
+        return (cancel) => {
+            return this.rpc('processSynth', [fn, cancel])
+        }
     }
 
     /**
