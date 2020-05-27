@@ -7,6 +7,15 @@ import { spawn } from 'child_process'
 const FILE = './Aequale_No_1.mscz'
 const ROUNDS = 200
 
+const GROUPS = [   // [ webmscore method name , musescore output file extension ]
+    ['saveXml', 'musicxml'],
+    ['saveMxl', 'mxl'],
+    ['saveMidi', 'mid'],
+    ['savePdf', 'pdf'],
+    ['saveMetadata', 'metajson'],
+]
+const GROUP_ID = 3  // savePdf
+
 const obs = new PerformanceObserver((items) => {
     const [init, ...l] = items.getEntries()
     const total = l.reduce((p, c) => p + c.duration, 0)
@@ -23,6 +32,7 @@ obs.observe({ entryTypes: ['measure'], buffered: true })
 // 
 // benchmark using webmscore
 // 
+const METHOD = GROUPS[GROUP_ID][0]
 WebMscore.ready.then(async () => {
     const filedata = await fs.readFile(FILE)
     performance.measure('init')
@@ -30,7 +40,7 @@ WebMscore.ready.then(async () => {
     for (let i = 0; i < ROUNDS; i++) {
         performance.mark('start')
         const score = await WebMscore.load('mscz', filedata)
-        await score.metadata()
+        await score[METHOD]()
         score.destroy()
         performance.measure(`${i}`, 'start')
     }
@@ -40,12 +50,13 @@ WebMscore.ready.then(async () => {
     // benchmark using musescore's built-in batch converter
     // 
     .then(async () => {
+        const EXT = GROUPS[GROUP_ID][1]
+
         await fs.mkdir('./benchmark/', { recursive: true })
 
         const t0 = performance.now()
 
         const batchJsonFile = './benchmark/batch.json'
-        const EXT = 'metajson'
         const json = []
         for (let i = 0; i < ROUNDS; i++) {
             json.push({
