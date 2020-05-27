@@ -477,4 +477,9 @@ extern "C" {
         return _saveMetadata(score_ptr);
     };
 
+    EMSCRIPTEN_KEEPALIVE
+    void destroy(uintptr_t score_ptr) {
+        delete (Ms::MasterScore*)score_ptr;
+    };
+
 }

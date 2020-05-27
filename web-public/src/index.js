@@ -394,6 +394,7 @@ class WebMscore {
      * @returns {void}
      */
     destroy() {
+        Module.ccall('destroy', 'void', ['number'], [this.scoreptr])
         freePtr(this.scoreptr)
     }
 
