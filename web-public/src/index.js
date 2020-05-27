@@ -346,6 +346,8 @@ class WebMscore {
             Module.HEAPU8.subarray(chunkptr, chunkptr + chunksize)
         )
 
+        freePtr(resptr)
+
         return {
             done: !!done,
             playtime,  // The current play time in seconds
