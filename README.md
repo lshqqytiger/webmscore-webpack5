@@ -82,7 +82,7 @@ QT_PATH=/usr/qt515/
 
 git clone git://code.qt.io/qt/qt5.git --depth=1 -b 5.15.0 $QT_PATH
 # or
-# download and extract qt-everywhere 5.15.0 (https://download.qt.io/development_releases/qt/5.15/5.15.0-rc/single/ later https://download.qt.io/official_releases/qt/5.15/5.15.0/single/)
+# download and extract qt-everywhere 5.15.0 (https://download.qt.io/official_releases/qt/5.15/5.15.0/single/)
 
 cd $QT_PATH
 ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
