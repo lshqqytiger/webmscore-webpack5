@@ -8,6 +8,7 @@
     },
     "scripts": {
         "start": "node --experimental-modules example.js",
-        "start:browser": "npx http-server . -o -c-1"
+        "start:browser": "npx http-server . -o -c-1",
+        "benchmark": "node --experimental-modules benchmark.js"
     }
 }
