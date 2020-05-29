@@ -221,7 +221,6 @@ subdirs(
       fluid
       audiofile
       thirdparty/qzip
-      thirdparty/freetype
       thirdparty/libsndfile/src
       )
 
