@@ -7,8 +7,11 @@
 
 * Parse `mscz` file data
 * Get score metadata
+* Export part score
 * Generate music sheets in SVG/PNG/PDF formats
 * Generate MIDI
+* Generate audio files in WAV, OGG, or FLAC formats
+* Synthesize raw audio frames, can be used in the Web Audio API 
 * Export as MusicXML compressed/uncompressed
 * Generate position information of measures or segments on the generated sheets
 * Run inside a Web Worker thread
