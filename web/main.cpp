@@ -42,7 +42,7 @@ Ms::Score* maybeUseExcerpt(Ms::Score* score, int excerptId) {
         QList<Ms::Excerpt*> excerpts = score->excerpts();
 
         if (excerptId >= excerpts.size()) {
-            throw(QString("Not a valid excerptId.")); 
+            throw(QString("Not a valid excerptId."));
         }
 
         score = excerpts[excerptId]->partScore();
@@ -118,7 +118,7 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
     // do layout ...
     score->update();
 
-    score->switchToPageMode(); // the default _layoutMode is LayoutMode::PAGE, but the score file may be saved in continuous mode
+    score->switchToPageMode();  // the default _layoutMode is LayoutMode::PAGE, but the score file may be saved in continuous mode
 
     return reinterpret_cast<uintptr_t>(score);
 }
@@ -126,7 +126,7 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
 /**
  * Generate excerpts from Parts (only parts that are visible) if no existing excerpts
  */
-void _generateExcerpts (uintptr_t score_ptr) {
+void _generateExcerpts(uintptr_t score_ptr) {
     auto score = reinterpret_cast<Ms::MasterScore*>(score_ptr);
 
     QList<Ms::Excerpt*> scoreExcerpts = score->excerpts();
@@ -137,7 +137,7 @@ void _generateExcerpts (uintptr_t score_ptr) {
 
     auto excerpts = Ms::Excerpt::createAllExcerpt(score);
 
-    for (auto e: excerpts) {
+    for (auto e : excerpts) {
         auto nscore = new Ms::Score(e->oscore());
         e->setPartScore(nscore);
         nscore->style().set(Ms::Sid::createMultiMeasureRests, true);
@@ -302,9 +302,9 @@ const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
     auto score = reinterpret_cast<Ms::Score*>(score_ptr);
     score = maybeUseExcerpt(score, excerptId);
 
-    // type of the output file, "wav" or "ogg"
-    QString _type = QString::fromUtf8(type);  
-    if (!(_type == "wav" || _type == "ogg")) {
+    // type of the output file, "wav" or "ogg" or flac"
+    QString _type = QString::fromUtf8(type);
+    if (!(_type == "wav" || _type == "ogg" || _type == "flac")) {
         throw QString("Invalid output type");
     }
 

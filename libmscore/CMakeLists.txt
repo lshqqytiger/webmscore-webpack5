@@ -163,6 +163,7 @@ target_link_libraries(webmscore
    effects
    audiofile
    sndfile
+   FLAC
 )
 
 set_target_properties (

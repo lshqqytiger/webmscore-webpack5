@@ -227,8 +227,8 @@ class WebMscoreW extends Worker {
     }
 
     /**
-     * Export score as audio file (wav/ogg)
-     * @param {'wav' | 'ogg'} type 
+     * Export score as audio file (wav/ogg/flac)
+     * @param {'wav' | 'ogg' | 'flac'} type 
      * @returns {Promise<Uint8Array>}
      */
     saveAudio(type) {

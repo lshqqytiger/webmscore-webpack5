@@ -4,3 +4,6 @@
 [submodule "thirdparty/libsndfile"]
 	path = thirdparty/libsndfile
 	url = https://github.com/Xmader/libsndfile.git
+[submodule "thirdparty/flac"]
+	path = thirdparty/flac
+	url = https://github.com/xiph/flac.git

@@ -181,6 +181,51 @@ endif (NOT MSVC)
 
 
 ##
+## FLAC
+##
+set(FLAC_DIR "thirdparty/flac/src/libFLAC")
+
+include_directories(thirdparty/flac/include)
+include_directories(${FLAC_DIR}/include)
+
+add_library(FLAC
+    ${FLAC_DIR}/bitmath.c
+    ${FLAC_DIR}/bitreader.c
+    ${FLAC_DIR}/bitwriter.c
+    ${FLAC_DIR}/cpu.c
+    ${FLAC_DIR}/crc.c
+    ${FLAC_DIR}/fixed.c
+    ${FLAC_DIR}/fixed_intrin_sse2.c
+    ${FLAC_DIR}/fixed_intrin_ssse3.c
+    ${FLAC_DIR}/float.c
+    ${FLAC_DIR}/format.c
+    ${FLAC_DIR}/lpc.c
+    ${FLAC_DIR}/lpc_intrin_sse.c
+    ${FLAC_DIR}/lpc_intrin_sse2.c
+    ${FLAC_DIR}/lpc_intrin_sse41.c
+    ${FLAC_DIR}/lpc_intrin_avx2.c
+    ${FLAC_DIR}/lpc_intrin_vsx.c
+    ${FLAC_DIR}/md5.c
+    ${FLAC_DIR}/memory.c
+    ${FLAC_DIR}/metadata_iterators.c
+    ${FLAC_DIR}/metadata_object.c
+    ${FLAC_DIR}/stream_decoder.c
+    ${FLAC_DIR}/stream_encoder.c
+    ${FLAC_DIR}/stream_encoder_intrin_sse2.c
+    ${FLAC_DIR}/stream_encoder_intrin_ssse3.c
+    ${FLAC_DIR}/stream_encoder_intrin_avx2.c
+    ${FLAC_DIR}/stream_encoder_framing.c
+    ${FLAC_DIR}/window.c
+    ${FLAC_DIR}/ogg_decoder_aspect.c
+    ${FLAC_DIR}/ogg_encoder_aspect.c
+    ${FLAC_DIR}/ogg_helper.c
+    ${FLAC_DIR}/ogg_mapping.c
+)
+
+target_compile_definitions(FLAC PRIVATE PACKAGE_VERSION="1.3.3" HAVE_LROUND FLAC__HAS_OGG=true)
+
+
+##
 
 ## Includes
 ##
