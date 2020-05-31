@@ -4,5 +4,6 @@ package-lock.json
 
 # copied from ../README.md
 README.md
+CHANGELOG.md
 
 .cache
