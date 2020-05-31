@@ -87,13 +87,13 @@ bool _addFont(const char* fontPath) {
 /**
  * load the score data (a MSCZ/MSCX file buffer)
  */
-uintptr_t _load(const char* type, const char* data, const uint32_t size, bool doLayout) {
-    QString _type = QString::fromUtf8(type);  // file type of the data, ("mscz" or "mscx")
-    if (!(_type == "mscz" || _type == "mscx")) {
-        throw QString("Invalid file type");
+uintptr_t _load(const char* format, const char* data, const uint32_t size, bool doLayout) {
+    QString _format = QString::fromUtf8(format);  // file format of the data, ("mscz" or "mscx")
+    if (!(_format == "mscz" || _format == "mscx")) {
+        throw QString("Invalid file format");
     }
 
-    QString filename = "temp." + _type;
+    QString filename = "temp." + _format;
 
     QBuffer buffer;
     buffer.setData(data, size);
@@ -344,18 +344,18 @@ const char* _saveMidi(uintptr_t score_ptr, bool midiExpandRepeats, bool exportRP
 /**
  * export score as AudioFile (wav/ogg)
  */
-const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
+const char* _saveAudio(uintptr_t score_ptr, const char* format, int excerptId) {
     auto score = reinterpret_cast<Ms::Score*>(score_ptr);
     score = maybeUseExcerpt(score, excerptId);
 
-    // type of the output file, "wav" or "ogg" or flac"
-    QString _type = QString::fromUtf8(type);
-    if (!(_type == "wav" || _type == "ogg" || _type == "flac")) {
-        throw QString("Invalid output type");
+    // file format of the output file, "wav" or "ogg" or flac"
+    QString _format = QString::fromUtf8(format);
+    if (!(_format == "wav" || _format == "ogg" || _format == "flac")) {
+        throw QString("Invalid output format");
     }
 
     // save audio data to a temporary file
-    QTemporaryFile tempfile("XXXXXX." + _type);  // filename template for the temporary file
+    QTemporaryFile tempfile("XXXXXX." + _format);  // filename template for the temporary file
     if (!tempfile.open()) {
         throw QString("Cannot create a temporary file");
     }
@@ -447,8 +447,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    uintptr_t load(const char* type, const char* data, const uint32_t size, bool doLayout = true) {
-        return _load(type, data, size, doLayout);
+    uintptr_t load(const char* format, const char* data, const uint32_t size, bool doLayout = true) {
+        return _load(format, data, size, doLayout);
     };
 
     EMSCRIPTEN_KEEPALIVE
@@ -502,8 +502,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    const char* saveAudio(uintptr_t score_ptr, const char* type, int excerptId = -1) {
-        return _saveAudio(score_ptr, type, excerptId);
+    const char* saveAudio(uintptr_t score_ptr, const char* format, int excerptId = -1) {
+        return _saveAudio(score_ptr, format, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE

@@ -32,29 +32,29 @@ class WebMscore {
 
     /**
      * Load the score data (from a MSCZ/MSCX file)
-     * @param {'mscz' | 'mscx'} filetype 
+     * @param {'mscz' | 'mscx'} format 
      * @param {Uint8Array} data 
      * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
      * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
      */
-    static async load(filetype, data, fonts = [], doLayout = true) {
+    static async load(format, data, fonts = [], doLayout = true) {
         await WebMscore.ready
 
         for (const f of fonts) {
             await WebMscore.addFont(f)
         }
 
-        const filetypeptr = getStrPtr(filetype)
+        const fileformatptr = getStrPtr(format)
         const dataptr = getTypedArrayPtr(data)
 
         // get the pointer to the MasterScore class instance in C
         const scoreptr = Module.ccall('load',  // name of C function
             'number',  // return type
             ['number', 'number', 'number', 'boolean'],  // argument types
-            [filetypeptr, dataptr, data.byteLength, doLayout]  // arguments
+            [fileformatptr, dataptr, data.byteLength, doLayout]  // arguments
         )
 
-        freePtr(filetypeptr)
+        freePtr(fileformatptr)
         freePtr(dataptr)
 
         return new WebMscore(scoreptr)
@@ -193,11 +193,11 @@ class WebMscore {
 
     /**
      * Save part score as MSCZ/MSCX file
-     * @param {'mscz' | 'mscx'} filetype 
+     * @param {'mscz' | 'mscx'} format 
      * @returns {Promise<Uint8Array>}
      */
-    async saveMsc(filetype = 'mscz') {
-        const dataptr = Module.ccall('saveMsc', 'number', ['number', 'boolean', 'number'], [this.scoreptr, filetype == 'mscz', this.excerptId])
+    async saveMsc(format = 'mscz') {
+        const dataptr = Module.ccall('saveMsc', 'number', ['number', 'boolean', 'number'], [this.scoreptr, format == 'mscz', this.excerptId])
         return readData(dataptr)
     }
 
@@ -281,20 +281,20 @@ class WebMscore {
 
     /**
      * Export score as audio file (wav/ogg/flac)
-     * @param {'wav' | 'ogg' | 'flac'} type 
+     * @param {'wav' | 'ogg' | 'flac'} format 
      */
-    async saveAudio(type) {
+    async saveAudio(format) {
         if (!this.hasSoundfont) {
             throw new Error('The soundfont is not set.')
         }
 
-        const filetypeptr = getStrPtr(type)
+        const fileformatptr = getStrPtr(format)
         const dataptr = Module.ccall('saveAudio',
             'number',
             ['number', 'number', 'number'],
-            [this.scoreptr, filetypeptr, this.excerptId]
+            [this.scoreptr, fileformatptr, this.excerptId]
         )
-        freePtr(filetypeptr)
+        freePtr(fileformatptr)
         return readData(dataptr)
     }
 

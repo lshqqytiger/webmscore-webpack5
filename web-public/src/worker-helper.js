@@ -46,15 +46,15 @@ class WebMscoreW extends Worker {
 
     /**
      * Load the score (MSCZ/MSCX file) data 
-     * @param {'mscz' | 'mscx'} filetype 
+     * @param {'mscz' | 'mscx'} format 
      * @param {Uint8Array} data 
      * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
      * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
      */
-    static async load(filetype, data, fonts = [], doLayout = true) {
+    static async load(format, data, fonts = [], doLayout = true) {
         const instance = new WebMscoreW()
         await instance.rpc('ready')
-        await instance.rpc('load', [filetype, data, fonts, doLayout], [data.buffer, /** ...fonts.map(f => f.buffer) */])
+        await instance.rpc('load', [format, data, fonts, doLayout], [data.buffer, /** ...fonts.map(f => f.buffer) */])
         return instance
     }
 
@@ -179,11 +179,11 @@ class WebMscoreW extends Worker {
 
     /**
      * Save part score as MSCZ/MSCX file
-     * @param {'mscz' | 'mscx'} filetype 
+     * @param {'mscz' | 'mscx'} format 
      * @returns {Promise<Uint8Array>}
      */
-    async saveMsc(filetype = 'mscz') {
-        return this.rpc('saveMsc', [filetype])
+    async saveMsc(format = 'mscz') {
+        return this.rpc('saveMsc', [format])
     }
 
     /**
@@ -238,14 +238,14 @@ class WebMscoreW extends Worker {
 
     /**
      * Export score as audio file (wav/ogg/flac)
-     * @param {'wav' | 'ogg' | 'flac'} type 
+     * @param {'wav' | 'ogg' | 'flac'} format 
      * @returns {Promise<Uint8Array>}
      */
-    saveAudio(type) {
+    saveAudio(format) {
         if (!this.hasSoundfont) {
             throw new Error('The soundfont is not set.')
         }
-        return this.rpc('saveAudio', [type])
+        return this.rpc('saveAudio', [format])
     }
 
     /**
