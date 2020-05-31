@@ -47,6 +47,6 @@
         "bundle": "rollup -c",
         "compile": "cd ../ && make release",
         "clean": "cd ../ && make clean",
-        "prepack": "cp ../README.md ."
+        "prepack": "cp ../README.md . && cp ../CHANGELOG.md ."
     }
 }
