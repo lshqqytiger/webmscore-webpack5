@@ -35,12 +35,13 @@ class WebMscore {
      * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
      * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
+     * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
      */
-    static async load(filetype, data, fonts = []) {
+    static async load(filetype, data, fonts = [], doLayout = true) {
         await WebMscore.ready
 
         for (const f of fonts) {
-            await this.addFont(f)
+            await WebMscore.addFont(f)
         }
 
         const filetypeptr = getStrPtr(filetype)
@@ -49,8 +50,8 @@ class WebMscore {
         // get the pointer to the MasterScore class instance in C
         const scoreptr = Module.ccall('load',  // name of C function
             'number',  // return type
-            ['number', 'number', 'number'],  // argument types
-            [filetypeptr, dataptr, data.byteLength]  // arguments
+            ['number', 'number', 'number', 'boolean'],  // argument types
+            [filetypeptr, dataptr, data.byteLength, doLayout]  // arguments
         )
 
         freePtr(filetypeptr)

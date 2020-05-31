@@ -48,9 +48,8 @@ self.onmessage = async (e) => {
                 break
 
             case 'load':
-                const [filetype, filedata, fonts] = params
                 await WebMscore.ready
-                score = await WebMscore.load(filetype, filedata, fonts)
+                score = await WebMscore.load.apply(undefined, params)
                 rpcRes(id, 'done')
                 break;
 

@@ -49,11 +49,12 @@ class WebMscoreW extends Worker {
      * @param {'mscz' | 'mscx'} filetype 
      * @param {Uint8Array} data 
      * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
+     * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
      */
-    static async load(filetype, data, fonts = []) {
+    static async load(filetype, data, fonts = [], doLayout = true) {
         const instance = new WebMscoreW()
         await instance.rpc('ready')
-        await instance.rpc('load', [filetype, data, fonts], [data.buffer, /** ...fonts.map(f => f.buffer) */])
+        await instance.rpc('load', [filetype, data, fonts, doLayout], [data.buffer, /** ...fonts.map(f => f.buffer) */])
         return instance
     }
 

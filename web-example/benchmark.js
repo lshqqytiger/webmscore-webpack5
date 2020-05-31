@@ -14,7 +14,8 @@ const GROUPS = [   // [ webmscore method name , musescore output file extension 
     ['savePdf', 'pdf'],
     ['saveMetadata', 'metajson'],
 ]
-const GROUP_ID = 3  // savePdf
+const GROUP_ID = 4  // saveMetadata
+const BOOST_MODE = true  // `savePdf` is not available under boost mode, `saveXml` and `saveMxl` cannot work properly
 
 const obs = new PerformanceObserver((items) => {
     const [init, ...l] = items.getEntries()
@@ -39,7 +40,7 @@ WebMscore.ready.then(async () => {
 
     for (let i = 0; i < ROUNDS; i++) {
         performance.mark('start')
-        const score = await WebMscore.load('mscz', filedata)
+        const score = await WebMscore.load('mscz', filedata, [], !BOOST_MODE)
         await score[METHOD]()
         score.destroy()
         performance.measure(`${i}`, 'start')

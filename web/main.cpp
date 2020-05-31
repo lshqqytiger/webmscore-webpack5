@@ -87,7 +87,7 @@ bool _addFont(const char* fontPath) {
 /**
  * load the score data (a MSCZ/MSCX file buffer)
  */
-uintptr_t _load(const char* type, const char* data, const uint32_t size) {
+uintptr_t _load(const char* type, const char* data, const uint32_t size, bool doLayout) {
     QString _type = QString::fromUtf8(type);  // file type of the data, ("mscz" or "mscx")
     if (!(_type == "mscz" || _type == "mscx")) {
         throw QString("Invalid file type");
@@ -115,10 +115,11 @@ uintptr_t _load(const char* type, const char* data, const uint32_t size) {
     score->updateChannel();
     // score->updateExpressive(MuseScore::synthesizer("Fluid"));
 
-    // do layout ...
-    score->update();
-
-    score->switchToPageMode();  // the default _layoutMode is LayoutMode::PAGE, but the score file may be saved in continuous mode
+    if (doLayout) {
+        // do layout ...
+        score->update();
+        score->switchToPageMode();  // the default _layoutMode is LayoutMode::PAGE, but the score file may be saved in continuous mode
+    }
 
     return reinterpret_cast<uintptr_t>(score);
 }
@@ -403,8 +404,8 @@ extern "C" {
     };
 
     EMSCRIPTEN_KEEPALIVE
-    uintptr_t load(const char* type, const char* data, const uint32_t size) {
-        return _load(type, data, size);
+    uintptr_t load(const char* type, const char* data, const uint32_t size, bool doLayout = true) {
+        return _load(type, data, size, doLayout);
     };
 
     EMSCRIPTEN_KEEPALIVE
