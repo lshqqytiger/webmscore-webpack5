@@ -192,6 +192,16 @@ class WebMscore {
     }
 
     /**
+     * Save part score as MSCZ/MSCX file
+     * @param {'mscz' | 'mscx'} filetype 
+     * @returns {Promise<Uint8Array>}
+     */
+    async saveMsc(filetype = 'mscz') {
+        const dataptr = Module.ccall('saveMsc', 'number', ['number', 'boolean', 'number'], [this.scoreptr, filetype == 'mscz', this.excerptId])
+        return readData(dataptr)
+    }
+
+    /**
      * Export score as the SVG file of one page
      * @param {number} pageNumber integer
      * @param {boolean} drawPageBackground 

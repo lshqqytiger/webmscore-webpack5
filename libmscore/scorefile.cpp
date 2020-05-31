@@ -545,7 +545,7 @@ QImage Score::createThumbnail()
 //    file is already opened
 //---------------------------------------------------------
 
-bool Score::saveCompressedFile(QFileDevice* f, QFileInfo& info, bool onlySelection, bool doCreateThumbnail)
+bool Score::saveCompressedFile(QIODevice* f, QFileInfo& info, bool onlySelection, bool doCreateThumbnail)
       {
       MQZipWriter uz(f);
 
@@ -576,8 +576,8 @@ bool Score::saveCompressedFile(QFileDevice* f, QFileInfo& info, bool onlySelecti
       saveFile(&dbuf, true, onlySelection);
       dbuf.seek(0);
       uz.addFile(fn, dbuf.data());
-      f->flush(); // flush to preserve score data in case of
-                  // any failures on the further operations.
+      // f->flush(); // flush to preserve score data in case of
+                     // any failures on the further operations.
 
       // save images
       //uz.addDirectory("Pictures");
@@ -708,7 +708,7 @@ bool Score::saveStyle(const QString& name)
 //    return true on success
 //---------------------------------------------------------
 
-extern QString revision;
+QString revision = "";
 
 bool Score::saveFile(QIODevice* f, bool msczFormat, bool onlySelection)
       {

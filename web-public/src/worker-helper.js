@@ -178,6 +178,15 @@ class WebMscoreW extends Worker {
     }
 
     /**
+     * Save part score as MSCZ/MSCX file
+     * @param {'mscz' | 'mscx'} filetype 
+     * @returns {Promise<Uint8Array>}
+     */
+    async saveMsc(filetype = 'mscz') {
+        return this.rpc('saveMsc', [filetype])
+    }
+
+    /**
      * Export score as the SVG file of one page
      * @param {number} pageNumber integer
      * @param {boolean} drawPageBackground 

@@ -222,6 +222,51 @@ const char* _saveMxl(uintptr_t score_ptr, int excerptId) {
 }
 
 /**
+ * save part score as MSCZ/MSCX file
+ */
+const char* _saveMsc(uintptr_t score_ptr, bool compressed, int excerptId) {
+    auto score = reinterpret_cast<Ms::Score*>(score_ptr);
+    score = maybeUseExcerpt(score, excerptId);
+
+    if (!score->isMaster()) {  // clone metaTags from masterScore
+        QMapIterator<QString, QString> j(score->masterScore()->metaTags());
+        while (j.hasNext()) {
+            j.next();
+            if (j.key() != "partName")  // don't copy "partName" should that exist in masterScore
+                score->metaTags().insert(j.key(), j.value());
+            score->metaTags().insert("platform", "webmscore");
+            score->metaTags().insert("source", "https://github.com/LibreScore/webmscore");
+            score->metaTags().insert("creationDate", QDate::currentDate().toString(Qt::ISODate));  // update "creationDate"
+        }
+    }
+
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite);
+
+    if (compressed) {
+        QFileInfo info("score.mscz");
+        score->saveCompressedFile(&buffer, info, false, true);
+    } else {
+        score->saveFile(&buffer, false, false);
+    }
+
+    if (!score->isMaster()) {  // remove metaTags added above
+        QMapIterator<QString, QString> j(score->masterScore()->metaTags());
+        while (j.hasNext()) {
+            j.next();
+            // remove all but "partName", should that exist in masterScore
+            if (j.key() != "partName")
+                score->metaTags().remove(j.key());
+        }
+    }
+
+    auto size = buffer.size();
+    qDebug("saveMsc: compressed %d, excerpt %d, size %lld", compressed, excerptId, size);
+
+    return packData(buffer.data(), size);
+}
+
+/**
  * export score as SVG
  */
 const char* _saveSvg(uintptr_t score_ptr, int pageNumber, bool drawPageBackground, int excerptId) {
@@ -431,6 +476,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* saveMxl(uintptr_t score_ptr, int excerptId = -1) {
         return _saveMxl(score_ptr, excerptId);
+    };
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* saveMsc(uintptr_t score_ptr, bool compressed, int excerptId = -1) {
+        return _saveMsc(score_ptr, compressed, excerptId);
     };
 
     EMSCRIPTEN_KEEPALIVE
