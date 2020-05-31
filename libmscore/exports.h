@@ -25,7 +25,7 @@ namespace Ms {
     bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)> updateProgress, float starttime = 0, bool audioNormalize = true);
     bool saveAudio(Score* score, const QString& filename);
 
-    std::function<SynthRes(bool)> synthAudioWorklet(Score* score, float starttime = 0);
+    std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime = 0);
 
     QJsonObject savePositions(Score* score, bool segments);
 

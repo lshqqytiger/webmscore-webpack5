@@ -64,7 +64,7 @@ MasterSynthesizer* synthesizerFactory() {
 static const unsigned SYNTH_FRAMES = 512;
 static const unsigned SYNTH_BUFFER_SIZE = sizeof(float) * SYNTH_FRAMES * 2;
 
-std::function<SynthRes(bool)> synthAudioWorklet(Score* score, float starttime) {
+std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) {
       EventMap events;
 
       int sampleRate = 44100;
@@ -135,9 +135,9 @@ std::function<SynthRes(bool)> synthAudioWorklet(Score* score, float starttime) {
       bool done = false;
       float buffer[SYNTH_FRAMES * 2];
 
-      auto synthIterator = [=](bool cancel = false) mutable -> SynthRes { 
+      auto synthIterator = [=](bool cancel = false) mutable -> SynthRes* { 
             if (done) {
-                  return SynthRes{done, -1, 0, nullptr};
+                  return new SynthRes{done, -1, 0, nullptr};
             }
 
             // re-seek
@@ -191,7 +191,9 @@ std::function<SynthRes(bool)> synthAudioWorklet(Score* score, float starttime) {
                   done = true;
             }
 
-            return SynthRes{done, float(playTime) / MScore::sampleRate, SYNTH_BUFFER_SIZE, reinterpret_cast<const char*>(buffer)};
+            auto res = new SynthRes{done, float(playTime) / MScore::sampleRate, SYNTH_BUFFER_SIZE, reinterpret_cast<const char*>(buffer)};
+
+            return res;
       };
 
       return synthIterator;

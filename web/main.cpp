@@ -328,7 +328,7 @@ const char* _saveAudio(uintptr_t score_ptr, const char* type, int excerptId) {
     return packData(data, size);
 }
 
-std::function<Ms::SynthRes(bool)> synthFn = nullptr;
+std::function<Ms::SynthRes*(bool)> synthFn = nullptr;
 
 /**
  * synthesize audio frames
@@ -345,9 +345,9 @@ uintptr_t _synthAudio(uintptr_t score_ptr, float starttime, int excerptId) {
 }
 
 const char* _processSynth(uintptr_t fn_ptr, bool cancel) {
-    auto fn = reinterpret_cast<std::function<Ms::SynthRes(bool)>*>(fn_ptr);
+    auto fn = reinterpret_cast<std::function<Ms::SynthRes*(bool)>*>(fn_ptr);
     const auto res = (*fn)(cancel);
-    return reinterpret_cast<const char*>(&res);
+    return reinterpret_cast<const char*>(res);
 }
 
 /**
