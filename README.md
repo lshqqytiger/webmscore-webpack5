@@ -62,6 +62,56 @@ WebMscore.ready.then(async () => {
 
 *(TBD)*
 
+### Load extra fonts
+
+If your score sheet contains characters out of the range of the bundled [FreeFont](https://www.gnu.org/software/freefont/), those characters will be shown as tofu characters (`□` or `�`) in SVG/PNG/PDF files. Loading extra fonts is required.
+
+webmscore can load any font format supported by [FreeType](https://www.freetype.org/freetype2/docs/index.html).
+
+```js
+const score = await WebMscore.load('mscz', msczdata, [...arrOfFontData])
+```
+
+> CJK fonts are no longer bundled inside webmscore since v0.6.0
+
+### Load soundfont files
+
+Loading a soudfont (sf2/sf3) file is required before generating/synthesizing audio.
+
+```js
+await score.setSoundFont(soudfontData)
+```
+
+Soudfonts can be found on [musescore.org website](https://musescore.org/en/handbook/soundfonts-and-sfz-files#list).
+
+Example: (`FluidR3Mono_GM.sf3`)
+
+```js
+const soudfontData = new Uint8Array(
+    await (
+        await fetch('https://cdn.jsdelivr.net/gh/musescore/MuseScore@2.1/share/sound/FluidR3Mono_GM.sf3')
+    ).arrayBuffer()
+)
+```
+
+### Boost Mode
+
+Sometimes you only want to process a bunch of score metadata, so drawing sheet images internally is a waste of time and system resource.
+
+You can enable the Boost Mode by setting the `doLayout` parameter in `WebMscore.load` to `false`.
+
+Example:
+
+```js
+const score = await WebMscore.load('mscz', msczdata, [], false)
+const metadata = await score.metadata()
+score.destroy()
+```
+
+webmscore's Boost Mode is about 3x faster than the batch converter feature (`-j`) of the musescore software, according to the [benchmark](./web-example/benchmark.js) result.
+
+WebAssembly vs native C++ program!
+
 ### Note: 
 
 **Important!**
