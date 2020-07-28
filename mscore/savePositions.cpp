@@ -15,6 +15,7 @@
 #include "libmscore/segment.h"
 #include "libmscore/repeatlist.h"
 #include "libmscore/system.h"
+#include "libmscore/page.h"
 // #include "libmscore/xml.h"
 #include "mscore/globals.h"
 // #include "mscore/preferences.h"
@@ -142,6 +143,22 @@ QJsonObject savePositions(Score* score, bool segments)
             }
       }
       json.insert("events", jsonEventsArray);
+
+      // pageSize
+      // mscore/file.cpp#L2898 saveSvg
+      QRectF r;
+      auto page = score->pages().at(0);  // all pages sizes should be the same as the first page
+      if (trimMargin >= 0) {
+            QMarginsF margins(trimMargin, trimMargin, trimMargin, trimMargin);
+            r = page->tbbox() + margins;
+      } else {
+            r = page->abbox();
+      }
+
+      QJsonObject jsonPageSize;
+      jsonPageSize.insert("height", r.height() * ndpi); // in px
+      jsonPageSize.insert("width", r.width() * ndpi);
+      json.insert("pageSize", jsonPageSize);
 
       return json;
 }
