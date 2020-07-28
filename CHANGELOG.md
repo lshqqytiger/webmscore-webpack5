@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.8.0 - 2020-07-28
+
+### Added
+
+* The `pageSize` (in pixels) field in position JSON (`measurePositions()` or `segmentPositions()`)
+
 ## 0.7.0 - 2020-05-31
 
 ### Added

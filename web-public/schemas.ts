@@ -31,8 +31,16 @@ interface ScoreTextFramesData {
 }
 
 interface ScorePageFormat {
+    /**
+     * page height in mm
+     */
     height: number;
+
+    /**
+     * page width in mm
+     */
     width: number;
+
     twosided: BoolString;
 }
 
@@ -132,7 +140,7 @@ export interface ScoreMetadata {
     textFramesData: ScoreTextFramesData;
 }
 
-interface PositionElement {
+export interface PositionElement {
     /**
      * element index
      */
@@ -143,7 +151,7 @@ interface PositionElement {
      */
     x: number;
     /**
-     * The x coordinate (the top-left corner of the page to the top-left corner of the element)
+     * The y coordinate (the top-left corner of the page to the top-left corner of the element)
      */
     y: number;
 
@@ -192,4 +200,12 @@ export interface Positions {
      * the `time` property in space.jsonp
      */
     events: PositionEvent[];
+
+    /**
+     * The page size of the exported SVG/PNG/PDF file in pixels
+     */
+    pageSize: {
+        height: number;
+        width: number;
+    };
 }
