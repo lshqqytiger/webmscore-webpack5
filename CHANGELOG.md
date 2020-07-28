@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.8.1 - 2020-07-28
+
+### Added
+
+* TypeScript declaration (`.d.ts`) files
+
 ## 0.8.0 - 2020-07-28
 
 ### Added

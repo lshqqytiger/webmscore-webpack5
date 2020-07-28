@@ -7,3 +7,6 @@ README.md
 CHANGELOG.md
 
 .cache
+
+*.d.ts
+schemas.js
