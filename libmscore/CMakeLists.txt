@@ -164,6 +164,7 @@ target_link_libraries(webmscore
    audiofile
    sndfile
    FLAC
+   freetype
 )
 
 set_target_properties (

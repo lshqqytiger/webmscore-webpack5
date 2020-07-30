@@ -7,3 +7,9 @@
 [submodule "thirdparty/flac"]
 	path = thirdparty/flac
 	url = https://github.com/xiph/flac.git
+[submodule "thirdparty/brotli"]
+	path = thirdparty/brotli
+	url = https://github.com/google/brotli.git
+[submodule "thirdparty/freetype"]
+	path = thirdparty/freetype
+	url = https://git.savannah.gnu.org/git/freetype/freetype2.git

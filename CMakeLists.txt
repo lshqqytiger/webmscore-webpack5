@@ -83,7 +83,7 @@ set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated")
 # set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-copy")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_ZLIB=1")      # 1 = use zlib from emscripten-ports
-set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")  # 1 = use freetype from emscripten-ports
+# set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")  # 1 = use freetype from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_VORBIS=1")    # 1 = use vorbis from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s USE_OGG=1")       # 1 = use ogg from emscripten-ports
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -s DEMANGLE_SUPPORT=1")
@@ -121,35 +121,35 @@ else (EMBED_PRELOADS)
 endif (EMBED_PRELOADS)
 
 set(_preload_files
-    fonts/musejazz/MuseJazzText.otf
-    fonts/campania/Campania.otf
-    fonts/mscoreTab.ttf
-    fonts/mscore-BC.ttf
-    fonts/bravura/BravuraText.otf
-    fonts/gootville/GootvilleText.otf
-    fonts/mscore/MScoreText.ttf
+    fonts/musejazz/MuseJazzText.woff2
+    fonts/campania/Campania.woff2
+    fonts/mscoreTab.woff2
+    fonts/mscore-BC.woff2
+    fonts/bravura/BravuraText.woff2
+    fonts/gootville/GootvilleText.woff2
+    fonts/mscore/MScoreText.woff2
 
-    fonts/bravura/Bravura.otf
+    fonts/bravura/Bravura.woff2
     fonts/bravura/metadata.json
     
-    fonts/mscore/mscore.ttf
+    fonts/mscore/mscore.woff2
     fonts/mscore/metadata.json
 
-    fonts/gootville/Gootville.otf
+    fonts/gootville/Gootville.woff2
     fonts/gootville/metadata.json
 
-    fonts/musejazz/MuseJazz.otf
+    fonts/musejazz/MuseJazz.woff2
     fonts/musejazz/metadata.json
 
     fonts/smufl/glyphnames.json
     fonts/fonts_tablature.xml
     fonts/fonts_figuredbass.xml
 
-    fonts/FreeSans.ttf
-    fonts/FreeSerif.ttf
-    fonts/FreeSerifBold.ttf
-    fonts/FreeSerifItalic.ttf
-    fonts/FreeSerifBoldItalic.ttf
+    fonts/FreeSans.woff2
+    fonts/FreeSerif.woff2
+    fonts/FreeSerifBold.woff2
+    fonts/FreeSerifItalic.woff2
+    fonts/FreeSerifBoldItalic.woff2
 )
 foreach(_file ${_preload_files})
     set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/${_file}@/${_file}")
@@ -224,6 +224,28 @@ add_library(FLAC
 )
 
 target_compile_definitions(FLAC PRIVATE PACKAGE_VERSION="1.3.3" HAVE_LROUND FLAC__HAS_OGG=true)
+
+
+##
+## FreeType
+##
+set(BROTLIDEC_LIBRARIES brotlidec)
+set(BROTLIDEC_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/thirdparty/brotli/c/include)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(BrotliDec
+    REQUIRED_VARS BROTLIDEC_INCLUDE_DIRS BROTLIDEC_LIBRARIES
+    FOUND_VAR BROTLIDEC_FOUND
+)
+
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/freetype/include)
+
+subdirs(
+    thirdparty/brotli
+    thirdparty/freetype
+)
+
+add_compile_definitions(FT_CONFIG_OPTION_USE_BROTLI)
 
 
 ##

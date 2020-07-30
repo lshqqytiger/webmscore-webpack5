@@ -354,18 +354,18 @@ void MScore::init()
       //
 #if !defined(Q_OS_MAC) && !defined(Q_OS_IOS)
       static const char* fonts[] = {
-            "/fonts/musejazz/MuseJazzText.otf",
-            "/fonts/campania/Campania.otf",
-            "/fonts/FreeSans.ttf",
-            "/fonts/FreeSerif.ttf",
-            "/fonts/FreeSerifBold.ttf",
-            "/fonts/FreeSerifItalic.ttf",
-            "/fonts/FreeSerifBoldItalic.ttf",
-            "/fonts/mscoreTab.ttf",
-            "/fonts/mscore-BC.ttf",
-            "/fonts/bravura/BravuraText.otf",
-            "/fonts/gootville/GootvilleText.otf",
-            "/fonts/mscore/MScoreText.ttf",
+            "/fonts/musejazz/MuseJazzText.woff2",
+            "/fonts/campania/Campania.woff2",
+            "/fonts/FreeSans.woff2",
+            "/fonts/FreeSerif.woff2",
+            "/fonts/FreeSerifBold.woff2",
+            "/fonts/FreeSerifItalic.woff2",
+            "/fonts/FreeSerifBoldItalic.woff2",
+            "/fonts/mscoreTab.woff2",
+            "/fonts/mscore-BC.woff2",
+            "/fonts/bravura/BravuraText.woff2",
+            "/fonts/gootville/GootvilleText.woff2",
+            "/fonts/mscore/MScoreText.woff2",
             };
 
       for (unsigned i = 0; i < sizeof(fonts)/sizeof(*fonts); ++i) {
