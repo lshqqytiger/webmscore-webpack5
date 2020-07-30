@@ -6,6 +6,7 @@
     "types": "./src/index.d.ts",
     "main": "./webmscore.js",
     "module": "./webmscore.mjs",
+    "browser": "./webmscore.webpack.mjs",
     "exports": {
         "browser": "./src/index.js",
         "node": "./src/nodejs.js"
@@ -15,6 +16,7 @@
         "schemas.ts",
         "webmscore.js",
         "webmscore.mjs",
+        "webmscore.webpack.mjs",
         "webmscore.lib.*",
         "!webmscore.lib.d.ts"
     ],
@@ -44,10 +46,10 @@
     },
     "scripts": {
         "build": "npm run clean && npm run compile && npm run bundle && npm run d-ts",
-        "bundle": "rollup -c",
+        "bundle": "rollup -c && ln webmscore.lib.wasm webmscore.lib.wasm- || true # workaround for Webpack 4",
         "compile": "cd ../ && make release",
         "clean": "rm src/*.d.ts && cd ../ && make clean",
-        "d-ts": "tsc --declaration --allowJs src/index.js || echo",
+        "d-ts": "tsc --declaration --allowJs src/index.js || true",
         "prepack": "cp ../README.md . && cp ../CHANGELOG.md ."
     }
 }
