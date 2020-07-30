@@ -156,6 +156,7 @@ foreach(_file ${_preload_files})
 endforeach()
 
 set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} ${PRELOAD_TYPE_FLAG} ${PROJECT_SOURCE_DIR}/share/styles@/styles")
+set(WASM_LINK_FLAGS "${WASM_LINK_FLAGS} -s LZ4=1") # compress the data package
 
 
 #
