@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.8.3 - 2020-07-30
+
+### Added
+
+* Webpack Compatibility
+
+### Changed 
+
+* Use WOFF2 fonts and LZ4 compression to reduce the data file size (significantly)
+
 ## 0.8.1 - 2020-07-28
 
 ### Added
