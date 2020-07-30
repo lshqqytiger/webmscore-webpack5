@@ -5,11 +5,13 @@ import libData from '!!file-loader?name=[name].[ext]!./webmscore.lib.data'
 `
 
 const WEBPACK_LOCATE_FILE = `
-if (path.endsWith('.wasm')) return libWasm
-if (path.endsWith('.data')) return libData
+if (path.endsWith('.wasm')) return MSCORE_LIB_WASM
+if (path.endsWith('.data')) return MSCORE_LIB_DATA
 `
 
-const INJECTION_HINT = "// %INJECTION_HINT%"
+const WEBPACK_WORKER_IMPORT = '+ `var MSCORE_LIB_WASM = "${libWasm}", MSCORE_LIB_DATA = "${libData}";`'
+
+const INJECTION_HINT = (n) => `// %INJECTION_HINT_${n}%`
 
 const REPLACE_IMPORT_META = {
     resolveImportMeta(property) {
@@ -22,7 +24,8 @@ const REPLACE_IMPORT_META = {
 
 const INJECT_WEBPACK_LOCATE_FILE = {
     transform(code) {
-        code = code.replace(INJECTION_HINT, WEBPACK_LOCATE_FILE)
+        code = code.replace(INJECTION_HINT(0), WEBPACK_LOCATE_FILE)
+        code = code.replace(INJECTION_HINT(1), WEBPACK_WORKER_IMPORT)
         return { code }
     }
 }

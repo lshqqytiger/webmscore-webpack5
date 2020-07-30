@@ -15,7 +15,7 @@ const moduleOptions = IS_NODE
     }
     : {
         locateFile(path) {
-            // %INJECTION_HINT%
+            // %INJECTION_HINT_0%
             // fix loading the preload pack in Browsers and WebWorkers
             const prefix = typeof MSCORE_SCRIPT_URL == "string"
                 ? MSCORE_SCRIPT_URL  // to use like an environment variable

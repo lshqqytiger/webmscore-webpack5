@@ -21,6 +21,7 @@ class WebMscoreW extends Worker {
             new Blob([
                 `(function () { var MSCORE_SCRIPT_URL = "${MSCORE_SCRIPT_URL}";`  // set the environment variable for worker
                 + '(' + shimDom.toString() + ')();'
+                // %INJECTION_HINT_1%
                 + '(' + WebMscoreWorker.toString() + ')()'
                 + '})()'
             ])
