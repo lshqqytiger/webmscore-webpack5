@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.9.0 - 2020-07-30
+
+### BREAKING CHANGE
+
+* The `.destory()` method is now having the `soft` parameter (default: `true`) 
+    * `true`: destroy the score instance only, or
+    * `false`: destroy the whole WebMscore context
+
+    > To retrieve the default `.destory()` behavior of webmscore in WebWorker prior to v0.9.0, set `soft` to `false`
+
+### Fixed
+
+* Don't transfer the ownership of SoundFont data to the webworker context
+
 ## 0.8.3 - 2020-07-30
 
 ### Added
