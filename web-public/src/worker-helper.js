@@ -279,8 +279,21 @@ class WebMscoreW extends Worker {
         return this.rpc('saveMetadata')
     }
 
-    destroy() {
-        this.terminate()
+    /**
+     * @param {boolean=} soft (default `true`)
+     *                 * `true`  destroy the score instance only, or
+     *                 * `false` destroy the whole WebMscore webworker context 
+     * @returns {void}
+     */
+    destroy(soft = true) {
+        if (soft) {
+            // destroy the score instance only
+            this.rpc('destroy', [soft])
+        } else {
+            // destroy the whole WebMscore webworker context
+            // the default behaviour prior to v0.9.0
+            this.terminate()
+        }
     }
 }
 

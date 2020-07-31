@@ -402,9 +402,16 @@ class WebMscore {
     }
 
     /**
+     * @param {boolean=} soft (default `true`)
+     *                 * `true`  destroy the score instance only, or
+     *                 * `false` destroy the whole WebMscore context 
      * @returns {void}
      */
-    destroy() {
+    destroy(soft = true) {
+        if (!soft) {
+            throw new Error('unimplemented')
+        }
+
         Module.ccall('destroy', 'void', ['number'], [this.scoreptr])
         freePtr(this.scoreptr)
     }
