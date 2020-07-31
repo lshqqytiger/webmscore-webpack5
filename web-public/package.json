@@ -51,6 +51,6 @@
         "clean": "rm src/*.d.ts && cd ../ && make clean",
         "d-ts": "tsc --declaration --allowJs src/index.js || true",
         "prepack": "cp ../README.md . && cp ../CHANGELOG.md .",
-        "postinstall": "ln webmscore.lib.wasm webmscore.lib.wasm- || true # workaround for Webpack 4"
+        "postinstall": "node -e \"fs.linkSync('webmscore.lib.wasm', 'webmscore.lib.wasm-')\" || true # workaround for Webpack 4"
     }
 }
