@@ -231,8 +231,7 @@ class WebMscoreW extends Worker {
      * @param {Uint8Array} data 
      */
     async setSoundFont(data) {
-        // side effects: the soundfont is shared across all instances
-        await this.rpc('setSoundFont', [data], [data.buffer])
+        await this.rpc('setSoundFont', [data])
         /** @private */
         this.hasSoundfont = true
     }
