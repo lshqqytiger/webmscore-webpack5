@@ -137,7 +137,7 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
 
       auto synthIterator = [=](bool cancel = false) mutable -> SynthRes* { 
             if (done) {
-                  return new SynthRes{done, -1, 0, nullptr};
+                  return new SynthRes{done, -1, -1, 0, nullptr};
             }
 
             // re-seek
@@ -151,6 +151,7 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
             // collect events for one segment
             //
             memset(buffer, 0, SYNTH_BUFFER_SIZE);
+            int startTime = playTime;
             int endTime = playTime + frames;
             float* p = buffer;
 
@@ -191,7 +192,13 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
                   done = true;
             }
 
-            auto res = new SynthRes{done, float(playTime) / MScore::sampleRate, SYNTH_BUFFER_SIZE, reinterpret_cast<const char*>(buffer)};
+            auto res = new SynthRes{
+                  done,
+                  float(startTime) / MScore::sampleRate,
+                  float(endTime) / MScore::sampleRate,
+                  SYNTH_BUFFER_SIZE,
+                  reinterpret_cast<const char*>(buffer)
+            };
 
             return res;
       };

@@ -209,3 +209,24 @@ export interface Positions {
         width: number;
     };
 }
+
+export interface SynthRes {
+    done: boolean;
+
+    /**
+     * The chunk's starting time (seconds since the score starts)
+     */
+    startTime: number
+
+    /**
+     * The chunk's end time (seconds since the score starts)  
+     * Also the current play time of the synth iterator function
+     */
+    endTime: number;
+
+    /**
+     * The data chunk of audio frames (interleaved, 512 frames)  
+     * 44100 Hz (44.1 kHz), 0.0116 s (`512 / 44100`)
+     */
+    chunk: Uint8Array;
+}

@@ -301,7 +301,7 @@ class WebMscore {
     /**
      * Synthesize audio frames
      * @param {number} starttime The start time offset in seconds
-     * @returns {Promise<(cancel: boolean) => Promise<{ done: boolean; playtime: number; chunk: Uint8Array; }>>} The iterator function, see `processSynth`
+     * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes>>} The iterator function, see `processSynth`
      */
     async synthAudio(starttime) {
         const fn = await this._synthAudio(starttime)
@@ -339,6 +339,7 @@ class WebMscore {
      * @private
      * @param {number} fnptr - pointer to the iterator function
      * @param {boolean} cancel - cancel the audio synthesis worklet 
+     * @returns {Promise<import('../schemas').SynthRes>}
      */
     async processSynth(fnptr, cancel = false) {
         const resptr = Module.ccall('processSynth',
@@ -347,21 +348,23 @@ class WebMscore {
             [fnptr, cancel]
         )
 
-        // struct SynthRes
+        // struct SynthRes in exports.h
         const done = Module.getValue(resptr + 0, 'i8')
-        const playtime = +Module.getValue(resptr + 4, 'float')  // in seconds
-        const chunksize = Module.getValue(resptr + 8, 'i32')
-        const chunkptr = Module.getValue(resptr + 12, '*')
+        const startTime = +Module.getValue(resptr + 4, 'float')  // in seconds
+        const endTime = +Module.getValue(resptr + 8, 'float')  // in seconds
+        const chunkSize = Module.getValue(resptr + 12, 'i32')
+        const chunkPtr = Module.getValue(resptr + 16, '*')
 
         const chunk = new Uint8Array(  // make a copy
-            Module.HEAPU8.subarray(chunkptr, chunkptr + chunksize)
+            Module.HEAPU8.subarray(chunkPtr, chunkPtr + chunkSize)
         )
 
         freePtr(resptr)
 
         return {
             done: !!done,
-            playtime,  // The current play time in seconds
+            startTime, // The chunk's start time in seconds
+            endTime,   // The current play time in seconds (the chunk's end time)
             chunk,     // The data chunk of audio frames, interleaved, 512 frames, 44100 Hz (44.1 kHz), 0.0116 s (512/44100)
         }
     }
