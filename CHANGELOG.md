@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.10.0 - 2020-08-01
+
+### BREAKING CHANGE
+
+* The return value of `synthAudio`'s iterator function has changed, see [`interface SynthRes` in schemas.ts](https://github.com/LibreScore/webmscore/blob/web/web-public/schemas.ts#L213)
+
 ## 0.9.1 - 2020-07-31
 
 no production code change
