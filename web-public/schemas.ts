@@ -211,12 +211,15 @@ export interface Positions {
 }
 
 export interface SynthRes {
+    /**
+     * Has the value `false` if the iterator is able to produce the next chunk
+     */
     done: boolean;
 
     /**
      * The chunk's starting time (seconds since the score starts)
      */
-    startTime: number
+    startTime: number;
 
     /**
      * The chunk's end time (seconds since the score starts)  
