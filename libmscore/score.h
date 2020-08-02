@@ -1150,6 +1150,7 @@ class Score : public QObject, public ScoreElement {
       QString extractLyrics();
       int keysig();
       int duration();
+      qreal durationDouble();
 
       void cmdInsertClef(Clef* clef, ChordRest* cr);
 

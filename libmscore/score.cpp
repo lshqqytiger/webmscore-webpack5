@@ -4125,12 +4125,17 @@ int Score::keysig()
 
 int Score::duration()
       {
+            return lrint(durationDouble());
+      }
+
+qreal Score::durationDouble() 
+      {
       masterScore()->setExpandRepeats(true);
       const RepeatList& rl = repeatList();
       if (rl.empty())
             return 0;
       const RepeatSegment* rs = rl.last();
-      return lrint(utick2utime(rs->utick + rs->len()));
+      return utick2utime(rs->utick + rs->len());
       }
 
 //---------------------------------------------------------

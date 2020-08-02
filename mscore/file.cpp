@@ -3188,7 +3188,7 @@ QJsonObject saveMetadataJSON(Score* score)
             }
       json.insert("timesig", timeSig);
 
-      json.insert("duration", score->duration());
+      json.insert("duration", score->durationDouble());
       json.insert("lyrics", score->extractLyrics());
 
       // tempo
