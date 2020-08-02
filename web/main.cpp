@@ -373,6 +373,8 @@ const char* _saveAudio(uintptr_t score_ptr, const char* format, int excerptId) {
     return packData(data, size);
 }
 
+std::function<Ms::SynthRes*(bool)> synthFn = nullptr;
+
 /**
  * synthesize audio frames
  */
@@ -382,7 +384,7 @@ uintptr_t _synthAudio(uintptr_t score_ptr, float starttime, int excerptId) {
 
     qDebug("synthAudio: excerpt %d, starttime %f", excerptId, starttime);
 
-    static const auto synthFn = Ms::synthAudioWorklet(score, starttime);
+    synthFn = Ms::synthAudioWorklet(score, starttime);
 
     return synthFn == nullptr ? 0 : reinterpret_cast<uintptr_t>(&synthFn);
 }
