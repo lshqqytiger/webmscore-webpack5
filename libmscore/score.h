@@ -27,6 +27,7 @@
 #include "spannermap.h"
 #include "layoutbreak.h"
 #include "property.h"
+#include "synthres.h"
 
 namespace Ms {
 
@@ -1210,6 +1211,8 @@ class Score : public QObject, public ScoreElement {
 
       friend class ChangeSynthesizerState;
       friend class Chord;
+
+      std::function<SynthRes*(bool)> synthFn;
       };
 
 static inline Score* toScore(ScoreElement* e) {

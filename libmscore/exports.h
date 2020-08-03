@@ -1,15 +1,11 @@
 
+#ifndef __EXPORTS_H__
+#define __EXPORTS_H__
+
 #include "score.h"
+#include "synthres.h"
 
 namespace Ms {
-
-    struct SynthRes {
-        int done;  // bool
-        float startTime; // the chunk's start time in seconds
-        float endTime;   // the chunk's end time in seconds (playtime)
-        unsigned chunkSize;
-        const char* chunkPtr;
-    };
 
     extern bool saveXml(Score*, QIODevice*);
     extern bool saveXml(Score*, const QString& name);
@@ -33,3 +29,4 @@ namespace Ms {
     QJsonObject saveMetadataJSON(Score* score);
 }
 
+#endif
