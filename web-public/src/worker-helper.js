@@ -55,7 +55,7 @@ class WebMscoreW extends Worker {
     static async load(format, data, fonts = [], doLayout = true) {
         const instance = new WebMscoreW()
         await instance.rpc('ready')
-        await instance.rpc('load', [format, data, fonts, doLayout], [data.buffer, /** ...fonts.map(f => f.buffer) */])
+        await instance.rpc('load', [format, data, fonts, doLayout], [data.buffer, ...fonts.map(f => f.buffer)])
         return instance
     }
 
@@ -231,7 +231,7 @@ class WebMscoreW extends Worker {
      * @param {Uint8Array} data 
      */
     async setSoundFont(data) {
-        await this.rpc('setSoundFont', [data])
+        await this.rpc('setSoundFont', [data], [data.buffer])
         /** @private */
         this.hasSoundfont = true
     }
