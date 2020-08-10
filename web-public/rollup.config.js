@@ -61,6 +61,16 @@ export default [
         }
     },
     {
+        input: "src/nodejs.js",
+        output: {
+            file: "webmscore.nodejs.cjs",
+            format: "cjs",
+            exports: "default",
+            sourcemap: false,
+        },
+        plugins: [REPLACE_IMPORT_META],
+    },
+    {
         input: "src/worker-helper.js",
         output: {
             file: "webmscore.webpack.mjs",

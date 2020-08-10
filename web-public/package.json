@@ -4,18 +4,14 @@
     "description": "MuseScore's libmscore in WebAssembly! Read mscz data, and generate audio/MIDI/MusicXML/SVG/PNG/PDF sheets right in browsers",
     "type": "module",
     "types": "./src/index.d.ts",
-    "main": "./webmscore.js",
-    "module": "./webmscore.mjs",
+    "main": "./webmscore.nodejs.cjs",
     "browser": "./webmscore.webpack.mjs",
-    "exports": {
-        "browser": "./src/index.js",
-        "node": "./src/nodejs.js"
-    },
     "files": [
         "src",
         "schemas.ts",
         "webmscore.js",
         "webmscore.mjs",
+        "webmscore.nodejs.cjs",
         "webmscore.webpack.mjs",
         "webmscore.lib.*",
         "!webmscore.lib.d.ts"

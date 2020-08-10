@@ -5,8 +5,8 @@ import { IS_NODE, getSelfURL } from './utils.js'
 const moduleOptions = IS_NODE
     ? {
         locateFile(path) {
-            const { join, dirname } = require('path')
-            return join(dirname(__dirname), path)
+            const { join } = require('path')
+            return join(__dirname, path)
         },
         getPreloadedPackage(remotePackageName) {
             const buf = require('fs').readFileSync(remotePackageName).buffer

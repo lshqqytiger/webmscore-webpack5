@@ -4,5 +4,5 @@
 import './nodejs_shim.js'
 import WebMscore from './index.js'
 
-export { WebMscore }
+WebMscore['default'] = WebMscore  // workaround for commonjs exports
 export default WebMscore
