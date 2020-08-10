@@ -664,11 +664,11 @@ bool Element::readProperties(XmlReader& e)
                         ScoreElement* linked = link->mainElement();
                         if (linked->type() == type())
                               linkTo(linked);
-                        else
-                              qWarning("Element::readProperties: linked elements have different types: %s, %s. Input file corrupted?", name(), linked->name());
+                        // else
+                              // qWarning("Element::readProperties: linked elements have different types: %s, %s. Input file corrupted?", name(), linked->name());
                         }
-                  if (!_links)
-                        qWarning("Element::readProperties: could not link %s at staff %d", name(), mainLoc.staff() + 1);
+                  // if (!_links)
+                        // qWarning("Element::readProperties: could not link %s at staff %d", name(), mainLoc.staff() + 1);
                   }
             }
       else if (tag == "lid") {

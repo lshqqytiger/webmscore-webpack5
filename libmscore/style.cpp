@@ -2323,7 +2323,7 @@ Tid textStyleFromName(const QString& name)
       if (name == "Technique")                  // compatibility
             return Tid::EXPRESSION;
 
-      qWarning("text style <%s> not known", qPrintable(name));
+      // qWarning("text style <%s> not known", qPrintable(name));
       return Tid::DEFAULT;
       }
 
