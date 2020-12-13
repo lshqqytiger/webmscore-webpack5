@@ -3111,6 +3111,7 @@ QJsonObject savePartInfoJSON(Part* p) {
             midiProgram = 128;
       jsonPart.insert("program", midiProgram);
       jsonPart.insert("instrumentId", p->instrumentId());
+      jsonPart.insert("instrumentName", p->instrumentName());
       jsonPart.insert("lyricCount", p->lyricCount());
       jsonPart.insert("harmonyCount", p->harmonyCount());
       jsonPart.insert("hasPitchedStaff", boolToString(p->hasPitchedStaff()));

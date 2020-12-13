@@ -14,6 +14,11 @@ interface ScorePartData {
      */
     instrumentId: string;
 
+    /**
+     * instrument track name
+     */
+    instrumentName: string;
+
     lyricCount: number;
     harmonyCount: number;
 
