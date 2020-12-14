@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.12.0 - 2020-12-14
+
+### Added
+
+* Support MP3 export 
+
+```js
+await score.saveAudio('mp3')
+```
+
 ## 0.11.0 - 2020-12-13
 
 ### Added
