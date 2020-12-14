@@ -280,8 +280,8 @@ class WebMscore {
     }
 
     /**
-     * Export score as audio file (wav/ogg/flac)
-     * @param {'wav' | 'ogg' | 'flac'} format 
+     * Export score as audio file (wav/ogg/flac/mp3)
+     * @param {'wav' | 'ogg' | 'flac' | 'mp3'} format 
      */
     async saveAudio(format) {
         if (!this.hasSoundfont) {

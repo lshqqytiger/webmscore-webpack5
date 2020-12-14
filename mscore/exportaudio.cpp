@@ -478,6 +478,8 @@ bool saveAudio(Score* score, const QString& name)
             format = SF_FORMAT_OGG | SF_FORMAT_VORBIS;
       else if (name.endsWith("flac"))
             format = SF_FORMAT_FLAC | SF_FORMAT_PCM_16;
+      else if (name.endsWith("mp3"))
+            format = SF_FORMAT_MP3 | SF_FORMAT_MPEG_LAYER_III;
       else {
             qDebug("unknown audio file type <%s>", qPrintable(name));
             return false;

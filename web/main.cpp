@@ -348,9 +348,10 @@ const char* _saveAudio(uintptr_t score_ptr, const char* format, int excerptId) {
     auto score = reinterpret_cast<Ms::Score*>(score_ptr);
     score = maybeUseExcerpt(score, excerptId);
 
-    // file format of the output file, "wav" or "ogg" or flac"
+    // file format of the output file
+    // "wav", "ogg", "flac", or "mp3"
     QString _format = QString::fromUtf8(format);
-    if (!(_format == "wav" || _format == "ogg" || _format == "flac")) {
+    if (!(_format == "wav" || _format == "ogg" || _format == "flac" || _format == "mp3")) {
         throw QString("Invalid output format");
     }
 

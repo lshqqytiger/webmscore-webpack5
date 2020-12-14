@@ -227,6 +227,28 @@ target_compile_definitions(FLAC PRIVATE PACKAGE_VERSION="1.3.3" HAVE_LROUND FLAC
 
 
 ##
+## LAME
+##
+set(LAME_DIR "thirdparty/lame/lame")
+
+include_directories(${LAME_DIR}/include)
+
+aux_source_directory(${LAME_DIR}/libmp3lame LAME_SOURCE_LIB)
+aux_source_directory(${LAME_DIR}/libmp3lame/vector/ LAME_SOURCE_LIB)
+aux_source_directory(${LAME_DIR}/mpglib LAME_SOURCE_LIB)
+add_library(lame STATIC ${LAME_SOURCE_LIB})
+
+target_include_directories(lame
+    PRIVATE ${LAME_DIR}/include
+    PRIVATE ${LAME_DIR}/libmp3lame
+    PRIVATE ${LAME_DIR}/mpglib
+)
+
+set_property(TARGET lame PROPERTY POSITION_INDEPENDENT_CODE ON)
+target_compile_definitions(lame PRIVATE STDC_HEADERS ieee754_float32_t=float)
+
+
+##
 ## FreeType
 ##
 set(BROTLIDEC_LIBRARIES brotlidec)
