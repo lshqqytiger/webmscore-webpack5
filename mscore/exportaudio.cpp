@@ -463,14 +463,14 @@ bool saveAudio(Score* score, const QString& name)
                   return false;
             }
 
-            if ((info.format & SF_FORMAT_TYPEMASK) == SF_FORMAT_MP3) {
-                  // set the bitrate to 320kbps
-                  // bitrate = (320.0 - (compression * (320.0 - 32.0)))
-                  auto mode = SF_BITRATE_MODE_CONSTANT;
-                  sf_command(sf, SFC_SET_BITRATE_MODE, &mode, sizeof(int));
-                  double compression = 0;
-                  sf_command(sf, SFC_SET_COMPRESSION_LEVEL, &compression, sizeof(double));
-            }
+            // if ((info.format & SF_FORMAT_TYPEMASK) == SF_FORMAT_MP3) {
+            //       // set the bitrate to 320kbps
+            //       // bitrate = (320.0 - (compression * (320.0 - 32.0)))
+            //       auto mode = SF_BITRATE_MODE_CONSTANT;
+            //       sf_command(sf, SFC_SET_BITRATE_MODE, &mode, sizeof(int));
+            //       double compression = 0;
+            //       sf_command(sf, SFC_SET_COMPRESSION_LEVEL, &compression, sizeof(double));
+            // }
 
             return QIODevice::open(mode);
         }
