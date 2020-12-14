@@ -8,6 +8,7 @@ import {
     getTypedArrayPtr,
     readData,
     freePtr,
+    FileError,
 } from './helper.js'
 
 
@@ -56,6 +57,11 @@ class WebMscore {
 
         freePtr(fileformatptr)
         freePtr(dataptr)
+
+        if (scoreptr < 16) {  // contains error
+            // `scoreptr` is the error code
+            throw new FileError(scoreptr)
+        }
 
         return new WebMscore(scoreptr)
     }

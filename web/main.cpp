@@ -90,7 +90,8 @@ bool _addFont(const char* fontPath) {
 uintptr_t _load(const char* format, const char* data, const uint32_t size, bool doLayout) {
     QString _format = QString::fromUtf8(format);  // file format of the data, ("mscz" or "mscx")
     if (!(_format == "mscz" || _format == "mscx")) {
-        throw QString("Invalid file format");
+        qWarning("Invalid file format");
+        return char(Ms::Score::FileError::FILE_UNKNOWN_TYPE);
     }
 
     QString filename = "temp." + _format;
@@ -102,7 +103,10 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
     score->setMovements(new Ms::Movements());
 
-    score->loadMsc(filename, &buffer, true);
+    auto fileErr = score->loadMsc(filename, &buffer, true);
+    if (fileErr != Ms::Score::FileError::FILE_NO_ERROR) {
+        return char(fileErr);
+    }
 
     // mscore/file.cpp#L2278 readScore
     score->rebuildMidiMapping();

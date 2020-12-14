@@ -17,7 +17,7 @@ const moduleOptions = IS_NODE
         locateFile(path) {
             // %INJECTION_HINT_0%
             // fix loading the preload pack in Browsers and WebWorkers
-            const prefix = typeof MSCORE_SCRIPT_URL == "string"
+            const prefix = typeof MSCORE_SCRIPT_URL == 'string'
                 ? MSCORE_SCRIPT_URL  // to use like an environment variable
                 : getSelfURL()
             return new URL(path, prefix).href
@@ -91,3 +91,53 @@ export const RuntimeInitialized = new Promise((resolve) => {
         resolve()
     }
 })
+
+/**
+ * @enum {number}
+ * @see libmscore/score.h#L396-L410
+ */
+export const FileErrorEnum = Object.assign([
+    // error code -> error name
+    'FILE_NO_ERROR',
+    'FILE_ERROR',
+    'FILE_NOT_FOUND',
+    'FILE_OPEN_ERROR',
+    'FILE_BAD_FORMAT',
+    'FILE_UNKNOWN_TYPE',
+    'FILE_NO_ROOTFILE',
+    'FILE_TOO_OLD',
+    'FILE_TOO_NEW',
+    'FILE_OLD_300_FORMAT',
+    'FILE_CORRUPTED',
+    'FILE_USER_ABORT',
+    'FILE_IGNORE_ERROR',
+], {
+    // error name -> error code
+    // make up TypeScript-like enum manually
+    'FILE_NO_ERROR': 0,
+    'FILE_ERROR': 1,
+    'FILE_NOT_FOUND': 2,
+    'FILE_OPEN_ERROR': 3,
+    'FILE_BAD_FORMAT': 4,
+    'FILE_UNKNOWN_TYPE': 5,
+    'FILE_NO_ROOTFILE': 6,
+    'FILE_TOO_OLD': 7,
+    'FILE_TOO_NEW': 8,
+    'FILE_OLD_300_FORMAT': 9,
+    'FILE_CORRUPTED': 10,
+    'FILE_USER_ABORT': 11,
+    'FILE_IGNORE_ERROR': 12,
+})
+
+export class FileError extends Error {
+    /**
+     * @param {FileErrorEnum} errorCode 
+     */
+    constructor(errorCode) {
+        super()
+        this.name = 'FileError'
+        this.errorCode = errorCode
+        this.errorName = FileErrorEnum[errorCode] || FileErrorEnum[1]
+        this.message = `WebMscore: ${this.errorName}`
+    }
+}
