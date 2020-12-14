@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.11.0 - 2020-12-13
+
+### Added
+
+* The `instrumentName` field of parts in Metadata JSON
+
+## 0.10.3 - 2020-08-10
+
+### Added
+
+* Commonjs Compatibility
+
 ## 0.10.0 - 2020-08-01
 
 ### BREAKING CHANGE
