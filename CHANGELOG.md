@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.13.0 - 2020-12-14
+
+### Added
+
+* Allow to set custom `stdout` and `stderr`  
+(Node.js exclusive feature)
+
+See the example in [web-public/src/index.js](https://github.com/LibreScore/webmscore/blob/e7a9f3bed0059842e7ca758f66e75ee8b6ccbd1a/web-public/src/index.js#L34-L67)
+
 ## 0.12.1 - 2020-12-14
 
 ### Fixed
