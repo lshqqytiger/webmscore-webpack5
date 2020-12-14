@@ -456,11 +456,22 @@ bool saveAudio(Score* score, const QString& name)
             if ((mode & QIODevice::WriteOnly) == 0) {
                 return false;
             }
+
             sf     = sf_open(qPrintable(filename), SFM_WRITE, &info);
             if (sf == nullptr) {
                   qDebug("open soundfile failed: %s", sf_strerror(sf));
                   return false;
             }
+
+            if ((info.format & SF_FORMAT_TYPEMASK) == SF_FORMAT_MP3) {
+                  // set the bitrate to 320kbps
+                  // bitrate = (320.0 - (compression * (320.0 - 32.0)))
+                  auto mode = SF_BITRATE_MODE_CONSTANT;
+                  sf_command(sf, SFC_SET_BITRATE_MODE, &mode, sizeof(int));
+                  double compression = 0;
+                  sf_command(sf, SFC_SET_COMPRESSION_LEVEL, &compression, sizeof(double));
+            }
+
             return QIODevice::open(mode);
         }
         void close() {
