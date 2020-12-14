@@ -32,6 +32,41 @@ class WebMscore {
     }
 
     /**
+     * Set custom stdout instead of `console.log`  
+     * Available before `WebMscore.ready`
+     * @private Node.js exclusive
+     * @param {(byte: number) => any} write
+     */
+    static set stdout(write) {
+        Module.stdout = write
+    }
+    /** @private */
+    static get stdout() {
+        return Module.stdout
+    }
+
+    /**
+     * Set custom stderr instead of `console.warn`  
+     * Available before `WebMscore.ready`
+     * @private Node.js exclusive
+     * @param {(byte: number) => any} write
+     * @example
+     * ```js
+     * WebMscore['stderr'] = function (byte) {
+     *     process.stderr.write(new Uint8Array([byte]))
+     * }
+     * await WebMscore.ready
+     * ```
+     */
+    static set stderr(write) {
+        Module.stderr = write
+    }
+    /** @private */
+    static get stderr() {
+        return Module.stderr
+    }
+
+    /**
      * Load the score data (from a MSCZ/MSCX file)
      * @param {'mscz' | 'mscx'} format 
      * @param {Uint8Array} data 
