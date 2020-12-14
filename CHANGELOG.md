@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.12.1 - 2020-12-14
+
+### Fixed
+
+* Throw file loading error instead of failing silently
+
 ## 0.12.0 - 2020-12-14
 
 ### Added
