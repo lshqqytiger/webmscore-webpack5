@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.13.1 - 2020-12-16
+
+### Fixed
+
+* Fixed an issue that webmscore catches all (and irrelevant) uncaught exceptions in Node.js
+
 ## 0.13.0 - 2020-12-14
 
 ### Added
