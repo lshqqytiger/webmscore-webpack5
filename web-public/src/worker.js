@@ -30,7 +30,10 @@ const rpcErr = (id, err) => {
     /** @type {RPCRes} */
     const res = {
         id,
-        error: err.message,
+        error: {
+            name: err.name,
+            message: err.message,
+        },
     }
     self.postMessage(res)
 }

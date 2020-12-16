@@ -9,6 +9,22 @@ import { getSelfURL, shimDom } from './utils.js'
 const MSCORE_SCRIPT_URL = getSelfURL()
 
 /**
+ * Reconstruct `Error` objects sent from the web worker
+ * 
+ * Native `Error` types can't be cloned by structured clone algorithm
+ */
+class WorkerError extends Error {
+    /**
+     * @param {{ name: string; message: string; }} err
+     */
+    constructor(err) {
+        super()
+        this.name = err.name
+        this.message = err.message
+    }
+}
+
+/**
  * Use webmscore as a web worker
  * @implements {import('./index').default}
  */
@@ -75,7 +91,7 @@ class WebMscoreW extends Worker {
                 /** @type {RPCRes} */
                 const data = e.data
                 if (data.id === id) {
-                    if (data.error) { reject(data.error) }
+                    if (data.error) { reject(new WorkerError(data.error)) }
                     this.removeEventListener('message', listener)
                     resolve(data.result)
                 }
