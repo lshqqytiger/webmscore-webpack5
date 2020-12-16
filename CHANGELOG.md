@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.13.2 - 2020-12-16
+
+### Fixed
+
+* Handle exceptions sent from the webmscore web worker
+
 ## 0.13.1 - 2020-12-16
 
 ### Fixed
