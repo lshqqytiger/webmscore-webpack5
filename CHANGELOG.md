@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.13.3 - 2020-12-18
+
+### Added
+
+* ES5 Compatibility (Webpack only)
+
 ## 0.13.2 - 2020-12-16
 
 ### Fixed
