@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.14.0 - 2020-12-18
+
+### Added
+
+* Support legacy browsers that have no WebAssembly support
+
 ## 0.13.4 - 2020-12-18
 
 ### Fixed
