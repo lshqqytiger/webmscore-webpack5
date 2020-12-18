@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.13.4 - 2020-12-18
+
+### Fixed
+
+* ES5 compilation
+
 ## 0.13.3 - 2020-12-18
 
 ### Added
