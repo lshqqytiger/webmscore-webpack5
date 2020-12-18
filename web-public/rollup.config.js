@@ -33,14 +33,18 @@ const INJECT_WEBPACK_LOCATE_FILE = {
 }
 
 const BABEL_PLUGIN = babel({
-    babelHelpers: 'bundled',
+    babelHelpers: 'inline',
     babelrc: false,
     compact: true,
     comments: false,
     presets: [[
         '@babel/preset-env',
-        { targets: { browsers: "> 0.5%, ie >= 11" } },
+        {
+            targets: { browsers: "> 0.5%, ie >= 11" },
+            exclude: ["transform-typeof-symbol"],
+        },
     ]],
+    exclude: ['.cache/**'],
 })
 
 export default [
