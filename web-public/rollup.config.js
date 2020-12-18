@@ -1,4 +1,6 @@
 
+import babel from '@rollup/plugin-babel'
+
 const WEBPACK_IMPORT = `
 import libWasm from '!!file-loader?name=[name].wasm!./webmscore.lib.wasm-'  // workaround for Webpack 4
 import libData from '!!file-loader?name=[name].[ext]!./webmscore.lib.data'
@@ -29,6 +31,17 @@ const INJECT_WEBPACK_LOCATE_FILE = {
         return { code }
     }
 }
+
+const BABEL_PLUGIN = babel({
+    babelHelpers: 'bundled',
+    babelrc: false,
+    compact: true,
+    comments: false,
+    presets: [[
+        '@babel/preset-env',
+        { targets: { browsers: "> 0.5%, ie >= 11" } },
+    ]],
+})
 
 export default [
     {
@@ -78,6 +91,10 @@ export default [
             banner: WEBPACK_IMPORT,
             sourcemap: false,
         },
-        plugins: [REPLACE_IMPORT_META, INJECT_WEBPACK_LOCATE_FILE],
+        plugins: [
+            REPLACE_IMPORT_META,
+            INJECT_WEBPACK_LOCATE_FILE,
+            BABEL_PLUGIN,
+        ],
     }
 ]
