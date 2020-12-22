@@ -3,11 +3,11 @@ import babel from '@rollup/plugin-babel'
 
 const WEBPACK_IMPORT = `
 import libWasm from '!!file-loader?name=[name].wasm!./webmscore.lib.wasm-'  // workaround for Webpack 4
-import libData from '!!file-loader?name=[name].[ext]!./webmscore.lib.data'
+import libData from '!!file-loader?name=[name].[ext].wasm!./webmscore.lib.data'
 
 // legacy browser support
 import libWasmJs from '!!file-loader?name=[name].[ext]!./webmscore.lib.wasm.js'
-import libMem from '!!file-loader?name=[name].[ext]!./webmscore.lib.js.mem'
+import libMem from '!!file-loader?name=webmscore.lib.mem.wasm!./webmscore.lib.js.mem'
 `
 
 const WEBPACK_LOCATE_FILE = `
