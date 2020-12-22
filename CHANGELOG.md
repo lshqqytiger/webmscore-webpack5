@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.14.1 - 2020-12-22
+
+### Changed 
+
+* WebMscore web worker no longer extends the native `Worker` class
+
 ## 0.14.0 - 2020-12-18
 
 ### Added
