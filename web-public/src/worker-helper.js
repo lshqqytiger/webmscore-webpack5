@@ -28,7 +28,7 @@ class WorkerError extends Error {
  * Use webmscore as a web worker
  * @implements {import('./index').default}
  */
-class WebMscoreW extends Worker {
+class WebMscoreW {
     /**
      * @hideconstructor use `WebMscoreW.load`
      */
@@ -42,7 +42,10 @@ class WebMscoreW extends Worker {
                 + '})()'
             ])
         )
-        super(url)
+        /** @private */
+        this.worker = new Worker(url)
+        /** @private */
+        this.workerURL = url
     }
 
     /**
@@ -92,14 +95,14 @@ class WebMscoreW extends Worker {
                 const data = e.data
                 if (data.id === id) {
                     if (data.error) { reject(new WorkerError(data.error)) }
-                    this.removeEventListener('message', listener)
+                    this.worker.removeEventListener('message', listener)
                     resolve(data.result)
                 }
             }
 
-            this.addEventListener('message', listener)
+            this.worker.addEventListener('message', listener)
 
-            this.postMessage({
+            this.worker.postMessage({
                 id,
                 method,
                 params,
@@ -308,7 +311,8 @@ class WebMscoreW extends Worker {
         } else {
             // destroy the whole WebMscore webworker context
             // the default behaviour prior to v0.9.0
-            this.terminate()
+            this.worker.terminate()
+            URL.revokeObjectURL(this.workerURL) // GC
         }
     }
 }
