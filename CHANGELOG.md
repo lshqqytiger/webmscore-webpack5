@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.14.2 - 2020-12-22
+
+### Changed 
+
+* Data files are in `.wasm` file extension for Webpack. This makes web servers compress those files automatically.
+
 ## 0.14.1 - 2020-12-22
 
 ### Changed 
