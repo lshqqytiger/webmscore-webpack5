@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.14.3 - 2020-12-28
+
+### Fixed
+
+* SoundFont related bug ([`2b07ee9`](https://github.com/LibreScore/webmscore/commit/2b07ee9095d243e831afc8128914af73a80228d7))
+
 ## 0.14.2 - 2020-12-22
 
 ### Changed 
