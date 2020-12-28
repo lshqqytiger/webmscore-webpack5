@@ -251,8 +251,6 @@ class WebMscoreW {
      */
     async setSoundFont(data) {
         await this.rpc('setSoundFont', [data], [data.buffer])
-        /** @private */
-        this.hasSoundfont = true
     }
 
     /**
@@ -261,9 +259,6 @@ class WebMscoreW {
      * @returns {Promise<Uint8Array>}
      */
     saveAudio(format) {
-        if (!this.hasSoundfont) {
-            throw new Error('The soundfont is not set.')
-        }
         return this.rpc('saveAudio', [format])
     }
 

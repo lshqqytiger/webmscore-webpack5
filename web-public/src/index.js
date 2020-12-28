@@ -15,6 +15,14 @@ import {
 class WebMscore {
 
     /**
+     * A soundfont file is loaded  
+     * (Audio needs soundfonts)
+     * @private
+     * @see setSoundFont and saveAudio
+     */
+    static hasSoundfont = false;
+
+    /**
      * This promise is resolved when the runtime is fully initialized
      * @returns {Promise<void>}
      */
@@ -307,7 +315,7 @@ class WebMscore {
      * @param {Uint8Array} data 
      */
     async setSoundFont(data) {
-        if (this.hasSoundfont) {
+        if (WebMscore.hasSoundfont) {
             // remove the old soundfont file
             Module['FS_createDataFile']('/MuseScore_General.sf3')
         }
@@ -316,8 +324,7 @@ class WebMscore {
         // side effects: the soundfont is shared across all instances
         Module['FS_createDataFile']('/', 'MuseScore_General.sf3', data, true, true)
 
-        /** @private */
-        this.hasSoundfont = true
+        WebMscore.hasSoundfont = true
     }
 
     /**
@@ -325,7 +332,7 @@ class WebMscore {
      * @param {'wav' | 'ogg' | 'flac' | 'mp3'} format 
      */
     async saveAudio(format) {
-        if (!this.hasSoundfont) {
+        if (!WebMscore.hasSoundfont) {
             throw new Error('The soundfont is not set.')
         }
 
@@ -361,7 +368,7 @@ class WebMscore {
      * @returns {Promise<number>} Pointer to the iterator function
      */
     async _synthAudio(starttime = 0) {
-        if (!this.hasSoundfont) {
+        if (!WebMscore.hasSoundfont) {
             throw new Error('The soundfont is not set.')
         }
 
