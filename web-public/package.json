@@ -45,6 +45,7 @@
     },
     "scripts": {
         "build": "npm run clean && npm run compile && npm run bundle && npm run d-ts",
+        "build:js-only": "npm run clean:d-ts && npm run bundle && npm run d-ts",
         "bundle": "rollup -c",
         "compile": "cd ../ && make release",
         "clean": "npm run clean:d-ts && cd ../ && make clean",
