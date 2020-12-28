@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.15.0 - 2020-12-28
+
+### Added
+
+* Expose `setSoundFont` as a static method for Node.js  
+
+This allows loading soundfonts in advance, before any score is loaded.
+
 ## 0.14.3 - 2020-12-28
 
 ### Fixed
