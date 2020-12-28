@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.15.1 - 2020-12-28
+
+### Fixed
+
+* Remove the previous SoundFont file when `setSoundFont` is called multiple times
+
 ## 0.15.0 - 2020-12-28
 
 ### Added
