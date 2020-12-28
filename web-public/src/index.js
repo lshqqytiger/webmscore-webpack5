@@ -15,14 +15,6 @@ import {
 class WebMscore {
 
     /**
-     * A soundfont file is loaded  
-     * (Audio needs soundfonts)
-     * @private
-     * @see setSoundFont and saveAudio
-     */
-    static hasSoundfont = false;
-
-    /**
      * This promise is resolved when the runtime is fully initialized
      * @returns {Promise<void>}
      */
@@ -129,6 +121,34 @@ class WebMscore {
         const success = Module.ccall('addFont', 'number', ['number'], [fontpathptr])
         freePtr(fontpathptr)
         return !!success
+    }
+
+    /**
+     * A soundfont file is loaded  
+     * @private
+     * @type {boolean}
+     * @see setSoundFont and saveAudio
+     */
+    static hasSoundfont = false;
+
+    /**
+     * Set the soundfont (sf2/sf3) data  
+     * (Audio needs soundfonts)
+     * @private
+     * @param {Uint8Array} data 
+     * @returns {Promise<void>}
+     */
+    static async setSoundFont(data) {
+        if (WebMscore.hasSoundfont) {
+            // remove the old soundfont file
+            Module['FS_createDataFile']('/MuseScore_General.sf3')
+        }
+
+        // put the soundfont file into the virtual file system
+        // side effects: the soundfont is shared across all instances
+        Module['FS_createDataFile']('/', 'MuseScore_General.sf3', data, true, true)
+
+        WebMscore.hasSoundfont = true
     }
 
     /**
@@ -315,16 +335,7 @@ class WebMscore {
      * @param {Uint8Array} data 
      */
     async setSoundFont(data) {
-        if (WebMscore.hasSoundfont) {
-            // remove the old soundfont file
-            Module['FS_createDataFile']('/MuseScore_General.sf3')
-        }
-
-        // put the soundfont file into the virtual file system
-        // side effects: the soundfont is shared across all instances
-        Module['FS_createDataFile']('/', 'MuseScore_General.sf3', data, true, true)
-
-        WebMscore.hasSoundfont = true
+        return WebMscore.setSoundFont(data)
     }
 
     /**
