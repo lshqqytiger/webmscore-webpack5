@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.15.2 - 2020-12-31
+
+### Fixed
+
+* [Class fields compatibility issues](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields#Browser_compatibility)
+
 ## 0.15.1 - 2020-12-28
 
 ### Fixed
