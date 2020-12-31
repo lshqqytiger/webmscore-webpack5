@@ -12,6 +12,9 @@ import {
 } from './helper.js'
 
 
+/** @see WebMscore.hasSoundfont */
+let _hasSoundfont = false
+
 class WebMscore {
 
     /**
@@ -129,7 +132,13 @@ class WebMscore {
      * @type {boolean}
      * @see setSoundFont and saveAudio
      */
-    static hasSoundfont = false;
+    static get hasSoundfont() {
+        return _hasSoundfont
+    }
+    /** @private */
+    static set hasSoundfont(value) {
+        _hasSoundfont = value
+    }
 
     /**
      * Set the soundfont (sf2/sf3) data  
