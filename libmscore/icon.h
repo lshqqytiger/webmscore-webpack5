@@ -13,6 +13,7 @@
 #ifndef __ICON_H__
 #define __ICON_H__
 
+#include <QIcon>
 #include "element.h"
 #include "mscore.h"
 

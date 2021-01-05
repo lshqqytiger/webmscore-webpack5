@@ -59,7 +59,7 @@
    #pragma warning ( disable: 4127)
 #endif
 
-#include <QtGui>
+// #include <QtGui>
 #include <QWidget>
 // #include <QLoggingCategory>
 // #include <QModelIndex>

@@ -43,6 +43,7 @@
 #define SVGGENERATOR_H
 
 #include <QtGui/qpaintdevice.h>
+#include <QPaintEngine>
 
 #include <QtCore/qnamespace.h>
 #include <QtCore/qiodevice.h>

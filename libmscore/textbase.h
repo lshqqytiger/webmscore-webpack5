@@ -13,6 +13,7 @@
 #ifndef __TEXTBASE_H__
 #define __TEXTBASE_H__
 
+#include <QTextBlock>
 #include "element.h"
 #include "property.h"
 #include "style.h"
