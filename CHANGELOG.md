@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.16.0 - 2020-01-05
+## 0.16.0 - 2021-01-05
 
 ### Added 
 
@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * The original error stack of worker errors is reported in the property `originalStack`
+* The workaround for Webpack 4 is no longer enabled by default. To enable it, run `cd node_modules/webmscore && npm run install:webpack` after package installation.
 
 ### Removed
 
