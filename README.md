@@ -130,7 +130,7 @@ https://emscripten.org/docs/getting_started/downloads.html
 ```sh
 CPUS=$(getconf _NPROCESSORS_ONLN 2>/dev/null || getconf NPROCESSORS_ONLN 2>/dev/null || 8)
 
-QT_PATH=/usr/qt515/
+QT_PATH=/usr/qt515
 # If you want to use other directory, make sure you changed `PREFIX_PATH` to your Qt5WASM installation dir in the Makefile
 
 git clone git://code.qt.io/qt/qt5.git --depth=1 -b 5.15.0 $QT_PATH
@@ -140,6 +140,9 @@ git clone git://code.qt.io/qt/qt5.git --depth=1 -b 5.15.0 $QT_PATH
 cd $QT_PATH
 ./configure -xplatform wasm-emscripten -nomake examples -prefix $PWD/qtbase
 make -j$CPUS
+
+# exclude unused Qt5Gui plugins
+sed -i -E "s/Qt5Gui_\*(Plugin)?/Qt5Gui_QWasmIntegrationPlugin/" $QT_PATH/qtbase/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
 ```
 
 4. Checkout submodules
