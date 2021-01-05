@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.16.0 - 2020-01-05
+
+### Added 
+
+* Support raw PCM audio data export (for future internal use) 
+
+### Changed
+
+* The original error stack of worker errors is reported in the property `originalStack`
+
+### Removed
+
+* The legacy browser support is removed
+
 ## 0.15.2 - 2020-12-31
 
 ### Fixed
