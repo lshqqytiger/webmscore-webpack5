@@ -33,6 +33,7 @@ const rpcErr = (id, err) => {
         error: {
             name: err.name,
             message: err.message,
+            stack: err.stack,
         },
     }
     self.postMessage(res)

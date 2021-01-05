@@ -15,12 +15,13 @@ const MSCORE_SCRIPT_URL = getSelfURL()
  */
 class WorkerError extends Error {
     /**
-     * @param {{ name: string; message: string; }} err
+     * @param {Error} err
      */
     constructor(err) {
         super()
         this.name = err.name
         this.message = err.message
+        this.originalStack = err.stack
     }
 }
 
