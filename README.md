@@ -142,7 +142,7 @@ cd $QT_PATH
 make -j$CPUS
 
 # exclude unused Qt5Gui plugins
-sed -i -E "s/Qt5Gui_\*(Plugin)?/Qt5Gui_QWasmIntegrationPlugin/" $QT_PATH/qtbase/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
+sed -i -E "s/Qt5Gui_\*(Plugin)?/Qt5Gui_@(QWasmIntegrationPlugin|QJpegPlugin)/" $QT_PATH/qtbase/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
 ```
 
 4. Checkout submodules
