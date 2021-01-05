@@ -4,9 +4,6 @@ import babel from '@rollup/plugin-babel'
 const WEBPACK_IMPORT = `
 import libWasm from '!!file-loader?name=[name].wasm!./webmscore.lib.wasm-'  // workaround for Webpack 4
 import libData from '!!file-loader?name=[name].[ext].wasm!./webmscore.lib.data'
-
-// legacy browser support
-import libWasmJs from '!!file-loader?name=[name].[ext]!./webmscore.lib.wasm.js'
 import libMem from '!!file-loader?name=webmscore.lib.mem.wasm!./webmscore.lib.js.mem'
 `
 
@@ -14,13 +11,11 @@ const WEBPACK_LOCATE_FILE = `
 // modern browsers that support WebAssembly 
 if (path.endsWith('.wasm')) return new URL(MSCORE_LIB_WASM, MSCORE_BASEURL).href
 if (path.endsWith('.data')) return new URL(MSCORE_LIB_DATA, MSCORE_BASEURL).href
-
-// legacy browser support
-if (path.endsWith('.wasm.js')) return new URL(MSCORE_LIB_WASM_JS, MSCORE_BASEURL).href
 if (path.endsWith('.js.mem')) return new URL(MSCORE_LIB_MEM, MSCORE_BASEURL).href
+if (path.endsWith('.wasm.js')) throw new Error('WebAssembly is not supported in your browser')
 `
 
-const WEBPACK_WORKER_IMPORT = '+ `var MSCORE_LIB_WASM = "${libWasm}", MSCORE_LIB_DATA = "${libData}", MSCORE_LIB_WASM_JS = "${libWasmJs}", MSCORE_LIB_MEM = "${libMem}", MSCORE_BASEURL = "${document.baseURI}";`'
+const WEBPACK_WORKER_IMPORT = '+ `var MSCORE_LIB_WASM = "${libWasm}", MSCORE_LIB_DATA = "${libData}", MSCORE_LIB_MEM = "${libMem}", MSCORE_BASEURL = "${document.baseURI}";`'
 
 const INJECTION_HINT = (n) => `// %INJECTION_HINT_${n}%`
 
