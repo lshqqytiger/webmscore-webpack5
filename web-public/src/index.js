@@ -73,13 +73,16 @@ class WebMscore {
      * Load the score data (from a MSCZ/MSCX file)
      * @param {'mscz' | 'mscx'} format 
      * @param {Uint8Array} data 
-     * @param {Uint8Array[]} fonts load extra font files (CJK characters support)
+     * @param {Uint8Array[] | Promise<Uint8Array[]>} fonts load extra font files (CJK characters support)
      * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
      */
     static async load(format, data, fonts = [], doLayout = true) {
-        await WebMscore.ready
+        const [_fonts] = await Promise.all([
+            fonts,
+            WebMscore.ready
+        ])
 
-        for (const f of fonts) {
+        for (const f of _fonts) {
             await WebMscore.addFont(f)
         }
 
