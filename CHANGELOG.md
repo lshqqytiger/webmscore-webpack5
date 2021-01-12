@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.17.1 - 2021-01-12
+
+### Changed
+
+* The `fonts` parameter in `WebMscore.load` can now be passed as type of `Promisable<Uint8Array[]>`.
+
+This allows webmscore to initiate fonts and wasm assets simultaneously.
+
 ## 0.17.0 - 2021-01-12
 
 ### Changed
