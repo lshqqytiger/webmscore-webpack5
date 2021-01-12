@@ -112,12 +112,6 @@ webmscore's Boost Mode is about 3x faster than the batch converter feature (`-j`
 
 WebAssembly vs native C++ program!
 
-### Note: 
-
-**Important!**
-
-Copy `webmscore.lib.data` and `webmscore.lib.wasm` to your artifact dir (the same directory as your final js bundle).
-
 ## Compiling
 
 1. Install essential tools like `make`, `cmake`, `llvm`, etc.

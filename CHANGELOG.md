@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.17.0 - 2021-01-12
+
+### Changed
+
+* For Webpack build, asset files (`webmscore.lib.*`) will be served via the jsDelivr CDN by default. (importing `webmscore` resolves to `webmscore/webmscore.cdn.mjs`)  
+So those files will no longer appear in your `dist` directory, and the workaround is no longer needed.
+
 ## 0.16.0 - 2021-01-05
 
 ### Added 
