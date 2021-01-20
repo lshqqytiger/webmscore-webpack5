@@ -128,7 +128,7 @@ static const StyleVal2 style114[] = {
       { Sid::showMeasureNumberOne,         QVariant(false) },
       { Sid::measureNumberInterval,        QVariant(5) },
       { Sid::measureNumberSystem,          QVariant(true) },
-      { Sid::measureNumberAllStaffs,       QVariant(false) },
+      { Sid::measureNumberAllStaves,       QVariant(false) },
       { Sid::smallNoteMag,                 QVariant(qreal(0.7)) },
       { Sid::graceNoteMag,                 QVariant(qreal(0.7)) },
       { Sid::smallStaffMag,                QVariant(qreal(0.7)) },
@@ -369,8 +369,10 @@ static bool readTextProperties(XmlReader& e, TextBase* t, Element*)
             }
       else if (tag == "foregroundColor")  // same as "color" ?
             e.skipCurrentElement();
-      else if (tag == "frame")
+      else if (tag == "frame") {
             t->setFrameType(e.readBool() ? FrameType::SQUARE : FrameType::NO_FRAME);
+            t->setPropertyFlags(Pid::FRAME_TYPE, PropertyFlags::UNSTYLED);
+            }
       else if (tag == "halign") {
             Align align = Align(int(t->align()) & int(~Align::HMASK));
             const QString& val(e.readElementText());
@@ -383,6 +385,7 @@ static bool readTextProperties(XmlReader& e, TextBase* t, Element*)
             else
                   qDebug("readText: unknown alignment: <%s>", qPrintable(val));
             t->setAlign(align);
+            t->setPropertyFlags(Pid::ALIGN, PropertyFlags::UNSTYLED);
             }
       else if (tag == "valign") {
             Align align = Align(int(t->align()) & int(~Align::VMASK));
@@ -398,6 +401,7 @@ static bool readTextProperties(XmlReader& e, TextBase* t, Element*)
             else
                   qDebug("readText: unknown alignment: <%s>", qPrintable(val));
             t->setAlign(align);
+            t->setPropertyFlags(Pid::ALIGN, PropertyFlags::UNSTYLED);
             }
       else if (tag == "rxoffset") {       // TODO
             e.readElementText();
@@ -1695,6 +1699,7 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                   Breath* breath = new Breath(m->score());
                   breath->setTrack(e.track());
                   Fraction tick = e.tick();
+                  breath->setPlacement(breath->track() & 1 ? Placement::BELOW : Placement::ABOVE);
                   breath->read(e);
                   // older scores placed the breath segment right after the chord to which it applies
                   // rather than before the next chordrest segment with an element for the staff
@@ -2115,7 +2120,8 @@ static void readMeasure(Measure* m, int staffIdx, XmlReader& e)
                   e.addBeam(beam);
                   }
             else if (tag == "Segment") {
-                  segment->read(e);
+                  if (segment)
+                        segment->read(e);
                   while (e.readNextStartElement()) {
                         const QStringRef& t(e.name());
                         if (t == "off1") {
@@ -2376,7 +2382,7 @@ static void readStaff(Staff* staff, XmlReader& e)
                         }
                   }
             else if (tag == "small")
-                  staff->setSmall(Fraction(0,1), e.readInt());
+                  staff->staffType(Fraction(0,1))->setSmall(e.readInt());
             else if (tag == "invisible")
                   staff->setInvisible(e.readInt());
             else if (tag == "slashStyle")
@@ -3011,6 +3017,7 @@ Score::FileError MasterScore::read114(XmlReader& e)
                   beam->read(e);
                   beam->setParent(0);
                   // _beams.append(beam);
+                  delete beam;
                   }
             else if (tag == "name")
                   setName(e.readElementText());
@@ -3262,6 +3269,11 @@ Score::FileError MasterScore::read114(XmlReader& e)
             style().set(Sid::voltaPosAbove, QPointF(0.0, -2.0f));
 
       fixTicks();
+
+      for (Part* p : parts()) {
+            p->updateHarmonyChannels(false);
+            }
+
       rebuildMidiMapping();
       updateChannel();
 

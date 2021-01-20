@@ -43,6 +43,7 @@ FretCanvas::FretCanvas(QWidget* parent)
 //      setFrameStyle(QFrame::Raised | QFrame::Panel);
       cstring = -2;
       cfret   = -2;
+      _currentDtype = FretDotType::NORMAL;
       }
 
 //---------------------------------------------------------
@@ -290,7 +291,7 @@ void FretCanvas::mousePressEvent(QMouseEvent* ev)
                               };
 
                               // Find the lowest dot type that doesn't already exist on the string
-                              for (int i = 0; i < int(dtypes.size()); i++) {
+                              for (size_t i = 0; i < dtypes.size(); i++) {
                                     FretDotType t = dtypes[i];
 
                                     bool hasThisType = false;

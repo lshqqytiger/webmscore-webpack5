@@ -244,6 +244,31 @@ enum class AccidentalType : char {
       // Persian
       SORI,
       KORON,
+
+      // Wyschnegradsky
+      TEN_TWELFTH_FLAT,
+      TEN_TWELFTH_SHARP,
+      ELEVEN_TWELFTH_FLAT,
+      ELEVEN_TWELFTH_SHARP,
+      ONE_TWELFTH_FLAT,
+      ONE_TWELFTH_SHARP,
+      TWO_TWELFTH_FLAT,
+      TWO_TWELFTH_SHARP,
+      THREE_TWELFTH_FLAT,
+      THREE_TWELFTH_SHARP,
+      FOUR_TWELFTH_FLAT,
+      FOUR_TWELFTH_SHARP,
+      FIVE_TWELFTH_FLAT,
+      FIVE_TWELFTH_SHARP,
+      SIX_TWELFTH_FLAT,
+      SIX_TWELFTH_SHARP,
+      SEVEN_TWELFTH_FLAT,
+      SEVEN_TWELFTH_SHARP,
+      EIGHT_TWELFTH_FLAT,
+      EIGHT_TWELFTH_SHARP,
+      NINE_TWELFTH_FLAT,
+      NINE_TWELFTH_SHARP,
+
       END
       ///\}
       };
@@ -312,6 +337,16 @@ enum class GlissandoStyle {
 enum class Placement {
       ///.\{
       ABOVE, BELOW
+      ///\}
+      };
+
+//---------------------------------------------------------
+//   HPlacement
+//---------------------------------------------------------
+
+enum class HPlacement {
+      ///.\{
+      LEFT, CENTER, RIGHT
       ///\}
       };
 
@@ -433,7 +468,12 @@ enum class Tid {
       };
 
 //---------------------------------------------------------
-//   Align
+///   Align
+///   Because the Align enum has Top = 0 and Left = 0,
+///   align() & Align::Top will always return false.
+///   @warning Do not use if (align() & Align::Top) { doSomething() }
+///   because doSomething() will never be executed!
+///   Same applies to Align::Left.
 //---------------------------------------------------------
 
 enum class Align : char {
@@ -506,6 +546,7 @@ Q_ENUM_NS(Direction);
 Q_ENUM_NS(GlissandoType);
 Q_ENUM_NS(GlissandoStyle);
 Q_ENUM_NS(Placement);
+Q_ENUM_NS(HPlacement);
 Q_ENUM_NS(SegmentType);
 Q_ENUM_NS(Tid);
 Q_ENUM_NS(Align);
@@ -537,5 +578,7 @@ Q_DECLARE_METATYPE(Ms::NoteType);
 Q_DECLARE_METATYPE(Ms::PlayEventType);
 
 Q_DECLARE_METATYPE(Ms::AccidentalType);
+
+Q_DECLARE_METATYPE(Ms::HPlacement);
 
 #endif

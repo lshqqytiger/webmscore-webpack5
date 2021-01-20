@@ -22,7 +22,7 @@
 #include "mscore/musescore.h"
 #include "mscore/preferences.h"
 #include "libmscore/page.h"
-#include "synthesizer/msynthesizer.h"
+#include "audio/midi/msynthesizer.h"
 #include "libmscore/musescoreCore.h"
 #include "mscore/shortcut.h"
 #include "libmscore/xml.h"
@@ -125,7 +125,7 @@ MasterScore* MTest::readCreatedScore(const QString& name)
 #endif
       else if (csl == "xml" || csl == "musicxml")
             rv = importMusicXml(score, name);
-      else if (csl == "gp3" || csl == "gp4" || csl == "gp5" || csl == "gpx" || csl == "ptb")
+      else if (csl == "gp3" || csl == "gp4" || csl == "gp5" || csl == "gpx" || csl == "gp" || csl == "ptb")
             rv = importGTP(score, name);
       else
             rv = Score::FileError::FILE_UNKNOWN_TYPE;

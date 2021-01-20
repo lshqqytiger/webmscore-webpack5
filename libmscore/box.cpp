@@ -136,7 +136,7 @@ void Box::startEditDrag(EditData& ed)
 void Box::editDrag(EditData& ed)
       {
       if (isVBox()) {
-            _boxHeight = Spatium((ed.pos.y() - abbox().y()) / spatium());
+            _boxHeight += Spatium(ed.delta.y() / spatium());
             if (ed.vRaster) {
                   qreal vRaster = 1.0 / MScore::vRaster();
                   int n = lrint(_boxHeight.val() / vRaster);
@@ -500,6 +500,7 @@ bool Box::acceptDrop(EditData& data) const
                         case IconType::VFRAME:
                         case IconType::TFRAME:
                         case IconType::FFRAME:
+                        case IconType::HFRAME:
                         case IconType::MEASURE:
                               return true;
                         default:
@@ -576,6 +577,9 @@ Element* Box::drop(EditData& data)
                         case IconType::FFRAME:
                               score()->insertMeasure(ElementType::FBOX, this);
                               break;
+                        case IconType::HFRAME:
+                              score()->insertMeasure(ElementType::HBOX, this);
+                              break;
                         case IconType::MEASURE:
                               score()->insertMeasure(ElementType::MEASURE, this);
                               break;
@@ -603,7 +607,7 @@ Element* Box::drop(EditData& data)
 QRectF HBox::drag(EditData& data)
       {
       QRectF r(canvasBoundingRect());
-      qreal diff = data.delta.x();
+      qreal diff = data.evtDelta.x();
       qreal x1   = offset().x() + diff;
       if (parent()->type() == ElementType::VBOX) {
             VBox* vb = toVBox(parent());

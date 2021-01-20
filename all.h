@@ -80,6 +80,7 @@
 #include <QPointF>
 #include <QVariant>
 #include <QMap>
+#include <QMultiMap>
 #include <QByteArray>
 #include <QDateTime>
 #include <QtGlobal>
@@ -95,6 +96,7 @@
 
 #include <QPainterPath>
 #include <QPixmap>
+#include <QImage>
 #include <QPainter>
 #include <QKeyEvent>
 
@@ -185,6 +187,9 @@
 #include <QSvgRenderer>
 #include <QSvgGenerator>
 
+#include <QFile>
+#include <QFileInfo>
+
 // #include <QNetworkAccessManager>
 // #include <QNetworkReply>
 // #include <QNetworkCookie>
@@ -203,7 +208,9 @@
 // #include <QQuickView>
 // #include <QQuickWidget>
 
+// #include <QHelpEngine>
 // #include <QWidgetAction>
+// #include <QHelpIndexModel>
 // #include <QTextBrowser>
 
 #include <QJsonDocument>

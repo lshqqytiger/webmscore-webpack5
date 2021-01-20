@@ -256,7 +256,7 @@ void TimeSig::layout()
 
       if (_staff) {
             // if staff is without time sig, format as if no text at all
-            if (!_staff->staffType(tick())->genTimesig() ) {
+            if (!_staff->staffTypeForElement(this)->genTimesig()) {
                   // reset position and box sizes to 0
                   // qDebug("staff: no time sig");
                   pointLargeLeftParen.rx() = 0.0;
@@ -299,8 +299,14 @@ void TimeSig::layout()
             ds.clear();
             }
       else {
-            ns = toTimeSigString(_numeratorString.isEmpty()   ? QString::number(_sig.numerator())   : _numeratorString);
-            ds = toTimeSigString(_denominatorString.isEmpty() ? QString::number(_sig.denominator()) : _denominatorString);
+            if (_numeratorString.isEmpty()) {
+                  ns = toTimeSigString(_numeratorString.isEmpty()   ? QString::number(_sig.numerator())   : _numeratorString);
+                  ds = toTimeSigString(_denominatorString.isEmpty() ? QString::number(_sig.denominator()) : _denominatorString);
+                  }
+            else {
+                  ns = toTimeSigString(_numeratorString);
+                  ds = toTimeSigString(_denominatorString);
+                  }
 
             ScoreFont* font = score()->scoreFont();
             QSizeF mag(magS() * _scale);

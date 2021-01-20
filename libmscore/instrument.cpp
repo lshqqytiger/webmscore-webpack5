@@ -20,10 +20,16 @@
 #include "mscore.h"
 #include "part.h"
 #include "score.h"
-#include "synthesizer/synthesizer.h"
-#include "synthesizer/midipatch.h"
+
+#include "audio/midi/synthesizer.h"
+#include "audio/midi/midipatch.h"
 
 namespace Ms {
+
+//: Channel name for otherwise unamed channels
+const char* Channel::DEFAULT_NAME = QT_TRANSLATE_NOOP("InstrumentsXML", "normal");
+//: Channel name for the chord symbols playback channel, best keep translation shorter than 11 letters
+const char* Channel::HARMONY_NAME = QT_TRANSLATE_NOOP("InstrumentsXML", "harmony");
 
 Instrument InstrumentList::defaultInstrument;
 const std::initializer_list<Channel::Prop> PartChannelSettingsLink::excerptProperties {
@@ -419,10 +425,6 @@ NamedEventList* Instrument::midiAction(const QString& s, int channelIdx) const
             }
       return 0;
       }
-
-
-const char *Channel::DEFAULT_NAME = "normal";
-
 
 //---------------------------------------------------------
 //   Channel
@@ -821,7 +823,7 @@ void Channel::switchExpressive(Synthesizer* synth, bool expressive, bool force /
       if (fontsInfo.empty())
             return;
       const auto& info = fontsInfo.front();
-      if (!info.fontName.contains("MuseScore_General")) {
+      if (!info.fontName.contains("MuseScore_General", Qt::CaseInsensitive)) {
             qDebug().nospace() << "Soundfont '" << info.fontName << "' is not MuseScore General, cannot update expressive";
             return;
             }
@@ -1105,12 +1107,21 @@ void MidiArticulation::read(XmlReader& e)
 
 void Instrument::updateVelocity(int* velocity, int /*channelIdx*/, const QString& name)
       {
+      *velocity *= getVelocityMultiplier(name);
+      }
+
+//---------------------------------------------------------
+//   updateVelocity
+//---------------------------------------------------------
+
+qreal Instrument::getVelocityMultiplier(const QString& name)
+      {
       for (const MidiArticulation& a : _articulation) {
             if (a.name == name) {
-                  *velocity = *velocity * a.velocity / 100;
-                  break;
+                  return qreal(a.velocity) / 100;
                   }
             }
+      return 1;
       }
 
 //---------------------------------------------------------
@@ -1185,6 +1196,43 @@ bool Instrument::operator==(const Instrument& i) const
          &&  i._trackName == _trackName
          &&  *i.stringData() == *stringData()
          &&  i._singleNoteDynamics == _singleNoteDynamics;
+      }
+
+//---------------------------------------------------------
+//   isDifferentInstrument
+///   Checks if the passed instrument is a different instrument.
+///   Does not compare channels.
+//---------------------------------------------------------
+
+bool Instrument::isDifferentInstrument(const Instrument& i) const
+      {
+      int n = _longNames.size();
+      if (i._longNames.size() != n)
+            return true;
+      for (int k = 0; k < n; ++k) {
+            if (!(i._longNames[k] == _longNames[k]))
+                  return true;
+            }
+      n = _shortNames.size();
+      if (i._shortNames.size() != n)
+            return true;
+      for (int k = 0; k < n; ++k) {
+            if (!(i._shortNames[k] == _shortNames[k].name()))
+                  return true;
+            }
+
+      return i._minPitchA != _minPitchA
+            || i._maxPitchA != _maxPitchA
+            || i._minPitchP != _minPitchP
+            || i._maxPitchP != _maxPitchP
+            || i._useDrumset != _useDrumset
+            || i._midiActions != _midiActions
+            || i._articulation != _articulation
+            || i._transpose.diatonic != _transpose.diatonic
+            || i._transpose.chromatic != _transpose.chromatic
+            || i._trackName != _trackName
+            || !(*i.stringData() == *stringData())
+            || i._singleNoteDynamics != _singleNoteDynamics;
       }
 
 //---------------------------------------------------------

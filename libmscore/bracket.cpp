@@ -14,7 +14,9 @@
 #include "xml.h"
 #include "style.h"
 #include "utils.h"
+#include "measure.h"
 #include "staff.h"
+#include "system.h"
 #include "score.h"
 #include "system.h"
 #include "sym.h"
@@ -30,15 +32,35 @@ namespace Ms {
 Bracket::Bracket(Score* s)
    : Element(s)
       {
+      ay1          = 0;
       h2           = 3.5 * spatium();
       _firstStaff  = 0;
       _lastStaff   = 0;
       _bi          = 0;
+      _braceSymbol = SymId::noSym;
+      _magx        = 1.;
       setGenerated(true);     // brackets are not saved
       }
 
 Bracket::~Bracket()
       {
+      }
+
+//---------------------------------------------------------
+//   playTick
+//---------------------------------------------------------
+
+Fraction Bracket::playTick() const
+      {
+      // Brackets always have a tick value of zero, so play from the start of the first measure in the system that the bracket belongs to.
+      const auto sys = system();
+      if (sys) {
+            const auto firstMeasure = sys->firstMeasure();
+            if (firstMeasure)
+                  return firstMeasure->tick();
+            }
+
+      return tick();
       }
 
 //---------------------------------------------------------
@@ -152,6 +174,8 @@ void Bracket::layout()
                         _shape.add(bbox());
                         }
                   else {
+                        if (_braceSymbol == SymId::noSym)
+                              _braceSymbol = SymId::brace;
                         qreal h = h2 * 2;
                         qreal w = symWidth(_braceSymbol) * _magx;
                         bbox().setRect(0, 0, w, h);

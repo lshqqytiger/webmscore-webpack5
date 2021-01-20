@@ -47,6 +47,7 @@
 #include "page.h"
 #include "hook.h"
 #include "rehearsalmark.h"
+#include "instrchange.h"
 
 namespace Ms {
 
@@ -63,6 +64,7 @@ ChordRest::ChordRest(Score* s)
       _up          = true;
       _beamMode    = Beam::Mode::AUTO;
       _small       = false;
+      _melismaEnd  = false;
       _crossMeasure = CrossMeasure::UNKNOWN;
       }
 
@@ -78,6 +80,7 @@ ChordRest::ChordRest(const ChordRest& cr, bool link)
       _beamMode     = cr._beamMode;
       _up           = cr._up;
       _small        = cr._small;
+      _melismaEnd   = cr._melismaEnd;
       _crossMeasure = cr._crossMeasure;
 
       for (Lyrics* l : cr._lyrics) {        // make deep copy
@@ -177,14 +180,18 @@ void ChordRest::writeProperties(XmlWriter& xml) const
 
       for (Lyrics* lyrics : _lyrics)
             lyrics->write(xml);
+
+      const int curTick = xml.curTick().ticks();
+
       if (!isGrace()) {
             Fraction t(globalTicks());
             if (staff())
                   t /= staff()->timeStretch(xml.curTick());
             xml.incCurTick(t);
             }
-      for (auto i : score()->spanner()) {     // TODO: don’t search whole list
-            Spanner* s = i.second;
+
+      for (auto i : score()->spannerMap().findOverlapping(curTick - 1, curTick + 1)) {
+            Spanner* s = i.value;
             if (s->generated() || !s->isSlur() || toSlur(s)->broken() || !xml.canWrite(s))
                   continue;
 
@@ -407,17 +414,12 @@ Element* ChordRest::drop(EditData& data)
                   {
                   Breath* b = toBreath(e);
                   b->setPos(QPointF());
-                  int track = staffIdx() * VOICES;
-                  b->setTrack(track);
+                  // allow breath marks in voice > 1
+                  b->setTrack(this->track());
+                  b->setPlacement(b->track() & 1 ? Placement::BELOW : Placement::ABOVE);
+                  Fraction bt = tick() + actualTicks();    
 
-                  // find start tick of next note in staff
-#if 0
-                  int bt = tick() + actualTicks();    // this could make sense if we allowed breath marks in voice > 1
-#else
-                  Segment* next = segment()->nextCR(track);
-                  Fraction bt = next ? next->tick() : score()->lastSegment()->tick();
-#endif
-
+                  bt = tick() + actualTicks();
                   // TODO: insert automatically in all staves?
 
                   Segment* seg = m->undoGetSegment(SegmentType::Breath, bt);
@@ -537,14 +539,7 @@ Element* ChordRest::drop(EditData& data)
             case ElementType::SYSTEM_TEXT:
             case ElementType::STICKING:
             case ElementType::STAFF_STATE:
-            case ElementType::INSTRUMENT_CHANGE:
-                  if (e->isInstrumentChange() && part()->instruments()->find(tick().ticks()) != part()->instruments()->end()) {
-                        qDebug()<<"InstrumentChange already exists at tick = "<<tick().ticks();
-                        delete e;
-                        return 0;
-                        }
                   // fall through
-
             case ElementType::REHEARSAL_MARK:
                   {
                   e->setParent(segment());
@@ -557,6 +552,23 @@ Element* ChordRest::drop(EditData& data)
                   score()->undoAddElement(e);
                   return e;
                   }
+            case ElementType::INSTRUMENT_CHANGE:
+                  if (part()->instruments()->find(tick().ticks()) != part()->instruments()->end()) {
+                        qDebug() << "InstrumentChange already exists at tick = " << tick().ticks();
+                        delete e;
+                        return 0;
+                        }
+                  else {
+                        InstrumentChange* ic = toInstrumentChange(e);
+                        ic->setParent(segment());
+                        ic->setTrack((track() / VOICES) * VOICES);
+                        Instrument* instr = ic->instrument();
+                        Instrument* prevInstr = part()->instrument(tick());
+                        if (instr && instr->isDifferentInstrument(*prevInstr))
+                              ic->setupInstrument(instr);
+                        score()->undoAddElement(ic);
+                        return e;
+                        }
             case ElementType::FIGURED_BASS:
                   {
                   bool bNew;
@@ -617,16 +629,13 @@ Element* ChordRest::drop(EditData& data)
 
             case ElementType::HAIRPIN:
                   {
-                  const Hairpin* hairpin = toHairpin(e);
-                  ChordRest* endCR = this;
-                  if (hairpin->ticks().isNotZero()) {
-                        const Fraction tick2 = tick() + hairpin->ticks() - Fraction::eps();
-                        endCR = score()->findCR(tick2, track());
-                        }
-                  score()->addHairpin(hairpin->hairpinType(), this, endCR);
-                  delete e;
+                  Hairpin* hairpin = toHairpin(e);
+                  hairpin->setTick(tick());
+                  hairpin->setTrack(track());
+                  hairpin->setTrack2(track());
+                  score()->undoAddElement(hairpin);
                   }
-                  return nullptr;
+                  return e;
 
             default:
                   qDebug("cannot drop %s", e->name());
@@ -1207,6 +1216,29 @@ QString ChordRest::accessibleExtraInfo() const
       }
 
 //---------------------------------------------------------
+//   isMelismaEnd
+//    returns true if chordrest represents the end of a melisma
+//---------------------------------------------------------
+
+bool ChordRest::isMelismaEnd() const
+      {
+      return _melismaEnd;
+      }
+
+//---------------------------------------------------------
+//   setMelismaEnd
+//---------------------------------------------------------
+
+void ChordRest::setMelismaEnd(bool v)
+      {
+      _melismaEnd = v;
+      // TODO: don't take "false" at face value
+      // check to see if some other melisma ends here,
+      // in which case we can leave this set to true
+      // for now, rely on the fact that we'll generate the value correctly on layout
+      }
+
+//---------------------------------------------------------
 //   shape
 //---------------------------------------------------------
 
@@ -1256,6 +1288,11 @@ Shape ChordRest::shape() const
       if (adjustWidth)
             shape.addHorizontalSpacing(Shape::SPACING_HARMONY, x1, x2);
       }
+
+      if (isMelismaEnd()) {
+            qreal right = rightEdge();
+            shape.addHorizontalSpacing(Shape::SPACING_LYRICS, right, right);
+            }
 
       return shape;
       }

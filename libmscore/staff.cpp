@@ -31,6 +31,7 @@
 #include "ottava.h"
 #include "harmony.h"
 #include "bracketItem.h"
+#include "chord.h"
 
 // #define DEBUG_CLEFS
 
@@ -659,13 +660,15 @@ void Staff::write(XmlWriter& xml) const
             xml.tag("showIfSystemEmpty", showIfEmpty());
       if (_hideSystemBarLine)
             xml.tag("hideSystemBarLine", _hideSystemBarLine);
+      if (_mergeMatchingRests)
+            xml.tag("mergeMatchingRests", _mergeMatchingRests);
 
       for (const BracketItem* i : _brackets) {
             BracketType a = i->bracketType();
             int b = i->bracketSpan();
             int c = i->column();
             if (a != BracketType::NO_BRACKET || b > 0)
-                  xml.tagE(QString("bracket type=\"%1\" span=\"%2\" col=\"%3\"").arg((int)(a)).arg(b).arg(c));
+                  xml.tagE(QString("bracket type=\"%1\" span=\"%2\" col=\"%3\"").arg(static_cast<int>(a)).arg(b).arg(c));
             }
 
       writeProperty(xml, Pid::STAFF_BARLINE_SPAN);
@@ -718,7 +721,7 @@ bool Staff::readProperties(XmlReader& e)
             setDefaultClefType(ClefTypeList(defaultClefType()._concertClef, Clef::clefType(val)));
             }
       else if (tag == "small")                  // obsolete
-            setSmall(Fraction(0,1), e.readInt());
+            staffType(Fraction(0,1))->setSmall(e.readInt());
       else if (tag == "invisible")
             setInvisible(e.readInt());
       else if (tag == "hideWhenEmpty")
@@ -729,6 +732,8 @@ bool Staff::readProperties(XmlReader& e)
             setShowIfEmpty(e.readInt());
       else if (tag == "hideSystemBarLine")
             _hideSystemBarLine = e.readInt();
+      else if (tag == "mergeMatchingRests")
+            _mergeMatchingRests = e.readInt();
       else if (tag == "keylist")
             _keys.read(e, score());
       else if (tag == "bracket") {
@@ -808,49 +813,28 @@ qreal Staff::spatium(const Fraction& tick) const
       return score()->spatium() * mag(tick);
       }
 
+qreal Staff::spatium(const Element* e) const
+      {
+      return score()->spatium() * mag(e);
+      }
+
 //---------------------------------------------------------
 //   mag
 //---------------------------------------------------------
 
+qreal Staff::mag(const StaffType* stt) const
+      {
+      return (stt->small() ? score()->styleD(Sid::smallStaffMag) : 1.0) * stt->userMag();
+      }
+
 qreal Staff::mag(const Fraction& tick) const
       {
-      return (small(tick) ? score()->styleD(Sid::smallStaffMag) : 1.0) * userMag(tick);
+      return mag(staffType(tick));
       }
 
-//---------------------------------------------------------
-//   userMag
-//---------------------------------------------------------
-
-qreal Staff::userMag(const Fraction& tick) const
+qreal Staff::mag(const Element* e) const
       {
-      return staffType(tick)->userMag();
-      }
-
-//---------------------------------------------------------
-//   setUserMag
-//---------------------------------------------------------
-
-void Staff::setUserMag(const Fraction& tick, qreal m)
-      {
-      staffType(tick)->setUserMag(m);
-      }
-
-//---------------------------------------------------------
-//   small
-//---------------------------------------------------------
-
-bool Staff::small(const Fraction& tick) const
-      {
-      return staffType(tick)->small();
-      }
-
-//---------------------------------------------------------
-//   setSmall
-//---------------------------------------------------------
-
-void Staff::setSmall(const Fraction& tick, bool val)
-      {
-      staffType(tick)->setSmall(val);
+      return mag(staffTypeForElement(e));
       }
 
 //---------------------------------------------------------
@@ -863,9 +847,8 @@ SwingParameters Staff::swing(const Fraction& tick) const
       int swingUnit = 0;
       QString unit = score()->styleSt(Sid::swingUnit);
       int swingRatio = score()->styleI(Sid::swingRatio);
-      if (unit == TDuration(TDuration::DurationType::V_EIGHTH).name()) {
+      if (unit == TDuration(TDuration::DurationType::V_EIGHTH).name())
             swingUnit = MScore::division / 2;
-            }
       else if (unit == TDuration(TDuration::DurationType::V_16TH).name())
             swingUnit = MScore::division / 4;
       else if (unit == TDuration(TDuration::DurationType::V_ZERO).name())
@@ -894,6 +877,44 @@ int Staff::capo(const Fraction& tick) const
             return 0;
       --i;
       return i.value();
+      }
+
+//---------------------------------------------------------
+//   getNotes
+//---------------------------------------------------------
+
+QList<Note*> Staff::getNotes() const
+      {
+      QList<Note*> list;
+
+      int staffIdx = idx();
+
+      SegmentType st = SegmentType::ChordRest;
+      for (Segment* s = score()->firstSegment(st); s; s = s->next1(st)) {
+            for (int voice = 0; voice < VOICES; ++voice) {
+                  int track = voice + staffIdx * VOICES;
+                  Element* e = s->element(track);
+                  if (e && e->isChord())
+                        addChord(list, toChord(e), voice);
+                  }
+            }
+
+      return list;
+      }
+
+//---------------------------------------------------------
+//   addChord
+//---------------------------------------------------------
+
+void Staff::addChord(QList<Note*>& list, Chord* chord, int voice) const
+      {
+      for (Chord* c : chord->graceNotes())
+            addChord(list, c, voice);
+      for (Note* note : chord->notes()) {
+            if (note->tieBack())
+                  continue;
+            list.append(note);
+            }
       }
 
 //---------------------------------------------------------
@@ -996,6 +1017,13 @@ StaffType* Staff::staffType(const Fraction& tick)
       return &_staffTypeList.staffType(tick);
       }
 
+const StaffType* Staff::staffTypeForElement(const Element* e) const
+      {
+      if (_staffTypeList.uniqueStaffType()) // optimize if one staff type spans for the entire staff
+            return &_staffTypeList.staffType({0, 1});
+      return &_staffTypeList.staffType(e->tick());
+      }
+
 //---------------------------------------------------------
 //   staffTypeListChanged
 //    Signal that the staffTypeList has changed at
@@ -1004,17 +1032,21 @@ StaffType* Staff::staffType(const Fraction& tick)
 
 void Staff::staffTypeListChanged(const Fraction& tick)
       {
-      triggerLayout(tick);
-      auto i = _staffTypeList.find(tick.ticks());
-      if (i == _staffTypeList.end()) {
-            triggerLayout();
+      std::pair<int, int> range = _staffTypeList.staffTypeRange(tick);
+
+      if (range.first < 0)
+            triggerLayout(Fraction(0,1));
+      else
+            triggerLayout(Fraction::fromTicks(range.first));
+
+      if (range.second < 0) {
+            // When reading a score and there is a Staff Change on the first
+            // measure, there are no measures yet and nothing to layout.
+            if (score()->lastMeasure())
+                  triggerLayout(score()->lastMeasure()->endTick());
             }
       else {
-            ++i;
-            if (i != _staffTypeList.end())
-                  triggerLayout(Fraction::fromTicks(i->first));
-            else if (score()->lastMeasure())
-                  triggerLayout(score()->lastMeasure()->endTick());
+            triggerLayout(Fraction::fromTicks(range.second));
             }
       }
 
@@ -1033,11 +1065,10 @@ StaffType* Staff::setStaffType(const Fraction& tick, const StaffType& nst)
 
 void Staff::removeStaffType(const Fraction& tick)
       {
-      auto i = _staffTypeList.find(tick.ticks());
-      if (i == _staffTypeList.end())
-            return;
       qreal old = spatium(tick);
-      _staffTypeList.erase(i);
+      const bool removed = _staffTypeList.removeStaffType(tick);
+      if (!removed)
+            return;
       localSpatiumChanged(old, spatium(tick), tick);
       staffTypeListChanged(tick);
       }
@@ -1053,12 +1084,12 @@ void Staff::init(const InstrumentTemplate* t, const StaffType* staffType, int ci
       if (!pst)
             pst = StaffType::getDefaultPreset(t->staffGroup);
 
-      setStaffType(Fraction(0,1), *pst);
+      StaffType* stt = setStaffType(Fraction(0,1), *pst);
       if (cidx >= MAX_STAVES) {
-            setSmall(Fraction(0,1), false);
+            stt->setSmall(false);
             }
       else {
-            setSmall(Fraction(0,1),       t->smallStaff[cidx]);
+            stt->setSmall(t->smallStaff[cidx]);
             setBracketType(0, t->bracket[cidx]);
             setBracketSpan(0, t->bracketSpan[cidx]);
             setBarLineSpan(t->barlineSpan[cidx]);
@@ -1088,6 +1119,7 @@ void Staff::init(const Staff* s)
       _cutaway           = s->_cutaway;
       _showIfEmpty       = s->_showIfEmpty;
       _hideSystemBarLine = s->_hideSystemBarLine;
+      _mergeMatchingRests = s->_mergeMatchingRests;
       _color             = s->_color;
       _userDist          = s->_userDist;
       }
@@ -1278,9 +1310,9 @@ QVariant Staff::getProperty(Pid id) const
       {
       switch (id) {
             case Pid::SMALL:
-                  return small(Fraction(0,1));
+                  return staffType(Fraction(0,1))->small();
             case Pid::MAG:
-                  return userMag(Fraction(0,1));
+                  return staffType(Fraction(0,1))->userMag();
             case Pid::COLOR:
                   return color();
             case Pid::PLAYBACK_VOICE1:
@@ -1316,13 +1348,13 @@ bool Staff::setProperty(Pid id, const QVariant& v)
       switch (id) {
             case Pid::SMALL: {
                   qreal _spatium = spatium(Fraction(0,1));
-                  setSmall(Fraction(0,1), v.toBool());
+                  staffType(Fraction(0,1))->setSmall(v.toBool());
                   localSpatiumChanged(_spatium, spatium(Fraction(0,1)), Fraction(0, 1));
                   break;
                   }
             case Pid::MAG: {
                   qreal _spatium = spatium(Fraction(0,1));
-                  setUserMag(Fraction(0,1), v.toReal());
+                  staffType(Fraction(0,1))->setUserMag(v.toReal());
                   localSpatiumChanged(_spatium, spatium(Fraction(0,1)), Fraction(0, 1));
                   }
                   break;
@@ -1416,12 +1448,9 @@ QVariant Staff::propertyDefault(Pid id) const
 
 void Staff::localSpatiumChanged(double oldVal, double newVal, Fraction tick)
       {
-      Fraction etick;
-      auto i = _staffTypeList.upper_bound(tick.ticks());
-      if (i == _staffTypeList.end())
-            etick = score()->lastSegment()->tick();
-      else
-            etick = Fraction::fromTicks(i->first);
+      const int intEndTick = _staffTypeList.staffTypeRange(tick).second;
+      const Fraction etick = (intEndTick == -1) ? score()->lastMeasure()->endTick() : Fraction::fromTicks(intEndTick);
+
       int staffIdx = idx();
       int startTrack = staffIdx * VOICES;
       int endTrack = startTrack + VOICES;

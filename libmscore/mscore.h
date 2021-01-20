@@ -79,6 +79,9 @@ inline int trackZeroVoice(int track) { return track & ~3;    }
 
 static const int MAX_TAGS = 32;
 
+static const int MAX_HEADERS = 3;
+static const int MAX_FOOTERS = 3;
+
 static constexpr qreal INCH      = 25.4;
 static constexpr qreal PPI       = 72.0;           // printer points per inch
 static constexpr qreal DPI_F     = 5;
@@ -129,7 +132,7 @@ enum class TransposeDirection : char {
 //---------------------------------------------------------
 
 enum class TransposeMode : char {
-      BY_KEY, BY_INTERVAL, DIATONICALLY
+      TO_KEY, BY_INTERVAL, DIATONICALLY
       };
 
 //---------------------------------------------------------
@@ -179,19 +182,6 @@ enum class StaffGroup : char {
       };
 const int STAFF_GROUP_MAX = int(StaffGroup::TAB) + 1;      // out of enum to avoid compiler complains about not handled switch cases
 
-enum class NoteHeadScheme : char {
-      HEAD_NORMAL = 0,
-      HEAD_PITCHNAME,
-      HEAD_PITCHNAME_GERMAN,
-      HEAD_SOLFEGE,
-      HEAD_SOLFEGE_FIXED,
-      HEAD_SHAPE_NOTE_4,
-      HEAD_SHAPE_NOTE_7_AIKIN,
-      HEAD_SHAPE_NOTE_7_FUNK,
-      HEAD_SHAPE_NOTE_7_WALKER,
-      HEAD_SCHEMES
-      };
-
 //---------------------------------------------------------
 //   BarLineType
 //---------------------------------------------------------
@@ -236,7 +226,7 @@ enum MsError {
       NO_CHORD_REST_SELECTED,
       NO_LYRICS_SELECTED,
       NO_NOTE_REST_SELECTED,
-      NO_NOTE_SLUR_SELECTED,
+      NO_FLIPPABLE_SELECTED,
       NO_STAFF_SELECTED,
       NO_NOTE_FIGUREDBASS_SELECTED,
       CANNOT_INSERT_TUPLET,
@@ -331,9 +321,11 @@ class MScore {
       static QColor frameMarginColor;
       static QColor bgColor;
       static bool warnPitchRange;
+      static int pedalEventsMinTicks;
 
       static bool playRepeats;
       static bool panPlayback;
+      static int playbackSpeedIncrement;
       static qreal nudgeStep;
       static qreal nudgeStep10;
       static qreal nudgeStep50;

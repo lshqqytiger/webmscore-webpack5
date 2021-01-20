@@ -143,6 +143,7 @@ static const StyleType styleTypes[] {
       { Sid::repeatBarTips,           "repeatBarTips",           QVariant(false) },
       { Sid::startBarlineSingle,      "startBarlineSingle",      QVariant(false) },
       { Sid::startBarlineMultiple,    "startBarlineMultiple",    QVariant(true) },
+
       { Sid::bracketWidth,            "bracketWidth",            Spatium(0.45) },
       { Sid::bracketDistance,         "bracketDistance",         Spatium(0.1) },
       { Sid::akkoladeWidth,           "akkoladeWidth",           Spatium(1.6) },
@@ -271,10 +272,16 @@ static const StyleType styleTypes[] {
       { Sid::harmonyFretDist,          "harmonyFretDist",        Spatium(1.0) },
       { Sid::minHarmonyDistance,       "minHarmonyDistance",     Spatium(0.5) },
       { Sid::maxHarmonyBarDistance,    "maxHarmonyBarDistance",  Spatium(3.0) },
+      { Sid::maxChordShiftAbove,       "maxChordShiftAbove",     Spatium(0.0) },
+      { Sid::maxChordShiftBelow,       "maxChordShiftBelow",     Spatium(0.0) },
 
       { Sid::harmonyPlacement,         "harmonyPlacement",           int(Placement::ABOVE) },
       { Sid::romanNumeralPlacement,    "romanNumeralPlacement",      int(Placement::BELOW) },
       { Sid::nashvilleNumberPlacement, "nashvilleNumberPlacement",   int(Placement::ABOVE) },
+      { Sid::harmonyPlay,              "harmonyPlay",                true },
+      { Sid::harmonyVoiceLiteral,      "harmonyVoiceLiteral",        true },
+      { Sid::harmonyVoicing,           "harmonyVoicing",             int(Voicing::AUTO) },
+      { Sid::harmonyDuration,          "harmonyDuration",            int(HDuration::UNTIL_NEXT_CHORD_SYMBOL) },
 
       { Sid::chordSymbolAPosAbove,      "chordSymbolPosAbove",       QPointF(.0, -2.5) },
       { Sid::chordSymbolAPosBelow,      "chordSymbolPosBelow",       QPointF(.0, 3.5) },
@@ -343,7 +350,7 @@ static const StyleType styleTypes[] {
       { Sid::capoPosition,            "capoPosition",            QVariant(0) },
       { Sid::fretNumMag,              "fretNumMag",              QVariant(2.0) },
       { Sid::fretNumPos,              "fretNumPos",              QVariant(0) },
-      { Sid::fretY,                   "fretY",                   Spatium(2.0) },
+      { Sid::fretY,                   "fretY",                   Spatium(1.0) },
       { Sid::fretMinDistance,         "fretMinDistance",         Spatium(0.5) },
       { Sid::fretMag,                 "fretMag",                 QVariant(1.0) },
       { Sid::fretPlacement,           "fretPlacement",           int(Placement::ABOVE) },
@@ -353,6 +360,9 @@ static const StyleType styleTypes[] {
       { Sid::fretDotSize,             "fretDotSize",             QVariant(1.0) },
       { Sid::fretStringSpacing,       "fretStringSpacing",       Spatium(0.7) },
       { Sid::fretFretSpacing,         "fretFretSpacing",         Spatium(0.8) },
+      { Sid::fretOrientation,         "fretOrientation",         int(Orientation::VERTICAL) },
+      { Sid::maxFretShiftAbove,       "maxFretShiftAbove",       Spatium(0.0) },
+      { Sid::maxFretShiftBelow,       "maxFretShiftBelow",       Spatium(0.0) },
 
       { Sid::showPageNumber,          "showPageNumber",          QVariant(true) },
       { Sid::showPageNumberOne,       "showPageNumberOne",       QVariant(false) },
@@ -361,7 +371,7 @@ static const StyleType styleTypes[] {
       { Sid::showMeasureNumberOne,    "showMeasureNumberOne",    QVariant(false) },
       { Sid::measureNumberInterval,   "measureNumberInterval",   QVariant(5) },
       { Sid::measureNumberSystem,     "measureNumberSystem",     QVariant(true) },
-      { Sid::measureNumberAllStaffs,  "measureNumberAllStaffs",  QVariant(false) },
+      { Sid::measureNumberAllStaves,  "measureNumberAllStaffs",  QVariant(false) }, // need to keep staffs and not staves here for backward compatibility
       { Sid::smallNoteMag,            "smallNoteMag",            QVariant(.7) },
       { Sid::graceNoteMag,            "graceNoteMag",            QVariant(0.7) },
       { Sid::smallStaffMag,           "smallStaffMag",           QVariant(0.7) },
@@ -396,9 +406,12 @@ static const StyleType styleTypes[] {
       { Sid::createMultiMeasureRests, "createMultiMeasureRests", QVariant(false) },
       { Sid::minEmptyMeasures,        "minEmptyMeasures",        QVariant(2) },
       { Sid::minMMRestWidth,          "minMMRestWidth",          Spatium(4) },
+      { Sid::mmRestNumberPos,         "mmRestNumberPos",         Spatium(-1.5) },
       { Sid::hideEmptyStaves,         "hideEmptyStaves",         QVariant(false) },
       { Sid::dontHideStavesInFirstSystem,
-                                 "dontHidStavesInFirstSystm",         QVariant(true) },
+                                 "dontHidStavesInFirstSystm",    QVariant(true) },
+      { Sid::alwaysShowBracketsWhenEmptyStavesAreHidden,
+                                 "alwaysShowBracketsWhenEmptyStavesAreHidden", QVariant(false) },
       { Sid::hideInstrumentNameIfOneInstrument,
                                  "hideInstrumentNameIfOneInstrument", QVariant(true) },
       { Sid::gateTime,                "gateTime",                QVariant(100) },
@@ -498,7 +511,7 @@ static const StyleType styleTypes[] {
       { Sid::ottavaLineStyle,         "ottavaLineStyle",         QVariant(int(Qt::DashLine)) },
       { Sid::ottavaNumbersOnly,       "ottavaNumbersOnly",       true },
       { Sid::ottavaFontFace,          "ottavaFontFace",          "FreeSerif" },
-      { Sid::ottavaFontSize,          "ottavaFontSize",          12.0 },
+      { Sid::ottavaFontSize,          "ottavaFontSize",          10.0 },
       { Sid::ottavaFontSpatiumDependent, "ottavaFontSpatiumDependent", true },
       { Sid::ottavaFontStyle,         "ottavaFontStyle",         int(FontStyle::Normal) },
       { Sid::ottavaColor,             "ottavaColor",             QColor(0, 0, 0, 255) },
@@ -517,6 +530,7 @@ static const StyleType styleTypes[] {
       { Sid::tremoloStrokeWidth,      "tremoloLineWidth",        Spatium(0.5) },  // was 0.35
       { Sid::tremoloDistance,         "tremoloDistance",         Spatium(0.8) },
       { Sid::tremoloPlacement,        "tremoloPlacement",        int(TremoloPlacement::DEFAULT) },
+      { Sid::tremoloStrokeStyle,      "tremoloStrokeStyle",      int(TremoloStrokeStyle::DEFAULT) },
 
       { Sid::linearStretch,           "linearStretch",           QVariant(qreal(1.5)) },
       { Sid::crossMeasureValues,      "crossMeasureValues",      QVariant(false) },
@@ -820,8 +834,11 @@ static const StyleType styleTypes[] {
       { Sid::measureNumberFontSpatiumDependent, "measureNumberFontSpatiumDependent", true },
       { Sid::measureNumberFontStyle,        "measureNumberFontStyle",       int(FontStyle::Normal) },
       { Sid::measureNumberColor,            "measureNumberColor",           QColor(0, 0, 0, 255) },
-      { Sid::measureNumberOffset,           "measureNumberOffset",          QPointF(0.0, -2.0) },
+      { Sid::measureNumberPosAbove,         "measureNumberOffset",          QPointF(0.0, -2.0) }, // This measureNumberOffset cannot be renamed to measureNumberPosAbove for backward compatibility
+      { Sid::measureNumberPosBelow,         "measureNumberPosBelow",        QPointF(0.0, 2.0) },
       { Sid::measureNumberOffsetType,       "measureNumberOffsetType",      int(OffsetType::SPATIUM)   },
+      { Sid::measureNumberVPlacement,       "measureNumberVPlacement",      int(Placement::ABOVE) },
+      { Sid::measureNumberHPlacement,       "measureNumberHPlacement",      int(HPlacement::LEFT) },
       { Sid::measureNumberAlign,            "measureNumberAlign",           QVariant::fromValue(Align::HCENTER | Align::BASELINE) },
       { Sid::measureNumberFrameType,        "measureNumberFrameType",       int(FrameType::NO_FRAME) },
       { Sid::measureNumberFramePadding,     "measureNumberFramePadding",    0.2 },
@@ -1611,7 +1628,7 @@ const TextStyle measureNumberTextStyle {{
       { Sid::measureNumberFontStyle,             Pid::FONT_STYLE             },
       { Sid::measureNumberColor,                 Pid::COLOR                  },
       { Sid::measureNumberAlign,                 Pid::ALIGN                  },
-      { Sid::measureNumberOffset,                Pid::OFFSET                 },
+      { Sid::measureNumberPosAbove,              Pid::OFFSET                 },
       { Sid::measureNumberFrameType,             Pid::FRAME_TYPE             },
       { Sid::measureNumberFramePadding,          Pid::FRAME_PADDING          },
       { Sid::measureNumberFrameWidth,            Pid::FRAME_WIDTH            },
@@ -2430,13 +2447,15 @@ const char* MStyle::valueType(const Sid i)
 //   value
 //---------------------------------------------------------
 
-QVariant MStyle::value(Sid idx) const
+const QVariant& MStyle::value(Sid idx) const
       {
-      if (!_values[int(idx)].isValid()) {
+      const QVariant& val = _values[int(idx)];
+      if (!val.isValid()) {
             qDebug("invalid style value %d %s", int(idx), MStyle::valueName(idx));
-            return QVariant();
+            static QVariant emptyVal;
+            return emptyVal;
             }
-      return _values[int(idx)];
+      return val;
       }
 
 //---------------------------------------------------------

@@ -24,13 +24,31 @@ struct ChordDescription;
 class Element;
 class Score;
 
+// Needs to be duplicated here and in sym.h since moc doesn't handle macros from #include'd files
+#ifdef SCRIPT_INTERFACE
+#define BEGIN_QT_REGISTERED_ENUM(Name) \
+class MSQE_##Name { \
+      Q_GADGET \
+   public:
+#define END_QT_REGISTERED_ENUM(Name) \
+      Q_ENUM(Name); \
+      }; \
+using Name = MSQE_##Name::Name;
+#else
+#define BEGIN_QT_REGISTERED_ENUM(Name)
+#define END_QT_REGISTERED_ENUM(Name)
+#endif
+
 //---------------------------------------------------------
 //   Sid
+///   Enumerates the list of score style settings
 //
 //    Keep in sync with styleTypes[] in style.cpp
 //---------------------------------------------------------
 
+BEGIN_QT_REGISTERED_ENUM(Sid)
 enum class Sid {
+      ///.\{
       NOSTYLE = -1,
 
       pageWidth,
@@ -243,9 +261,16 @@ enum class Sid {
       harmonyFretDist,
       minHarmonyDistance,
       maxHarmonyBarDistance,
+      maxChordShiftAbove,
+      maxChordShiftBelow,
+
       harmonyPlacement,
       romanNumeralPlacement,
       nashvilleNumberPlacement,
+      harmonyPlay,
+      harmonyVoiceLiteral,
+      harmonyVoicing,
+      harmonyDuration,
 
       chordSymbolAPosAbove,
       chordSymbolAPosBelow,
@@ -324,6 +349,9 @@ enum class Sid {
       fretDotSize,
       fretStringSpacing,
       fretFretSpacing,
+      fretOrientation,
+      maxFretShiftAbove,
+      maxFretShiftBelow,
 
       showPageNumber,
       showPageNumberOne,
@@ -332,8 +360,8 @@ enum class Sid {
       showMeasureNumberOne,
       measureNumberInterval,
       measureNumberSystem,
+      measureNumberAllStaves,
 
-      measureNumberAllStaffs,
       smallNoteMag,
       graceNoteMag,
       smallStaffMag,
@@ -367,8 +395,10 @@ enum class Sid {
       createMultiMeasureRests,
       minEmptyMeasures,
       minMMRestWidth,
+      mmRestNumberPos,
       hideEmptyStaves,
       dontHideStavesInFirstSystem,
+      alwaysShowBracketsWhenEmptyStavesAreHidden,
       hideInstrumentNameIfOneInstrument,
       gateTime,
       tenutoGateTime,
@@ -488,6 +518,7 @@ enum class Sid {
       tremoloStrokeWidth,
       tremoloDistance,
       tremoloPlacement,
+      tremoloStrokeStyle,
       // TODO tremoloBeamLengthMultiplier,
       // TODO tremoloMaxBeamLength,
 
@@ -794,8 +825,11 @@ enum class Sid {
       measureNumberFontSpatiumDependent,
       measureNumberFontStyle,
       measureNumberColor,
-      measureNumberOffset,
+      measureNumberPosAbove,
+      measureNumberPosBelow,
       measureNumberOffsetType,
+      measureNumberVPlacement,
+      measureNumberHPlacement,
       measureNumberAlign,
       measureNumberFrameType,
       measureNumberFramePadding,
@@ -1282,10 +1316,13 @@ enum class Sid {
       autoplaceEnabled,
 
       STYLES
+      ///\}
       };
+END_QT_REGISTERED_ENUM(Sid)
 
 //---------------------------------------------------------
 //   MStyle
+///   \cond PLUGIN_API \private \endcond
 //    the name "Style" gives problems with some microsoft
 //    header files...
 //---------------------------------------------------------
@@ -1301,7 +1338,7 @@ class MStyle {
       MStyle();
 
       void precomputeValues();
-      QVariant value(Sid idx) const;
+      const QVariant& value(Sid idx) const;
       qreal pvalue(Sid idx) const    { return _precomputedValues[int(idx)]; }
       void set(Sid idx, const QVariant& v);
 
@@ -1329,6 +1366,7 @@ class MStyle {
 
 //---------------------------------------------------------
 //   StyledProperty
+///   \cond PLUGIN_API \private \endcond
 //---------------------------------------------------------
 
 struct StyledProperty {

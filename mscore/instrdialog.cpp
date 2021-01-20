@@ -198,6 +198,7 @@ void MuseScore::updateInstrumentDialog()
       if (instrList)
             instrList->buildInstrumentsList();
       }
+
 //---------------------------------------------------------
 //   editInstrList
 //---------------------------------------------------------
@@ -294,7 +295,6 @@ void MuseScore::editInstrList()
                   masterScore->undo(new InsertPart(part, staffIdx));
 
                   pli->part = part;
-                  QList<Staff*> linked;
                   for (int cidx = 0; pli->child(cidx); ++cidx) {
                         StaffListItem* sli = static_cast<StaffListItem*>(pli->child(cidx));
                         Staff* staff       = new Staff(masterScore);
@@ -310,10 +310,8 @@ void MuseScore::editInstrList()
                         ++staffIdx;
 
                         Staff* linkedStaff = part->staves()->front();
-                        if (sli->linked() && linkedStaff != staff) {
+                        if (sli->linked() && linkedStaff != staff)
                               Excerpt::cloneStaff(linkedStaff, staff);
-                              linked.append(staff);
-                              }
                         }
 
                   //insert keysigs
@@ -518,6 +516,8 @@ void MuseScore::editInstrList()
             else {
                   for (Staff* s : sl) {
                         const LinkedElements* sll = s->links();
+                        if (!sll)
+                              continue;
                         for (auto le : *sll) {
                               Staff* ss = toStaff(le);
                               if (ss->primaryStaff()) {

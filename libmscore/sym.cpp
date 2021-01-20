@@ -3149,28 +3149,28 @@ const std::array<const char*, int(SymId::lastSym)+1> Sym::symUserNames = { {
       "Two-third-tones sharp (Ferneyhough)",
       "Wilson minus (5 comma down)",
       "Wilson plus (5 comma up)",
-      "5/6 tone flat",
-      "5/6 tone sharp",
-      "11/12 tone flat",
-      "11/12 tone sharp",
-      "1/12 tone flat",
-      "1/12 tone sharp",
-      "1/6 tone flat",
-      "1/6 tone sharp",
-      "1/4 tone flat",
-      "1/4 tone sharp",
-      "1/3 tone flat",
-      "1/3 tone sharp",
-      "5/12 tone flat",
-      "5/12 tone sharp",
-      "1/2 tone flat",
-      "1/2 tone sharp",
-      "7/12 tone flat",
-      "7/12 tone sharp",
-      "2/3 tone flat",
-      "2/3 tone sharp",
-      "3/4 tone flat",
-      "3/4 tone sharp",
+      QT_TRANSLATE_NOOP("symUserNames", "5/6 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "5/6 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "11/12 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "11/12 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/12 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/12 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/6 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/6 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/4 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/4 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/3 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/3 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "5/12 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "5/12 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/2 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "1/2 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "7/12 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "7/12 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "2/3 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "2/3 tone sharp (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "3/4 tone flat (Wyschnegradsky)"),
+      QT_TRANSLATE_NOOP("symUserNames", "3/4 tone sharp (Wyschnegradsky)"),
       "One-third-tone sharp (Xenakis)",
       "Two-third-tones sharp (Xenakis)",
       "Choralmelodie (Berg)",
@@ -3274,16 +3274,16 @@ const std::array<const char*, int(SymId::lastSym)+1> Sym::symUserNames = { {
       QT_TRANSLATE_NOOP("symUserNames", "Unstress above"),
       QT_TRANSLATE_NOOP("symUserNames", "Unstress below"),
       "Augmentation dot",
-      "Dashed barline",
-      "Dotted barline",
-      "Double barline",
-      "Final barline",
+      QT_TRANSLATE_NOOP("symUserNames", "Dashed barline"),
+      QT_TRANSLATE_NOOP("symUserNames", "Dotted barline"),
+      QT_TRANSLATE_NOOP("symUserNames", "Double barline"),
+      QT_TRANSLATE_NOOP("symUserNames", "Final barline"),
       "Heavy barline",
       "Heavy double barline",
       "Reverse final barline",
-      "Short barline",
-      "Single barline",
-      "Tick barline",
+      QT_TRANSLATE_NOOP("symUserNames", "Short barline"),
+      QT_TRANSLATE_NOOP("symUserNames", "Single barline"),
+      QT_TRANSLATE_NOOP("symUserNames", "Tick barline"),
       "Accel./rit. beam 1 (widest)",
       "Accel./rit. beam 10",
       "Accel./rit. beam 11",
@@ -3359,7 +3359,7 @@ const std::array<const char*, int(SymId::lastSym)+1> Sym::symUserNames = { {
       "Punctum auctum, ascending",
       "Punctum auctum, descending",
       "Augmentum (mora)",
-      "Caesura",
+      QT_TRANSLATE_NOOP("symUserNames", "Caesura"),
       "Plainchant C clef",
       "Circulus above",
       "Circulus below",
@@ -4165,17 +4165,17 @@ const std::array<const char*, int(SymId::lastSym)+1> Sym::symUserNames = { {
       "White mensural semiminima",
       QT_TRANSLATE_NOOP("symUserNames", "Augmentation dot"),
       "1024th note (semihemidemisemihemidemisemiquaver) stem down",
-      "1024th note (semihemidemisemihemidemisemiquaver) stem up",
+      QT_TRANSLATE_NOOP("symUserNames","1024th note (semihemidemisemihemidemisemiquaver) stem up"),
       "128th note (semihemidemisemiquaver) stem down",
       QT_TRANSLATE_NOOP("symUserNames", "128th note (semihemidemisemiquaver) stem up"),
       "16th note (semiquaver) stem down",
       QT_TRANSLATE_NOOP("symUserNames", "16th note (semiquaver) stem up"),
       "256th note (demisemihemidemisemiquaver) stem down",
-      "256th note (demisemihemidemisemiquaver) stem up",
+      QT_TRANSLATE_NOOP("symUserNames","256th note (demisemihemidemisemiquaver) stem up"),
       "32nd note (demisemiquaver) stem down",
       QT_TRANSLATE_NOOP("symUserNames", "32nd note (demisemiquaver) stem up"),
       "512th note (hemidemisemihemidemisemiquaver) stem down",
-      "512th note (hemidemisemihemidemisemiquaver) stem up",
+      QT_TRANSLATE_NOOP("symUserNames","512th note (hemidemisemihemidemisemiquaver) stem up"),
       "64th note (hemidemisemiquaver) stem down",
       QT_TRANSLATE_NOOP("symUserNames", "64th note (hemidemisemiquaver) stem up"),
       "Eighth note (quaver) stem down",
@@ -4908,31 +4908,31 @@ const std::array<const char*, int(SymId::lastSym)+1> Sym::symUserNames = { {
       QT_TRANSLATE_NOOP("symUserNames", "Repeat last four bars"),
       "Single repeat dot",
       "Repeat dots",
-      "Left (start) repeat sign",
-      "Right (end) repeat sign",
-      "Right and left repeat sign",
-      "1024th rest",
+      QT_TRANSLATE_NOOP("symUserNames", "Left (start) repeat sign"),
+      QT_TRANSLATE_NOOP("symUserNames", "Right (end) repeat sign"),
+      QT_TRANSLATE_NOOP("symUserNames", "Right and left repeat sign"),
+      QT_TRANSLATE_NOOP("symUserNames", "1024th rest"),
       QT_TRANSLATE_NOOP("symUserNames", "128th (semihemidemisemiquaver) rest"),
       QT_TRANSLATE_NOOP("symUserNames", "16th (semiquaver) rest"),
-      "256th rest",
+      QT_TRANSLATE_NOOP("symUserNames", "256th rest"),
       QT_TRANSLATE_NOOP("symUserNames", "32nd (demisemiquaver) rest"),
-      "512th rest",
+      QT_TRANSLATE_NOOP("symUserNames", "512th rest"),
       QT_TRANSLATE_NOOP("symUserNames", "64th (hemidemisemiquaver) rest"),
       QT_TRANSLATE_NOOP("symUserNames", "Eighth (quaver) rest"),
-      "Double whole (breve) rest",
-      "Double whole rest on leger lines",
+      QT_TRANSLATE_NOOP("symUserNames", "Double whole (breve) rest"),
+      QT_TRANSLATE_NOOP("symUserNames", "Double whole rest on leger lines"),
       "Multiple measure rest",
       "H-bar, left half",
       "H-bar, middle",
       "H-bar, right half",
-      "Half (minim) rest",
+      QT_TRANSLATE_NOOP("symUserNames", "Half (minim) rest"),
       QT_TRANSLATE_NOOP("symUserNames", "Half rest on leger line"),
-      "Longa rest",
-      "Maxima rest",
+      QT_TRANSLATE_NOOP("symUserNames", "Longa rest"),
+      QT_TRANSLATE_NOOP("symUserNames", "Maxima rest"),
       QT_TRANSLATE_NOOP("symUserNames", "Quarter (crotchet) rest"),
       "Old-style quarter (crotchet) rest",
       "Z-style quarter (crotchet) rest",
-      "Whole (semibreve) rest",
+      QT_TRANSLATE_NOOP("symUserNames", "Whole (semibreve) rest"),
       QT_TRANSLATE_NOOP("symUserNames", "Whole rest on leger line"),
       "Reversed brace",
       "Reversed bracket bottom",
@@ -5344,6 +5344,9 @@ QVector<oldName> oldNames = {
       {"32' rest",                              SymId::rest32nd },            // rests.5
       {"64' rest",                              SymId::rest64th },            // rests.6
       {"128' rest",                             SymId::rest128th },           // rests.7
+//      {"256' rest",                             SymId::rest256th },           // rests.8
+//      {"512' rest",                             SymId::rest512th },           // rests.9
+//      {"1024' rest",                            SymId::rest1024th },          // rests.10
 
       {"sharp",                                 SymId::accidentalSharp },                       // accidentals.sharp
       {"sharp arrow up",                        SymId::accidentalThreeQuarterTonesSharpArrowUp },             // accidentals.sharp.arrowup - typo in 1.3
@@ -5513,6 +5516,9 @@ QVector<oldName> oldNames = {
       {"thirtysecond flag",                     SymId::flag32ndUp },                // flags.u5
       {"sixtyfour flag",                        SymId::flag64thUp },                // flags.u6
       {"128flag",                               SymId::flag128thUp },               // flags.u7
+//      {"256flag",                               SymId::flag256thUp },               // flags.u8
+//      {"512flag",                               SymId::flag512thUp },               // flags.u9
+//      {"1024flag",                              SymId::flag1024thUp },             // flags.u10
       {"deight flag",                           SymId::flag8thDown },               // flags.d3
       {"grace dash",                            SymId::graceNoteSlashStemUp },      // flags.ugrace
       {"dgrace dash",                           SymId::graceNoteSlashStemDown },    // flags.dgrace
@@ -5520,6 +5526,9 @@ QVector<oldName> oldNames = {
       {"dthirtysecond flag",                    SymId::flag32ndDown },              // flags.d5
       {"dsixtyfourth flag",                     SymId::flag16thDown },              // flags.d6
       {"d128flag",                              SymId::flag128thDown },             // flags.d7
+//      {"d256flag",                              SymId::flag256thDown },             // flags.d8
+//      {"d512flag",                              SymId::flag512thDown },             // flags.d9
+//      {"d1024flag",                             SymId::flag1024thDown },            // flags.d10
 
       {"alto clef",                       SymId::cClef },                     // clefs.C
       {"calto clef",                      SymId::cClefChange },               // clefs.C_change
@@ -5760,10 +5769,10 @@ void ScoreFont::draw(SymId id, QPainter* painter, const QSizeF& mag, const QPoin
             QImage img(QSize(bm->width, bm->rows), QImage::Format_ARGB32);
             img.fill(Qt::transparent);
 
-            for (int y = 0; y < int(bm->rows); ++y) {
+            for (unsigned y = 0; y < bm->rows; ++y) {
                   unsigned* dst      = (unsigned*)img.scanLine(y);
                   unsigned char* src = (unsigned char*)(bm->buffer) + bm->pitch * y;
-                  for (int x = 0; x < int(bm->width); ++x) {
+                  for (unsigned x = 0; x < bm->width; ++x) {
                         unsigned val = *src++;
                         color.setAlpha(val);
                         *dst++ = color.rgba();

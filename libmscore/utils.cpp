@@ -135,7 +135,7 @@ Segment* Score::tick2segment(const Fraction& t, bool first, SegmentType st, bool
       if (useMMrest) {
             m = tick2measureMM(tick);
             // When mmRest force tick to the first segment of mmRest.
-            if (m && m->isMMRest())
+            if (m && m->isMMRest() && tick != m->endTick())
                   tick = m->tick();
             }
       else
@@ -178,9 +178,9 @@ Segment* Score::tick2segment(const Fraction& tick, bool first) const
 /// the first segment *before* this tick position
 //---------------------------------------------------------
 
-Segment* Score::tick2leftSegment(const Fraction& tick) const
+Segment* Score::tick2leftSegment(const Fraction& tick, bool useMMrest) const
       {
-      Measure* m = tick2measure(tick);
+      Measure* m = useMMrest ? tick2measureMM(tick) : tick2measure(tick);
       if (m == 0) {
             qDebug("tick2leftSegment(): not found tick %d", tick.ticks());
             return 0;
@@ -203,9 +203,9 @@ Segment* Score::tick2leftSegment(const Fraction& tick) const
 /// the first segment *after* this tick position
 //---------------------------------------------------------
 
-Segment* Score::tick2rightSegment(const Fraction& tick) const
+Segment* Score::tick2rightSegment(const Fraction& tick, bool useMMrest) const
       {
-      Measure* m = tick2measure(tick);
+      Measure* m = useMMrest ? tick2measureMM(tick) : tick2measure(tick);
       if (m == 0) {
             qDebug("tick2nearestSegment(): not found tick %d", tick.ticks());
             return 0;

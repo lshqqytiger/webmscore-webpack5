@@ -140,7 +140,7 @@ void TextLineBaseSegment::draw(QPainter* painter) const
                   QVector<qreal> nDashes { dash, newGap };
                   if (tl->beginHookType() == HookType::HOOK_45 || tl->beginHookType() == HookType::HOOK_90) {
                         qreal absD = sqrt(QPointF::dotProduct(points[start+1]-points[start], points[start+1]-points[start])) / textlineLineWidth;
-                        numPairs = max(qreal(1), absD / (dash + gap));
+                        numPairs = std::max(qreal(1), absD / (dash + gap));
                         nDashes[1] = (absD - dash * (numPairs + 1)) / numPairs;
                         pen.setDashPattern(nDashes);
                         painter->setPen(pen);
@@ -149,14 +149,14 @@ void TextLineBaseSegment::draw(QPainter* painter) const
                         }
                   if (tl->endHookType() == HookType::HOOK_45 || tl->endHookType() == HookType::HOOK_90) {
                         qreal absD = sqrt(QPointF::dotProduct(points[end]-points[end-1], points[end]-points[end-1])) / textlineLineWidth;
-                        numPairs = max(qreal(1), absD / (dash + gap));
+                        numPairs = std::max(qreal(1), absD / (dash + gap));
                         nDashes[1] = (absD - dash * (numPairs + 1)) / numPairs;
                         pen.setDashPattern(nDashes);
                         painter->setPen(pen);
                         painter->drawLines(&points[end-1], 1);
                         end--;
                         }
-                  numPairs = max(qreal(1), adjustedLineLength / (dash + gap));
+                  numPairs = std::max(qreal(1), adjustedLineLength / (dash + gap));
                   nDashes[1] = (adjustedLineLength - dash * (numPairs + 1)) / numPairs;
                   pen.setDashPattern(nDashes);
                   }
@@ -261,8 +261,9 @@ void TextLineBaseSegment::layout()
 
       // diagonal line with no text or hooks - just use the basic rectangle for line
       if (_text->empty() && _endText->empty() && pp2.y() != 0
-          && textLineBase()->beginHookType() == HookType::NONE && textLineBase()->beginHookType() == HookType::NONE) {
-            npoints = 2;
+          && textLineBase()->beginHookType() == HookType::NONE
+          && textLineBase()->endHookType() == HookType::NONE) {
+            npoints = 1; // 2 points, but only one line must be drawn
             points[0] = pp1;
             points[1] = pp2;
             lineLength = sqrt(QPointF::dotProduct(pp2-pp1, pp2-pp1));
@@ -382,6 +383,8 @@ void TextLineBaseSegment::layout()
 
 void TextLineBaseSegment::spatiumChanged(qreal ov, qreal nv)
       {
+      LineSegment::spatiumChanged(ov, nv);
+
       textLineBase()->spatiumChanged(ov, nv);
       _text->spatiumChanged(ov, nv);
       _endText->spatiumChanged(ov, nv);

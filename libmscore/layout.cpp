@@ -40,6 +40,7 @@
 #include "slur.h"
 #include "staff.h"
 #include "stem.h"
+#include "stemslash.h"
 #include "sticking.h"
 #include "style.h"
 #include "sym.h"
@@ -127,7 +128,7 @@ static bool vUp(Chord* chord)
                   up = false;
             else if (chord->track() > chord->beam()->track())
                   up = true;
-            else if (chord->measure()->hasVoices(chord->staffIdx()))
+            else if (chord->measure()->hasVoices(chord->staffIdx(), chord->tick(), chord->actualTicks()))
                   up = !(chord->track() % 2);
             else
                   up = !chord->staff()->isTop();
@@ -147,8 +148,9 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
       const Staff* staff = Score::staff(staffIdx);
       const int startTrack = staffIdx * VOICES;
       const int endTrack   = startTrack + VOICES;
+      const Fraction tick = segment->tick();
 
-      if (staff->isTabStaff(segment->tick())) {
+      if (staff->isTabStaff(tick)) {
             layoutSegmentElements(segment, startTrack, endTrack);
             return;
             }
@@ -158,7 +160,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
       std::vector<Note*> downStemNotes;
       int upVoices       = 0;
       int downVoices     = 0;
-      qreal nominalWidth = noteHeadWidth() * staff->mag(segment->tick());
+      qreal nominalWidth = noteHeadWidth() * staff->mag(tick);
       qreal maxUpWidth   = 0.0;
       qreal maxDownWidth = 0.0;
       qreal maxUpMag     = 0.0;
@@ -238,7 +240,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                   maxDownWidth = qMax(maxDownWidth, hw);
                   }
 
-            qreal sp                 = staff->spatium(segment->tick());
+            qreal sp                 = staff->spatium(tick);
             qreal upOffset           = 0.0;      // offset to apply to upstem chords
             qreal downOffset         = 0.0;      // offset to apply to downstem chords
             qreal dotAdjust          = 0.0;      // additional chord offset to account for dots
@@ -262,7 +264,7 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
             // amount by which actual width exceeds nominal, adjusted for staff mag() only
             qreal headDiff = maxUpWidth - nominalWidth;
             // amount by which actual width exceeds nominal, adjusted for staff & chord/note mag()
-            qreal headDiff2 = maxUpWidth - nominalWidth * (maxUpMag / staff->mag(segment->tick()));
+            qreal headDiff2 = maxUpWidth - nominalWidth * (maxUpMag / staff->mag(tick));
             if (headDiff > centerThreshold) {
                   // larger than nominal
                   centerUp = headDiff * -0.5;
@@ -341,9 +343,9 @@ void Score::layoutChords1(Segment* segment, int staffIdx)
                               else
                                     break;
                               }
-                        for (int i = int(downStemNotes.size()) - 1; i >= 0; --i) {
-                              if (downStemNotes[i]->line() <= bottomUpNote->line() + 1)
-                                    overlapNotes.append(downStemNotes[i]);
+                        for (size_t i = downStemNotes.size(); i > 0; --i) { // loop most probably needs to be in this reverse order
+                              if (downStemNotes[i-1]->line() <= bottomUpNote->line() + 1)
+                                    overlapNotes.append(downStemNotes[i-1]);
                               else
                                     break;
                               }
@@ -841,43 +843,51 @@ void Score::layoutChords3(std::vector<Note*>& notes, const Staff* staff, Segment
             Accidental* ac = note->accidental();
             if (ac && !note->fixed()) {
                   ac->layout();
-                  AcEl acel;
-                  acel.note   = note;
-                  int line    = note->line();
-                  acel.line   = line;
-                  acel.x      = 0.0;
-                  acel.top    = line * 0.5 * sp + ac->bbox().top();
-                  acel.bottom = line * 0.5 * sp + ac->bbox().bottom();
-                  acel.width  = ac->width();
-                  QPointF bboxNE = ac->symBbox(ac->symbol()).topRight();
-                  QPointF bboxSW = ac->symBbox(ac->symbol()).bottomLeft();
-                  QPointF cutOutNE = ac->symCutOutNE(ac->symbol());
-                  QPointF cutOutSW = ac->symCutOutSW(ac->symbol());
-                  if (!cutOutNE.isNull()) {
-                        acel.ascent     = cutOutNE.y() - bboxNE.y();
-                        acel.rightClear = bboxNE.x() - cutOutNE.x();
+                  if (!ac->visible()) {
+                        ac->setPos(ac->bbox().x() - ac->width(), 0.0);
                         }
                   else {
-                        acel.ascent     = 0.0;
-                        acel.rightClear = 0.0;
+                        AcEl acel;
+                        acel.note   = note;
+                        int line    = note->line();
+                        acel.line   = line;
+                        acel.x      = 0.0;
+                        acel.top    = line * 0.5 * sp + ac->bbox().top();
+                        acel.bottom = line * 0.5 * sp + ac->bbox().bottom();
+                        acel.width  = ac->width();
+                        QPointF bboxNE = ac->symBbox(ac->symbol()).topRight();
+                        QPointF bboxSW = ac->symBbox(ac->symbol()).bottomLeft();
+                        QPointF cutOutNE = ac->symCutOutNE(ac->symbol());
+                        QPointF cutOutSW = ac->symCutOutSW(ac->symbol());
+                        if (!cutOutNE.isNull()) {
+                              acel.ascent     = cutOutNE.y() - bboxNE.y();
+                              acel.rightClear = bboxNE.x() - cutOutNE.x();
+                              }
+                        else {
+                              acel.ascent     = 0.0;
+                              acel.rightClear = 0.0;
+                              }
+                        if (!cutOutSW.isNull()) {
+                              acel.descent   = bboxSW.y() - cutOutSW.y();
+                              acel.leftClear = cutOutSW.x() - bboxSW.x();
+                              }
+                        else {
+                              acel.descent   = 0.0;
+                              acel.leftClear = 0.0;
+                              }
+                        int pitchClass = (line + 700) % 7;
+                        acel.next = columnBottom[pitchClass];
+                        columnBottom[pitchClass] = nAcc;
+                        aclist.append(acel);
+                        ++nAcc;
                         }
-                  if (!cutOutSW.isNull()) {
-                        acel.descent   = bboxSW.y() - cutOutSW.y();
-                        acel.leftClear = cutOutSW.x() - bboxSW.x();
-                        }
-                  else {
-                        acel.descent   = 0.0;
-                        acel.leftClear = 0.0;
-                        }
-                  int pitchClass = (line + 700) % 7;
-                  acel.next = columnBottom[pitchClass];
-                  columnBottom[pitchClass] = nAcc;
-                  aclist.append(acel);
-                  ++nAcc;
                   }
 
             Chord* chord = note->chord();
             bool _up     = chord->up();
+
+            if (chord->stemSlash())
+                  chord->stemSlash()->layout();
 
             qreal overlapMirror;
             Stem* stem = chord->stem();
@@ -1468,10 +1478,10 @@ void Score::connectTies(bool silent)
 //   checkDivider
 //---------------------------------------------------------
 
-static void checkDivider(bool left, System* s, qreal yOffset)
+static void checkDivider(bool left, System* s, qreal yOffset, bool remove = false)
       {
       SystemDivider* divider = left ? s->systemDividerLeft() : s->systemDividerRight();
-      if (s->score()->styleB(left ? Sid::dividerLeft : Sid::dividerRight)) {
+      if ((s->score()->styleB(left ? Sid::dividerLeft : Sid::dividerRight)) && !remove) {
             if (!divider) {
                   divider = new SystemDivider(s->score());
                   divider->setDividerType(left ? SystemDivider::Type::LEFT : SystemDivider::Type::RIGHT);
@@ -1531,23 +1541,25 @@ static void layoutPage(Page* page, qreal restHeight)
             sList.push_back(s1);
             }
 
+      // last systenm needs no divider
+      System* lastSystem = page->systems().back();
+      checkDivider(true, lastSystem, 0.0, true);      // remove
+      checkDivider(false, lastSystem, 0.0, true);     // remove
+
       if (sList.empty() || MScore::noVerticalStretch || score->layoutMode() == LayoutMode::SYSTEM) {
             if (score->layoutMode() == LayoutMode::FLOAT) {
                   qreal y = restHeight * .5;
                   for (System* system : page->systems())
                         system->move(QPointF(0.0, y));
                   }
-            // remove system dividers
-            for (System* s : page->systems()) {
-                  SystemDivider* sd = s->systemDividerLeft();
-                  if (sd) {
-                        s->remove(sd);
-                        delete sd;
-                        }
-                  sd = s->systemDividerRight();
-                  if (sd) {
-                        s->remove(sd);
-                        delete sd;
+            // system dividers
+            for (int i = 0; i < gaps; ++i) {
+                  System* s1 = page->systems().at(i);
+                  System* s2 = page->systems().at(i+1);
+                  if (!(s1->vbox() || s2->vbox())) {
+                        qreal yOffset = s1->height() + (s1->distance()-s1->height()) * .5;
+                        checkDivider(true,  s1, yOffset);
+                        checkDivider(false, s1, yOffset);
                         }
                   }
             return;
@@ -1600,7 +1612,7 @@ static void layoutPage(Page* page, qreal restHeight)
             s1->rypos() = y;
             y          += s1->distance();
 
-            if (!(s1->vbox() || s2->vbox() || s1->hasFixedDownDistance())) {
+            if (!(s1->vbox() || s2->vbox())) {
                   qreal yOffset = s1->height() + (s1->distance()-s1->height()) * .5;
                   checkDivider(true,  s1, yOffset);
                   checkDivider(false, s1, yOffset);
@@ -2164,8 +2176,8 @@ static bool breakMultiMeasureRest(Measure* m)
       auto sl = m->score()->spannerMap().findOverlapping(m->tick().ticks(), m->endTick().ticks());
       for (auto i : sl) {
             Spanner* s = i.value;
-            // break for first measure of volta and first measure *after* volta
-            if (s->isVolta() && (s->tick() == m->tick() || s->tick2() == m->tick()))
+            // break for first measure of volta or textline and first measure *after* volta
+            if ((s->isVolta() || s->isTextLine()) && (s->tick() == m->tick() || s->tick2() == m->tick()))
                   return true;
             }
 
@@ -2257,14 +2269,14 @@ int LayoutContext::adjustMeasureNo(MeasureBase* m)
 //    helper function
 //---------------------------------------------------------
 
-void Score::createBeams(Measure* measure)
+void Score::createBeams(LayoutContext& lc, Measure* measure)
       {
       bool crossMeasure = styleB(Sid::crossMeasureValues);
 
       for (int track = 0; track < ntracks(); ++track) {
             Staff* stf = staff(track2staff(track));
 
-            // don’t compute beams for invisible staffs and tablature without stems
+            // don’t compute beams for invisible staves and tablature without stems
             if (!stf->show() || (stf->isTabStaff(measure->tick()) && stf->staffType(measure->tick())->stemless()))
                   continue;
 
@@ -2315,6 +2327,7 @@ void Score::createBeams(Measure* measure)
                                     const Measure* pm = prevCR->measure();
                                     if (!beamNoContinue(prevCR->beamMode())
                                         && !pm->lineBreak() && !pm->pageBreak() && !pm->sectionBreak()
+                                        && lc.prevMeasure
                                         && prevCR->durationType().type() >= TDuration::DurationType::V_EIGHTH
                                         && prevCR->durationType().type() <= TDuration::DurationType::V_1024TH) {
                                           beam = prevCR->beam();
@@ -2469,7 +2482,7 @@ static void breakCrossMeasureBeams(Measure* measure)
       for (int track = 0; track < ntracks; ++track) {
             Staff* stf = score->staff(track2staff(track));
 
-            // don’t compute beams for invisible staffs and tablature without stems
+            // don’t compute beams for invisible staves and tablature without stems
             if (!stf->show() || (stf->isTabStaff(measure->tick()) && stf->staffType(measure->tick())->stemless()))
                   continue;
 
@@ -2535,6 +2548,59 @@ void layoutDrumsetChord(Chord* c, const Drumset* drumset, const StaffType* st, q
                   note->rypos()  = (line + off * 2.0) * spatium * .5 * ld;
                   }
             }
+      }
+
+//---------------------------------------------------------
+//   extendedStemLenWithTwoNotesTremolo
+//    Goal: To extend stem of one of the chords to make the tremolo less steep
+//    Returns a modified pair of stem lengths of two chords
+//---------------------------------------------------------
+
+std::pair<qreal, qreal> extendedStemLenWithTwoNoteTremolo(Tremolo* tremolo, qreal stemLen1, qreal stemLen2)
+      {
+      const qreal spatium = tremolo->score()->spatium();
+      Chord* c1 = tremolo->chord1();
+      Chord* c2 = tremolo->chord2();
+      Stem*  s1 = c1->stem();
+      Stem*  s2 = c2->stem();
+      const qreal sgn1 = c1->up() ? -1.0 : 1.0;
+      const qreal sgn2 = c2->up() ? -1.0 : 1.0;
+      const qreal stemTipDistance = (s1 && s2) ? (s2->pagePos().y() + stemLen2) - (s1->pagePos().y() + stemLen1)
+         : (c2->stemPos().y() + stemLen2) - (c1->stemPos().y() + stemLen1);
+
+      // same staff & same direction: extend one of the stems
+      if (c1->staffMove() == c2->staffMove() && c1->up() == c2->up()) {
+            const bool stem1Higher = stemTipDistance > 0.0;
+            if (std::abs(stemTipDistance) > 1.0 * spatium) {
+                  if ((c1->up() && !stem1Higher) || (!c1->up() && stem1Higher))
+                        return { stemLen1 + sgn1 * (std::abs(stemTipDistance) - 1.0 * spatium), stemLen2 };
+                  else /* if ((c1->up() && stem1Higher) || (!c1->up() && !stem1Higher)) */
+                        return { stemLen1, stemLen2 + sgn2 * (std::abs(stemTipDistance) - 1.0 * spatium) };
+                  }
+            }
+
+// TODO: cross-staff two-note tremolo. Currently doesn't generate the right result in some cases.
+#if 0
+      // cross-staff & beam between staves: extend both stems by the same length
+      else if (tremolo->crossStaffBeamBetween()) {
+            const qreal sw = tremolo->score()->styleS(Sid::tremoloStrokeWidth).val();
+            const qreal td = tremolo->score()->styleS(Sid::tremoloDistance).val();
+            const qreal tremoloMinHeight = ((tremolo->lines() - 1) * td + sw) * spatium;
+            const qreal dy = c1->up() ? tremoloMinHeight - stemTipDistance : tremoloMinHeight + stemTipDistance;
+            const bool tooShort = dy > 1.0 * spatium;
+            const bool tooLong = dy < -1.0 * spatium;
+            const qreal idealDistance = 1.0 * spatium - tremoloMinHeight;
+
+            if (tooShort)
+                  return { stemLen1 + sgn1 * (std::abs(stemTipDistance) - idealDistance) / 2.0,
+                           stemLen2 + sgn2 * (std::abs(stemTipDistance) - idealDistance) / 2.0 };
+            else if (tooLong)
+                  return { stemLen1 - sgn1 * (std::abs(stemTipDistance) + idealDistance) / 2.0,
+                           stemLen2 - sgn2 * (std::abs(stemTipDistance) + idealDistance) / 2.0 };
+            }
+#endif
+
+      return { stemLen1, stemLen2 };
       }
 
 //---------------------------------------------------------
@@ -2637,7 +2703,7 @@ void Score::getNextMeasure(LayoutContext& lc)
                         ks->layout();
                         }
                   else if (segment.isChordRestType()) {
-                        const StaffType* st = staff->staffType(segment.tick());
+                        const StaffType* st = staff->staffTypeForElement(&segment);
                         int track     = staffIdx * VOICES;
                         int endTrack  = track + VOICES;
 
@@ -2645,7 +2711,7 @@ void Score::getNextMeasure(LayoutContext& lc)
                               ChordRest* cr = segment.cr(t);
                               if (!cr)
                                     continue;
-                              qreal m = staff->mag(segment.tick());
+                              qreal m = staff->mag(&segment);
                               if (cr->small())
                                     m *= score()->styleD(Sid::smallNoteMag);
 
@@ -2668,6 +2734,21 @@ void Score::getNextMeasure(LayoutContext& lc)
                                     chord->computeUp();
                                     chord->layoutStem1();   // create stems needed to calculate spacing
                                                             // stem direction can change later during beam processing
+
+                                    // if there is a two-note tremolo attached, and it is too steep,
+                                    // extend stem of one of the chords (if not cross-staff)
+                                    // or extend both stems (if cross-staff)
+                                    // this should be done after the stem lengths of two notes are both calculated
+                                    if (chord->tremolo() && chord == chord->tremolo()->chord2()) {
+                                          Stem* stem1 = chord->tremolo()->chord1()->stem();
+                                          Stem* stem2 = chord->tremolo()->chord2()->stem();
+                                          if (stem1 && stem2) {
+                                                std::pair<qreal, qreal> extendedLen = extendedStemLenWithTwoNoteTremolo(chord->tremolo(),
+                                                   stem1->p2().y(), stem2->p2().y());
+                                                stem1->setLen(extendedLen.first);
+                                                stem2->setLen(extendedLen.second);
+                                                }
+                                          }
                                     }
                               cr->setMag(m);
                               }
@@ -2687,7 +2768,7 @@ void Score::getNextMeasure(LayoutContext& lc)
                   }
             }
 
-      createBeams(measure);
+      createBeams(lc, measure);
 
       for (int staffIdx = 0; staffIdx < score()->nstaves(); ++staffIdx) {
             for (Segment& segment : measure->segments()) {
@@ -3211,6 +3292,176 @@ void layoutHarmonies(const std::vector<Segment*>& sl)
       }
 
 //---------------------------------------------------------
+//   almostZero
+//---------------------------------------------------------
+
+bool inline almostZero(qreal value)
+      {
+            // 1e-3 is close enough to zero to see it as zero.
+            return value > -1e-3 && value < 1e-3;
+      }
+
+//---------------------------------------------------------
+
+//   alignHarmonies
+//---------------------------------------------------------
+
+void alignHarmonies(const System* system, const std::vector<Segment*>& sl, bool harmony, const qreal maxShiftAbove, const qreal maxShiftBelow)
+      {
+
+      // Help class.
+      // Contains harmonies/fretboard per segment.
+      class HarmonyList : public QList<Element*> {
+            QMap<const Segment*, QList<Element*>> elements;
+            QList<Element*> modified;
+
+            Element* getReferenceElement(const Segment* s, bool above, bool visible) const
+                  {
+                  // Returns the reference element for aligning.
+                  // When a segments contains multiple harmonies/fretboard, the lowest placed
+                  // element (for placement above, otherwise the highest placed element) is
+                  // used for alignment.
+                  Element* element { nullptr };
+                  for (Element* e : elements[s]) {
+                        // Only chord symbols have styled offset, fretboards don't.
+                        if (!e->autoplace() || (e->isHarmony() && !e->isStyled(Pid::OFFSET)) || (visible && !e->visible()))
+                              continue;
+                        if (!element) {
+                              element = e;
+                              }
+                        else {
+                              if ((e->placeAbove() &&  above && (element->y() < e->y())) ||
+                                  (e->placeBelow() && !above && (element->y() > e->y())))
+                                    element = e;
+                              }
+                         }
+                  return element;
+                  }
+
+         public:
+            HarmonyList()
+                  {
+                  elements.clear();
+                  modified.clear();
+                  }
+
+            void append(const Segment* s, Element* e)
+                  {
+                  elements[s].append(e);
+                  }
+
+            qreal getReferenceHeight(bool above) const
+                  {
+                  // The reference height is the height of
+                  //    the lowest element if placed above
+                  // or
+                  //    the highest element if placed below.
+                  bool first { true };
+                  qreal ref { 0.0 };
+                  for (auto s : elements.keys()) {
+                        Element* e { getReferenceElement(s, above, true) };
+                        if (!e)
+                              continue;
+                        if (e->placeAbove() && above) {
+                              ref = first ? e->y() : qMin(ref, e->y());
+                              first = false;
+                              }
+                        else if (e->placeBelow() && !above) {
+                              ref = first ? e->y() : qMax(ref, e->y());
+                              first = false;
+                              }
+                        }
+                  return ref;
+                  }
+
+            bool align(bool above, qreal reference, qreal maxShift)
+                  {
+                  // Align the elements. If a segment contains multiple elements,
+                  // only the reference elements is used in the algorithm. All other
+                  // elements will remain their original placement with respect to
+                  // the reference element.
+                  bool moved { false };
+                  if (almostZero(reference))
+                        return moved;
+
+                  for (auto s : elements.keys()) {
+                        QList<Element*> handled;
+                        Element* be = getReferenceElement(s, above, false);
+                        if (!be)
+                              // If there are only invisible elements, we have to use an invisible
+                              // element for alignment reference.
+                              be = getReferenceElement(s, above, true);
+                        if (be && ((above && (be->y() < (reference + maxShift))) || ((!above && (be->y() > (reference - maxShift)))))) {
+                              qreal shift = be->rypos();
+                              be->rypos() = reference - be->ryoffset();
+                              shift -= be->rypos();
+                              for (Element* e : elements[s]) {
+                                    if ((above && e->placeBelow()) || (!above && e->placeAbove()))
+                                          continue;
+                                    modified.append(e);
+                                    handled.append(e);
+                                    moved = true;
+                                    if (e != be)
+                                          e->rypos() -= shift;
+                                    }
+                              for (auto e : handled)
+                                    elements[s].removeOne(e);
+                              }
+                        }
+                  return moved;
+                  }
+
+            void addToSkyline(const System* system)
+                  {
+                  for (Element* e : modified) {
+                        const Segment* s = toSegment(e->parent());
+                        const MeasureBase* m = toMeasureBase(s->parent());
+                        system->staff(e->staffIdx())->skyline().add(e->shape().translated(e->pos() + s->pos() + m->pos()));
+                        if (e->isFretDiagram()) {
+                              FretDiagram* fd = toFretDiagram(e);
+                              Harmony* h = fd->harmony();
+                              if (h)
+                                    system->staff(e->staffIdx())->skyline().add(h->shape().translated(h->pos() + fd->pos() + s->pos() + m->pos()));
+                              else
+                                    system->staff(e->staffIdx())->skyline().add(fd->shape().translated(fd->pos() + s->pos() + m->pos()));
+                              }
+                        }
+                  }
+            };
+
+      if (almostZero(maxShiftAbove) && almostZero(maxShiftBelow))
+            return;
+
+      // Collect all fret diagrams and chord symbol and store them per staff.
+      // In the same pass, the maximum height is collected.
+      QMap<int, HarmonyList> staves;
+      for (const Segment* s : sl) {
+            for (Element* e : s->annotations()) {
+                  if ((harmony && e->isHarmony()) || (!harmony && e->isFretDiagram()))
+                        staves[e->staffIdx()].append(s, e);
+                  }
+            }
+
+      for (int idx: staves.keys()) {
+            // Align the objects.
+            // Algorithm:
+            //    - Find highest placed harmony/fretdiagram.
+            //    - Align all harmony/fretdiagram objects placed between height and height-maxShiftAbove.
+            //    - Repeat for all harmony/fretdiagram objects below heigt-maxShiftAbove.
+            bool moved { true };
+            int pass { 0 };
+            while (moved && (pass++ < 10)) {
+                  moved = false;
+                  moved |= staves[idx].align(true, staves[idx].getReferenceHeight(true), maxShiftAbove);
+                  moved |= staves[idx].align(false, staves[idx].getReferenceHeight(false), maxShiftBelow);
+                  }
+
+            // Add all aligned objects to the sky line.
+            staves[idx].addToSkyline(system);
+            }
+      }
+
+//---------------------------------------------------------
 //   processLines
 //---------------------------------------------------------
 
@@ -3313,9 +3564,7 @@ System* Score::collectSystem(LayoutContext& lc)
                         }
 
                   m->createEndBarLines(true);
-                  Measure* nm = m->nextMeasure();
-                  if (nm)
-                        m->addSystemTrailer(nm);
+                  m->addSystemTrailer(m->nextMeasure());
                   m->computeMinWidth();
                   ww = m->width();
                   }
@@ -3721,6 +3970,7 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
       //-------------------------------------------------------------
 
       for (Segment* s : sl) {
+            std::set<int> recreateShapes;
             for (Element* e : s->elist()) {
                   if (!e || !e->isChordRest() || !score()->staff(e->staffIdx())->show())
                         continue;
@@ -3763,9 +4013,12 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
                                     QRectF r = f->bbox().translated(f->pos() + n->pos() + n->chord()->pos() + s->pos() + s->measure()->pos());
                                     system->staff(f->note()->chord()->vStaffIdx())->skyline().add(r);
                                     }
+                              recreateShapes.insert(f->staffIdx());
                               }
                         }
                   }
+            for (auto staffIdx : recreateShapes)
+                  s->createShape(staffIdx);
             }
 
       //-------------------------------------------------------------
@@ -3978,8 +4231,10 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
       // above the volta, therefore we delay the layout.
       //-------------------------------------------------------------
 
-      if (!hasFretDiagram)
+      if (!hasFretDiagram) {
             layoutHarmonies(sl);
+            alignHarmonies(system, sl, true, styleP(Sid::maxChordShiftAbove), styleP(Sid::maxChordShiftBelow));
+            }
 
       //-------------------------------------------------------------
       // StaffText, InstrumentChange
@@ -4079,6 +4334,7 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
             //-------------------------------------------------------------
 
             layoutHarmonies(sl);
+            alignHarmonies(system, sl, false, styleP(Sid::maxFretShiftAbove), styleP(Sid::maxFretShiftBelow));
             }
 
       //-------------------------------------------------------------
@@ -4091,6 +4347,18 @@ void Score::layoutSystemElements(System* system, LayoutContext& lc)
                         e->layout();
                   }
             }
+
+      //-------------------------------------------------------------
+      // Image
+      //-------------------------------------------------------------
+
+      for (const Segment* s : sl) {
+            for (Element* e : s->annotations()) {
+                  if (e->isImage())
+                        e->layout();
+                  }
+            }
+
       }
 
 //---------------------------------------------------------
@@ -4287,26 +4555,14 @@ void LayoutContext::collectPage()
                                           for (Chord* cc : c->graceNotes()) {
                                                 if (cc->beam() && cc->beam()->elements().front() == cc)
                                                       cc->beam()->layout();
-                                                for (Note* n : cc->notes()) {
-                                                      Tie* tie = n->tieFor();
-                                                      if (tie)
-                                                            tie->layout();
-                                                      for (Spanner* sp : n->spannerFor())
-                                                            sp->layout();
-                                                      }
+                                                cc->layoutSpanners();
                                                 for (Element* element : cc->el()) {
                                                       if (element->isSlur())
                                                             element->layout();
                                                       }
                                                 }
                                           c->layoutArpeggio2();
-                                          for (Note* n : c->notes()) {
-                                                Tie* tie = n->tieFor();
-                                                if (tie)
-                                                      tie->layout();
-                                                for (Spanner* sp : n->spannerFor())
-                                                      sp->layout();
-                                                }
+                                          c->layoutSpanners();
                                           if (c->tremolo()) {
                                                 Tremolo* t = c->tremolo();
                                                 Chord* c1 = t->chord1();
@@ -4373,6 +4629,7 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
             _systems.clear();
             qDeleteAll(pages());
             pages().clear();
+            lc.getNextPage();
             return;
             }
 //      if (!_systems.isEmpty())
@@ -4387,6 +4644,10 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
       _scoreFont     = ScoreFont::fontFactory(style().value(Sid::MusicalSymbolFont).toString());
       _noteHeadWidth = _scoreFont->width(SymId::noteheadBlack, spatium() / SPATIUM20);
 
+      if (cmdState().layoutFlags & LayoutFlag::REBUILD_MIDI_MAPPING) {
+            if (isMaster())
+                  masterScore()->rebuildMidiMapping();
+            }
       if (cmdState().layoutFlags & LayoutFlag::FIX_PITCH_VELO)
             updateVelo();
 #if 0 // TODO: needed? It was introduced in ab9774ec4098512068b8ef708167d9aa6e702c50
@@ -4454,8 +4715,8 @@ void Score::doLayoutRange(const Fraction& st, const Fraction& et)
                   if (sectionBreak && sectionBreak->startWithMeasureOne())
                         lc.measureNo = 0;
                   else
-                        lc.measureNo = lc.nextMeasure->prevMeasure()->no() + 1; // will be adjusted later with respect
-                                                                                // to the user-defined offset.
+                        lc.measureNo = lc.nextMeasure->prevMeasure()->no()                     // will be adjusted later with respect
+                                       + (lc.nextMeasure->prevMeasure()->irregular() ? 0 : 1); // to the user-defined offset.
                   lc.tick      = lc.nextMeasure->tick();
                   }
             }

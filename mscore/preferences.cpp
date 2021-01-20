@@ -38,6 +38,29 @@ void Preferences::init(bool storeInMemoryOnly)
             _settings = new QSettings();
             }
 
+#if defined(Q_OS_WIN)
+      // Use the correct default GUI font on Windows. Qt 5 and below use the deprecated function GetStockObject() with
+      // DEFAULT_GUI_FONT, which returns MS Shell Dlg 2 in 8 pt. MS Shell Dlg 2 is a virtual font that maps to Tahoma, which has
+      // not been the default Windows GUI font since 2006.
+      //
+      // The correct way to determine the default GUI font is to call SystemParametersInfoW() with SPI_GETNONCLIENTMETRICS and use
+      // the returned lfMessageFont structure. On all versions of Windows from Windows Vista through Windows 10, this typically
+      // returns Segoe UI in 9 pt.
+      //
+      // This problem is slated to be fixed in Qt 6. For details, see: https://bugreports.qt.io/browse/QTBUG-58610
+      //
+      // In the meantime, we can work around the problem by having Qt use the "QMessageBox" font instead, which is already being
+      // initialized the correct way.
+      QApplication::setFont(QApplication::font("QMessageBox"));
+
+      // If the current settings file is using the deprecated default GUI font, reset it so that the correct default font can be
+      // picked up automatically.
+      if (_settings && _settings->value(PREF_UI_THEME_FONTFAMILY) == "MS Shell Dlg 2") {
+            _settings->remove(PREF_UI_THEME_FONTFAMILY);
+            _settings->remove(PREF_UI_THEME_FONTSIZE);
+            }
+#endif
+
       _storeInMemoryOnly = storeInMemoryOnly;
 
 #if defined(Q_OS_MAC) || (defined(Q_OS_WIN) && !defined(FOR_WINSTORE))
@@ -46,6 +69,9 @@ void Preferences::init(bool storeInMemoryOnly)
 #else
       bool checkUpdateStartup = false;
       bool checkExtensionsUpdateStartup = false;
+#endif
+#if defined(WIN_PORTABLE)
+      checkUpdateStartup = false;
 #endif
 
       bool defaultUsePortAudio = false;
@@ -70,7 +96,11 @@ void Preferences::init(bool storeInMemoryOnly)
       const MuseScoreStyleType defaultAppGlobalStyle = MuseScoreStyleType::LIGHT_FUSION;
 #endif
 
+#if defined(WIN_PORTABLE)
+      QString wd = QString(QDir::cleanPath(QString("%1/../../../Data/%2").arg(QCoreApplication::applicationDirPath()).arg(QCoreApplication::applicationName())));
+#else
       QString wd = QString("%1/%2").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).arg(QCoreApplication::applicationName());
+#endif
 
       _allPreferences = prefs_map_t(
       {
@@ -88,24 +118,27 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_PATHS_MYTEMPLATES,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("templates_directory", "Templates"))).absoluteFilePath(), false)},
             {PREF_APP_PATHS_MYEXTENSIONS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("extensions_directory", "Extensions"))).absoluteFilePath(), false)},
             {PREF_APP_PLAYBACK_FOLLOWSONG,                         new BoolPreference(true)},
-            {PREF_APP_PLAYBACK_PANPLAYBACK,                        new BoolPreference(true)},
-            {PREF_APP_PLAYBACK_PLAYREPEATS,                        new BoolPreference(true)},
+            {PREF_APP_PLAYBACK_PANPLAYBACK,                        new BoolPreference(true, false)},
+            {PREF_APP_PLAYBACK_PLAYREPEATS,                        new BoolPreference(true, false)},
+            {PREF_APP_PLAYBACK_SPEEDINCREMENT,                     new IntPreference(5)},
             {PREF_APP_PLAYBACK_LOOPTOSELECTIONONPLAY,              new BoolPreference(true)},
             {PREF_APP_USESINGLEPALETTE,                            new BoolPreference(false)},
             {PREF_APP_PALETTESCALE,                                new DoublePreference(1.0)},
             {PREF_APP_STARTUP_FIRSTSTART,                          new BoolPreference(true)},
             {PREF_APP_STARTUP_SESSIONSTART,                        new EnumPreference(QVariant::fromValue(SessionStart::SCORE), false)},
             {PREF_APP_STARTUP_STARTSCORE,                          new StringPreference(":/data/My_First_Score.mscx", false)},
-            {PREF_UI_APP_STARTUP_SHOWTOURS,                        new BoolPreference(true)},
             {PREF_APP_WORKSPACE,                                   new StringPreference("Basic", false)},
             {PREF_APP_TELEMETRY_ALLOWED,                           new BoolPreference(false, false)},
             {PREF_APP_STARTUP_TELEMETRY_ACCESS_REQUESTED,          new StringPreference("", false)},
+            {PREF_APP_BACKUP_GENERATE_BACKUP,                      new BoolPreference(true)},
+            {PREF_APP_BACKUP_SUBFOLDER,                            new StringPreference(".mscbackup")},
             {PREF_EXPORT_AUDIO_NORMALIZE,                          new BoolPreference(true)},
             {PREF_EXPORT_AUDIO_SAMPLERATE,                         new IntPreference(44100, false)},
+            {PREF_EXPORT_AUDIO_PCMRATE,                            new IntPreference(16)},
             {PREF_EXPORT_MP3_BITRATE,                              new IntPreference(128, false)},
             {PREF_EXPORT_MUSICXML_EXPORTBREAKS,                    new EnumPreference(QVariant::fromValue(MusicxmlExportBreaks::ALL), false)},
             {PREF_EXPORT_MUSICXML_EXPORTLAYOUT,                    new BoolPreference(true, false)},
-            {PREF_EXPORT_PDF_DPI,                                  new IntPreference(300, false)},
+            {PREF_EXPORT_PDF_DPI,                                  new IntPreference(DPI, false)},
             {PREF_EXPORT_PNG_RESOLUTION,                           new DoublePreference(DPI, false)},
             {PREF_EXPORT_PNG_USETRANSPARENCY,                      new BoolPreference(true, false)},
             {PREF_IMPORT_GUITARPRO_CHARSET,                        new StringPreference("UTF-8", false)},
@@ -113,6 +146,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IMPORT_MUSICXML_IMPORTLAYOUT,                    new BoolPreference(true, false)},
             {PREF_IMPORT_OVERTURE_CHARSET,                         new StringPreference("GBK", false)},
             {PREF_IMPORT_STYLE_STYLEFILE,                          new StringPreference("", false)},
+            {PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS,    new StringPreference("", false)},
             {PREF_IO_ALSA_DEVICE,                                  new StringPreference("default", false)},
             {PREF_IO_ALSA_FRAGMENTS,                               new IntPreference(3, false)},
             {PREF_IO_ALSA_PERIODSIZE,                              new IntPreference(1024, false)},
@@ -127,6 +161,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IO_MIDI_ENABLEINPUT,                             new BoolPreference(true, false)},
             {PREF_IO_MIDI_EXPANDREPEATS,                           new BoolPreference(true, false)},
             {PREF_IO_MIDI_EXPORTRPNS,                              new BoolPreference(false, false)},
+            {PREF_IO_MIDI_PEDAL_EVENTS_MIN_TICKS,                  new IntPreference(1)},
             {PREF_IO_MIDI_REALTIMEDELAY,                           new IntPreference(750 /* ms */, false)},
             {PREF_IO_MIDI_SHORTESTNOTE,                            new IntPreference(MScore::division/4, false)},
             {PREF_IO_MIDI_SHOWCONTROLSINMIXER,                     new BoolPreference(false, false)},
@@ -142,7 +177,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IO_PORTMIDI_OUTPUTLATENCYMILLISECONDS,           new IntPreference(0)},
             {PREF_IO_PULSEAUDIO_USEPULSEAUDIO,                     new BoolPreference(defaultUsePulseAudio, false)},
             {PREF_SCORE_CHORD_PLAYONADDNOTE,                       new BoolPreference(true, false)},
-            {PREF_SCORE_MAGNIFICATION,                             new DoublePreference(1.0, false)},
+            {PREF_SCORE_HARMONY_PLAY_ONEDIT,                       new BoolPreference(true, false)},
             {PREF_SCORE_NOTE_PLAYONCLICK,                          new BoolPreference(true, false)},
             {PREF_SCORE_NOTE_DEFAULTPLAYDURATION,                  new IntPreference(300 /* ms */, false)},
             {PREF_SCORE_NOTE_WARNPITCHRANGE,                       new BoolPreference(true, false)},
@@ -155,6 +190,10 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_CANVAS_FG_COLOR,                              new ColorPreference(QColor("#f9f9f9"), false)},
             {PREF_UI_CANVAS_BG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("wallpaper/background1.png")).absoluteFilePath(), false)},
             {PREF_UI_CANVAS_FG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("wallpaper/paper5.png")).absoluteFilePath(), false)},
+            {PREF_UI_CANVAS_ZOOM_DEFAULT_TYPE,                     new IntPreference(0, false)},
+            {PREF_UI_CANVAS_ZOOM_DEFAULT_LEVEL,                    new IntPreference(100, false)},
+            {PREF_UI_CANVAS_ZOOM_PRECISION_KEYBOARD,               new IntPreference(2, false)},
+            {PREF_UI_CANVAS_ZOOM_PRECISION_MOUSE,                  new IntPreference(6, false)},
             {PREF_UI_CANVAS_MISC_ANTIALIASEDDRAWING,               new BoolPreference(true, false)},
             {PREF_UI_CANVAS_MISC_SELECTIONPROXIMITY,               new IntPreference(6, false)},
             {PREF_UI_CANVAS_SCROLL_LIMITSCROLLAREA,                new BoolPreference(false, false)},
@@ -165,6 +204,7 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_APP_STARTUP_SHOWPLAYPANEL,                    new BoolPreference(false, false)},
             {PREF_UI_APP_STARTUP_SHOWSPLASHSCREEN,                 new BoolPreference(true, false)},
             {PREF_UI_APP_STARTUP_SHOWSTARTCENTER,                  new BoolPreference(true, false)},
+            {PREF_UI_APP_STARTUP_SHOWTOURS,                        new BoolPreference(true, false)},
             {PREF_UI_APP_GLOBALSTYLE,                              new EnumPreference(QVariant::fromValue(defaultAppGlobalStyle), false)},
             {PREF_UI_APP_LANGUAGE,                                 new StringPreference("system", false)},
             {PREF_UI_APP_RASTER_HORIZONTAL,                        new IntPreference(2)},
@@ -187,19 +227,25 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_PIANOROLL_DARK_SELECTION_BOX_COLOR,           new ColorPreference(QColor("#0cebff"))},
             {PREF_UI_PIANOROLL_DARK_NOTE_UNSEL_COLOR,              new ColorPreference(QColor("#1dcca0"))},
             {PREF_UI_PIANOROLL_DARK_NOTE_SEL_COLOR,                new ColorPreference(QColor("#ffff00"))},
+            {PREF_UI_PIANOROLL_DARK_NOTE_DRAG_COLOR,               new ColorPreference(QColor("#ffbb33"))},
             {PREF_UI_PIANOROLL_DARK_BG_BASE_COLOR,                 new ColorPreference(QColor("#3a3a3a"))},
+            {PREF_UI_PIANOROLL_DARK_BG_KEY_HIGHLIGHT_COLOR,        new ColorPreference(QColor("#555577"))},
             {PREF_UI_PIANOROLL_DARK_BG_KEY_WHITE_COLOR,            new ColorPreference(QColor("#3a3a3a"))},
             {PREF_UI_PIANOROLL_DARK_BG_KEY_BLACK_COLOR,            new ColorPreference(QColor("#262626"))},
             {PREF_UI_PIANOROLL_DARK_BG_GRIDLINE_COLOR,             new ColorPreference(QColor("#111111"))},
             {PREF_UI_PIANOROLL_DARK_BG_TEXT_COLOR,                 new ColorPreference(QColor("#999999"))},
+            {PREF_UI_PIANOROLL_DARK_BG_TIE_COLOR,                  new ColorPreference(QColor("#ff0000"))},
             {PREF_UI_PIANOROLL_LIGHT_SELECTION_BOX_COLOR,          new ColorPreference(QColor("#2085c3"))},
             {PREF_UI_PIANOROLL_LIGHT_NOTE_UNSEL_COLOR,             new ColorPreference(QColor("#1dcca0"))},
             {PREF_UI_PIANOROLL_LIGHT_NOTE_SEL_COLOR,               new ColorPreference(QColor("#ffff00"))},
+            {PREF_UI_PIANOROLL_LIGHT_NOTE_DRAG_COLOR,              new ColorPreference(QColor("#ffbb33"))},
             {PREF_UI_PIANOROLL_LIGHT_BG_BASE_COLOR,                new ColorPreference(QColor("#e0e0e7"))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_HIGHLIGHT_COLOR,       new ColorPreference(QColor("#aaaaff"))},
             {PREF_UI_PIANOROLL_LIGHT_BG_KEY_WHITE_COLOR,           new ColorPreference(QColor("#ffffff"))},
             {PREF_UI_PIANOROLL_LIGHT_BG_KEY_BLACK_COLOR,           new ColorPreference(QColor("#e6e6e6"))},
             {PREF_UI_PIANOROLL_LIGHT_BG_GRIDLINE_COLOR,            new ColorPreference(QColor("#a2a2a6"))},
             {PREF_UI_PIANOROLL_LIGHT_BG_TEXT_COLOR,                new ColorPreference(QColor("#111111"))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_TIE_COLOR,                 new ColorPreference(QColor("#ff0000"))},
             {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_ON,      new ColorPreference(QColor("#7F7F7F"))},
             {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_OFF,     new ColorPreference(QColor("#a0a0a0"))},
             {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_LIGHT_ON,     new ColorPreference(QColor("#7F7F7F"))},
@@ -209,7 +255,39 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_ON,      new ColorPreference(QColor("#0065BF"))},
             {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_OFF,     new ColorPreference(QColor("#3b3f45"))},
             {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_LIGHT,            new ColorPreference(QColor("#0066BF"))},
-            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_DARK,             new ColorPreference(QColor("#36B2FF"))}
+            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_DARK,             new ColorPreference(QColor("#36B2FF"))},
+            {PREF_PAN_MODIFIER_BASE,                               new DoublePreference(1, true)},
+            {PREF_PAN_MODIFIER_STEP,                               new DoublePreference(0.01, true)},
+            {PREF_PAN_MODIFIER_MIN,                                new DoublePreference(0.2, true)},
+            {PREF_PAN_MODIFIER_MAX,                                new DoublePreference(5, true)},
+            {PREF_PAN_CURSOR_VISIBLE,                              new BoolPreference(false, true)},
+            {PREF_PAN_CURSOR_POS,                                  new DoublePreference(0.3, true)},
+            {PREF_PAN_SMOOTHLY_ENABLED,                            new BoolPreference(false, true)},
+            {PREF_PAN_TELEPORT_LEFT,                               new BoolPreference(true, true) },
+            {PREF_PAN_TELEPORT_RIGHT,                              new BoolPreference(false, true) },
+//            {PREF_PAN_DISTANCE_LEFT,                               new DoublePreference(-250, false)},
+//            {PREF_PAN_DISTANCE_LEFT1,                              new DoublePreference(-125, false)},
+//            {PREF_PAN_DISTANCE_LEFT2,                              new DoublePreference(-50, false)},
+//            {PREF_PAN_DISTANCE_LEFT3,                              new DoublePreference(-25, false)},
+//            {PREF_PAN_DISTANCE_RIGHT,                              new DoublePreference(500, false)},
+//            {PREF_PAN_DISTANCE_RIGHT1,                             new DoublePreference(250, false)},
+//            {PREF_PAN_DISTANCE_RIGHT2,                             new DoublePreference(125, false)},
+//            {PREF_PAN_DISTANCE_RIGHT3,                             new DoublePreference(50, false)},
+//            {PREF_PAN_MODIFIER_LEFT1,                              new DoublePreference(0.8, false)},
+//            {PREF_PAN_MODIFIER_LEFT2,                              new DoublePreference(0.9, false)},
+//            {PREF_PAN_MODIFIER_LEFT3,                              new DoublePreference(0.95, false)},
+//            {PREF_PAN_MODIFIER_RIGHT1,                             new DoublePreference(1.2, false)},
+//            {PREF_PAN_MODIFIER_RIGHT2,                             new DoublePreference(1.1, false)},
+//            {PREF_PAN_MODIFIER_RIGHT3,                             new DoublePreference(1.05, false)},
+//            {PREF_PAN_WEIGHT_NORMAL,                               new DoublePreference(1, false)},
+//            {PREF_PAN_WEIGHT_SMART,                                new DoublePreference(0, false)},
+//            {PREF_PAN_WEIGHT_ADVANCED,                             new BoolPreference(false, false)},
+//            {PREF_PAN_SMART_TIMER_DURATION,                        new IntPreference(1000, false)},
+#ifdef AVSOMR
+            {PREF_IMPORT_AVSOMR_USELOCAL,                          new BoolPreference(false, false)},
+            {PREF_UI_AVSOMR_RECOGNITION_COLOR,                     new ColorPreference(QColor("#1DCCA0"))},
+            {PREF_UI_AVSOMR_NOT_RECOGNITION_COLOR,                 new ColorPreference(QColor("#C31989"))},
+#endif
       });
 
       _initialized = true;
@@ -410,6 +488,21 @@ void Preferences::setPreference(const QString key, QVariant value)
       {
       checkIfKeyExists(key);
       set(key, value);
+      for (const OnSetListener& l : _onSetListeners)
+          l(key, value);
+      }
+
+Preferences::ListenerID Preferences::addOnSetListener(const OnSetListener& l)
+      {
+      static ListenerID lastId{0};
+      ++lastId;
+      _onSetListeners[lastId] = l;
+      return lastId;
+      }
+
+void Preferences::removeOnSetListener(const ListenerID& id)
+      {
+      _onSetListeners.remove(id);
       }
 
 void Preferences::setTemporaryPreference(const QString key, QVariant value)
@@ -459,6 +552,10 @@ QMap<QString, QVariant> Preferences::getDefaultLocalPreferences() {
                         PREF_UI_CANVAS_FG_COLOR,
                         PREF_UI_CANVAS_BG_WALLPAPER,
                         PREF_UI_CANVAS_FG_WALLPAPER,
+                        PREF_UI_CANVAS_ZOOM_DEFAULT_TYPE,
+                        PREF_UI_CANVAS_ZOOM_DEFAULT_LEVEL,
+                        PREF_UI_CANVAS_ZOOM_PRECISION_KEYBOARD,
+                        PREF_UI_CANVAS_ZOOM_PRECISION_MOUSE,
                         PREF_UI_CANVAS_MISC_ANTIALIASEDDRAWING,
                         PREF_UI_CANVAS_MISC_SELECTIONPROXIMITY,
                         PREF_UI_CANVAS_SCROLL_LIMITSCROLLAREA,

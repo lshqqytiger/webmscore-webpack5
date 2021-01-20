@@ -19,6 +19,8 @@ NICE-TO-HAVE TODO:
       and SlurSegment::changeAnchor() in slur.cpp as models)
 */
 
+#include "log.h"
+
 #include "arpeggio.h"
 #include "glissando.h"
 #include "chord.h"
@@ -29,6 +31,7 @@ NICE-TO-HAVE TODO:
 #include "segment.h"
 #include "staff.h"
 #include "system.h"
+#include "measure.h"
 #include "style.h"
 #include "sym.h"
 #include "xml.h"
@@ -46,6 +49,11 @@ static const ElementStyle glissandoElementStyle {
 
 static const qreal      GLISS_PALETTE_WIDTH           = 4.0;
 static const qreal      GLISS_PALETTE_HEIGHT          = 4.0;
+
+const std::array<const char *, 2> Glissando::glissandoTypeNames = {
+      QT_TRANSLATE_NOOP("Palette", "Straight glissando"),
+      QT_TRANSLATE_NOOP("Palette", "Wavy glissando")
+      };
 
 //---------------------------------------------------------
 //   GlisandoSegment
@@ -92,7 +100,7 @@ void GlissandoSegment::draw(QPainter* painter) const
       else if (glissando()->glissandoType() == GlissandoType::WAVY) {
             QRectF b = symBbox(SymId::wiggleTrill);
             qreal a  = symAdvance(SymId::wiggleTrill);
-            int n    = (int)(l / a);      // always round down (truncate) to avoid overlap
+            int n    = static_cast<int>(l / a);      // always round down (truncate) to avoid overlap
             qreal x  = (l - n*a) * 0.5;   // centre line in available space
             std::vector<SymId> ids;
             for (int i = 0; i < n; ++i)
@@ -110,7 +118,7 @@ void GlissandoSegment::draw(QPainter* painter) const
             f.setBold(glissando()->fontStyle() & FontStyle::Bold);
             f.setItalic(glissando()->fontStyle() & FontStyle::Italic);
             f.setUnderline(glissando()->fontStyle() & FontStyle::Underline);
-            QFontMetricsF fm(f);
+            QFontMetricsF fm(f, painter->device()); // use the QPaintDevice, otherwise calculations will be done in screen metrics
             QRectF r = fm.boundingRect(glissando()->text());
 
             // if text longer than available space, skip it
@@ -274,7 +282,7 @@ void Glissando::layout()
 
       // FINAL SYSTEM-INITIAL NOTE
       // if the last gliss. segment attaches to a system-initial note, some extra width has to be added
-      if (cr2->segment()->measure() == cr2->segment()->system()->firstMeasure() && cr2->rtick().isZero()
+      if (cr2->segment()->measure()->isFirstInSystem() && cr2->rtick().isZero()
          // but ignore graces after, as they are not the first note of the system,
          // even if their segment is the first segment of the system
          && !(cr2->noteType() == NoteType::GRACE8_AFTER
@@ -300,7 +308,7 @@ void Glissando::layout()
       // interpolate y-coord of intermediate points across total width and height
       qreal xCurr = 0.0;
       qreal yCurr;
-      for (int i = 0; i < int(spannerSegments().size()-1); i++) {
+      for (unsigned i = 0; i + 1 < spannerSegments().size(); i++) {
             SpannerSegment* segm = segmentAt(i);
             xCurr += segm->ipos2().x();
             yCurr = y0 + ratio * xCurr;
@@ -348,7 +356,14 @@ void Glissando::layout()
 
       // compute glissando bbox as the bbox of the last segment, relative to the end anchor note
       QPointF anchor2PagePos = anchor2->pagePos();
-      QPointF system2PagePos = cr2->segment()->system()->pagePos();
+      QPointF system2PagePos;
+      IF_ASSERT_FAILED(cr2->segment()->system()) {
+            system2PagePos = segm2->pos();
+            }
+      else {
+            system2PagePos = cr2->segment()->system()->pagePos();
+            }
+
       QPointF anchor2SystPos = anchor2PagePos - system2PagePos;
       QRectF r = QRectF(anchor2SystPos - segm2->pos(), anchor2SystPos - segm2->pos() - segm2->pos2()).normalized();
       qreal lw = lineWidth() * .5;

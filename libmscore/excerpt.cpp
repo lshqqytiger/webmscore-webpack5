@@ -64,6 +64,18 @@ Excerpt::~Excerpt() {
       }
 
 //---------------------------------------------------------
+//   nstaves
+//---------------------------------------------------------
+
+int Excerpt::nstaves() const
+      {
+      int n { 0 };
+      for (Part* p : _parts)
+            n += p->nstaves();
+      return n;
+      }
+
+//---------------------------------------------------------
 //   read
 //---------------------------------------------------------
 
@@ -147,7 +159,7 @@ void Excerpt::createExcerpt(Excerpt* excerpt)
 
       score->setPageNumberOffset(oscore->pageNumberOffset());
 
-      // Set instruments and create linked staffs
+      // Set instruments and create linked staves
       for (const Part* part : parts) {
             Part* p = new Part(score);
             p->setInstrument(*part->instrument());
@@ -430,6 +442,22 @@ static void cloneTuplets(ChordRest* ocr, ChordRest* ncr, Tuplet* ot, TupletMap& 
       }
 
 //---------------------------------------------------------
+//   processLinkedClone
+//---------------------------------------------------------
+
+void Excerpt::processLinkedClone(Element* ne, Score* score, int strack)
+      {
+      // reset offset as most likely it will not fit
+      PropertyFlags f = ne->propertyFlags(Pid::OFFSET);
+      if (f == PropertyFlags::UNSTYLED) {
+            ne->setPropertyFlags(Pid::OFFSET, PropertyFlags::STYLED);
+            ne->resetProperty(Pid::OFFSET);
+            }
+      ne->setTrack(strack == -1 ? 0 : strack);
+      ne->setScore(score);
+      }
+
+//---------------------------------------------------------
 //   cloneStaves
 //---------------------------------------------------------
 
@@ -489,14 +517,7 @@ void Excerpt::cloneStaves(Score* oscore, Score* score, const QList<int>& map, QM
                                           continue;
                                     if ((e->track() == srcTrack && strack != -1) || (e->systemFlag() && srcTrack == 0)) {
                                           Element* ne = e->linkedClone();
-                                          // reset offset as most likely it will not fit
-                                          PropertyFlags f = ne->propertyFlags(Pid::OFFSET);
-                                          if (f == PropertyFlags::UNSTYLED) {
-                                                ne->setPropertyFlags(Pid::OFFSET, PropertyFlags::STYLED);
-                                                ne->resetProperty(Pid::OFFSET);
-                                                }
-                                          ne->setTrack(strack == -1 ? 0 : strack);
-                                          ne->setScore(score);
+                                          processLinkedClone(ne, score, strack);
                                           if (!ns)
                                                 ns = nm->getSegment(oseg->segmentType(), oseg->tick());
                                           ns->add(ne);
@@ -505,6 +526,13 @@ void Excerpt::cloneStaves(Score* oscore, Score* score, const QList<int>& map, QM
                                           if (ne->isHarmony()) {
                                                 Harmony* h = toHarmony(ne);
                                                 h->render();
+                                                }
+                                          else if (ne->isFretDiagram()) {
+                                                Harmony* h = toHarmony(toFretDiagram(ne)->harmony());
+                                                if (h) {
+                                                      processLinkedClone(h, score, strack);
+                                                      h->render();
+                                                      }
                                                 }
                                           }
                                     }
@@ -519,8 +547,8 @@ void Excerpt::cloneStaves(Score* oscore, Score* score, const QList<int>& map, QM
                               for (int track : t) {
                                     //Clone KeySig TimeSig and Clefs if voice 1 of source staff is not mapped to a track
                                     Element* oef = oseg->element(srcTrack & ~3);
-                                    if (oef && (oef->isTimeSig() || oef->isKeySig()) && oef->tick().isZero()
-                                        && !(trackList.size() == (score->excerpt()->parts().size() * VOICES))) {
+                                    if (oef && !oef->generated() && (oef->isTimeSig() || oef->isKeySig())
+                                        && !(trackList.size() == (score->excerpt()->nstaves() * VOICES))) {
                                           Element* ne = oef->linkedClone();
                                           ne->setTrack(track & ~3);
                                           ne->setScore(score);
@@ -886,6 +914,10 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff)
                               ncr->lyrics().clear();
 
                               for (Element* e : seg->annotations()) {
+                                    if (!e) {
+                                          qDebug("cloneStaff: corrupted annotation found.");
+                                          continue;
+                                          }
                                     if (e->generated() || e->systemFlag())
                                           continue;
                                     if (e->track() != srcTrack)
@@ -901,6 +933,17 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff)
                                           case ElementType::DYNAMIC:
                                           case ElementType::LYRICS:   // not normally segment-attached
                                                 continue;
+                                          case ElementType::FERMATA:
+                                                {
+                                                // Fermatas are special since the belong to a segment but should
+                                                // be created and linked on each staff.
+                                                Element* ne1 = e->linkedClone();
+                                                ne1->setTrack(dstTrack);
+                                                ne1->setParent(seg);
+                                                ne1->setScore(score);
+                                                score->undo(new AddElement(ne1));
+                                                continue;
+                                                }
                                           default:
                                                 Element* ne1 = e->clone();
                                                 ne1->setTrack(dstTrack);
@@ -931,7 +974,7 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff)
                                                       tie->setEndNote(nn);
                                                       }
                                                 else {
-                                                      qDebug("cloneStave: cannot find tie");
+                                                      qDebug("cloneStaff: cannot find tie");
                                                       }
                                                 }
                                           // add back spanners (going back from end to start spanner element
@@ -945,7 +988,7 @@ void Excerpt::cloneStaff(Staff* srcStaff, Staff* dstStaff)
                                                       score->addElement(newSp);
                                                       }
                                                 else {
-                                                      qDebug("cloneStave: cannot find spanner start note");
+                                                      qDebug("cloneStaff: cannot find spanner start note");
                                                       }
                                                 }
                                           }
@@ -1138,7 +1181,7 @@ void Excerpt::cloneStaff2(Staff* srcStaff, Staff* dstStaff, const Fraction& stic
                                                       tie->setEndNote(nn);
                                                       }
                                                 else {
-                                                      qDebug("cloneStave: cannot find tie");
+                                                      qDebug("cloneStaff2: cannot find tie");
                                                       }
                                                 }
                                           }

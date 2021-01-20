@@ -79,13 +79,16 @@ class PaletteCellIconEngine : public QIconEngine {
 
       PaletteCellConstPtr cell() const { return _cell; }
 
+   private:
+      void paintCell(QPainter& p, const QRect& r, bool selected, bool current) const;
+
    public:
       PaletteCellIconEngine(PaletteCellConstPtr cell, qreal extraMag = 1.0)
          : _cell(cell), _extraMag(extraMag) {}
 
       QIconEngine* clone() const override { return new PaletteCellIconEngine(cell(), _extraMag); }
 
-      void paint(QPainter* painter, const QRect& rect, QIcon::Mode mode, QIcon::State state) override;
+      void paint(QPainter* painter, const QRect& r, QIcon::Mode mode, QIcon::State state) override;
       };
 
 //---------------------------------------------------------
@@ -163,6 +166,8 @@ class PalettePanel {
       QSize gridSize() const { return _gridSize; }
       void setGrid(QSize s) { _gridSize = s; }
       void setGrid(int w, int h) { _gridSize = QSize(w, h); }
+
+      QSize scaledGridSize() const;
 
       qreal mag() const { return _mag; }
       void setMag(qreal val) { _mag = val; }

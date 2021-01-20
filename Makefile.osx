@@ -17,9 +17,7 @@
 #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #=============================================================================
 
-REVISION  = `cat mscore/revision.h`
-#VERSION  = "3.4b-${REVISION}"
-VERSION   = 3.4.2
+VERSION := $(cmake -P config.cmake | sed -n -e "s/^.*VERSION  *//p")
 BUILD_NUMBER = ""
 PREFIX=../applebuild
 TELEMETRY_TRACK_ID=""

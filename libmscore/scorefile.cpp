@@ -36,9 +36,15 @@
 #include "stafftype.h"
 #include "sym.h"
 
+#include "mscore/preferences.h"
+
 #ifdef OMR
 #include "omr/omr.h"
 #include "omr/omrpage.h"
+#endif
+
+#ifdef AVSOMR
+#include "avsomr/msmrwriter.h"
 #endif
 
 #include "sig.h"
@@ -107,7 +113,7 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
             Excerpt* e = excerpt();
             QMultiMap<int, int> trackList = e->tracks();
             QMapIterator<int, int> i(trackList);
-            if (!(trackList.size() == e->parts().size() * VOICES) && !trackList.isEmpty()) {
+            if (!(trackList.size() == e->nstaves() * VOICES) && !trackList.isEmpty()) {
                   while (i.hasNext()) {
                       i.next();
                       xml.tagE(QString("Tracklist sTrack=\"%1\" dstTrack=\"%2\"").arg(i.key()).arg(i.value()));
@@ -371,7 +377,7 @@ void Score::readStaff(XmlReader& e)
 ///   Return true if OK and false on error.
 //---------------------------------------------------------
 
-bool MasterScore::saveFile()
+bool MasterScore::saveFile(bool generateBackup)
       {
       if (readOnly())
             return false;
@@ -392,7 +398,21 @@ bool MasterScore::saveFile()
             MScore::lastError = tr("Open Temp File\n%1\nfailed: %2").arg(tempName, strerror(errno));
             return false;
             }
-      bool rv = suffix == "mscx" ? Score::saveFile(&temp, false) : Score::saveCompressedFile(&temp, info, false);
+
+      bool rv = false;
+      if ("mscx" == suffix) {
+           rv = Score::saveFile(&temp, false);
+            }
+#ifdef AVSOMR
+      else if ("msmr" == suffix) {
+            Avs::MsmrWriter msmrWriter;
+            rv = msmrWriter.saveMsmrFile(this, &temp, info);
+            }
+#endif
+      else {
+           rv = Score::saveCompressedFile(&temp, info, false);
+            }
+
       if (!rv) {
             return false;
             }
@@ -403,19 +423,46 @@ bool MasterScore::saveFile()
             }
       temp.close();
 
-      QString name(info.filePath());
-      QString basename(info.fileName());
+      const QString name(info.filePath());
+      const QString basename(info.fileName());
       QDir dir(info.path());
-      if (!saved()) {
+      if (!saved() && generateBackup) {
             // if file was already saved in this session
             // save but don't overwrite backup again
 
+            const QString backupSubdirString = preferences.getString(PREF_APP_BACKUP_SUBFOLDER);
+            const QString backupDirString = info.path() + QString(QDir::separator()) + backupSubdirString;
+            QDir backupDir(backupDirString);
+            if (!backupDir.exists()) {
+                  dir.mkdir(backupSubdirString);
+#ifdef Q_OS_WIN
+                  const QString backupDirNativePath = QDir::toNativeSeparators(backupDirString);
+#if (defined (_MSCVER) || defined (_MSC_VER))
+   #if (defined (UNICODE))
+                  SetFileAttributes((LPCTSTR)backupDirNativePath.unicode(), FILE_ATTRIBUTE_HIDDEN);
+   #else
+                  // Use byte-based Windows function
+                  SetFileAttributes((LPCTSTR)backupDirNativePath.toLocal8Bit(), FILE_ATTRIBUTE_HIDDEN);
+   #endif
+#else
+                  SetFileAttributes((LPCTSTR)backupDirNativePath.toLocal8Bit(), FILE_ATTRIBUTE_HIDDEN);
+#endif
+#endif
+                  }
+            const QString backupName = QString(".") + info.fileName() + QString(",");
+            if (backupDir.exists(backupName)) {
+                  if (!backupDir.remove(backupName)) {
+//                      if (!MScore::noGui)
+//                            QMessageBox::critical(0, QObject::tr("Save File"),
+//                               tr("Removing old backup file %1 failed").arg(backupName));
+                        }
+                  }
             //
             // step 2
-            // remove old backup file if exists
+            // backup files prior to 3.5 were saved in the same directory as the file itself.
+            // remove these old backup files if needed
             //
-            QString backupName = QString(".") + info.fileName() + QString(",");
-            if (dir.exists(backupName)) {
+            if (dir != backupDir && dir.exists(backupName)) {
                   if (!dir.remove(backupName)) {
 //                      if (!MScore::noGui)
 //                            QMessageBox::critical(0, QObject::tr("Save File"),
@@ -428,29 +475,15 @@ bool MasterScore::saveFile()
             // rename old file into backup
             //
             if (dir.exists(basename)) {
-                  if (!dir.rename(basename, backupName)) {
+                  if (!QFile::rename(name, backupDirString + (backupDirString.endsWith("/") ? "" : "/") + backupName)) {
 //                      if (!MScore::noGui)
 //                            QMessageBox::critical(0, tr("Save File"),
-//                               tr("Renaming old file <%1> to backup <%2> failed").arg(name, backupname);
+//                               tr("Renaming old file <%1> to backup <%2> failed").arg(name, backupDirString + "/" + backupName);
                         }
                   }
 
-            QFileInfo fileBackup(dir, backupName);
+            QFileInfo fileBackup(backupDir, backupName);
             _sessionStartBackupInfo = fileBackup;
-
-#ifdef Q_OS_WIN
-            QString backupNativePath = QDir::toNativeSeparators(fileBackup.absoluteFilePath());
-#if (defined (_MSCVER) || defined (_MSC_VER))
-   #if (defined (UNICODE))
-            SetFileAttributes((LPCTSTR)backupNativePath.unicode(), FILE_ATTRIBUTE_HIDDEN);
-   #else
-            // Use byte-based Windows function
-            SetFileAttributes((LPCTSTR)backupNativePath.toLocal8Bit(), FILE_ATTRIBUTE_HIDDEN);
-   #endif
-#else
-            SetFileAttributes((LPCTSTR)backupNativePath.toLocal8Bit(), FILE_ATTRIBUTE_HIDDEN);
-#endif
-#endif
             }
       else {
             // file has previously been saved - remove the old file
@@ -486,7 +519,7 @@ bool MasterScore::saveFile()
 //   saveCompressedFile
 //---------------------------------------------------------
 
-bool Score::saveCompressedFile(QFileInfo& info, bool onlySelection)
+bool Score::saveCompressedFile(QFileInfo& info, bool onlySelection, bool createThumbnail)
       {
       if (readOnly() && info == *masterScore()->fileInfo())
             return false;
@@ -495,7 +528,7 @@ bool Score::saveCompressedFile(QFileInfo& info, bool onlySelection)
             MScore::lastError = tr("Open File\n%1\nfailed: %2").arg(info.filePath(), strerror(errno));
             return false;
             }
-      return saveCompressedFile(&fp, info, onlySelection);
+      return saveCompressedFile(&fp, info, onlySelection, createThumbnail);
       }
 
 //---------------------------------------------------------
@@ -545,7 +578,7 @@ QImage Score::createThumbnail()
 //    file is already opened
 //---------------------------------------------------------
 
-bool Score::saveCompressedFile(QIODevice* f, QFileInfo& info, bool onlySelection, bool doCreateThumbnail)
+bool Score::saveCompressedFile(QIODevice* f, const QFileInfo& info, bool onlySelection, bool doCreateThumbnail)
       {
       MQZipWriter uz(f);
 
@@ -576,8 +609,11 @@ bool Score::saveCompressedFile(QIODevice* f, QFileInfo& info, bool onlySelection
       saveFile(&dbuf, true, onlySelection);
       dbuf.seek(0);
       uz.addFile(fn, dbuf.data());
-      // f->flush(); // flush to preserve score data in case of
-                     // any failures on the further operations.
+
+      QFileDevice* fd = dynamic_cast<QFileDevice*>(f);
+      if (fd) // if is file (may be buffer)
+            fd->flush(); // flush to preserve score data in case of
+                         // any failures on the further operations.
 
       // save images
       //uz.addDirectory("Pictures");
@@ -666,7 +702,7 @@ bool Score::loadStyle(const QString& fn, bool ign)
                   return true;
                   }
              else {
-                  MScore::lastError = tr("The style file is not compatible with this version of MuseScore.");
+                  MScore::lastError = QObject::tr("The style file is not compatible with this version of MuseScore.");
                   return false;
                   }
             }
@@ -697,7 +733,7 @@ bool Score::saveStyle(const QString& name)
       style().save(xml, false);     // save complete style
       xml.etag();
       if (f.error() != QFile::NoError) {
-            MScore::lastError = tr("Write Style failed: %1").arg(f.errorString());
+            MScore::lastError = QObject::tr("Write Style failed: %1").arg(f.errorString());
             return false;
             }
       return true;
@@ -815,8 +851,6 @@ Score::FileError MasterScore::loadCompressedMsc(QIODevice* io, bool ignoreVersio
                   }
             }
       XmlReader e(dbuf);
-      QBuffer readAheadBuf(&dbuf);
-      e.setReadAheadDevice(&readAheadBuf);
       e.setDocName(masterScore()->fileInfo()->completeBaseName());
 
       FileError retval = read1(e, ignoreVersionError);
@@ -870,11 +904,10 @@ Score::FileError MasterScore::loadMsc(QString name, QIODevice* io, bool ignoreVe
       ScoreLoad sl;
       fileInfo()->setFile(name);
 
-      if (name.endsWith(".mscz"))
+      if (name.endsWith(".mscz") || name.endsWith(".mscz,"))
             return loadCompressedMsc(io, ignoreVersionError);
       else {
             XmlReader r(io);
-            r.setReadAheadDevice(io);
             return read1(r, ignoreVersionError);
             }
       }

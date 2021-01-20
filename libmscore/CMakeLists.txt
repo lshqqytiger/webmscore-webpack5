@@ -35,6 +35,7 @@ endif (NOT MSVC)
 
 include_directories(
       ${PROJECT_SOURCE_DIR}/thirdparty/dtl
+      ${PROJECT_SOURCE_DIR}/global
       )
 
 add_executable (
@@ -44,30 +45,30 @@ add_executable (
 
       ../mscore/globals.h
       types.h accidental.h ambitus.h arpeggio.h articulation.h audio.h bagpembell.h barline.h beam.h bend.h
-      box.h bracket.h bracketItem.h breath.h bsp.h bsymbol.h chord.h chordline.h chordlist.h chordrest.h clef.h
+      box.h bracket.h bracketItem.h breath.h bsp.h bsymbol.h changeMap.h chord.h chordline.h chordlist.h chordrest.h clef.h
       cleflist.h connector.h drumset.h dsp.h duration.h durationtype.h dynamic.h element.h
       elementmap.h excerpt.h fermata.h fifo.h figuredbass.h fingering.h fraction.h fret.h glissando.h groups.h hairpin.h
       harmony.h hook.h icon.h image.h imageStore.h iname.h input.h instrchange.h instrtemplate.h instrument.h interval.h
       jump.h key.h keylist.h keysig.h lasso.h layout.h layoutbreak.h ledgerline.h letring.h line.h location.h
       lyrics.h marker.h mcursor.h measure.h measurebase.h mscore.h mscoreview.h musescoreCore.h navigate.h note.h notedot.h
       noteevent.h noteline.h ossia.h ottava.h page.h palmmute.h part.h pedal.h pitch.h pitchspelling.h pitchvalue.h
-      pos.h property.h range.h read206.h rehearsalmark.h repeat.h repeatlist.h rest.h revisions.h score.h scoreElement.h segment.h
+      pos.h property.h range.h read206.h realizedharmony.h rehearsalmark.h repeat.h repeatlist.h rest.h revisions.h score.h scoreElement.h segment.h
       segmentlist.h select.h sequencer.h shadownote.h shape.h sig.h slur.h slurtie.h spacer.h spanner.h spannermap.h spatium.h
       staff.h stafflines.h staffstate.h stafftext.h stafftextbase.h stafftype.h stafftypechange.h stafftypelist.h stem.h
       stemslash.h stringdata.h style.h sym.h symbol.h synthesizerstate.h system.h systemdivider.h systemtext.h tempo.h
       tempotext.h text.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
-      tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h velo.h vibrato.h volta.h xml.h
-      ../mscore/musicxml.h ../mscore/importxmlfirstpass.h ../mscore/musicxmlfonthandler.h ../mscore/musicxmlsupport.h 
+      tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h vibrato.h volta.h xml.h
+      ../importexport/musicxml/musicxml.h ../importexport/musicxml/importxmlfirstpass.h ../importexport/musicxml/musicxmlfonthandler.h ../importexport/musicxml/musicxmlsupport.h 
       ../mscore/svggenerator.h
-      ../mscore/exportmidi.h
+      ../audio/exports/exportmidi.h
       exports.h
 
       segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp
       fermata.cpp articulation.cpp barline.cpp beam.cpp bend.cpp box.cpp
-      bracket.cpp breath.cpp bsp.cpp chord.cpp chordline.cpp
+      bracket.cpp breath.cpp bsp.cpp changeMap.cpp chord.cpp chordline.cpp
       chordlist.cpp chordrest.cpp clef.cpp cleflist.cpp
-      drumset.cpp durationtype.cpp dynamic.cpp edit.cpp noteentry.cpp
-      element.cpp excerpt.cpp
+      drumset.cpp durationtype.cpp dynamic.cpp dynamichairpingroup.cpp edit.cpp noteentry.cpp
+      element.cpp elementgroup.cpp excerpt.cpp
       fifo.cpp fret.cpp glissando.cpp hairpin.cpp
       harmony.cpp hook.cpp image.cpp iname.cpp instrchange.cpp
       instrtemplate.cpp instrument.cpp interval.cpp
@@ -82,7 +83,7 @@ add_executable (
       sym.cpp system.cpp stringdata.cpp tempotext.cpp text.cpp measurenumber.cpp textbase.cpp textedit.cpp
       textframe.cpp textline.cpp textlinebase.cpp timesig.cpp
       tremolobar.cpp tremolo.cpp trill.cpp tuplet.cpp
-      utils.cpp velo.cpp volta.cpp xmlreader.cpp xmlwriter.cpp mscore.cpp
+      utils.cpp volta.cpp xmlreader.cpp xmlwriter.cpp mscore.cpp
       undo.cpp cmd.cpp scorefile.cpp revisions.cpp
       check.cpp input.cpp icon.cpp ossia.cpp
       tempo.cpp sig.cpp pos.cpp duration.cpp
@@ -98,22 +99,26 @@ add_executable (
       sticking.cpp
       read114.cpp
       read206.cpp
-      read301.cpp stafftypelist.cpp stafftypechange.cpp
+      read301.cpp realizedharmony.cpp stafftypelist.cpp stafftypechange.cpp
       bracketItem.cpp
       lyricsline.cpp
       layoutlinear.cpp
       connector.cpp location.cpp skyline.cpp
       scorediff.cpp
       unrollrepeats.cpp
-      ../synthesizer/event.cpp
-      ../mscore/exportxml.cpp ../mscore/importxmlfirstpass.cpp ../mscore/musicxmlfonthandler.cpp ../mscore/musicxmlsupport.cpp
+      # ../synthesizer/event.cpp
+      ../importexport/musicxml/exportxml.cpp ../importexport/musicxml/importxmlfirstpass.cpp ../importexport/musicxml/musicxmlfonthandler.cpp ../importexport/musicxml/musicxmlsupport.cpp
       ../mscore/svggenerator.cpp
-      ../mscore/exportmidi.cpp
+      ../audio/exports/exportmidi.cpp
       ../mscore/exportaudio.cpp
       ../mscore/savePositions.cpp
       ../mscore/file.cpp
       ../web/main.cpp
       )
+
+if (AVSOMR)
+    target_link_libraries(libmscore avsomr)
+endif (AVSOMR)
 
 ##
 ## Code coverage. Only affects DEBUG builds.
@@ -158,8 +163,7 @@ endif (NOT MSVC)
 target_link_libraries(webmscore  
    ${QT_LIBRARIES}
    qzip
-   midi
-   fluid
+   audio
    effects
    audiofile
    sndfile

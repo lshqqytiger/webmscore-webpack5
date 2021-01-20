@@ -200,7 +200,10 @@ bool Score::read(XmlReader& e)
             qDebug("%s: xml read error at line %lld col %lld: %s",
                qPrintable(e.getDocName()), e.lineNumber(), e.columnNumber(),
                e.name().toUtf8().data());
-            MScore::lastError = QObject::tr("XML read error at line %1, column %2: %3").arg(e.lineNumber()).arg(e.columnNumber()).arg(e.name().toString());
+            if (e.error() == QXmlStreamReader::CustomError)
+                  MScore::lastError = e.errorString();
+            else
+                  MScore::lastError = QObject::tr("XML read error at line %1, column %2: %3").arg(e.lineNumber()).arg(e.columnNumber()).arg(e.name().toString());
             return false;
             }
 
@@ -262,8 +265,14 @@ bool Score::read(XmlReader& e)
             masterScore()->setShowOmr(false);
 
       fixTicks();
+
+      for (Part* p : _parts) {
+            p->updateHarmonyChannels(false);
+            }
+
       masterScore()->rebuildMidiMapping();
       masterScore()->updateChannel();
+
 //      createPlayEvents();
       return true;
       }
@@ -326,8 +335,11 @@ Score::FileError MasterScore::read301(XmlReader& e)
                         score->setMscVersion(mscVersion());
                         addMovement(score);
                         }
-                  if (!score->read(e))
+                  if (!score->read(e)) {
+                        if (e.error() == QXmlStreamReader::CustomError)
+                              return FileError::FILE_CRITICALLY_CORRUPTED;
                         return FileError::FILE_BAD_FORMAT;
+                        }
                   }
             else if (tag == "Revision") {
                   Revision* revision = new Revision;

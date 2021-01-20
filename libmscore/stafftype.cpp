@@ -221,7 +221,7 @@ void StaffType::write(XmlWriter& xml) const
       if (!_genTimesig)
             xml.tag("timesig", _genTimesig);
       if (_group == StaffGroup::STANDARD) {
-            xml.tag("noteheadScheme", StaffType::scheme2name(_noteHeadScheme), StaffType::scheme2name(NoteHeadScheme::HEAD_NORMAL));
+            xml.tag("noteheadScheme", NoteHead::scheme2name(_noteHeadScheme), NoteHead::scheme2name(NoteHead::Scheme::HEAD_NORMAL));
             }
       if (_group == StaffGroup::STANDARD || _group == StaffGroup::PERCUSSION) {
             if (!_genKeysig)
@@ -305,7 +305,7 @@ void StaffType::read(XmlReader& e)
             else if (tag == "timesig")
                   setGenTimesig(e.readInt());
             else if (tag == "noteheadScheme")
-                  setNoteHeadScheme(StaffType::name2scheme(e.readElementText()));
+                  setNoteHeadScheme(NoteHead::name2scheme(e.readElementText()));
             else if (tag == "keysig")
                   _genKeysig = e.readInt();
             else if (tag == "ledgerlines")
@@ -358,24 +358,7 @@ void StaffType::read(XmlReader& e)
 
 qreal StaffType::doty1() const
       {
-      switch(_lines) {
-            case 1:
-                  return -_lineDistance.val() * .5;
-            case 2:
-                  return -_lineDistance.val() * .5;
-            case 3:
-                  return _lineDistance.val() * .5;
-            case 4:
-                  return _lineDistance.val() * .5;
-            case 5:
-                  return _lineDistance.val() * 1.5;
-            case 6:
-                  return _lineDistance.val() * 1.5;
-            default:
-                  qDebug("StaffType::doty1(): lines %d unsupported", _lines);
-                  break;
-            }
-      return 0.0;
+      return _lineDistance.val() * (static_cast<qreal>((_lines - 1)/2) - 0.5);
       }
 
 //---------------------------------------------------------
@@ -385,24 +368,7 @@ qreal StaffType::doty1() const
 
 qreal StaffType::doty2() const
       {
-      switch(_lines) {
-            case 1:
-                  return _lineDistance.val() * .5;
-            case 2:
-                  return _lineDistance.val() * 1.5;
-            case 3:
-                  return _lineDistance.val() * 1.5;
-            case 4:
-                  return _lineDistance.val() * 2.5;
-            case 5:
-                  return _lineDistance.val() * 2.5;
-            case 6:
-                  return _lineDistance.val() * 3.5;
-            default:
-                  qDebug("StaffType::doty2(): lines %d unsupported", _lines);
-                  break;
-            }
-      return 0.0;
+      return _lineDistance.val() * (static_cast<qreal>(_lines/2) + 0.5);
       }
 
 //---------------------------------------------------------
@@ -937,7 +903,7 @@ void TabDurationSymbol::layout()
                   _beamLength = 0.0;
                   }
             else if (chord->beamMode() == Beam::Mode::MID || chord->beamMode() == Beam::Mode::END) {
-                  _beamLevel  = (int)(chord->durationType().type()) - (int)(font.zeroBeamLevel);
+                  _beamLevel  = static_cast<int>(chord->durationType().type()) - static_cast<int>(font.zeroBeamLevel);
                   _beamGrid   = (_beamLevel < 1 ? TabBeamGrid::INITIAL : TabBeamGrid::MEDIALFINAL);
                   // _beamLength and bbox x and width will be set in layout2(),
                   // once horiz. positions of chords are known
@@ -1142,6 +1108,10 @@ bool TablatureDurationFont::read(XmlReader& e)
                         zeroBeamLevel = TDuration::DurationType::V_128TH;
                   else if (val == "256")
                         zeroBeamLevel = TDuration::DurationType::V_256TH;
+                  else if (val == "512")
+                        zeroBeamLevel = TDuration::DurationType::V_512TH;
+                  else if (val == "1024")
+                        zeroBeamLevel = TDuration::DurationType::V_1024TH;
                   else
                         e.unknown();
                   }
@@ -1171,6 +1141,10 @@ bool TablatureDurationFont::read(XmlReader& e)
                         displayValue[int(TabVal::VAL_128)] = chr;
                   else if (val == "256")
                         displayValue[int(TabVal::VAL_256)] = chr;
+                  else if (val == "512")
+                        displayValue[int(TabVal::VAL_512)] = chr;
+                  else if (val == "1024")
+                        displayValue[int(TabVal::VAL_1024)] = chr;
                   else if (val == "dot")
                         displayDot = chr;
                   else
@@ -1328,7 +1302,7 @@ const StaffType* StaffType::preset(StaffTypes idx)
 
 const StaffType* StaffType::presetFromXmlName(QString& xmlName)
       {
-      for (int i = 0; i < int(_presets.size()); ++i) {
+      for (size_t i = 0; i < _presets.size(); ++i) {
             if (_presets[i].xmlName() == xmlName)
                   return &_presets[i];
             }
@@ -1337,7 +1311,7 @@ const StaffType* StaffType::presetFromXmlName(QString& xmlName)
 #if 0
 const StaffType* StaffType::presetFromName(QString& name)
       {
-      for (int i = 0; i < (int)_presets.size(); ++i) {
+      for (size_t i = 0; i < _presets.size(); ++i) {
             if (_presets[i].name() == name)
                   return &_presets[i];
             }
@@ -1348,46 +1322,6 @@ const StaffType* StaffType::getDefaultPreset(StaffGroup grp)
       {
       int _idx = _defaultPreset[int(grp)];
       return &_presets[_idx];
-      }
-
-//---------------------------------------------------------
-//   NoteHeadScheme utils
-//---------------------------------------------------------
-
-struct NoteHeadSchemeName {
-      const char* name;
-      const char* username;
-      };
-
-static NoteHeadSchemeName noteHeadSchemeNames[] = {
-      {"normal",              QT_TRANSLATE_NOOP("noteheadschemes", "Normal") },
-      {"name-pitch",          QT_TRANSLATE_NOOP("noteheadschemes", "Pitch Names") },
-      {"name-pitch-german",   QT_TRANSLATE_NOOP("noteheadschemes", "German Pitch Names") },
-      {"solfege-movable",     QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Movable Do") }, // &egrave;
-      {"solfege-fixed",       QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Fixed Do") },   // &egrave;
-      {"shape-4",             QT_TRANSLATE_NOOP("noteheadschemes", "4-shape (Walker)") },
-      {"shape-7-aikin",       QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Aikin)") },
-      {"shape-7-funk",        QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Funk)") },
-      {"shape-7-walker",      QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Walker)") }
-      };
-
-QString StaffType::scheme2userName(NoteHeadScheme ns)
-      {
-      return qApp->translate("noteheadschemes", noteHeadSchemeNames[int(ns)].username);
-      }
-
-QString StaffType::scheme2name(NoteHeadScheme ns)
-      {
-      return noteHeadSchemeNames[int(ns)].name;
-      }
-
-NoteHeadScheme StaffType::name2scheme(QString name)
-      {
-      for (int i = 0; i < int(NoteHeadScheme::HEAD_SCHEMES); ++i) {
-            if (noteHeadSchemeNames[i].name == name)
-                  return NoteHeadScheme(i);
-            }
-      return NoteHeadScheme::HEAD_NORMAL;
       }
 
 //---------------------------------------------------------

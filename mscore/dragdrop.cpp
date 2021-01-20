@@ -48,12 +48,9 @@ void ScoreView::setDropTarget(const Element* el)
                   dropTarget->setDropTarget(true);
                   }
             }
-      if (!dropAnchor.isNull()) {
-            QRectF r;
-            r.setTopLeft(dropAnchor.p1());
-            r.setBottomRight(dropAnchor.p2());
-            dropAnchor = QLineF();
-            }
+      if (!m_dropAnchorLines.isEmpty())
+            m_dropAnchorLines.clear();
+
       if (dropRectangle.isValid()) {
             dropRectangle = QRectF();
             }
@@ -74,46 +71,28 @@ void ScoreView::setDropRectangle(const QRectF& r)
             _score->addRefresh(dropTarget->canvasBoundingRect());
             dropTarget = 0;
             }
-      else if (!dropAnchor.isNull()) {
+      else if (!m_dropAnchorLines.isEmpty()) {
             QRectF rf;
-            rf.setTopLeft(dropAnchor.p1());
-            rf.setBottomRight(dropAnchor.p2());
+            rf.setTopLeft(m_dropAnchorLines.first().p1());
+            rf.setBottomRight(m_dropAnchorLines.first().p2());
             _score->addRefresh(rf.normalized());
-            dropAnchor = QLineF();
+            m_dropAnchorLines.clear();
             }
-//      _score->addRefresh(r);
+
       update();
       }
 
 //---------------------------------------------------------
-//   setDropAnchor
+//   setDropAnchorList
 //---------------------------------------------------------
-
-void ScoreView::setDropAnchor(const QLineF& l)
+void ScoreView::setDropAnchorLines(const QVector<QLineF>& anchorList)
       {
-      if (!dropAnchor.isNull()) {
-            qreal w = 2 / _matrix.m11();
-            QRectF r;
-            r.setTopLeft(dropAnchor.p1());
-            r.setBottomRight(dropAnchor.p2());
-            r = r.normalized();
-            r.adjust(-w, -w, 2*w, 2*w);
-//            _score->addRefresh(r);
-            }
-      if (dropRectangle.isValid()) {
-//            _score->addRefresh(dropRectangle);
+      if (m_dropAnchorLines != anchorList)
+            m_dropAnchorLines = anchorList;
+
+      if (dropRectangle.isValid())
             dropRectangle = QRectF();
-            }
-      dropAnchor = l;
-      if (!dropAnchor.isNull()) {
-            qreal w = 2 / _matrix.m11();
-            QRectF r;
-            r.setTopLeft(dropAnchor.p1());
-            r.setBottomRight(dropAnchor.p2());
-            r = r.normalized();
-            r.adjust(-w, -w, 2*w, 2*w);
-//            _score->addRefresh(r);
-            }
+
       update();
       }
 
@@ -155,7 +134,7 @@ bool ScoreView::dragTimeAnchorElement(const QPointF& pos)
             System* s  = m->system();
             qreal y    = s->staff(staffIdx)->y() + s->pos().y() + s->page()->pos().y();
             QPointF anchor(seg->canvasBoundingRect().x(), y);
-            setDropAnchor(QLineF(pos, anchor));
+            setDropAnchorLines({ QLineF(pos, anchor) });
             editData.dropElement->score()->addRefresh(editData.dropElement->canvasBoundingRect());
             editData.dropElement->setTrack(track);
             editData.dropElement->score()->addRefresh(editData.dropElement->canvasBoundingRect());
@@ -187,7 +166,7 @@ bool ScoreView::dragMeasureAnchorElement(const QPointF& pos)
             if (pos.x() >= (b.x() + b.width() * .5) && m != _score->lastMeasureMM() && m->nextMeasure()->system() == m->system())
                   m = m->nextMeasure();
             QPointF anchor(m->canvasBoundingRect().x(), y);
-            setDropAnchor(QLineF(pos, anchor));
+            setDropAnchorLines({ QLineF(pos, anchor) });
             editData.dropElement->score()->addRefresh(editData.dropElement->canvasBoundingRect());
             editData.dropElement->setTrack(track);
             editData.dropElement->score()->addRefresh(editData.dropElement->canvasBoundingRect());
@@ -382,6 +361,7 @@ void ScoreView::dragMoveEvent(QDragMoveEvent* event)
             case ElementType::ARPEGGIO:
             case ElementType::BREATH:
             case ElementType::GLISSANDO:
+            case ElementType::MEASURE_NUMBER:
             case ElementType::BRACKET:
             case ElementType::ARTICULATION:
             case ElementType::FERMATA:
@@ -521,6 +501,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                   case ElementType::ARPEGGIO:
                   case ElementType::BREATH:
                   case ElementType::GLISSANDO:
+                  case ElementType::MEASURE_NUMBER:
                   case ElementType::BRACKET:
                   case ElementType::ARTICULATION:
                   case ElementType::FERMATA:
@@ -562,7 +543,7 @@ void ScoreView::dropEvent(QDropEvent* event)
                               }
                         _score->addRefresh(el->canvasBoundingRect());
 
-                        // HACK ALERT!
+                        // TODO: HACK ALERT!
                         if (el->isMeasure() && editData.dropElement->isLayoutBreak()) {
                               Measure* m = toMeasure(el);
                               if (m->isMMRest())
@@ -570,6 +551,9 @@ void ScoreView::dropEvent(QDropEvent* event)
                               }
 
                         Element* dropElement = el->drop(editData);
+                        if (dropElement && dropElement->isInstrumentChange()) {
+                              mscore->currentScoreView()->selectInstrument(toInstrumentChange(dropElement));
+                              }
                         _score->addRefresh(el->canvasBoundingRect());
                         if (dropElement) {
                               if (!_score->noteEntryMode())
@@ -692,5 +676,5 @@ bool ScoreView::dropCanvas(Element* e)
       return false;
       }
 
-}
+} // namespace Ms
 

@@ -13,14 +13,16 @@
 #ifndef __INSTRUMENT_H__
 #define __INSTRUMENT_H__
 
+#include <QtGlobal>
+#include <QString>
+
 #include "stringdata.h"
 #include "mscore.h"
 #include "notifier.hpp"
-#include "synthesizer/event.h"
 #include "interval.h"
 #include "clef.h"
-#include <QtGlobal>
-#include <QString>
+
+#include "audio/midi/event.h"
 
 namespace Ms {
 
@@ -131,6 +133,7 @@ class Channel {
 
 public:
       static const char* DEFAULT_NAME;
+      static const char* HARMONY_NAME;
       static constexpr char defaultVolume = 100;
 
       enum class A : char {
@@ -279,9 +282,11 @@ class Instrument {
       NamedEventList* midiAction(const QString& s, int channel) const;
       int channelIdx(const QString& s) const;
       void updateVelocity(int* velocity, int channel, const QString& name);
+      qreal getVelocityMultiplier(const QString& name);
       void updateGateTime(int* gateTime, int channelIdx, const QString& name);
 
       bool operator==(const Instrument&) const;
+      bool isDifferentInstrument(const Instrument& i) const;
 
       void setMinPitchP(int v)                               { _minPitchP = v;     }
       void setMaxPitchP(int v)                               { _maxPitchP = v;     }
@@ -311,6 +316,7 @@ class Instrument {
 
       const QList<Channel*>& channel() const                 { return _channel; }
       void appendChannel(Channel* c)                         { _channel.append(c); }
+      void removeChannel(Channel* c)                         { _channel.removeOne(c);}
       void clearChannels()                                   { _channel.clear(); }
 
       void setMidiActions(const QList<NamedEventList>& l)    { _midiActions = l;  }

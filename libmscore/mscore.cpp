@@ -94,9 +94,11 @@ QColor  MScore::frameMarginColor;
 QColor  MScore::bgColor;
 QColor  MScore::dropColor;
 bool    MScore::warnPitchRange;
+int     MScore::pedalEventsMinTicks;
 
 bool    MScore::playRepeats;
 bool    MScore::panPlayback;
+int     MScore::playbackSpeedIncrement;
 qreal   MScore::nudgeStep;
 qreal   MScore::nudgeStep10;
 qreal   MScore::nudgeStep50;
@@ -126,12 +128,12 @@ extern QString mscoreGlobalShare;
 std::vector<MScoreError> MScore::errorList {
       { MS_NO_ERROR,                     0,    0                                                                           },
 
-      { NO_NOTE_SELECTED,                "s1", QT_TRANSLATE_NOOP("error", "No note selected:\nPlease select a note and retry\n")                   },
+      { NO_NOTE_SELECTED,                "s1", QT_TRANSLATE_NOOP("error", "No note selected:\nPlease select a note and retry")                     },
       { NO_CHORD_REST_SELECTED,          "s2", QT_TRANSLATE_NOOP("error", "No chord/rest selected:\nPlease select a chord or rest and retry")      },
       { NO_LYRICS_SELECTED,              "s3", QT_TRANSLATE_NOOP("error", "No note or lyrics selected:\nPlease select a note or lyrics and retry") },
       { NO_NOTE_REST_SELECTED,           "s4", QT_TRANSLATE_NOOP("error", "No note or rest selected:\nPlease select a note or rest and retry")     },
-      { NO_NOTE_SLUR_SELECTED,           "s5", QT_TRANSLATE_NOOP("error", "No note or slur selected:\nPlease select a note or slur and retry")     },
-      { NO_STAFF_SELECTED,               "s6", QT_TRANSLATE_NOOP("error", "No staff selected:\nPlease select one or more staves and retry\n")      },
+      { NO_FLIPPABLE_SELECTED,           "s5", QT_TRANSLATE_NOOP("error", "No flippable element selected:\nPlease select an element that can be flipped and retry") },
+      { NO_STAFF_SELECTED,               "s6", QT_TRANSLATE_NOOP("error", "No staff selected:\nPlease select one or more staves and retry")        },
       { NO_NOTE_FIGUREDBASS_SELECTED,    "s7", QT_TRANSLATE_NOOP("error", "No note or figured bass selected:\nPlease select a note or figured bass and retry") },
 
       { CANNOT_INSERT_TUPLET,            "t1", QT_TRANSLATE_NOOP("error", "Cannot insert chord/rest in tuplet")                                    },
@@ -304,12 +306,14 @@ void MScore::init()
       selectColor[2].setNamedColor("#C53F00");   //orange
       selectColor[3].setNamedColor("#C31989");   //purple
 
-      defaultColor        = Qt::black;
-      dropColor           = QColor("#1778db");
-      defaultPlayDuration = 300;      // ms
-      warnPitchRange      = true;
-      playRepeats         = true;
-      panPlayback         = true;
+      defaultColor           = Qt::black;
+      dropColor              = QColor("#1778db");
+      defaultPlayDuration    = 300;      // ms
+      warnPitchRange         = true;
+      pedalEventsMinTicks    = 1;
+      playRepeats            = true;
+      panPlayback            = true;
+      playbackSpeedIncrement = 5;
 
       lastError           = "";
 
@@ -372,6 +376,19 @@ void MScore::init()
             QString str(fonts[i]);
             if (-1 == QFontDatabase::addApplicationFont(str)) {
                   qDebug("Mscore: fatal error: cannot load internal font <%s>", qPrintable(str));
+            }
+      }
+#endif
+// Workaround for QTBUG-73241 (solved in Qt 5.12.2) in Windows 10, see https://musescore.org/en/node/280244
+#if defined(Q_OS_WIN) && (QT_VERSION < QT_VERSION_CHECK(5, 12, 2))
+if (QOperatingSystemVersion::current().majorVersion() >= 10) {
+      const QDir additionalFontsDir(QString("%1/Microsoft/Windows/Fonts").arg(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)));
+      if (additionalFontsDir.exists()) {
+            QFileInfoList fileList = additionalFontsDir.entryInfoList();
+            for (int i = 0; i < fileList.size(); ++i) {
+                  QFileInfo fileInfo = fileList.at(i);
+                  QFontDatabase::addApplicationFont(fileInfo.filePath());
+                  }
             }
       }
 #endif

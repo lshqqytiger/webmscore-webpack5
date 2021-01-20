@@ -68,6 +68,9 @@
         <Channel>
           <program value="73"/>
           </Channel>
+        <Channel name="harmony">
+          <program value="0"/>
+          </Channel>
         </Instrument>
       </Part>
     <Staff id="1">
@@ -177,6 +180,9 @@
             </Articulation>
           <Channel>
             <program value="73"/>
+            </Channel>
+          <Channel name="harmony">
+            <program value="0"/>
             </Channel>
           </Instrument>
         </Part>

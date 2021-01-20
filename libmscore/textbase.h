@@ -137,11 +137,18 @@ class TextCursor {
       void moveCursorToEnd()   { movePosition(QTextCursor::End);   }
       void moveCursorToStart() { movePosition(QTextCursor::Start); }
       QChar currentCharacter() const;
+      QString currentWord() const;
+      QString currentLine() const;
       bool set(const QPointF& p, QTextCursor::MoveMode mode = QTextCursor::MoveAnchor);
       QString selectedText() const;
+      QString extractText(int r1, int c1, int r2, int c2) const;
       void updateCursorFormat();
       void setFormat(FormatId, QVariant);
       void changeSelectionFormat(FormatId id, QVariant val);
+
+   private:
+      QString accessibleCurrentCharacter() const;
+      void accessibileMessage(QString& accMsg, int oldRow, int oldCol, QString oldSelection, QTextCursor::MoveMode mode) const;
       };
 
 //---------------------------------------------------------
@@ -190,14 +197,17 @@ class TextBlock {
       void layout(TextBase*);
       const QList<TextFragment>& fragments() const { return _fragments; }
       QList<TextFragment>& fragments()             { return _fragments; }
+      QList<TextFragment>* fragmentsWithoutEmpty();
       const QRectF& boundingRect() const           { return _bbox; }
       QRectF boundingRect(int col1, int col2, const TextBase*) const;
       int columns() const;
       void insert(TextCursor*, const QString&);
-      QString remove(int column);
-      QString remove(int start, int n);
+      void insertEmptyFragmentIfNeeded(TextCursor*);
+      void removeEmptyFragment();
+      QString remove(int column, TextCursor*);
+      QString remove(int start, int n, TextCursor*);
       int column(qreal x, TextBase*) const;
-      TextBlock split(int column);
+      TextBlock split(int column, TextCursor* cursor);
       qreal xpos(int col, const TextBase*) const;
       const CharFormat* formatAt(int) const;
       const TextFragment* fragment(int col) const;
@@ -249,6 +259,7 @@ class TextBase : public Element {
       void genText() const;
       virtual int getPropertyFlagsIdx(Pid id) const override;
       QString stripText(bool, bool, bool) const;
+      Sid offsetSid() const;
 
    protected:
       QColor textColor() const;
@@ -270,7 +281,8 @@ class TextBase : public Element {
       virtual void draw(QPainter*) const override;
       virtual void drawEditMode(QPainter* p, EditData& ed) override;
 
-      void setPlainText(const QString&);
+      static QString plainToXmlText(const QString& s) { return s.toHtmlEscaped(); }
+      void setPlainText(const QString& t) { setXmlText(plainToXmlText(t)); }
       void setXmlText(const QString&);
       QString xmlText() const;
       QString plainText() const;
@@ -316,7 +328,7 @@ class TextBase : public Element {
 
       void dragTo(EditData&);
 
-      virtual QLineF dragAnchor() const override;
+      QVector<QLineF> dragAnchorLines() const override;
 
       virtual bool acceptDrop(EditData&) const override;
       virtual Element* drop(EditData&) override;

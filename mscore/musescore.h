@@ -45,6 +45,7 @@ class Instrument;
 class MidiFile;
 class TextStyleDialog;
 class PlayPanel;
+class IPlayPanel;
 class Mixer;
 class Debugger;
 class MeasureListEditor;
@@ -56,7 +57,7 @@ class Palette;
 class PaletteScrollArea;
 class SelectionWindow;
 class XmlWriter;
-class MagBox;
+class ZoomBox;
 class NewWizard;
 class ExcerptsDialog;
 class SynthControl;
@@ -115,7 +116,7 @@ class QmlDockWidget;
 struct PluginDescription;
 enum class SelState : char;
 enum class IconType : signed char;
-enum class MagIdx : char;
+enum class ZoomIndex : char;
 
 extern QString mscoreGlobalShare;
 extern QString revision;
@@ -170,6 +171,8 @@ class MuseScoreApplication : public QtSingleApplication {
             };
       static CommandLineParseResult parseCommandLineArguments(MuseScoreApplication* app);
       static MuseScoreApplication* initApplication(int& argc, char** argv);
+
+      static bool setCustomConfigFolder(const QString& path);
       };
 
 
@@ -212,8 +215,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       ScoreComparisonTool* scoreCmpTool    { 0 };
       ScriptRecorderWidget* scriptRecorder { nullptr };
 
-      MagBox* mag;
-      QComboBox* viewModeCombo;
+      ZoomBox* zoomBox                     { nullptr };
+      QComboBox* viewModeCombo             { nullptr };
       QAction* playId;
 
       QAction* pref;
@@ -315,7 +318,6 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       QPushButton* showMidiImportButton {0};
 
-      bool _midiinEnabled            { true };
       QList<QString> plugins;
       QString pluginPath;
 
@@ -425,7 +427,6 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void editInstrList();
       void symbolMenu();
       void showKeyEditor();
-      bool saveFile();
       bool saveFile(MasterScore* score);
       void fingeringMenu();
 
@@ -433,7 +434,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       int  pluginIdxFromPath(QString pluginPath);
 #endif
       void startDebugger();
-      void midiinToggled(bool);
+      void enableMidiIn(bool);
       void undoRedo(bool undo);
       void showPalette(bool);
       void showInspector(bool);
@@ -456,12 +457,21 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void updateUndoRedo();
       void changeScore(int);
       virtual void resizeEvent(QResizeEvent*);
-      void showModeText(const QString&);
+      void showModeText(const QString& s, bool informScreenReader = true);
       void addRecentScore(const QString& scorePath);
 
+      void setZoom(const ZoomIndex, const qreal logicalFreeZoomLevel = 0.0);
+      void setZoomWithToggle(const ZoomIndex index);
+      void zoomBySteps(const qreal numSteps);
+      void zoomAndSavePrevious(const std::function<void(void)>& zoomFunction);
+
       void updateViewModeCombo();
+
       void switchLayoutMode(LayoutMode);
       void setPlayRepeats(bool repeat);
+      void setPanPlayback(bool pan);
+
+      void createPlayPanel();
 
       ScoreTab* createScoreTab();
       void askResetOldScorePositions(Score* score);
@@ -469,6 +479,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       QString getUtmParameters(QString medium) const;
 
       void checkForUpdatesNoUI();
+
+      void doLoadFiles(const QStringList& filter, bool switchTab, bool singleFile);
 
    signals:
       void windowSplit(bool);
@@ -490,12 +502,12 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void openRecentMenu();
       void selectScore(QAction*);
       void startPreferenceDialog();
-      void preferencesChanged(bool fromWorkspace = false);
+      void preferencesChanged(bool fromWorkspace = false, bool changeUI = true);
       void seqStarted();
       void seqStopped();
       void cmdAppendMeasures();
       void cmdInsertMeasures();
-      void magChanged(MagIdx);
+      void zoomBoxChanged(const ZoomIndex, const qreal);
       void showPageSettings();
       void removeTab(int);
       void removeTab();
@@ -573,6 +585,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       MuseScore();
       ~MuseScore();
       bool checkDirty(MasterScore*);
+      IPlayPanel* playPanelInterface() const;
       PlayPanel* getPlayPanel() const { return playPanel; }
       Mixer* getMixer() const { return mixer; }
       QMenu* genCreateMenu(QWidget* parent = 0);
@@ -580,10 +593,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void midiCtrlReceived(int controller, int value);
       void showElementContext(Element* el);
       void cmdAppendMeasures(int);
-      bool midiinEnabled() const;
+      bool isMidiInEnabled() const;
 
-      void incMag();
-      void decMag();
       void readSettings();
       void writeSettings();
       void play(Element* e) const;
@@ -591,8 +602,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       bool loadPlugin(const QString& filename);
       QString createDefaultName() const;
       void startAutoSave();
-      double getMag(ScoreView*) const;
-      void setMag(double);
+      void updateZoomBox(const ZoomIndex, const qreal logicalLevel);
       bool noScore() const { return scoreList.isEmpty(); }
 
       TextTools* textTools();
@@ -615,6 +625,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       QString lastSaveCopyFormat;
       QString lastSaveDirectory;
       QString lastSaveCaptureName;
+      bool saveFile();
       SynthControl* getSynthControl() const       { return synthControl; }
       void editInPianoroll(Staff* staff, Position* p = 0);
       void editInDrumroll(Staff* staff);
@@ -694,6 +705,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void selectSimilarInRange(Element* e);
       void selectElementDialog(Element* e);
       void transpose();
+      void realizeChordSymbols();
 
       Q_INVOKABLE void openExternalLink(const QString&);
 
@@ -764,7 +776,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       bool countIn() const           { return countInAction->isChecked(); }
       bool panDuringPlayback() const { return panAction->isChecked(); }
       void noteTooShortForTupletDialog();
-      void loadFiles(bool switchTab = true, bool singleFile = false);
+      void openFiles(bool switchTab = true, bool singleFile = false);
+      void importScore(bool switchTab = true, bool singleFile = false);
                   // midi panel functions
       void midiPanelOnSwitchToFile(const QString &file);
       void midiPanelOnCloseFile(const QString &file);
@@ -927,6 +940,10 @@ extern bool saveXml(Score*, const QString& name);
 
 extern QString getSharePath();
 
+#ifdef AVSOMR
+extern Score::FileError importMSMR(MasterScore*, const QString& name);
+extern Score::FileError loadAndImportMSMR(MasterScore*, const QString& name);
+#endif
 extern Score::FileError importMidi(MasterScore*, const QString& name);
 extern Score::FileError importGTP(MasterScore*, const QString& name);
 extern Score::FileError importBww(MasterScore*, const QString& path);

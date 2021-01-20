@@ -21,7 +21,7 @@
 #include "newwizard.h"
 #include "musescore.h"
 #include "preferences.h"
-#include "palette.h"
+#include "palette/palettelistview.h"
 #include "instrdialog.h"
 #include "templateBrowser.h"
 #include "extension.h"
@@ -95,6 +95,16 @@ bool TimesigWizard::pickup(int* z, int* n) const
       *n = 1 << pickupTimesigN->currentIndex();
       return pickupMeasure->isChecked();
       }
+
+//---------------------------------------------------------
+//   tempo
+//---------------------------------------------------------
+
+bool TimesigWizard::tempo(double* t) const
+    {
+    *t = spinboxTempo->value();
+    return tempoGroup->isChecked();
+    }
 
 //---------------------------------------------------------
 //   type
@@ -256,7 +266,7 @@ NewWizardTimesigPage::NewWizardTimesigPage(QWidget* parent)
       {
       setFinalPage(true);
       setTitle(tr("Create New Score"));
-      setSubTitle(tr("Choose time signature:"));
+      setSubTitle(tr("Choose time signature and tempo:"));
       setAccessibleName(title());
       setAccessibleDescription(subTitle());
 
@@ -375,7 +385,7 @@ NewWizardKeysigPage::NewWizardKeysigPage(QWidget* parent)
       {
       setFinalPage(true);
       setTitle(tr("Create New Score"));
-      setSubTitle(tr("Choose key signature and tempo:"));
+      setSubTitle(tr("Choose key signature:"));
       setAccessibleName(title());
       setAccessibleDescription(subTitle());
 
@@ -383,47 +393,16 @@ NewWizardKeysigPage::NewWizardKeysigPage(QWidget* parent)
       b1->setTitle(tr("Key Signature"));
       b1->setAccessibleName(b1->title());
       b1->setAccessibleDescription(tr("Choose a key signature"));
-      sp = MuseScore::newKeySigPalette();
-      sp->setMoreElements(false);
-      sp->setShowContextMenu(false);
-      sp->setSelectable(true);
-      sp->setDisableElementsApply(true);
-      int keysigCMajorIdx = 14;
-      sp->setSelected(keysigCMajorIdx);
-      PaletteScrollArea* sa = new PaletteScrollArea(sp);
-      // set widget name to include name of selected element
-      // we could set the description, but some screen readers ignore it
-      QString name = tr("Key Signature: %1").arg(qApp->translate("Palette", sp->cellAt(keysigCMajorIdx)->name.toUtf8()));
-      ScoreAccessibility::makeReadable(name);
-      sa->setAccessibleName(name);
-      QAccessibleEvent event(sa, QAccessible::NameChanged);
-      QAccessible::updateAccessibility(&event);
+
       QVBoxLayout* l1 = new QVBoxLayout;
-      l1->addWidget(sa);
       b1->setLayout(l1);
 
-      tempoGroup = new QGroupBox;
-      tempoGroup->setCheckable(true);
-      tempoGroup->setChecked(false);
-      tempoGroup->setTitle(tr("Tempo"));
-      tempoGroup->setAccessibleName(tempoGroup->title());
-      tempoGroup->setAccessibleDescription(tr("Add tempo marking to score"));
-      QLabel* bpm = new QLabel;
-      bpm->setText(tr("BPM:"));
-      _tempo = new QDoubleSpinBox;
-      _tempo->setAccessibleName(tr("Beats per minute"));
-      _tempo->setRange(20.0, 400.0);
-      _tempo->setValue(120.0);
-      _tempo->setDecimals(1);
-      QHBoxLayout* l2 = new QHBoxLayout;
-      l2->addWidget(bpm);
-      l2->addWidget(_tempo);
-      l2->addStretch(100);
-      tempoGroup->setLayout(l2);
+      _plv = new PaletteListView(mscore->newKeySigPalettePanel());
+      l1->addWidget(_plv);
+      _plv->setCurrentRow(14); // C Major
 
       QVBoxLayout* l3 = new QVBoxLayout;
       l3->addWidget(b1);
-      l3->addWidget(tempoGroup);
       l3->addStretch(100);
       setLayout(l3);
       setFocusPolicy(Qt::StrongFocus);
@@ -435,9 +414,7 @@ NewWizardKeysigPage::NewWizardKeysigPage(QWidget* parent)
 
 KeySigEvent NewWizardKeysigPage::keysig() const
       {
-      int idx    = sp->getSelectedIdx();
-      Element* e = sp->element(idx);
-      return static_cast<KeySig*>(e)->keySigEvent();
+      return static_cast<KeySig*>(_plv->currentElement())->keySigEvent();
       }
 
 //---------------------------------------------------------

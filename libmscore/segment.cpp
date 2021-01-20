@@ -293,6 +293,21 @@ Segment* Segment::next(SegmentType types) const
       }
 
 //---------------------------------------------------------
+//   nextInStaff
+///   Returns next \c Segment in the staff with given index
+//---------------------------------------------------------
+
+Segment* Segment::nextInStaff(int staffIdx, SegmentType type) const
+      {
+      Segment* s = next(type);
+      const int minTrack = staffIdx * VOICES;
+      const int maxTrack = (staffIdx + 1) * VOICES - 1;
+      while (s && !s->hasElements(minTrack, maxTrack))
+            s = s->next(type);
+      return s;
+      }
+
+//---------------------------------------------------------
 //   prev
 //    got to previous segment which has subtype in types
 //---------------------------------------------------------
@@ -911,6 +926,49 @@ bool Segment::setProperty(Pid propertyId, const QVariant& v)
       }
 
 //---------------------------------------------------------
+//   widthInStaff
+//---------------------------------------------------------
+
+qreal Segment::widthInStaff(int staffIdx, SegmentType t) const
+      {
+      const qreal segX = x();
+      qreal nextSegX = segX;
+
+      Segment* nextSeg = nextInStaff(staffIdx, t);
+      if (nextSeg)
+            nextSegX = nextSeg->x();
+      else {
+            Segment* lastSeg = measure()->last();
+            if (lastSeg->segmentType() & t)
+                  nextSegX = lastSeg->x() + lastSeg->width();
+            else
+                  nextSegX = lastSeg->x();
+            }
+
+      return nextSegX - segX;
+      }
+
+//---------------------------------------------------------
+//   ticksInStaff
+//---------------------------------------------------------
+
+Fraction Segment::ticksInStaff(int staffIdx) const
+      {
+      const Fraction segTick = tick();
+      Fraction nextSegTick = segTick;
+
+      Segment* nextSeg = nextInStaff(staffIdx, durationSegmentsMask);
+      if (nextSeg)
+            nextSegTick = nextSeg->tick();
+      else {
+            Segment* lastSeg = measure()->last();
+            nextSegTick = lastSeg->tick() + lastSeg->ticks();
+            }
+
+      return nextSegTick - segTick;
+      }
+
+//---------------------------------------------------------
 //   splitsTuplet
 //---------------------------------------------------------
 
@@ -982,6 +1040,19 @@ bool Segment::hasElements() const
       }
 
 //---------------------------------------------------------
+//   hasElements
+///  return true if an annotation of type type or and element is found in the track range
+//---------------------------------------------------------
+
+bool Segment::hasElements(int minTrack, int maxTrack) const
+      {
+      for (int curTrack = minTrack; curTrack <= maxTrack; curTrack++)
+            if (element(curTrack))
+                  return true;
+      return false;
+      }
+
+//---------------------------------------------------------
 //   hasAnnotationOrElement
 ///  return true if an annotation of type type or and element is found in the track range
 //---------------------------------------------------------
@@ -991,10 +1062,7 @@ bool Segment::hasAnnotationOrElement(ElementType type, int minTrack, int maxTrac
       for (const Element* e : _annotations)
             if (e->type() == type && e->track() >= minTrack && e->track() <= maxTrack)
                   return true;
-      for (int curTrack = minTrack; curTrack <= maxTrack; curTrack++)
-            if (element(curTrack))
-                  return true;
-      return false;
+      return hasElements(minTrack, maxTrack);
       }
 
 //---------------------------------------------------------
@@ -1177,7 +1245,8 @@ Element* Segment::nextAnnotation(Element* e)
       auto ei = std::find(_annotations.begin(), _annotations.end(), e);
       if (ei == _annotations.end())
             return nullptr;               // element not found
-      
+
+      // TODO: firstVisibleStaff() for system elements? see Spanner::nextSpanner()
       auto resIt = std::find_if(ei + 1, _annotations.end(), [e](Element* nextElem){
             return nextElem && nextElem->staffIdx() == e->staffIdx();
             });
@@ -1197,7 +1266,8 @@ Element* Segment::prevAnnotation(Element* e)
       auto reverseIt = std::find(_annotations.rbegin(), _annotations.rend(), e);
       if (reverseIt == _annotations.rend())
             return nullptr;               // element not found
-      
+
+      // TODO: firstVisibleStaff() for system elements? see Spanner::nextSpanner()
       auto resIt = std::find_if(reverseIt + 1, _annotations.rend(), [e](Element* prevElem){
             return prevElem && prevElem->staffIdx() == e->staffIdx();
             });
@@ -1212,6 +1282,7 @@ Element* Segment::prevAnnotation(Element* e)
 Element* Segment::firstAnnotation(Segment* s, int activeStaff)
       {
       for (auto i = s->annotations().begin(); i != s->annotations().end(); ++i) {
+            // TODO: firstVisibleStaff() for system elements? see Spanner::nextSpanner()
             if ((*i)->staffIdx() == activeStaff)
                   return *i;
             }
@@ -1225,6 +1296,7 @@ Element* Segment::firstAnnotation(Segment* s, int activeStaff)
 Element* Segment::lastAnnotation(Segment* s, int activeStaff)
       {
       for (auto i = --s->annotations().end(); i != s->annotations().begin(); --i) {
+            // TODO: firstVisibleStaff() for system elements? see Spanner::nextSpanner()
             if ((*i)->staffIdx() == activeStaff)
                   return *i;
             }
@@ -1259,8 +1331,10 @@ Element* Segment::firstInNextSegments(int activeStaff)
             return re;
 
       if (!seg) { //end of staff
-            seg = score()->firstSegment(SegmentType::All);
-            return seg->element( (activeStaff + 1) * VOICES );
+            if (activeStaff + 1 >= score()->nstaves()) //end of score
+                  return 0;
+            seg = score()->firstSegmentMM(SegmentType::All);
+            return seg->element((activeStaff + 1) * VOICES);
             }
       return 0;
       }
@@ -1427,8 +1501,22 @@ Spanner* Segment::firstSpanner(int activeStaff)
                   Element* e = s->startElement();
                   if (!e)
                         continue;
-                  if (s->startSegment() == this && s->startElement()->staffIdx() == activeStaff)
-                        return s;
+                  if (s->startSegment() == this) {
+                        if (e->staffIdx() == activeStaff)
+                              return s;
+#if 1
+                        else if (e->isMeasure() && activeStaff == 0)
+                              return s;
+#else
+                        // TODO: see Spanner::nextSpanner()
+                        else if (e->isMeasure()) {
+                              SpannerSegment* ss = s->frontSegment();
+                              int top = ss && ss->system() ? ss->system()->firstVisibleStaff() : 0;
+                              if (activeStaff == top)
+                                    return s;
+                              }
+#endif
+                        }
                   }
             }
       return nullptr;
@@ -1443,16 +1531,29 @@ Spanner* Segment::lastSpanner(int activeStaff)
       std::multimap<int, Spanner*> mmap = score()->spanner();
       auto range = mmap.equal_range(tick().ticks());
       if (range.first != range.second){ // range not empty
-            for (auto i = --range.second; i != range.first; --i) {
+            for (auto i = --range.second; ; --i) {
                   Spanner* s = i->second;
-                  Element* st = s->startElement();
-                  if (!st)
+                  Element* e = s->startElement();
+                  if (!e)
                         continue;
-                  if (s->startElement()->staffIdx() == activeStaff)
-                        return s;
-                  }
-            if ((range.first)->second->startElement()->staffIdx() == activeStaff) {
-                  return (range.first)->second;
+                  if (s->startSegment() == this) {
+                        if (e->staffIdx() == activeStaff)
+                              return s;
+#if 1
+                        else if (e->isMeasure() && activeStaff == 0)
+                              return s;
+#else
+                        // TODO: see Spanner::nextSpanner()
+                        else if (e->isMeasure()) {
+                              SpannerSegment* ss = s->frontSegment();
+                              int top = ss && ss->system() ? ss->system()->firstVisibleStaff() : 0;
+                              if (activeStaff == top)
+                                    return s;
+                              }
+#endif
+                        }
+                  if (i == range.first)
+                        break;
                   }
             }
       return nullptr;
@@ -1520,12 +1621,12 @@ Element* Segment::nextElement(int activeStaff)
                         if (s)
                               return s->spannerSegments().front();
                         }
-                  Segment* nextSegment = this->next1enabled();
+                  Segment* nextSegment = this->next1MMenabled();
                   while (nextSegment) {
                         Element* nextEl = nextSegment->firstElementOfSegment(nextSegment, activeStaff);
                         if (nextEl)
                               return nextEl;
-                        nextSegment = nextSegment->next1enabled();
+                        nextSegment = nextSegment->next1MMenabled();
                         }
                   break;
                   }
@@ -1539,12 +1640,12 @@ Element* Segment::nextElement(int activeStaff)
                   if (sp)
                         return sp->spannerSegments().front();
 
-                  Segment* nextSegment = this->next1enabled();
+                  Segment* nextSegment = this->next1MMenabled();
                   while (nextSegment) {
                         Element* nextEl = nextSegment->firstElementOfSegment(nextSegment, activeStaff);
                         if (nextEl)
                               return nextEl;
-                        nextSegment = nextSegment->next1enabled();
+                        nextSegment = nextSegment->next1MMenabled();
                         }
                   break;
                   }
@@ -1578,7 +1679,7 @@ Element* Segment::nextElement(int activeStaff)
                   Spanner* s = firstSpanner(activeStaff);
                   if (s)
                         return s->spannerSegments().front();
-                  Segment* nextSegment =  seg->next1enabled();
+                  Segment* nextSegment =  seg->next1MMenabled();
                   if (!nextSegment) {
                         MeasureBase* mb = measure()->next();
                         return mb && mb->isBox() ? mb : score()->lastElement();
@@ -1587,11 +1688,13 @@ Element* Segment::nextElement(int activeStaff)
                   Measure* nsm = nextSegment->measure();
                   if (nsm != measure()) {
                         // check for frame, measure elements
-                        MeasureBase* nmb = measure()->next();
+                        MeasureBase* nmb = measure()->nextMM();
                         Element* nme = nsm->el().empty() ? nullptr : nsm->el().front();
                         if (nsm != nmb)
                               return nmb;
                         else if (nme && nme->isTextBase() && nme->staffIdx() == e->staffIdx())
+                              return nme;
+                        else if (nme && nme->isLayoutBreak() && e->staffIdx() == 0)
                               return nme;
                         }
 
@@ -1599,7 +1702,7 @@ Element* Segment::nextElement(int activeStaff)
                         nextEl = nextSegment->firstElementOfSegment(nextSegment, activeStaff);
                         if (nextEl)
                               return nextEl;
-                        nextSegment = nextSegment->next1enabled();
+                        nextSegment = nextSegment->next1MMenabled();
                         }
                   }
                   break;
@@ -1652,7 +1755,7 @@ Element* Segment::prevElement(int activeStaff)
                          el = s->element(--track);
                          if (track == 0) {
                                track = score()->nstaves() * VOICES - 1;
-                               s = s->prev1enabled();
+                               s = s->prev1MMenabled();
                                }
                          }
                    if (el->staffIdx() != activeStaff)
@@ -1723,7 +1826,7 @@ Element* Segment::prevElement(int activeStaff)
                               return prev;
                               }
                         }
-                   Segment* prevSeg = seg->prev1enabled();
+                   Segment* prevSeg = seg->prev1MMenabled();
                    if (!prevSeg) {
                          MeasureBase* mb = measure()->prev();
                          return mb && mb->isBox() ? mb : score()->firstElement();
@@ -1732,9 +1835,11 @@ Element* Segment::prevElement(int activeStaff)
                    Measure* psm = prevSeg->measure();
                    if (psm != measure()) {
                          // check for frame, measure elements
-                         MeasureBase* pmb = measure()->prev();
+                         MeasureBase* pmb = measure()->prevMM();
                          Element* me = measure()->el().empty() ? nullptr : measure()->el().back();
                          if (me && me->isTextBase() && me->staffIdx() == e->staffIdx())
+                               return me;
+                         else if (me && me->isLayoutBreak() && e->staffIdx() == 0)
                                return me;
                          else if (psm != pmb)
                               return pmb;
@@ -1742,7 +1847,7 @@ Element* Segment::prevElement(int activeStaff)
 
                    prev = lastElementOfSegment(prevSeg, activeStaff);
                    while (!prev && prevSeg) {
-                         prevSeg = prevSeg->prev1enabled();
+                         prevSeg = prevSeg->prev1MMenabled();
                          prev = lastElementOfSegment(prevSeg, activeStaff);
                          }
                    if (!prevSeg)
@@ -1812,19 +1917,19 @@ Element* Segment::lastInPrevSegments(int activeStaff)
             return re;
 
       if (!seg) { //end of staff
-            if (activeStaff -1 < 0) //end of score
+            if (activeStaff - 1 < 0) //end of score
                   return 0;
 
             re = 0;
-            seg = score()->lastSegment();
+            seg = score()->lastSegmentMM();
             while (true) {
-                  if (seg->segmentType() == SegmentType::EndBarLine)
-                        score()->inputState().setTrack( (activeStaff -1) * VOICES ); //correction
+                  //if (seg->segmentType() == SegmentType::EndBarLine)
+                  //      score()->inputState().setTrack((activeStaff - 1) * VOICES ); //correction
 
-                  if ((re = seg->lastElement(activeStaff -1)) != 0)
+                  if ((re = seg->lastElement(activeStaff - 1)) != 0)
                         return re;
 
-                  seg = seg->prev1enabled();
+                  seg = seg->prev1MMenabled();
                   }
             }
 
@@ -2051,9 +2156,10 @@ qreal Segment::minHorizontalCollidingDistance(Segment* ns) const
 
 qreal Segment::minHorizontalDistance(Segment* ns, bool systemHeaderGap) const
       {
+
       qreal ww = -1000000.0;        // can remain negative
       for (unsigned staffIdx = 0; staffIdx < _shapes.size(); ++staffIdx) {
-            qreal d = staffShape(staffIdx).minHorizontalDistance(ns->staffShape(staffIdx));
+            qreal d = ns ? staffShape(staffIdx).minHorizontalDistance(ns->staffShape(staffIdx)) : 0.0;
             // first chordrest of a staff should clear the widest header for any staff
             // so make sure segment is as wide as it needs to be
             if (systemHeaderGap)

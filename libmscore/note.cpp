@@ -17,6 +17,8 @@
 
 #include <assert.h>
 
+#include "log.h"
+
 #include "note.h"
 #include "score.h"
 #include "chord.h"
@@ -213,6 +215,20 @@ struct NoteHeadName {
    const char* username;
 };
 
+// same order as NoteHead::Scheme
+static NoteHeadName noteHeadSchemeNames[] = {
+      {"auto",                QT_TRANSLATE_NOOP("noteheadschemes", "Auto") },
+      {"normal",              QT_TRANSLATE_NOOP("noteheadschemes", "Normal") },
+      {"name-pitch",          QT_TRANSLATE_NOOP("noteheadschemes", "Pitch Names") },
+      {"name-pitch-german",   QT_TRANSLATE_NOOP("noteheadschemes", "German Pitch Names") },
+      {"solfege-movable",     QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Movable Do") }, // &egrave;
+      {"solfege-fixed",       QT_TRANSLATE_NOOP("noteheadschemes", "Solf\u00e8ge Fixed Do") },   // &egrave;
+      {"shape-4",             QT_TRANSLATE_NOOP("noteheadschemes", "4-shape (Walker)") },
+      {"shape-7-aikin",       QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Aikin)") },
+      {"shape-7-funk",        QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Funk)") },
+      {"shape-7-walker",      QT_TRANSLATE_NOOP("noteheadschemes", "7-shape (Walker)") }
+      };
+
 // same order as NoteHead::Group
 static NoteHeadName noteHeadGroupNames[] = {
       {"normal",         QT_TRANSLATE_NOOP("noteheadnames", "Normal") },
@@ -297,6 +313,15 @@ static NoteHeadName noteHeadTypeNames[] = {
       };
 
 //---------------------------------------------------------
+//   scheme2userName
+//---------------------------------------------------------
+
+QString NoteHead::scheme2userName(NoteHead::Scheme scheme)
+      {
+      return qApp->translate("noteheadschemes", noteHeadSchemeNames[int(scheme) + 1].username);
+      }
+
+//---------------------------------------------------------
 //   group2userName
 //---------------------------------------------------------
 
@@ -312,6 +337,15 @@ QString NoteHead::group2userName(NoteHead::Group group)
 QString NoteHead::type2userName(NoteHead::Type type)
       {
       return qApp->translate("noteheadnames", noteHeadTypeNames[int(type) + 1].username);
+      }
+
+//---------------------------------------------------------
+//   scheme2name
+//---------------------------------------------------------
+
+QString NoteHead::scheme2name(NoteHead::Scheme scheme)
+      {
+      return noteHeadSchemeNames[int(scheme) + 1].name;
       }
 
 //---------------------------------------------------------
@@ -333,10 +367,23 @@ QString NoteHead::type2name(NoteHead::Type type)
       }
 
 //---------------------------------------------------------
+//   name2scheme
+//---------------------------------------------------------
+
+NoteHead::Scheme NoteHead::name2scheme(const QString& s)
+      {
+      for (int i = 0; i <= int(NoteHead::Scheme::HEAD_SCHEMES); ++i) {
+            if (noteHeadSchemeNames[i].name == s)
+                  return NoteHead::Scheme(i - 1);
+            }
+      return NoteHead::Scheme::HEAD_NORMAL;
+      }
+
+//---------------------------------------------------------
 //   name2group
 //---------------------------------------------------------
 
-NoteHead::Group NoteHead::name2group(QString s)
+NoteHead::Group NoteHead::name2group(const QString& s)
       {
       for (int i = 0; i < int(NoteHead::Group::HEAD_GROUPS); ++i) {
             if (noteHeadGroupNames[i].name == s)
@@ -349,7 +396,7 @@ NoteHead::Group NoteHead::name2group(QString s)
 //   name2type
 //---------------------------------------------------------
 
-NoteHead::Type NoteHead::name2type(QString s)
+NoteHead::Type NoteHead::name2type(const QString& s)
       {
       for (int i = 0; i <= int(NoteHead::Type::HEAD_TYPES); ++i) {
             if (noteHeadTypeNames[i].name == s)
@@ -367,17 +414,17 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t)
       return noteHeads[direction][int(group)][int(t)];
       }
 
-SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int tpc, Key key, NoteHeadScheme scheme)
+SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int tpc, Key key, NoteHead::Scheme scheme)
       {
       // shortcut
-      if (scheme == NoteHeadScheme::HEAD_NORMAL)
+      if (scheme == NoteHead::Scheme::HEAD_NORMAL)
             return noteHeads[direction][int(group)][int(t)];
       // other schemes
-      if (scheme == NoteHeadScheme::HEAD_PITCHNAME || scheme == NoteHeadScheme::HEAD_PITCHNAME_GERMAN) {
+      if (scheme == NoteHead::Scheme::HEAD_PITCHNAME || scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN) {
             if (tpc == Tpc::TPC_A)
                   group = NoteHead::Group::HEAD_A;
             else if (tpc == Tpc::TPC_B) {
-                  if (scheme == NoteHeadScheme::HEAD_PITCHNAME_GERMAN)
+                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
                         group = NoteHead::Group::HEAD_H;
                   else
                         group = NoteHead::Group::HEAD_B;
@@ -395,7 +442,7 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
             else if (tpc == Tpc::TPC_A_S)
                   group = NoteHead::Group::HEAD_A_SHARP;
             else if (tpc == Tpc::TPC_B_S)
-                  if (scheme == NoteHeadScheme::HEAD_PITCHNAME_GERMAN)
+                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
                         group = NoteHead::Group::HEAD_H_SHARP;
                   else
                         group = NoteHead::Group::HEAD_B_SHARP;
@@ -412,7 +459,7 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
             else if (tpc == Tpc::TPC_A_B)
                   group = NoteHead::Group::HEAD_A_FLAT;
             else if (tpc == Tpc::TPC_B_B)
-                  if (scheme == NoteHeadScheme::HEAD_PITCHNAME_GERMAN)
+                  if (scheme == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN)
                         group = NoteHead::Group::HEAD_B;
                   else
                         group = NoteHead::Group::HEAD_B_FLAT;
@@ -427,7 +474,7 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
             else if (tpc == Tpc::TPC_G_B)
                   group = NoteHead::Group::HEAD_G_FLAT;
             }
-      else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_4) {
+      else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_4) {
             int degree = tpc2degree(tpc, key);
             switch (degree) {
                   case 0:
@@ -443,25 +490,25 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
                         group = NoteHead::Group::HEAD_MI; break;
                   }
             }
-      else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_AIKIN
-         || scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_FUNK
-         || scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_WALKER) {
+      else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_AIKIN
+         || scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_FUNK
+         || scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_WALKER) {
             int degree = tpc2degree(tpc, key);
             switch (degree) {
                   case 0:
-                        if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_AIKIN)
+                        if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_AIKIN)
                               group = NoteHead::Group::HEAD_DO;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_FUNK)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_FUNK)
                               group = NoteHead::Group::HEAD_DO_FUNK;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_WALKER)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_WALKER)
                               group = NoteHead::Group::HEAD_DO_WALKER;
                         break;
                   case 1:
-                        if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_AIKIN)
+                        if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_AIKIN)
                               group = NoteHead::Group::HEAD_RE;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_FUNK)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_FUNK)
                               group = NoteHead::Group::HEAD_RE_FUNK;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_WALKER)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_WALKER)
                               group = NoteHead::Group::HEAD_RE_WALKER;
                         break;
                   case 2:
@@ -473,16 +520,16 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
                   case 5:
                         group = NoteHead::Group::HEAD_LA; break;
                   case 6:
-                        if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_AIKIN)
+                        if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_AIKIN)
                               group = NoteHead::Group::HEAD_TI;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_FUNK)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_FUNK)
                               group = NoteHead::Group::HEAD_TI_FUNK;
-                        else if (scheme == NoteHeadScheme::HEAD_SHAPE_NOTE_7_WALKER)
+                        else if (scheme == NoteHead::Scheme::HEAD_SHAPE_NOTE_7_WALKER)
                               group = NoteHead::Group::HEAD_TI_WALKER;
                         break;
                   }
             }
-      else if (scheme == NoteHeadScheme::HEAD_SOLFEGE) {
+      else if (scheme == NoteHead::Scheme::HEAD_SOLFEGE) {
             int degree = tpc2degree(tpc, key);
             switch (degree) {
                   case 0:
@@ -501,7 +548,7 @@ SymId Note::noteHead(int direction, NoteHead::Group group, NoteHead::Type t, int
                         group = NoteHead::Group::HEAD_TI_NAME; break;
                   }
             }
-      else if (scheme == NoteHeadScheme::HEAD_SOLFEGE_FIXED) {
+      else if (scheme == NoteHead::Scheme::HEAD_SOLFEGE_FIXED) {
             QString stepName = tpc2stepName(tpc);
             if (stepName == "C")
                   group = NoteHead::Group::HEAD_DO_NAME;
@@ -580,6 +627,7 @@ Note::Note(const Note& n, bool link)
       _tuning            = n._tuning;
       _veloType          = n._veloType;
       _veloOffset        = n._veloOffset;
+      _headScheme        = n._headScheme;
       _headGroup         = n._headGroup;
       _headType          = n._headType;
       _mirror            = n._mirror;
@@ -597,7 +645,7 @@ Note::Note(const Note& n, bool link)
 
       // types in _el: SYMBOL, IMAGE, FINGERING, TEXT, BEND
       const Staff* stf = staff();
-      bool tabFingering = stf->staffType(tick())->showTabFingering();
+      bool tabFingering = stf->staffTypeForElement(this)->showTabFingering();
       for (Element* e : n._el) {
             if (e->isFingering() && staff()->isTabStaff(tick()) && !tabFingering)    // tablature has no fingering
                   continue;
@@ -760,11 +808,31 @@ int Note::tpc() const
 //   tpcUserName
 //---------------------------------------------------------
 
-QString Note::tpcUserName(bool explicitAccidental) const
+QString Note::tpcUserName(const int tpc, const int pitch, const bool explicitAccidental)
       {
-      QString pitchName = tpc2name(tpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO, explicitAccidental);
-      QString octaveName = QString::number((epitch() / 12) - 1);
-      return pitchName + (explicitAccidental ? " " : "") + octaveName;
+      const auto pitchStr = tpc2name(tpc, NoteSpellingType::STANDARD, NoteCaseType::AUTO, explicitAccidental);
+      const auto octaveStr = QString::number(((pitch - static_cast<int>(tpc2alter(tpc))) / PITCH_DELTA_OCTAVE) - 1);
+
+      return pitchStr + (explicitAccidental ? " " : "") + octaveStr;
+      };
+
+//---------------------------------------------------------
+//   tpcUserName
+//---------------------------------------------------------
+
+QString Note::tpcUserName(const bool explicitAccidental) const
+      {
+      const auto playbackPitch = ppitch();
+      const auto tpc1Str = tpcUserName(tpc1(), playbackPitch, explicitAccidental);
+
+      if ((tpc1() == tpc2()) || concertPitch()) {
+            return tpc1Str;
+            }
+      else {
+            // Return both the written pitch and the playback pitch since they currently differ.
+            const auto tpc2Str = tpcUserName(tpc2(), playbackPitch - transposition(), explicitAccidental);
+            return QObject::tr("%1 (%2 concert)").arg(tpc2Str).arg(tpc1Str);
+            }
       }
 
 //---------------------------------------------------------
@@ -807,11 +875,22 @@ SymId Note::noteHead() const
       if (_headType != NoteHead::Type::HEAD_AUTO)
             ht = _headType;
 
+      const Staff* st = chord() ? chord()->staff() : nullptr;
+
       if (_headGroup == NoteHead::Group::HEAD_CUSTOM) {
-            if (chord() && chord()->staff()) {
-                  const Staff* st = chord()->staff();
-                  if (st->staffType(chord()->tick())->isDrumStaff())
-                        return st->part()->instrument(chord()->tick())->drumset()->noteHeads(_pitch, ht);
+            if (st) {
+                  if (st->staffTypeForElement(chord())->isDrumStaff()) {
+                        Fraction t = chord()->tick();
+                        Instrument* inst = st->part()->instrument(t);
+                        Drumset* d = inst->drumset();
+                        if (d) {
+                              return d->noteHeads(_pitch, ht);
+                              }
+                        else {
+                              qDebug("no drumset");
+                              return noteHead(up, NoteHead::Group::HEAD_NORMAL, ht);
+                              }
+                        }
                   }
             else {
                   return _cachedNoteheadSym;
@@ -819,15 +898,17 @@ SymId Note::noteHead() const
             }
 
       Key key = Key::C;
-      NoteHeadScheme scheme = NoteHeadScheme::HEAD_NORMAL;
-      if (chord() && chord()->staff()){
+      NoteHead::Scheme scheme = _headScheme;
+      if (st) {
             Fraction tick = chord()->tick();
             if (tick >= Fraction(0,1)) {
-                  const Staff* st = chord()->staff();
                   key    = st->key(tick);
-                  scheme = st->staffType(tick)->noteHeadScheme();
+                  if (scheme == NoteHead::Scheme::HEAD_AUTO)
+                        scheme = st->staffTypeForElement(chord())->noteHeadScheme();
                   }
             }
+      if (scheme == NoteHead::Scheme::HEAD_AUTO)
+            scheme = NoteHead::Scheme::HEAD_NORMAL;
       SymId t = noteHead(up, _headGroup, ht, tpc(), key, scheme);
       if (t == SymId::noSym) {
             qDebug("invalid notehead %d/%d", int(_headGroup), int(ht));
@@ -955,9 +1036,19 @@ QPointF Note::stemUpSE() const
 
 int Note::playTicks() const
       {
+      return playTicksFraction().ticks();
+      }
+
+//---------------------------------------------------------
+//   playTicksFraction
+///   Return total tick len of tied notes
+//---------------------------------------------------------
+
+Fraction Note::playTicksFraction() const
+      {
       Fraction stick = firstTiedNote()->chord()->tick();
       const Note* note = lastTiedNote();
-      return (note->chord()->tick() + note->chord()->actualTicks() - stick).ticks();
+      return note->chord()->tick() + note->chord()->actualTicks() - stick;
       }
 
 //---------------------------------------------------------
@@ -1091,8 +1182,11 @@ bool Note::isNoteName() const
       {
       if (chord() && chord()->staff()) {
             const Staff* st = staff();
-            NoteHeadScheme s = st->staffType(tick())->noteHeadScheme();
-            return s == NoteHeadScheme::HEAD_PITCHNAME || s == NoteHeadScheme::HEAD_PITCHNAME_GERMAN || s == NoteHeadScheme::HEAD_SOLFEGE || s == NoteHeadScheme::HEAD_SOLFEGE_FIXED;
+            NoteHead::Scheme s = _headScheme;
+            if (s == NoteHead::Scheme::HEAD_AUTO)
+                  s = st->staffTypeForElement(this)->noteHeadScheme();
+            return s == NoteHead::Scheme::HEAD_PITCHNAME || s == NoteHead::Scheme::HEAD_PITCHNAME_GERMAN || s == NoteHead::Scheme::HEAD_SOLFEGE || s == NoteHead::Scheme::HEAD_SOLFEGE_FIXED;
+
             }
       return false;
       }
@@ -1113,7 +1207,7 @@ void Note::draw(QPainter* painter) const
       // tablature
       if (tablature) {
             const Staff* st = staff();
-            const StaffType* tab = st->staffType(tick());
+            const StaffType* tab = st->staffTypeForElement(this);
             if (tieBack() && !tab->showBackTied()) {
                   if (chord()->measure()->system() == tieBack()->startNote()->chord()->measure()->system() && el().size() == 0)
                         // fret should be hidden, so return without drawing it
@@ -1151,7 +1245,7 @@ void Note::draw(QPainter* painter) const
 
       else {
             // skip drawing, if second note of a cross-measure value
-            if (chord()->crossMeasure() == CrossMeasure::SECOND)
+            if (chord() && chord()->crossMeasure() == CrossMeasure::SECOND)
                   return;
             // warn if pitch extends usable range of instrument
             // by coloring the notehead
@@ -1207,7 +1301,7 @@ void Note::write(XmlWriter& xml) const
             xml.etag();
             }
       for (Pid id : { Pid::PITCH, Pid::TPC1, Pid::TPC2, Pid::SMALL, Pid::MIRROR_HEAD, Pid::DOT_POSITION,
-         Pid::HEAD_GROUP, Pid::VELO_OFFSET, Pid::PLAY, Pid::TUNING, Pid::FRET, Pid::STRING,
+         Pid::HEAD_SCHEME, Pid::HEAD_GROUP, Pid::VELO_OFFSET, Pid::PLAY, Pid::TUNING, Pid::FRET, Pid::STRING,
          Pid::GHOST, Pid::HEAD_TYPE, Pid::VELO_TYPE, Pid::FIXED, Pid::FIXED_LINE
             }) {
             writeProperty(xml, id);
@@ -1337,6 +1431,8 @@ bool Note::readProperties(XmlReader& e)
             setFixed(e.readBool());
       else if (tag == "fixedLine")
             setFixedLine(e.readInt());
+      else if (tag == "headScheme")
+            readProperty(e, Pid::HEAD_SCHEME);
       else if (tag == "head")
             readProperty(e, Pid::HEAD_GROUP);
       else if (tag == "velocity")
@@ -1432,10 +1528,13 @@ void Note::readAddConnector(ConnectorInfoReader* info, bool pasteMode)
                         sp->setTrack(l.track());
                         sp->setTick(tick());
                         if (sp->isTie()) {
+                              Note* n = this;
+                              while (n->tieFor())
+                                    n = n->tieFor()->endNote();
                               Tie* tie = toTie(sp);
-                              tie->setParent(this);
-                              tie->setStartNote(this);
-                              _tieFor = tie;
+                              tie->setParent(n);
+                              tie->setStartNote(n);
+                              n->_tieFor = tie;
                               }
                         else {
                               sp->setAnchor(Spanner::Anchor::NOTE);
@@ -1495,6 +1594,8 @@ class NoteEditData : public ElementEditData {
       EditMode mode = EditMode_Undefined;
       QPointF delta;
 
+      virtual EditDataType type() override      { return EditDataType::NoteEditData; }
+
       static constexpr double MODE_TRANSITION_LIMIT_DEGREES = 15.0;
 
       static inline EditMode editModeByDragDirection(const qreal& deltaX, const qreal& deltaY)
@@ -1536,7 +1637,7 @@ bool Note::acceptDrop(EditData& data) const
             }
       const Staff* st   = staff();
       bool isTablature  = st->isTabStaff(tick());
-      bool tabFingering = st->staffType(tick())->showTabFingering();
+      bool tabFingering = st->staffTypeForElement(this)->showTabFingering();
       return (type == ElementType::ARTICULATION
          || type == ElementType::FERMATA
          || type == ElementType::CHORDLINE
@@ -1599,7 +1700,7 @@ Element* Note::drop(EditData& data)
 
       const Staff* st = staff();
       bool isTablature = st->isTabStaff(tick());
-      bool tabFingering = st->staffType(tick())->showTabFingering();
+      bool tabFingering = st->staffTypeForElement(this)->showTabFingering();
       Chord* ch = chord();
 
       switch(e->type()) {
@@ -1623,7 +1724,7 @@ Element* Note::drop(EditData& data)
                   return 0;
 
             case ElementType::SLUR:
-                  data.view->cmdAddSlur(chord(), nullptr, toSlur(e));
+                  data.view->addSlur(chord(), nullptr, toSlur(e));
                   delete e;
                   return 0;
 
@@ -1838,7 +1939,7 @@ void Note::setDotY(Direction pos)
             // with TAB's, dotPosX is not set:
             // get dot X from width of fret text and use TAB default spacing
             const Staff* st = staff();
-            const StaffType* tab = st->staffType(tick());
+            const StaffType* tab = st->staffTypeForElement(this);
             if (tab->stemThrough() ) {
                   // if fret mark on lines, use standard processing
                   if (tab->onLines())
@@ -1904,7 +2005,7 @@ void Note::layout()
       bool useTablature = staff() && staff()->isTabStaff(chord()->tick());
       if (useTablature) {
             const Staff* st = staff();
-            const StaffType* tab = st->staffType(tick());
+            const StaffType* tab = st->staffTypeForElement(this);
             qreal mags = magS();
             bool paren = false;
             if (tieBack() && !tab->showBackTied()) {
@@ -1956,7 +2057,7 @@ void Note::layout2()
             // if TAB and stems through staff
             if (staff()->isTabStaff(chord()->tick())) {
                   const Staff* st = staff();
-                  const StaffType* tab = st->staffType(tick());
+                  const StaffType* tab = st->staffTypeForElement(this);
                   if (tab->stemThrough()) {
                         // with TAB's, dot Y is not calculated during layoutChords3(),
                         // as layoutChords3() is not even called for TAB's;
@@ -1988,7 +2089,7 @@ void Note::layout2()
                   if (sym->sym() == SymId::noteheadParenthesisRight) {
                         if (staff()->isTabStaff(chord()->tick())) {
                               const Staff* st = staff();
-                              const StaffType* tab = st->staffType(tick());
+                              const StaffType* tab = st->staffTypeForElement(this);
                               w = tabHeadWidth(tab);
                               }
                         e->rxpos() += w;
@@ -2043,13 +2144,14 @@ void Note::updateAccidental(AccidentalState* as)
 
             AccidentalVal accVal = tpc2alter(tpc());
             bool error = false;
-            AccidentalVal relLineAccVal = as->accidentalVal(relLine, error);
+            int eRelLine = absStep(tpc(), epitch()+ottaveCapoFret());
+            AccidentalVal relLineAccVal = as->accidentalVal(eRelLine, error);
             if (error) {
                   qDebug("error accidetalVal");
                   return;
                   }
-            if ((accVal != relLineAccVal) || hidden() || as->tieContext(relLine)) {
-                  as->setAccidentalVal(relLine, accVal, _tieBack != 0 && _accidental == 0);
+            if ((accVal != relLineAccVal) || hidden() || as->tieContext(eRelLine)) {
+                  as->setAccidentalVal(eRelLine, accVal, _tieBack != 0 && _accidental == 0);
                   acci = Accidental::value2subtype(accVal);
                   // if previous tied note has same tpc, don't show accidental
                   if (_tieBack && _tieBack->startNote()->tpc1() == tpc1())
@@ -2159,10 +2261,11 @@ void Note::scanElements(void* data, void (*func)(void*, Element*), bool all)
             func(data, _accidental);
       for (NoteDot* dot : _dots)
             func(data, dot);
-      if (_tieFor && !_tieFor->spannerSegments().empty())
-            _tieFor->spannerSegments().front()->scanElements(data, func, all);
-      if (_tieBack && _tieBack->spannerSegments().size() > 1)
-            _tieBack->spannerSegments().back()->scanElements(data, func, all);
+      // see above - tie segments are still collected from System!
+      //if (_tieFor && !_tieFor->spannerSegments().empty())
+      //      _tieFor->spannerSegments().front()->scanElements(data, func, all);
+      //if (_tieBack && _tieBack->spannerSegments().size() > 1)
+      //      _tieBack->spannerSegments().back()->scanElements(data, func, all);
       }
 
 //---------------------------------------------------------
@@ -2245,6 +2348,18 @@ void Note::setString(int val)
       }
 
 //---------------------------------------------------------
+//   setHeadScheme
+//---------------------------------------------------------
+
+void Note::setHeadScheme(NoteHead::Scheme val)
+      {
+      IF_ASSERT_FAILED(int(val) >= -1 && int(val) < int(NoteHead::Scheme::HEAD_SCHEMES)) {
+            val = NoteHead::Scheme::HEAD_AUTO;
+            }
+      _headScheme = val;
+      }
+
+//---------------------------------------------------------
 //   setHeadGroup
 //---------------------------------------------------------
 
@@ -2252,6 +2367,21 @@ void Note::setHeadGroup(NoteHead::Group val)
       {
       Q_ASSERT(int(val) >= 0 && int(val) < int(NoteHead::Group::HEAD_GROUPS));
       _headGroup = val;
+      }
+
+//---------------------------------------------------------
+//   ottaveCapoFret
+//    offset added by Ottava's and Capo Fret.
+//---------------------------------------------------------
+
+int Note::ottaveCapoFret() const
+      {
+      Chord* ch = chord();
+      int capoFretId = staff()->capo(ch->segment()->tick());
+      if (capoFretId != 0)
+            capoFretId -= 1;
+
+      return staff()->pitchOffset(ch->segment()->tick()) + capoFretId;
       }
 
 //---------------------------------------------------------
@@ -2272,11 +2402,8 @@ int Note::ppitch() const
                         return div.pitch;
                   }
             }
-      int capoFretId = staff()->capo(ch->segment()->tick());
-      if (capoFretId != 0)
-            capoFretId -= 1;
 
-      return _pitch + staff()->pitchOffset(ch->segment()->tick()) + capoFretId;
+      return _pitch + ottaveCapoFret();
       }
 
 //---------------------------------------------------------
@@ -2334,8 +2461,11 @@ void Note::startDrag(EditData& ed)
 QRectF Note::drag(EditData& ed)
       {
       NoteEditData* noteEditData = static_cast<NoteEditData*>(ed.getData(this));
+      IF_ASSERT_FAILED(noteEditData) {
+            return QRectF();
+            }
 
-      QPointF delta = ed.pos - ed.lastPos;
+      QPointF delta = ed.evtDelta;
       noteEditData->delta = delta;
 
       if (noteEditData->mode == NoteEditData::EditMode_Undefined) {
@@ -2357,8 +2487,11 @@ QRectF Note::drag(EditData& ed)
 void Note::endDrag(EditData& ed)
       {
       NoteEditData* ned = static_cast<NoteEditData*>(ed.getData(this));
+      IF_ASSERT_FAILED(ned) {
+            return;
+            }
       for (Note* nn : tiedNotes()) {
-            for (PropertyData pd : ned->propertyData) {
+            for (const PropertyData& pd : ned->propertyData) {
                   setPropertyFlags(pd.id, pd.f); // reset initial property flags state
                   score()->undoPropertyChanged(nn, pd.id, pd.data);
                   }
@@ -2372,15 +2505,20 @@ void Note::endDrag(EditData& ed)
 void Note::editDrag(EditData& editData)
       {
       Chord* ch = chord();
+      Segment* seg = ch->segment();
 
-      if (ch->notes().size() == 1) {
+      if (editData.modifiers & Qt::ShiftModifier) {
+            const Spatium deltaSp = Spatium(editData.delta.x() / spatium());
+            seg->undoChangeProperty(Pid::LEADING_SPACE, seg->extraLeadingSpace() + deltaSp);
+            }
+      else if (ch->notes().size() == 1) {
             // if the chord contains only this note, then move the whole chord
             // including stem, flag etc.
-            ch->undoChangeProperty(Pid::OFFSET, ch->offset() + offset() + editData.delta);
+            ch->undoChangeProperty(Pid::OFFSET, ch->offset() + offset() + editData.evtDelta);
             setOffset(QPointF());
             }
       else
-            setOffset(offset() + editData.delta);
+            setOffset(offset() + editData.evtDelta);
 
       triggerLayout();
       }
@@ -2391,7 +2529,7 @@ void Note::editDrag(EditData& editData)
 
 void Note::verticalDrag(EditData &ed)
       {
-      Fraction _tick           = chord()->tick();
+      Fraction _tick      = chord()->tick();
       const Staff* stf    = staff();
       const StaffType* st = stf->staffType(_tick);
 
@@ -2403,7 +2541,7 @@ void Note::verticalDrag(EditData &ed)
       qreal _spatium      = spatium();
       bool tab            = st->isTabStaff();
       qreal step          = _spatium * (tab ? st->lineDistance().val() : 0.5);
-      int lineOffset      = lrint(ed.delta.y() / step);
+      int lineOffset      = lrint(ed.moveDelta.y() / step);
 
       if (tab) {
             const StringData* strData = staff()->part()->instrument()->stringData();
@@ -2423,7 +2561,8 @@ void Note::verticalDrag(EditData &ed)
             }
       else {
             Key key = staff()->key(_tick);
-            int newPitch = line2pitch(ned->line + lineOffset, staff()->clef(_tick), key);
+            int idx = chord()->vStaffIdx();
+            int newPitch = line2pitch(ned->line + lineOffset, score()->staff(idx)->clef(_tick), key);
 
             if (!concertPitch()) {
                   Interval interval = staff()->part()->instrument(_tick)->transpose();
@@ -2483,15 +2622,8 @@ void Note::horizontalDrag(EditData &ed)
 
       NoteEditData* ned = static_cast<NoteEditData*>(ed.getData(this));
 
-      // adjust segment on plain drag or Shift+cursor,
-      // adjust note/chord for Ctrl+drag or plain cursor
-      if (seg &&
-          (((ed.buttons & Qt::LeftButton) && !(ed.modifiers & Qt::ControlModifier))
-           || (ed.modifiers & Qt::ShiftModifier))) {
-
-            if (ed.delta.x() < 0)
-                  normalizeLeftDragDelta(seg, ed, ned);
-            }
+      if (ed.moveDelta.x() < 0)
+            normalizeLeftDragDelta(seg, ed, ned);
 
       const Spatium deltaSp = Spatium(ned->delta.x() / spatium());
 
@@ -2519,14 +2651,14 @@ void Note::updateRelLine(int relLine, bool undoable)
       int idx      = chord()->vStaffIdx();
 
       const Staff* staff  = score()->staff(idx);
-      const StaffType* st = staff->staffType(tick());
+      const StaffType* st = staff->staffTypeForElement(this);
 
       if (chord()->staffMove()) {
             // check that destination staff makes sense (might have been deleted)
             int minStaff = part()->startTrack() / VOICES;
             int maxStaff = part()->endTrack() / VOICES;
             const Staff* stf = this->staff();
-            if (idx < minStaff || idx >= maxStaff || st->group() != stf->staffType(tick())->group()) {
+            if (idx < minStaff || idx >= maxStaff || st->group() != stf->staffTypeForElement(this)->group()) {
                   qDebug("staffMove out of scope %d + %d min %d max %d",
                      staffIdx(), chord()->staffMove(), minStaff, maxStaff);
                   chord()->undoChangeProperty(Pid::STAFF_MOVE, 0);
@@ -2627,6 +2759,8 @@ QVariant Note::getProperty(Pid propertyId) const
                   return int(userMirror());
             case Pid::DOT_POSITION:
                   return QVariant::fromValue<Direction>(userDotPosition());
+            case Pid::HEAD_SCHEME:
+                  return int(headScheme());
             case Pid::HEAD_GROUP:
                   return int(headGroup());
             case Pid::VELO_OFFSET:
@@ -2688,6 +2822,9 @@ bool Note::setProperty(Pid propertyId, const QVariant& v)
                   setUserDotPosition(v.value<Direction>());
                   triggerLayout();
                   return true;
+            case Pid::HEAD_SCHEME:
+                  setHeadScheme(NoteHead::Scheme(v.toInt()));
+                  break;
             case Pid::HEAD_GROUP:
                   setHeadGroup(NoteHead::Group(v.toInt()));
                   break;
@@ -2764,6 +2901,8 @@ QVariant Note::propertyDefault(Pid propertyId) const
                   return int(MScore::DirectionH::AUTO);
             case Pid::DOT_POSITION:
                   return QVariant::fromValue<Direction>(Direction::AUTO);
+            case Pid::HEAD_SCHEME:
+                  return int(NoteHead::Scheme::HEAD_AUTO);
             case Pid::HEAD_GROUP:
                   return int(NoteHead::Group::HEAD_NORMAL);
             case Pid::VELO_OFFSET:
@@ -2876,7 +3015,7 @@ QString Note::accessibleInfo() const
       else if (staff()->isDrumStaff(tick()) && drumset)
             pitchName = qApp->translate("drumset", drumset->name(pitch()).toUtf8().constData());
       else if (staff()->isTabStaff(tick()))
-            pitchName = QObject::tr("%1; String %2; Fret %3").arg(tpcUserName(false)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
+            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(false)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
       else
             pitchName = tpcUserName(false);
       return QObject::tr("%1; Pitch: %2; Duration: %3%4").arg(noteTypeUserName()).arg(pitchName).arg(duration).arg((chord()->isGrace() ? "" : QString("; %1").arg(voice)));
@@ -2899,7 +3038,7 @@ QString Note::screenReaderInfo() const
       else if (staff()->isDrumStaff(tick()) && drumset)
             pitchName = qApp->translate("drumset", drumset->name(pitch()).toUtf8().constData());
       else if (staff()->isTabStaff(tick()))
-            pitchName = QObject::tr("%1 String %2 Fret %3").arg(tpcUserName(true)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
+            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(true)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
       else
             pitchName = tpcUserName(true);
       return QString("%1 %2 %3%4").arg(noteTypeUserName()).arg(pitchName).arg(duration).arg((chord()->isGrace() ? "" : QString("; %1").arg(voice)));
@@ -3319,10 +3458,10 @@ Shape Note::shape() const
       Shape shape(r, name());
       for (NoteDot* dot : _dots)
             shape.add(symBbox(SymId::augmentationDot).translated(dot->pos()), dot->name());
-      if (_accidental)
+      if (_accidental && _accidental->addToSkyline())
             shape.add(_accidental->bbox().translated(_accidental->pos()), _accidental->name());
       for (auto e : _el) {
-            if (e->autoplace() && e->visible()) {
+            if (e->addToSkyline()) {
                   if (e->isFingering() && toFingering(e)->layoutType() != ElementType::NOTE)
                         continue;
                   shape.add(e->bbox().translated(e->pos()), e->name());
@@ -3332,10 +3471,10 @@ Shape Note::shape() const
       Shape shape(r);
       for (NoteDot* dot : _dots)
             shape.add(symBbox(SymId::augmentationDot).translated(dot->pos()));
-      if (_accidental)
+      if (_accidental && _accidental->addToSkyline())
             shape.add(_accidental->bbox().translated(_accidental->pos()));
       for (auto e : _el) {
-            if (e->autoplace() && e->visible()) {
+            if (e->addToSkyline()) {
                   if (e->isFingering() && toFingering(e)->layoutType() != ElementType::NOTE)
                         continue;
                   shape.add(e->bbox().translated(e->pos()));

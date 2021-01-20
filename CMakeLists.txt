@@ -58,6 +58,9 @@ set(CMAKE_AUTOMOC     TRUE)
 set(USE_SSE           FALSE)
 SET (USE_WEBENGINE 0)
 
+# Setup version number and general build settings
+include("${CMAKE_CURRENT_LIST_DIR}/config.cmake")
+
 option(BUILD_PCH "Build using precompiled headers." ON)
 option(EMBED_PRELOADS "Embed preload files in the .js file, otherwise pack into a separate .data file." OFF)
 option(SOUNDFONT3    "Ogg Vorbis compressed fonts" ON)         # Enable Ogg Vorbis compressed fonts, requires Ogg & Vorbis
@@ -97,21 +100,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH ON) # Call CMake with option -DCMAKE_SKIP_RPATH to not set RPATH (Debian packaging requirement)
 set(CMAKE_SKIP_RULE_DEPENDENCY TRUE)
-
-
-# The MuseScore version number.
-SET(MUSESCORE_NAME "MuseScore")
-SET(MUSESCORE_VERSION_MAJOR  "3")
-SET(MUSESCORE_VERSION_MINOR  "4")
-SET(MUSESCORE_VERSION_PATCH  "2")
-SET(MUSESCORE_VERSION_LABEL  "Release")
-SET(MUSESCORE_VERSION       "${MUSESCORE_VERSION_MAJOR}.${MUSESCORE_VERSION_MINOR}")
-SET(MUSESCORE_NAME_VERSION "${MUSESCORE_NAME} ${MUSESCORE_VERSION_MAJOR}")
-#
-# Version schema x.x.x is hardcoded in source
-#
-SET(MUSESCORE_VERSION_FULL  "${MUSESCORE_VERSION}.${MUSESCORE_VERSION_PATCH}")
-
 
 ## Set preload/embedded files
 ##
@@ -306,10 +294,8 @@ configure_file (
 
 subdirs(
       libmscore
-      midi
-      synthesizer
+      audio
       effects
-      fluid
       audiofile
       thirdparty/qzip
       thirdparty/libsndfile/src
