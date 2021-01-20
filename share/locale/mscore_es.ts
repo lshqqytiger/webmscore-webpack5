@@ -7728,7 +7728,7 @@ Antes si se cambia entre ♯ y ♭. </translation>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="127"/>
         <source>Allow diagonal</source>
-        <translation>Permitir diagonal</translation>
+        <translation>Permitir inclinación</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="140"/>
@@ -7779,7 +7779,7 @@ Antes si se cambia entre ♯ y ♭. </translation>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="296"/>
         <source>Reset &apos;Allow diagonal&apos; value</source>
-        <translation>Restablecer valor &apos;Permitir diagonal&apos;</translation>
+        <translation>Restablecer valor &apos;Permitir inclinación&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="309"/>
@@ -13826,7 +13826,7 @@ Restore session?</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8211"/>
         <source>Initializing start center…</source>
-        <translation>Iniciando Centro de Inicio</translation>
+        <translation>Iniciando centro de inicio...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8233"/>

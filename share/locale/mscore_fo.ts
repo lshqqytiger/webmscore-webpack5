@@ -9,7 +9,7 @@
     <message>
         <location filename="../../mscore/aboutbox.ui" line="121"/>
         <source>Copy revision number</source>
-        <translation>Avrita útgávunummar</translation>
+        <translation>Rita av útgávutal</translation>
     </message>
 </context>
 <context>
@@ -94,7 +94,7 @@
     <message>
         <location filename="../../mscore/albummanager.ui" line="25"/>
         <source>Add Score…</source>
-        <translation>Stovna nótablað</translation>
+        <translation>Stovna nótablað...</translation>
     </message>
     <message>
         <location filename="../../mscore/albummanager.ui" line="32"/>
@@ -132,32 +132,32 @@
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="72"/>
         <source>Center text on reference point</source>
-        <translation>Miðset tekst á tilvísingar punkt</translation>
+        <translation>Miðset tekst á tilvísingarpunkt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="101"/>
         <source>Align right edge of text to reference point</source>
-        <translation>Stilla høgra tekstabredda til tilvísingar punkt</translation>
+        <translation>Stilla høgra tekstabredda til tilvísingarpunkt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="143"/>
         <source>Align top edge of text to reference point</source>
-        <translation>Stilla ovara tekstabredda til tilvísingar punkt</translation>
+        <translation>Stilla ovara tekstabredda til tilvísingarpunkt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="172"/>
         <source>Center text vertical to reference point</source>
-        <translation>Miðset tekst loddrætt til tilvísingar punkt</translation>
+        <translation>Miðset tekst loddrætt til tilvísingarpunkt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="230"/>
         <source>Align baseline of text to reference point</source>
-        <translation>Stilla grundlinju á teksti til tilvísingar punkt</translation>
+        <translation>Stilla grundlinju á teksti til tilvísingarpunkt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/align_select.ui" line="201"/>
         <source>Align bottom edge of text to reference point</source>
-        <translation>Stilla niðara bredda av teksti til tilvísingar punkt</translation>
+        <translation>Stilla niðara bredda av teksti til tilvísingarpunkt</translation>
     </message>
 </context>
 <context>
@@ -165,7 +165,7 @@
     <message>
         <location filename="../../mscore/articulation.ui" line="14"/>
         <source>Articulation Properties</source>
-        <translation>Framburðar eginleikar</translation>
+        <translation>Framburður eginleikar</translation>
     </message>
     <message>
         <location filename="../../mscore/articulation.ui" line="24"/>
@@ -180,7 +180,7 @@
     <message>
         <location filename="../../mscore/articulation.ui" line="38"/>
         <source>Auto</source>
-        <translation>Sjálvvirkið</translation>
+        <translation>Sjálvvirkin</translation>
     </message>
     <message>
         <location filename="../../mscore/articulation.ui" line="43"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="47"/>
         <source>D major / B minor</source>
-        <translation>D major / B minor</translation>
+        <translation>D dur / H moll</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="48"/>
@@ -427,7 +427,7 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="58"/>
         <source>Attack</source>
-        <translation>Álop</translation>
+        <translation>Attack</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="73"/>
@@ -437,12 +437,12 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="88"/>
         <source>Release</source>
-        <translation>Slepping</translation>
+        <translation>Release</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="103"/>
         <source>Knee</source>
-        <translation>Knæ</translation>
+        <translation>Knee</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="118"/>
@@ -453,32 +453,32 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="128"/>
         <source>Attack time (ms)</source>
-        <translation>Álops ferð (ms)</translation>
+        <translation>Attack tíð (ms)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="131"/>
         <source>The attack time in milliseconds.</source>
-        <translation>Álops ferð í millisekundum</translation>
+        <translation>Attack tíð í millisekundum</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="177"/>
         <source>Threshold</source>
-        <translation>Gátt</translation>
+        <translation>Threshold</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="192"/>
         <source>Gain</source>
-        <translation>Styrki</translation>
+        <translation>Gain</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="202"/>
         <source>Release time (ms)</source>
-        <translation>Slepping tíð (ms)</translation>
+        <translation>Release tíð (ms)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="205"/>
         <source>The release time in milliseconds.</source>
-        <translation>Sleppingartíð í millisekundum</translation>
+        <translation>Release tíð í millisekundum</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="312"/>
@@ -488,17 +488,17 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="315"/>
         <source>The gain reduction ratio used when the signal level exceeds the threshold.</source>
-        <translation>Avmarkingar í styrkislutfalli nýtt tá signalið fer um gáttina</translation>
+        <translation>Avmarkingar í gain lutfalli nýtt tá signalið fer um Threshold</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="356"/>
         <source>Knee radius (dB)</source>
-        <translation>Radius á knæi (dB)</translation>
+        <translation>Knee radius (dB)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="359"/>
         <source>The distance from the threshold where the knee curve starts.</source>
-        <translation>Longdin frá gáttini til byrjanina av knækurvuni</translation>
+        <translation>Longdin frá threshold til byrjanina av knee</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="403"/>
@@ -632,7 +632,7 @@
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="161"/>
         <source>Gathering debug information...</source>
-        <translation>Savnar upplýsningar rætting...</translation>
+        <translation>Savnar upplýsingar til rætting...</translation>
     </message>
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="260"/>
@@ -772,7 +772,7 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="501"/>
         <source>Auto</source>
-        <translation>Sjálvvirkið</translation>
+        <translation>Sjálvvirkin</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="506"/>
@@ -1807,7 +1807,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="654"/>
         <source>2 - Major Second</source>
-        <translation>2 - Stór sekund</translation>
+        <translation>2 - stórt sekund</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="659"/>
@@ -2216,7 +2216,7 @@
     <message>
         <location filename="../../mscore/editstafftype.ui" line="860"/>
         <source>Note symbols</source>
-        <translation>Nóta tekin</translation>
+        <translation>Nótatekin</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="867"/>
@@ -2313,7 +2313,7 @@
     <message>
         <location filename="../../mscore/editstafftype.ui" line="266"/>
         <source>Notehead scheme:</source>
-        <translation>Nótahøvdaskipan:</translation>
+        <translation>Nótahøvd skipan:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="688"/>
@@ -2357,12 +2357,12 @@
     <message>
         <location filename="../../mscore/editstringdata.ui" line="22"/>
         <source>Strings Tuning:</source>
-        <translation>Streingja stemningur:</translation>
+        <translation>Streingja stilling:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstringdata.ui" line="38"/>
         <source>Open</source>
-        <translation>Opna</translation>
+        <translation>Opin</translation>
     </message>
     <message>
         <location filename="../../mscore/editstringdata.ui" line="43"/>
@@ -2401,12 +2401,12 @@
     <message>
         <location filename="../../mscore/editstyle.ui" line="281"/>
         <source>Musical symbols font:</source>
-        <translation>Tónleika tekin stavsnið:</translation>
+        <translation>Stavsnið tónleika tekin:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="291"/>
         <source>Musical text font:</source>
-        <translation>Tónleika tekst stavsnið:</translation>
+        <translation>Stavsnið tónleika tekstur:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="375"/>
@@ -2759,7 +2759,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2175"/>
         <source>Interval:</source>
-        <translation>Interval:</translation>
+        <translation>Millumbil:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="86"/>
@@ -2796,7 +2796,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3516"/>
         <source>Note to barline distance:</source>
-        <translation>Fjarstøða nóta og taktstriku:</translation>
+        <translation>Fjarstøða nóti og taktstrika:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3606"/>
@@ -2811,7 +2811,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3484"/>
         <source>Key signature left margin:</source>
-        <translation>Tónaætt vinstrabreddin</translation>
+        <translation>Tónaætt vinstrabreddin:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3468"/>
@@ -2826,7 +2826,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3385"/>
         <source>Clef to barline distance:</source>
-        <translation>Fjarstøða lykil og taktstriku:</translation>
+        <translation>Fjarstøða lykil og taktstrika:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3356"/>
@@ -2868,7 +2868,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4091"/>
         <source>Barline at start of single staff</source>
-        <translation>Taktstrika við byrjan av stakari nótalinju</translation>
+        <translation>Taktstrika byrjan av stak nótalinju</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3857"/>
@@ -3117,7 +3117,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="6562"/>
         <location filename="../../mscore/editstyle.cpp" line="82"/>
         <source>Dash-dotted</source>
-        <translation>Striku-prikka</translation>
+        <translation>Strok-prikka</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="6058"/>
@@ -3125,7 +3125,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="6567"/>
         <location filename="../../mscore/editstyle.cpp" line="83"/>
         <source>Dash-dot-dotted</source>
-        <translation>Striku-prik-prikka</translation>
+        <translation>Strok-prik-prikka</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="6179"/>
@@ -3169,7 +3169,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4725"/>
         <source>Avoid staves</source>
-        <translation>Slepp undan nótalinjum</translation>
+        <translation>Fram við nótalinjum</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4735"/>
@@ -3194,12 +3194,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4805"/>
         <source>Distance after head of last note:</source>
-        <translation>Fjarstøða aftaná høvd á síðsta nóta:</translation>
+        <translation>Fjarstøða aftaná høvd á seinasta nóta:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4824"/>
         <source>Reset &apos;Distance after head of last note&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða aftaná høvd á síðsta tóna&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða aftaná høvd á seinasta nóta&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4929"/>
@@ -3225,7 +3225,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="9370"/>
         <location filename="../../mscore/editstyle.ui" line="9608"/>
         <source>Standard</source>
-        <translation>Vanligt</translation>
+        <translation>Vanlig</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9377"/>
@@ -3235,7 +3235,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9384"/>
         <source>Custom</source>
-        <translation>Sergjørt</translation>
+        <translation>Sergjørd</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9423"/>
@@ -3245,17 +3245,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9597"/>
         <source>Note Spelling</source>
-        <translation>Nóta-staviháttur</translation>
+        <translation>Staviháttur nótar</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9618"/>
         <source>German</source>
-        <translation>Týskt</translation>
+        <translation>Týskur</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9628"/>
         <source>Full German</source>
-        <translation>Fult týskt</translation>
+        <translation>Ser týskur</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9638"/>
@@ -3265,7 +3265,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9648"/>
         <source>French</source>
-        <translation>Franskt</translation>
+        <translation>Franskur</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9670"/>
@@ -3295,7 +3295,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9725"/>
         <source>Distance to fretboard diagram:</source>
-        <translation>Fjarstøða til bandaborð diagramm</translation>
+        <translation>Fjarstøða bandaborð diagramm</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9757"/>
@@ -3356,7 +3356,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="76"/>
         <source>Header, Footer</source>
-        <translation>Teksthøvd, Tekstfótur</translation>
+        <translation>Síðuhøvd, Síðufótur</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="151"/>
@@ -3733,12 +3733,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="487"/>
         <source>Vertical position of number:</source>
-        <translation>Loddrøtt støða hjá tali:</translation>
+        <translation>Tal loddrøtt støða:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="510"/>
         <source>Reset &apos;Vertical position of number&apos; value</source>
-        <translation>Nullstilla &apos;Loddrøtt støða hjá tali&apos;</translation>
+        <translation>Nullstilla &apos;Tal loddrøtt støða&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="548"/>
@@ -3748,7 +3748,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="727"/>
         <source>Min. vertical distance:</source>
-        <translation>minsta loddrøtt fjarstøða:</translation>
+        <translation>Minsta loddrætta fjarstøða:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="762"/>
@@ -3778,7 +3778,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2884"/>
         <source>Key to time signature distance:</source>
-        <translation>Fjarstøða tónaætt og takttekn:</translation>
+        <translation>Fjarstøða tónaætt og takttekin:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2897"/>
@@ -3798,12 +3798,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2948"/>
         <source>Reset &apos;Note to barline distance&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða nóta og taktstriku&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða nóti og taktstrika&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2965"/>
         <source>Reset &apos;Key to barline distance&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða lykil og taktstriku&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða lykil og taktstrika&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2982"/>
@@ -3823,17 +3823,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3040"/>
         <source>System header distance:</source>
-        <translation>Skipanar tekstahøvd fjarstøða:</translation>
+        <translation>Skipan teksthøvd fjarstøða:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3050"/>
         <source>Key to barline distance:</source>
-        <translation>Fjarstøða tónaætt og taktstriku:</translation>
+        <translation>Fjarstøða tónaætt og taktstrika:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3063"/>
         <source>Reset &apos;System header distance&apos; value</source>
-        <translation>Nullstilla &quot;Skipanar tekstahøvd fjarstøða&quot;</translation>
+        <translation>Nullstilla &quot;Skipan teksthøvd fjarstøða&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3106"/>
@@ -3848,7 +3848,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3168"/>
         <source>Reset &apos;Clef to barline distance&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða lykil og taktstriku&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða lykil og taktstrika&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3185"/>
@@ -3883,22 +3883,22 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3649"/>
         <source>System header with time signature distance:</source>
-        <translation>Fjarstøða til skipanar tekstahøvd við takttekin:</translation>
+        <translation>Fjarstøða skipan við takttekin teksthøvd:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3678"/>
         <source>Reset &apos;System header with time signature distance&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða til skipanar tekstahøvd við takttekin&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða skipan við takttekin teksthøvd&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3698"/>
         <source>Time signature to barline distance:</source>
-        <translation>Fjarstøða takttekin og taktstriku</translation>
+        <translation>Fjarstøða takttekin taktstrika</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="3721"/>
         <source>Reset &apos;Time signature to barline distance&apos; value</source>
-        <translation>Nullstilla &quot;Fjarstøða takttekin og taktstriku&quot;</translation>
+        <translation>Nullstilla &quot;Fjarstøða takttekin taktstrika&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5151"/>
@@ -4117,7 +4117,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4237"/>
         <source>Note to dot distance:</source>
-        <translation>Fjarstøða nóta og prikk:</translation>
+        <translation>Fjarstøða nóti og prikkur:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4367"/>
@@ -4244,12 +4244,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5776"/>
         <source>Autoplace, distance to dynamics:</source>
-        <translation>Sjálvvirkandi fjarstøða, dynamikkur:</translation>
+        <translation>Dynamikkur sjálvvirkandi fjarstøða:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5815"/>
         <source>Reset &apos;Autoplace, distance to dynamics&apos; value</source>
-        <translation>Nullstilla &quot;Sjálvvirkandi fjarstøða, dynamikkur&quot;</translation>
+        <translation>Nullstilla &quot;Dynamikkur sjálvvirkandi fjarstøða&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5829"/>
@@ -4419,7 +4419,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="176"/>
         <location filename="../../mscore/editstyle.ui" line="7325"/>
         <source>Articulations, Ornaments</source>
-        <translation>Ljóðmyndan, Prýði</translation>
+        <translation>Framburðir, Prýði</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="7412"/>
@@ -4564,7 +4564,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="7370"/>
         <source>Reset &apos;Articulation distance&apos; value</source>
-        <translation>Nullstilla &quot;Framsøgn, fjarstøða&quot;</translation>
+        <translation>Nullstilla &quot;Framburður fjarstøða&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="1706"/>
@@ -4581,7 +4581,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2328"/>
         <source>System Brackets</source>
-        <translation>Klombur, skipan</translation>
+        <translation>Skipan klombur</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2388"/>
@@ -4591,7 +4591,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2453"/>
         <source>System Dividers</source>
-        <translation>Skipan, sundurbýti</translation>
+        <translation>Skipan skiljarar</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2870"/>
@@ -4606,32 +4606,32 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="7381"/>
         <source>Reset &apos;Articulation size&apos; value</source>
-        <translation>Nullstilla &quot;Framsøgn, stødd&quot;</translation>
+        <translation>Nullstilla &quot;Framburður stødd&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8021"/>
         <source>Lyrics Dash</source>
-        <translation>Sangtekstur strika</translation>
+        <translation>Sangtekstur strok</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8027"/>
         <source>Dash thickness:</source>
-        <translation>Strikuvídd:</translation>
+        <translation>Strok vídd:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8034"/>
         <source>Min. dash length:</source>
-        <translation>Minsta strikuvídd:</translation>
+        <translation>Minsta strok vídd:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8060"/>
         <source>Max. dash length:</source>
-        <translation>Longsta strika:</translation>
+        <translation>Longsta strok:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8089"/>
         <source>Max. dash distance:</source>
-        <translation>Mesta striku fjarstøða:</translation>
+        <translation>Mesta strok fjarstøða:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8118"/>
@@ -4651,7 +4651,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8162"/>
         <source>Reset &apos;Max. dash distance&apos; value</source>
-        <translation>Nullstilla &quot;Mesta strokfjarstøða&quot;</translation>
+        <translation>Nullstilla &quot;Mesta strok fjarstøða&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8179"/>
@@ -4666,22 +4666,22 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8226"/>
         <source>Dash pad:</source>
-        <translation>Striku undirlag</translation>
+        <translation>Strok undirlag:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8252"/>
         <source>Reset &apos;Dash pad&apos; value</source>
-        <translation>Nullstilla &quot;Striku undirlag&quot;</translation>
+        <translation>Nullstilla &quot;Strok undirlag&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8266"/>
         <source>Dash Y position ratio:</source>
-        <translation>Strika Y støðu lutfall:</translation>
+        <translation>Strok Y støðu lutfall:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8279"/>
         <source>Reset &apos;Dash Y position ratio&apos; value</source>
-        <translation>Nullstilla &quot;Strika Y støðu lutfall&quot;</translation>
+        <translation>Nullstilla &quot;Strok Y støðu lutfall&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8296"/>
@@ -4691,12 +4691,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8308"/>
         <source>Reset &apos;Melisma pad&apos; value</source>
-        <translation>Nullstilla &quot;Melisma undirlag&quot;</translation>
+        <translation>Nullstilla &quot;Melismu undirlag&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8322"/>
         <source>Melisma pad:</source>
-        <translation>Melisma undirlag:</translation>
+        <translation>Melismu undirlag:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8329"/>
@@ -4826,12 +4826,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8655"/>
         <source>Align verse number</source>
-        <translation>Stilla vers nummar</translation>
+        <translation>Regla vers nummar</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8548"/>
         <source>Reset &apos;Align verse number&apos; value</source>
-        <translation>Nullstilla &quot;Stilla vers nummar&quot;</translation>
+        <translation>Nullstilla &quot;Regla vers nummar&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10343"/>
@@ -4974,7 +4974,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="248"/>
         <source>Instruments in Score</source>
-        <translation>Ljóðføri á nótablaði</translation>
+        <translation>Ljóðføri á nótablaðnum</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="263"/>
@@ -4994,7 +4994,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="336"/>
         <source>Instruments in Part</source>
-        <translation>Ljóðførir í parti</translation>
+        <translation>Ljóðføri í parti</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="355"/>
@@ -5185,7 +5185,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="107"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="114"/>
@@ -5261,7 +5261,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="487"/>
         <source>Normal</source>
-        <translation>Vanligt</translation>
+        <translation>Vanligur</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="492"/>
@@ -5356,7 +5356,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="88"/>
         <source>Reset &apos;Line thickness&apos; value</source>
-        <translation>Nullstilla &quot;Strikuvídd&quot;</translation>
+        <translation>Nullstilla &quot;Strok vídd&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="225"/>
@@ -5783,7 +5783,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="57"/>
         <source>Articulation/Ornament</source>
-        <translation>Framsøgn/Prýði</translation>
+        <translation>Framburður/Prýði</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="101"/>
@@ -6391,7 +6391,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="274"/>
         <source>Velocity change:</source>
-        <translation>Ferð broyting:</translation>
+        <translation>Velocity broyting:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="303"/>
@@ -6411,7 +6411,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="108"/>
         <source>Velocity:</source>
-        <translation>Ferð:</translation>
+        <translation>Velocity:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="127"/>
@@ -6421,7 +6421,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="140"/>
         <source>Velocity</source>
-        <translation>Ferð</translation>
+        <translation>Velocity</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="156"/>
@@ -6436,7 +6436,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="168"/>
         <source>Normal</source>
-        <translation>Vanligt</translation>
+        <translation>Vanligur</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="173"/>
@@ -6446,7 +6446,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="187"/>
         <source>Velocity change</source>
-        <translation>Ferð broyting</translation>
+        <translation>Velocity broyting</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="232"/>
@@ -6456,7 +6456,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="239"/>
         <source>Velocity change speed</source>
-        <translation>Skjótleiki broyt ferð</translation>
+        <translation>Skjótleiki broyt Velocity</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="242"/>
@@ -7146,7 +7146,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="196"/>
         <source>Create system header</source>
-        <translation>Stovna skipanar tekstahøvd</translation>
+        <translation>Stovna skipan teksthøvd</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="209"/>
@@ -7161,7 +7161,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="235"/>
         <source>Reset &apos;Create system header&apos; value</source>
-        <translation>Nullstilla &quot;Stovna skipanar tekstahøvd&quot;</translation>
+        <translation>Nullstilla &quot;Stovna skipan teksthøvd&quot;</translation>
     </message>
 </context>
 <context>
@@ -7214,7 +7214,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="277"/>
         <source>Reset &apos;Velocity change&apos; value</source>
-        <translation>Nullstilla &apos;Ferð broyting&apos;</translation>
+        <translation>Nullstilla &apos;Velocity broyting&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="297"/>
@@ -7254,12 +7254,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="116"/>
         <source>Velocity change:</source>
-        <translation>Ferð broyting:</translation>
+        <translation>Velocity broyting:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="225"/>
         <source>Velocity change</source>
-        <translation>Ferð broyting</translation>
+        <translation>Velocity broyting</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="341"/>
@@ -7636,12 +7636,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_lasso.ui" line="57"/>
         <source>Image Capture</source>
-        <translation>Taka mynd</translation>
+        <translation>Tak mynd</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lasso.ui" line="82"/>
         <source>Position:</source>
-        <translation>Plasering:</translation>
+        <translation>Støða:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lasso.ui" line="102"/>
@@ -7828,12 +7828,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="172"/>
         <source>Dash-dotted</source>
-        <translation>Striku-prikka</translation>
+        <translation>Strok-prikka</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="177"/>
         <source>Dash-dot-dotted</source>
-        <translation>Striku-prik-prikka</translation>
+        <translation>Strok-prik-prikka</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="193"/>
@@ -8010,7 +8010,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="57"/>
         <source>Measure Number</source>
-        <translation>Bar Number</translation>
+        <translation>Takt nummar</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="88"/>
@@ -8118,17 +8118,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="473"/>
         <source>Reset &apos;Velocity type&apos; value</source>
-        <translation>Nullstilla &apos;Ferð slag&apos;</translation>
+        <translation>Nullstilla &apos;Velocity slag&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="515"/>
         <source>Reset &apos;Velocity&apos; value</source>
-        <translation>Nullstilla &apos;Ferð&apos;</translation>
+        <translation>Nullstilla &apos;Velocity&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="556"/>
         <source>Reset &apos;Tuning&apos; value</source>
-        <translation>Nullstilla &apos;Stemningur&apos;</translation>
+        <translation>Nullstilla &apos;Stilling&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="635"/>
@@ -8153,7 +8153,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="486"/>
         <source>Velocity type</source>
-        <translation>Ferð slag</translation>
+        <translation>Velocity slag</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="490"/>
@@ -8168,7 +8168,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="579"/>
         <source>Velocity</source>
-        <translation>Ferð</translation>
+        <translation>Velocity</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="193"/>
@@ -8253,7 +8253,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="528"/>
         <source>Tuning</source>
-        <translation>Stemningur</translation>
+        <translation>Stilling</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="313"/>
@@ -8268,12 +8268,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="592"/>
         <source>Velocity:</source>
-        <translation>Ferð:</translation>
+        <translation>Velocity:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="605"/>
         <source>Tuning:</source>
-        <translation>Stemningur:</translation>
+        <translation>Stilling:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="95"/>
@@ -8283,7 +8283,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="563"/>
         <source>Velocity type:</source>
-        <translation>Ferð slag:</translation>
+        <translation>Velocity slag:</translation>
     </message>
 </context>
 <context>
@@ -10430,7 +10430,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="80"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="87"/>
@@ -10543,7 +10543,7 @@ space unit</extracomment>
         <location filename="../../libmscore/instrument.cpp" line="30"/>
         <source>normal</source>
         <extracomment>Channel name for otherwise unamed channels</extracomment>
-        <translation>Vanligt</translation>
+        <translation>vanlig</translation>
     </message>
     <message>
         <location filename="../../libmscore/instrument.cpp" line="32"/>
@@ -11176,7 +11176,7 @@ Nótabólkurin fer um taktmarkið</translation>
     <message>
         <location filename="../../mscore/measuresdialog.ui" line="107"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../mscore/measuresdialog.ui" line="114"/>
@@ -11284,7 +11284,7 @@ Nótabólkurin fer um taktmarkið</translation>
     <message>
         <location filename="../../mscore/metaedit.ui" line="238"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="245"/>
@@ -11343,7 +11343,7 @@ Nótabólkurin fer um taktmarkið</translation>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="53"/>
         <source>Chorus:</source>
-        <translation>Niðurlag:</translation>
+        <translation>Chorus:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="66"/>
@@ -11355,12 +11355,12 @@ Nótabólkurin fer um taktmarkið</translation>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="91"/>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="200"/>
         <source>MIDI OUT chorus</source>
-        <translation>MIDI OUT chorus</translation>
+        <translation>MIDI ÚT chorus</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="158"/>
         <source>Port:</source>
-        <translation>Ports</translation>
+        <translation>Portur:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="125"/>
@@ -11540,37 +11540,37 @@ Nótabólkurin fer um taktmarkið</translation>
     <message>
         <location filename="../../libmscore/chordline.cpp" line="24"/>
         <source>Doit</source>
-        <translation>Minsta petti</translation>
+        <translation>Doit</translation>
     </message>
     <message>
         <location filename="../../libmscore/chordline.cpp" line="25"/>
         <source>Plop</source>
-        <translation>gjums</translation>
+        <translation>Plop</translation>
     </message>
     <message>
         <location filename="../../libmscore/chordline.cpp" line="26"/>
         <source>Scoop</source>
-        <translation>Glíðan</translation>
+        <translation>Scoop</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1182"/>
         <source>Slide out down</source>
-        <translation>Glíð út niður</translation>
+        <translation>Glíðing út niður</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1187"/>
         <source>Slide out up</source>
-        <translation>Glíð út upp</translation>
+        <translation>Glíðing út upp</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1192"/>
         <source>Slide in above</source>
-        <translation>Glíð inn omanfyri</translation>
+        <translation>Glíðing inn omanfyri</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1197"/>
         <source>Slide in below</source>
-        <translation>Glíð inn niðanfyri</translation>
+        <translation>Glíðing inn niðanfyri</translation>
     </message>
 </context>
 <context>
@@ -11634,7 +11634,7 @@ Ein lesiligur samandráttur kann síggjast her:
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="102"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
 </context>
 <context>
@@ -11755,7 +11755,7 @@ Ein lesiligur samandráttur kann síggjast her:
     <message>
         <location filename="../../mscore/drumroll.cpp" line="104"/>
         <source>Velocity:</source>
-        <translation>Ferð:</translation>
+        <translation>Velocity:</translation>
     </message>
     <message>
         <location filename="../../mscore/drumroll.cpp" line="106"/>
@@ -11788,7 +11788,7 @@ Ein lesiligur samandráttur kann síggjast her:
     <message>
         <location filename="../../mscore/editdrumset.cpp" line="572"/>
         <source>MuseScore may not be able to load this drumset file.</source>
-        <translation>MuseScore kann møguliga ikki opna hesa trummu fílu.</translation>
+        <translation>MuseScore kann allarhelst ikki opna hesa trummu fílu.</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.cpp" line="601"/>
@@ -11829,7 +11829,7 @@ miseydnað: %2</translation>
         <location filename="../../mscore/editstringdata.cpp" line="40"/>
         <source>Open</source>
         <comment>string data</comment>
-        <translation>Opna</translation>
+        <translation>Opin</translation>
     </message>
     <message>
         <location filename="../../mscore/editstringdata.cpp" line="40"/>
@@ -12085,7 +12085,7 @@ miseydnað: %2</translation>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="1035"/>
         <source>Parenthesis</source>
-        <translation>Klombur</translation>
+        <translation>Parantes</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="1036"/>
@@ -12784,17 +12784,17 @@ Ljóð: %5</translation>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="54"/>
         <source>Version %1</source>
-        <translation type="unfinished"/>
+        <translation>Útgáva %1</translation>
     </message>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="87"/>
         <source>Development Build</source>
-        <translation type="unfinished"/>
+        <translation>Menningarstig</translation>
     </message>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="105"/>
         <source>Portable version</source>
-        <translation type="unfinished"/>
+        <translation>flytandi útgáva</translation>
     </message>
 </context>
 <context>
@@ -12970,7 +12970,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="300"/>
         <source>Power Tab Editor Files (experimental)</source>
-        <translation>Power Tap Editor fílar (roynd)</translation>
+        <translation>Power Tap ritla fílar (roynd)</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="301"/>
@@ -13228,7 +13228,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="1807"/>
         <location filename="../../mscore/file.cpp" line="1859"/>
         <source>Export</source>
-        <translation>Export</translation>
+        <translation>Flyt út</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1859"/>
@@ -13458,7 +13458,7 @@ Vinarliga vel takt og royn aftur</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2082"/>
         <source>Image Capture</source>
-        <translation>Taka mynd</translation>
+        <translation>Tak mynd</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2083"/>
@@ -13523,7 +13523,7 @@ Vinarliga vel takt og royn aftur</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2123"/>
         <source>T&amp;uplets</source>
-        <translation>T&amp;uplettir</translation>
+        <translation>N&amp;ótabólkar</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2130"/>
@@ -13554,7 +13554,7 @@ Vinarliga vel takt og royn aftur</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="1092"/>
         <source>Synthesizer</source>
-        <translation>Synthesisari</translation>
+        <translation>Synteseisari</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="1093"/>
@@ -13570,7 +13570,7 @@ Vinarliga vel takt og royn aftur</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2121"/>
         <source>N&amp;otes</source>
-        <translation>n&amp;óta</translation>
+        <translation>N&amp;ótar</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2122"/>
@@ -13585,7 +13585,7 @@ Vinarliga vel takt og royn aftur</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2136"/>
         <source>&amp;Tours</source>
-        <translation>&amp;túrar</translation>
+        <translation>&amp;Túrar</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2069"/>
@@ -13662,12 +13662,12 @@ Er tað ynskiligt at halda á fram?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4395"/>
         <source>Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>Vanlig stilling</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4403"/>
         <source>Repitch input mode</source>
-        <translation>Inntøkustøða tónar umaftur</translation>
+        <translation>Inntøkustøða til umtónan</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4408"/>
@@ -13707,7 +13707,7 @@ Er tað ynskiligt at halda á fram?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4476"/>
         <source>Lyrics edit mode</source>
-        <translation>Songtekst broyting støða</translation>
+        <translation>Broyt Sangtekst støða</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4479"/>
@@ -13751,7 +13751,7 @@ Endurstovna setu?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="6433"/>
         <source>MuseScore may not be able to load this style file: %1</source>
-        <translation>MuseScore kann møguliga ikki opna hesa snið fílu: %1</translation>
+        <translation>MuseScore kann allarhelst ikki opna hesa snið fílu: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="6736"/>
@@ -13846,7 +13846,7 @@ Endurstovna setu?</translation>
     <message>
         <location filename="../../mscore/workspace.cpp" line="145"/>
         <source>Edit</source>
-        <translation>Edit</translation>
+        <translation>Broyt</translation>
     </message>
     <message>
         <location filename="../../mscore/workspace.cpp" line="150"/>
@@ -13906,7 +13906,7 @@ við felagsskapin</translation>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="180"/>
         <source>Enter score information:</source>
-        <translation>Innrita upplýsningar um nótablaðið:</translation>
+        <translation>Um nótablaðið:</translation>
     </message>
 </context>
 <context>
@@ -14048,7 +14048,7 @@ við felagsskapin</translation>
     <message>
         <location filename="../../mscore/palette/palettecelldialog.cpp" line="123"/>
         <source>The palette cell properties have been modified.</source>
-        <translation>Eginleikarnir hjá palettupunti eru broyttir.</translation>
+        <translation>Eginleikarnir hjá palettu punti eru broyttir.</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/palettecelldialog.cpp" line="124"/>
@@ -14187,7 +14187,7 @@ við felagsskapin</translation>
     <message>
         <location filename="../../mscore/pianotools.cpp" line="440"/>
         <source>Piano Keyboard</source>
-        <translation>Klaver</translation>
+        <translation>Klaver klaviatur</translation>
     </message>
 </context>
 <context>
@@ -14343,7 +14343,7 @@ við felagsskapin</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="299"/>
         <source>Velocity:</source>
-        <translation>Ferð:</translation>
+        <translation>Velocity:</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="301"/>
@@ -14667,17 +14667,17 @@ Hetta ískoytisforritið krevur opið nótablað
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="154"/>
         <source>Page Width</source>
-        <translation>Page Width</translation>
+        <translation>Síðu vídd</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="155"/>
         <source>Whole Page</source>
-        <translation>Whole Page</translation>
+        <translation>Heil síða</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="156"/>
         <source>Two Pages</source>
-        <translation>Two Pages</translation>
+        <translation>Tvær síður</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="774"/>
@@ -14755,7 +14755,7 @@ Hetta ískoytisforritið krevur opið nótablað
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1307"/>
         <source>Applying…</source>
-        <translation type="unfinished"/>
+        <translation>Brúkar...</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1393"/>
@@ -14984,7 +14984,7 @@ miseydnað: %2</translation>
     <message>
         <location filename="../../libmscore/edit.cpp" line="3248"/>
         <source>Please select the complete tuplet and retry the command</source>
-        <translation>Vinarliga vel allan nótabólkin og royn umaftur</translation>
+        <translation>Vinarliga vel allan nótabólkin og endurtak</translation>
     </message>
 </context>
 <context>
@@ -15021,7 +15021,7 @@ miseydnað: %2</translation>
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="286"/>
         <source>Staff: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nótalinja: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="457"/>
@@ -15133,7 +15133,7 @@ miseydnað: %2</translation>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="313"/>
         <source>Image Capture</source>
-        <translation>Taka mynd</translation>
+        <translation>Tak mynd</translation>
     </message>
     <message>
         <location filename="../../mscore/fotomode.cpp" line="317"/>
@@ -15815,7 +15815,7 @@ Kundi tú hugsa tær at komi við á hesar túrar?</translation>
     <message>
         <location filename="../../mscore/tourhandler.cpp" line="442"/>
         <source>Back</source>
-        <translation>Back</translation>
+        <translation>Aftur</translation>
     </message>
     <message>
         <location filename="../../mscore/tourhandler.cpp" line="444"/>
@@ -15843,13 +15843,13 @@ Kundi tú hugsa tær at komi við á hesar túrar?</translation>
     <message>
         <location filename="../../mscore/updatechecker.cpp" line="109"/>
         <source>Update Available</source>
-        <translation>Update tøkt</translation>
+        <translation>Dagføring tøk</translation>
     </message>
     <message>
         <location filename="../../mscore/updatechecker.cpp" line="116"/>
         <location filename="../../mscore/updatechecker.cpp" line="117"/>
         <source>No Update Available</source>
-        <translation>Einki Update tøkt</translation>
+        <translation>Eingin dagføring tøk</translation>
     </message>
 </context>
 <context>
@@ -16008,7 +16008,7 @@ Kundi tú hugsa tær at komi við á hesar túrar?</translation>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="121"/>
         <source>Read Workspace Name</source>
-        <translation>Les navn á arbeiðsrúmi</translation>
+        <translation>Les navn arbeiðsrúm</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="122"/>
@@ -16069,7 +16069,7 @@ vinarliga vel annað navn:</translation>
     <message>
         <location filename="../../mscore/importmidi_ui/importmidi_delegate.cpp" line="154"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Gilda</translation>
     </message>
 </context>
 <context>
@@ -16505,7 +16505,7 @@ vinarliga vel annað navn:</translation>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="280"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="290"/>
@@ -16779,7 +16779,7 @@ vinarliga vel annað navn:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="894"/>
         <source>Articulations</source>
-        <translation>Framburðar</translation>
+        <translation>Framburðir</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="961"/>
@@ -16920,7 +16920,7 @@ vinarliga vel annað navn:</translation>
         <location filename="../../mscore/menus.cpp" line="1618"/>
         <location filename="../../mscore/menus.cpp" line="1619"/>
         <source>Measure Number</source>
-        <translation>Bar Number</translation>
+        <translation>Takt nummar</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1648"/>
@@ -16944,7 +16944,7 @@ vinarliga vel annað navn:</translation>
         <location filename="../../mscore/menus.cpp" line="1664"/>
         <source>Open</source>
         <extracomment>For brass and plucked string instruments: staff text that prescribes to play without mute, see https://en.wikipedia.org/wiki/Mute_(music)</extracomment>
-        <translation>Opna</translation>
+        <translation>Opin</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1667"/>
@@ -17305,13 +17305,13 @@ miseydnað: </translation>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Palettu træ inniheldur %n palett(ir)</numerusform><numerusform>Palettu træ inniheldur %n palett(ir)</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="503"/>
         <source>%1, contains %n matching element(s)</source>
         <comment>palette</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 inniheldur %n samsvarandi lut(ir)</numerusform><numerusform>%1 inniheldur %n samsvarandi lut(ir)</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="504"/>
@@ -17379,7 +17379,7 @@ miseydnað: </translation>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="63"/>
         <source>%n palette(s) match(es)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n palett(ir) samsvar(a)</numerusform><numerusform>%n palett(ir) samsvar(a)</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="95"/>
@@ -17420,7 +17420,7 @@ miseydnað: </translation>
         <location filename="../../mscore/parteditbase.ui" line="175"/>
         <location filename="../../mscore/parteditbase.ui" line="178"/>
         <source>Panorama position</source>
-        <translation>Panorama plasering</translation>
+        <translation>Panorama støða</translation>
     </message>
     <message>
         <location filename="../../mscore/partedit.ui" line="163"/>
@@ -17522,7 +17522,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/parteditbase.ui" line="522"/>
         <source>Port:</source>
-        <translation>Ports</translation>
+        <translation>Portur:</translation>
     </message>
     <message>
         <location filename="../../mscore/parteditbase.ui" line="529"/>
@@ -17611,22 +17611,22 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="22"/>
         <source>Velocity (relative)</source>
-        <translation>Ferð (lutfall)</translation>
+        <translation>Velocity (lutfall)</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="23"/>
         <source>Increase or decrease the velocity by the specified value</source>
-        <translation>Hækka ella lækka ferð við áseting</translation>
+        <translation>Hækka ella lækka velocity við áseting</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="25"/>
         <source>Velocity (absolute)</source>
-        <translation>Ferð (endaliga)</translation>
+        <translation>Velocity (treytaleyst)</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="26"/>
         <source>Ignore dynamic markings and set the velocity directly</source>
-        <translation>Set ferð á beinleiðis, og tak ikki dynamiskar ásetingar við</translation>
+        <translation>Set velocity á beinleiðis, og tak ikki dynamiskar ásetingar við</translation>
     </message>
 </context>
 <context>
@@ -17645,7 +17645,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/playpanel.ui" line="64"/>
         <source>Position:</source>
-        <translation>Plasering:</translation>
+        <translation>Støða:</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="360"/>
@@ -17689,7 +17689,7 @@ ljóðstyrki</translation>
         <location filename="../../mscore/playpanel.ui" line="651"/>
         <location filename="../../mscore/playpanel.ui" line="654"/>
         <source>Playback speed (as percentage)</source>
-        <translation type="unfinished"/>
+        <translation>Spæl ferð (prosentpartur)</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="663"/>
@@ -17713,7 +17713,7 @@ ljóðstyrki</translation>
         <location filename="../../mscore/playpanel.ui" line="839"/>
         <location filename="../../mscore/playpanel.ui" line="842"/>
         <source>Playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="898"/>
@@ -17752,7 +17752,7 @@ ljóðstyrki</translation>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="108"/>
         <source>Edit</source>
-        <translation>Edit</translation>
+        <translation>Broyt</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="120"/>
@@ -17793,7 +17793,7 @@ ljóðstyrki</translation>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="163"/>
         <source>Redo</source>
-        <translation>umaftur</translation>
+        <translation>Endurtak</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="171"/>
@@ -17853,7 +17853,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/plugin/pluginManager.ui" line="135"/>
         <source>Reload Plugins</source>
-        <translation>Ískoytisforrit umaftur</translation>
+        <translation>Endurtak ískoytisforrit</translation>
     </message>
 </context>
 <context>
@@ -17902,7 +17902,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="604"/>
         <source>Start empty</source>
-        <translation>start empty</translation>
+        <translation>Tóm byrjan</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="636"/>
@@ -18246,7 +18246,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
         <location filename="../../mscore/prefsdialog.ui" line="817"/>
         <location filename="../../mscore/prefsdialog.ui" line="820"/>
         <source>Background</source>
-        <translation>Background</translation>
+        <translation>Bakgrund</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="841"/>
@@ -18336,55 +18336,55 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
         <location filename="../../mscore/prefsdialog.ui" line="1071"/>
         <location filename="../../mscore/prefsdialog.ui" line="1077"/>
         <source>The default zoom level for new scores</source>
-        <translation type="unfinished"/>
+        <translation>Forsett sýning av nýggjum nótabløðum</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1074"/>
         <source>Default zoom level</source>
-        <translation type="unfinished"/>
+        <translation>Forsett suming</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1106"/>
         <source>Keyboard zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Neyvleiki klaviatur suming</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1113"/>
         <location filename="../../mscore/prefsdialog.ui" line="1119"/>
         <source>The number of steps it takes to double the zoom level using the mouse</source>
-        <translation type="unfinished"/>
+        <translation>Talið av stigum sum tvífaldar sumingar støðuna við músini</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1116"/>
         <source>Mouse zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Neyvleiki mús suming</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1135"/>
         <source>Mouse zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Neyvleiki mús suming:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1148"/>
         <location filename="../../mscore/prefsdialog.ui" line="1154"/>
         <source>The default zoom type for new scores</source>
-        <translation type="unfinished"/>
+        <translation>Forsett sum slag nýggj nótabløð</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1151"/>
         <source>Default zoom type</source>
-        <translation type="unfinished"/>
+        <translation>Forsett suming</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1184"/>
         <location filename="../../mscore/prefsdialog.ui" line="1190"/>
         <source>The number of steps it takes to double the zoom level using the keyboard</source>
-        <translation type="unfinished"/>
+        <translation>Talið av stigum sum tvífaldar sumingar støðuna við knappaborðinum</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1187"/>
         <source>Keyboard zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Neyvleiki klaviatur suming</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1228"/>
@@ -18399,7 +18399,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1267"/>
         <source>Miscellaneous</source>
-        <translation>Blandaður</translation>
+        <translation>Ymiskt</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1273"/>
@@ -18410,7 +18410,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1279"/>
         <source>Draw antialiased</source>
-        <translation>Draw Antialiased</translation>
+        <translation>Javna kantar</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1318"/>
@@ -18469,7 +18469,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1517"/>
         <source>MIDI Remote Control</source>
-        <translation>MIDI Remote Control</translation>
+        <translation>MIDI fjarstýring</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1541"/>
@@ -18673,7 +18673,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2162"/>
         <source>Play</source>
-        <translation>Play</translation>
+        <translation>Spæl</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2172"/>
@@ -18945,7 +18945,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
         <location filename="../../mscore/prefsdialog.ui" line="2913"/>
         <location filename="../../mscore/prefsdialog.ui" line="3077"/>
         <source>Device:</source>
-        <translation>Device:</translation>
+        <translation>Tól:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2929"/>
@@ -19043,7 +19043,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3283"/>
         <source>Remember last connection(s)</source>
-        <translation>Remember last connection(s)</translation>
+        <translation>Minst til samband(-bond)</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3312"/>
@@ -19053,7 +19053,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3371"/>
         <source>Import</source>
-        <translation>Import</translation>
+        <translation>Flyt inn</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3377"/>
@@ -19114,7 +19114,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1289"/>
         <source>Proximity for selecting elements</source>
-        <translation>Nærleiki tá llutir verða valdir:</translation>
+        <translation>Nærleiki tá lutir verða valdir:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1342"/>
@@ -19370,7 +19370,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3812"/>
         <source>Export all layout</source>
-        <translation type="unfinished"/>
+        <translation>Flyt út allar uppsetingar</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4025"/>
@@ -19431,7 +19431,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3685"/>
         <source>Export</source>
-        <translation>Export</translation>
+        <translation>Flyt út</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3710"/>
@@ -19595,7 +19595,7 @@ Um seinking verður stilla rætt, kunnu MIDI tólini spæla við Musescore synth
         <location filename="../../mscore/prefsdialog.ui" line="4243"/>
         <location filename="../../mscore/prefsdialog.ui" line="4246"/>
         <source>Automatic Update Check</source>
-        <translation>Automatic Update Check</translation>
+        <translation>Kanna sjálvvirkandi dagføring</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4282"/>
@@ -19744,7 +19744,7 @@ miseydnað: %2</translation>
     <message>
         <location filename="../../libmscore/stafftype.cpp" line="1340"/>
         <source>Standard</source>
-        <translation>Vanligt</translation>
+        <translation>Vanlig</translation>
     </message>
     <message>
         <location filename="../../libmscore/stafftype.cpp" line="1342"/>
@@ -20149,7 +20149,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
         <location filename="../../libmscore/note.cpp" line="3018"/>
         <location filename="../../libmscore/note.cpp" line="3041"/>
         <source>%1; String: %2; Fret: %3</source>
-        <translation type="unfinished"/>
+        <translation>%1; Strongur: %2; Band: %3</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="3021"/>
@@ -20393,7 +20393,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message>
         <location filename="../../avsomr/ret.cpp" line="111"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>Gilda</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="113"/>
@@ -20463,7 +20463,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message>
         <location filename="../../avsomr/ret.cpp" line="154"/>
         <source>Try to uncheck and check again to use the local OMR engine</source>
-        <translation>Royn at avkrossa og síðan krossa av umaftur, og brúka so staðbundna OMR tólið</translation>
+        <translation>Royn at avkrossa og síðani krossa av umaftur, fyri at brúka staðbundna OMR tólið</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="36"/>
@@ -20518,7 +20518,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1699"/>
         <source>%1 added</source>
-        <translation type="unfinished"/>
+        <translation>%1 afturat</translation>
     </message>
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1701"/>
@@ -20528,7 +20528,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1703"/>
         <source>%1, added %2, removed %3</source>
-        <translation type="unfinished"/>
+        <translation>%1, afturat %2, strikað %3</translation>
     </message>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1444"/>
@@ -20566,7 +20566,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
         <location filename="../../libmscore/fret.cpp" line="1503"/>
         <source>%n dot(s) on fret(s) %1</source>
         <extracomment>Omit the &quot;%n &quot; for the singular translation (and the &quot;(s)&quot; too)</extracomment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n prikk(ar) á band(bond) %1</numerusform><numerusform>%n prikk(ar) á band(bond) %1</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1514"/>
@@ -20601,7 +20601,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message numerus="yes">
         <location filename="../../libmscore/fret.cpp" line="1540"/>
         <source>%n string(s) total</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n strongur(streingir) tilsamans</numerusform><numerusform>%n strongur(streingir) tilsamans</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/measure.cpp" line="1938"/>
@@ -20621,67 +20621,67 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
     <message>
         <location filename="../../libmscore/textbase.cpp" line="51"/>
         <source>space</source>
-        <translation type="unfinished"/>
+        <translation>millumrúm</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="52"/>
         <source>dash</source>
-        <translation type="unfinished"/>
+        <translation>strok</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="53"/>
         <source>equals</source>
-        <translation type="unfinished"/>
+        <translation>javnatekn</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="54"/>
         <source>comma</source>
-        <translation type="unfinished"/>
+        <translation>komma</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="55"/>
         <source>period</source>
-        <translation type="unfinished"/>
+        <translation>punktum</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="56"/>
         <source>colon</source>
-        <translation type="unfinished"/>
+        <translation>kolon</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="57"/>
         <source>semicolon</source>
-        <translation type="unfinished"/>
+        <translation>semikolon</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="58"/>
         <source>left parenthesis</source>
-        <translation>left bracket</translation>
+        <translation>Parantes vinstra</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="59"/>
         <source>right parenthesis</source>
-        <translation>right bracket</translation>
+        <translation>Høgra parantes</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="60"/>
         <source>left bracket</source>
-        <translation type="unfinished"/>
+        <translation>klombur vinstra</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="61"/>
         <source>right bracket</source>
-        <translation type="unfinished"/>
+        <translation>klombur høgra</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="565"/>
         <source>line feed</source>
-        <translation type="unfinished"/>
+        <translation>linjuskift</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="566"/>
         <source>blank</source>
-        <translation type="unfinished"/>
+        <translation>glopp</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="609"/>
@@ -20689,20 +20689,20 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
         <location filename="../../libmscore/textbase.cpp" line="661"/>
         <location filename="../../libmscore/textbase.cpp" line="666"/>
         <source>%1 unselected</source>
-        <translation type="unfinished"/>
+        <translation>%1 frával</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="614"/>
         <location filename="../../libmscore/textbase.cpp" line="669"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="649"/>
         <location filename="../../libmscore/textbase.cpp" line="662"/>
         <location filename="../../libmscore/textbase.cpp" line="665"/>
         <source>%1 selected</source>
-        <translation type="unfinished"/>
+        <translation>%1 valt</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1139"/>
@@ -20734,7 +20734,7 @@ Vitja %1Musescore heimasíðuna%2 fyri at fáa nýggjastu versiónina</translati
         <location filename="../../mscore/instrdialog.cpp" line="141"/>
         <location filename="../../mscore/musescore.cpp" line="4152"/>
         <source>Quit</source>
-        <translation>Lat aftur</translation>
+        <translation>Enda</translation>
     </message>
     <message>
         <location filename="../../importexport/capella/capella.cpp" line="2759"/>
@@ -20771,7 +20771,7 @@ Ynskir tú at yvirskriva?</translation>
     <message>
         <location filename="../../mscore/file.cpp" line="2356"/>
         <source>SoundFont installed. Please go to View &gt; Synthesizer to add it and View &gt; Mixer to choose an instrument sound.</source>
-        <translation>Ljóðfuntur innlagdur. Vinarliga far til Sýning &gt; Synthesizer fyri at leggja afturat og Sýning &gt; Blandipultur fyri at velja ljóðførisljóð</translation>
+        <translation>Ljóðfuntur innlagdur. Vinarliga far til Sýning &gt; Synthesizer fyri at leggja afturat og Sýning &gt; Blandipultur fyri at velja ljóðføri.</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi.cpp" line="1201"/>
@@ -20911,7 +20911,7 @@ Ynskir tú at yvirskriva?</translation>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="14"/>
         <source>Realize Chord Symbols</source>
-        <translation>Tónar á akkordtekin</translation>
+        <translation>Set tónar á akkordtekin</translation>
     </message>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="17"/>
@@ -20939,7 +20939,7 @@ Ynskir tú at yvirskriva?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5835"/>
         <source>Record</source>
-        <translation>record</translation>
+        <translation>Tak upp</translation>
     </message>
 </context>
 <context>
@@ -21522,12 +21522,12 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../libmscore/stafftype.cpp" line="38"/>
         <source>Standard</source>
-        <translation>Vanligt</translation>
+        <translation>Vanlig</translation>
     </message>
     <message>
         <location filename="../../libmscore/stafftype.cpp" line="39"/>
         <source>Percussion</source>
-        <translation>Percussion</translation>
+        <translation>Slagverk</translation>
     </message>
     <message>
         <location filename="../../libmscore/stafftype.cpp" line="40"/>
@@ -21586,7 +21586,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/stafftext.ui" line="285"/>
         <source>Voice:</source>
-        <translation>Voice:</translation>
+        <translation>Rødd:</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="292"/>
@@ -21788,7 +21788,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="20"/>
         <source>Synthesizer</source>
-        <translation>Synthesisari</translation>
+        <translation>Synteseisari</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="37"/>
@@ -21865,17 +21865,17 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="230"/>
         <source>Tuning</source>
-        <translation>Stemningur</translation>
+        <translation>Stilling</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="236"/>
         <source>Master tuning:</source>
-        <translation>Høvuðs stemningur:</translation>
+        <translation>Høvuðs stilling:</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="243"/>
         <source>Master tuning</source>
-        <translation>Høvuðs stemningur</translation>
+        <translation>Høvuðs stilling</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="246"/>
@@ -21906,17 +21906,17 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="322"/>
         <source>Velocity only (no single-note dynamics)</source>
-        <translation>Bert ferð (Eingin dynamikkur á einstøkum tónum)</translation>
+        <translation>Bert velocity (Eingin dynamikkur á einstøkum tónum)</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="327"/>
         <source>Default (single-note dynamics and velocity)</source>
-        <translation>Forsett (ferð og dynamikkur á einstøkum tónum)</translation>
+        <translation>Forsett (velocity og dynamikkur á einstøkum tónum)</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="332"/>
         <source>CC events only (constant velocity)</source>
-        <translation>Bert CC hendingar (jøvn ferð)</translation>
+        <translation>Bert CC hendingar (javnt velocity)</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="344"/>
@@ -21957,12 +21957,12 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="403"/>
         <source>Switch all sounds to expressive</source>
-        <translation>Skift øll ljóð til sigandi</translation>
+        <translation>Skift øll ljóð til expressive</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="413"/>
         <source>Switch all sounds to non-expressive</source>
-        <translation>Skift øll ljóð til ikki-sigandi</translation>
+        <translation>Skift øll ljóð til non-expressive</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="423"/>
@@ -21972,12 +21972,12 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="406"/>
         <source>To Expressive</source>
-        <translation>Til sigandi</translation>
+        <translation>Til Expressive</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="416"/>
         <source>To Non-Expressive</source>
-        <translation>Til Ikki-sigandi</translation>
+        <translation>Til non-Expressive</translation>
     </message>
     <message>
         <location filename="../../mscore/synthcontrol.ui" line="426"/>
@@ -22149,7 +22149,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2264"/>
         <source>Measure Number</source>
-        <translation>Bar Number</translation>
+        <translation>Takt nummar</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2265"/>
@@ -22299,7 +22299,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2290"/>
         <source>Header</source>
-        <translation>Teksthøvd</translation>
+        <translation>Síðuhøvd</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2291"/>
@@ -22352,7 +22352,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/importmidi_ui/importmidi_delegate.cpp" line="64"/>
         <source>OK</source>
-        <translation>TAMAM</translation>
+        <translation>Gilda</translation>
     </message>
 </context>
 <context>
@@ -22413,7 +22413,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/timedialog.ui" line="154"/>
         <source>Text:</source>
-        <translation>Text:</translation>
+        <translation>Tekstur:</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="273"/>
@@ -22474,7 +22474,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/timesigproperties.ui" line="220"/>
         <source>Text:</source>
-        <translation>Text:</translation>
+        <translation>Tekstur:</translation>
     </message>
 </context>
 <context>
@@ -22674,7 +22674,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="348"/>
         <source>Enter Number of Measures:</source>
-        <translation type="unfinished"/>
+        <translation>Skriva tal av taktum</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="363"/>
@@ -22718,7 +22718,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="52"/>
         <source>Available Actions</source>
-        <translation>Møguliga gerðir</translation>
+        <translation>Gerðir til taks</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="80"/>
@@ -22781,22 +22781,22 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="87"/>
         <source>F major / D minor</source>
-        <translation>F major / D minor</translation>
+        <translation>F dur / D moll</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="92"/>
         <source>C major / A minor</source>
-        <translation>C major / A minor</translation>
+        <translation>C dur / A moll</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="97"/>
         <source>G major / E minor</source>
-        <translation>G major / E minor</translation>
+        <translation>G dur / E moll</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="102"/>
         <source>D major / B minor</source>
-        <translation>D major / B minor</translation>
+        <translation>D dur / H moll</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="107"/>
@@ -22828,24 +22828,24 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
         <location filename="../../mscore/transposedialog.ui" line="183"/>
         <location filename="../../mscore/transposedialog.ui" line="371"/>
         <source>Up</source>
-        <translation>Up</translation>
+        <translation>Upp</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="142"/>
         <location filename="../../mscore/transposedialog.ui" line="327"/>
         <location filename="../../mscore/transposedialog.ui" line="415"/>
         <source>Down</source>
-        <translation>Down</translation>
+        <translation>Niður</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="149"/>
         <source>Closest</source>
-        <translation>Closest</translation>
+        <translation>Nærmasta</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="162"/>
         <source>By Interval</source>
-        <translation>Eftir intervalli</translation>
+        <translation>Eftir tónabili</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="194"/>
@@ -22870,7 +22870,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="214"/>
         <source>Major Second</source>
-        <translation>Stór sekund</translation>
+        <translation>Stórt sekund</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="219"/>
@@ -23078,7 +23078,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="169"/>
         <source>Insert New Palette</source>
-        <translation>Insert new Palette</translation>
+        <translation>Nýggj Palett</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="174"/>
@@ -23281,7 +23281,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="83"/>
         <source>Auto</source>
-        <translation>Sjálvvirkið</translation>
+        <translation>Sjálvvirkin</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="88"/>
@@ -23292,7 +23292,7 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
         <location filename="../../mscore/inspector/voicing_select.ui" line="93"/>
         <source>Close</source>
         <extracomment>all notes within an octave</extracomment>
-        <translation>Lat aftur</translation>
+        <translation>Tætt</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="98"/>
@@ -23310,13 +23310,13 @@ Gev gætur: &quot;Ctrl+Shift+1&quot; er ein knapparøð.</translation>
         <location filename="../../mscore/inspector/voicing_select.ui" line="108"/>
         <source>Four Note</source>
         <extracomment>4 note chord</extracomment>
-        <translation>Fýra tónar</translation>
+        <translation>4 tónar</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="113"/>
         <source>Three Note</source>
         <extracomment>3 note chord</extracomment>
-        <translation>Tríggir tónar</translation>
+        <translation>3 tónar</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="122"/>
@@ -23356,7 +23356,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/workspacedialog.ui" line="35"/>
         <source>Workspace Name:</source>
-        <translation>Arbeiðsrúm navn:</translation>
+        <translation>Navn arbeiðsrúm:</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.ui" line="45"/>
@@ -23610,12 +23610,12 @@ miseydnað: </translation>
         <location filename="../../mscore/shortcut.cpp" line="180"/>
         <location filename="../../mscore/shortcut.cpp" line="181"/>
         <source>Redo</source>
-        <translation>umaftur</translation>
+        <translation>Endurtak</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="182"/>
         <source>Redo last undo</source>
-        <translation>Ger umaftur seinasta angra</translation>
+        <translation>Endurtak seinastu angran</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="192"/>
@@ -24138,7 +24138,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="316"/>
         <source>Enter notes at a fixed tempo indicated by a metronome beat</source>
-        <translation>Set inn nótar við fastari ferð, víst við metronom stevi</translation>
+        <translation>Set inn nótar við føstum tempo, víst við metronom stevi</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="326"/>
@@ -24148,7 +24148,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="327"/>
         <source>Enter notes while tapping a key or pedal to set the tempo</source>
-        <translation>Set inn nótar meðan ferðin verðu sett við tasti ella pedal</translation>
+        <translation>Set inn nótar meðan tempo verðu sett við tasti ella pedal</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="337"/>
@@ -24223,17 +24223,17 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="767"/>
         <source>Flip Direction</source>
-        <translation>Flip Direction</translation>
+        <translation>Endavend</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="768"/>
         <source>Flip direction</source>
-        <translation>Flip direction</translation>
+        <translation>Endavend</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="777"/>
         <source>Up</source>
-        <translation>Up</translation>
+        <translation>Upp</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="778"/>
@@ -24273,7 +24273,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="811"/>
         <source>Pitch up by an octave or move text or articulation up</source>
-        <translation>Tóna upp eina oktav, ella flyt tekst ella framburðartekin upp</translation>
+        <translation>Tóna upp eina oktav ella flyt tekst ella framburðartekin upp</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="819"/>
@@ -24303,12 +24303,12 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="840"/>
         <source>Move up</source>
-        <translation>Move up</translation>
+        <translation>Flyt upp</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="850"/>
         <source>Down</source>
-        <translation>Down</translation>
+        <translation>Niður</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="851"/>
@@ -24455,7 +24455,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1015"/>
         <source>Move down</source>
-        <translation>Move down</translation>
+        <translation>Flyt niður</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1025"/>
@@ -24786,7 +24786,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1321"/>
         <source>Insert one measure</source>
-        <translation>Set in eina takt</translation>
+        <translation>Set inn eina takt</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1329"/>
@@ -25065,7 +25065,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1548"/>
         <source>Note duration: 128th</source>
-        <translation>nóta tíðarbil: 128prt</translation>
+        <translation>Nóta tíðarbil: 128prt</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1549"/>
@@ -25189,17 +25189,17 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1638"/>
         <source>Quadruple Augmentation Dot</source>
-        <translation>Fýrafaldur økingar prikkur</translation>
+        <translation>Fýrafaldaður økingar prikkur</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1639"/>
         <source>Note duration: Quadruple augmentation dot</source>
-        <translation>Tíðarbil: Fýrafaldur økingar prikkur</translation>
+        <translation>Tíðarbil: Fýrafaldaður økingar prikkur</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1640"/>
         <source>Quadruple augmentation dot</source>
-        <translation>Fýrafaldur økingar prikkur</translation>
+        <translation>Fýrafaldaður økingar prikkur</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1649"/>
@@ -25314,7 +25314,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1821"/>
         <source>Voice 1</source>
-        <translation>voice 1</translation>
+        <translation>Rødd 1</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1828"/>
@@ -25324,7 +25324,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1829"/>
         <source>Voice 2</source>
-        <translation>voice 2</translation>
+        <translation>Rødd 2</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1836"/>
@@ -25334,7 +25334,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1837"/>
         <source>Voice 3</source>
-        <translation>voice 3</translation>
+        <translation>Rødd 3</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1844"/>
@@ -25344,7 +25344,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1845"/>
         <source>Voice 4</source>
-        <translation>voice 4</translation>
+        <translation>Rødd 4</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1852"/>
@@ -25650,7 +25650,7 @@ miseydnað: </translation>
         <location filename="../../mscore/shortcut.cpp" line="3641"/>
         <location filename="../../mscore/shortcut.cpp" line="3642"/>
         <source>Toggle &apos;Create Multimeasure Rest&apos;</source>
-        <translation>Skift &apos;ger fleirtakta tøgn&apos;</translation>
+        <translation>Skift &apos;Stovna fleirtakta tøgn&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3651"/>
@@ -26148,7 +26148,7 @@ miseydnað: </translation>
         <location filename="../../mscore/shortcut.cpp" line="2043"/>
         <location filename="../../mscore/shortcut.cpp" line="2859"/>
         <source>Image Capture</source>
-        <translation>Taka mynd</translation>
+        <translation>Tak mynd</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2051"/>
@@ -26189,7 +26189,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2085"/>
         <source>Quit</source>
-        <translation>Lat aftur</translation>
+        <translation>Enda</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2091"/>
@@ -26384,12 +26384,12 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2239"/>
         <source>Play</source>
-        <translation>Play</translation>
+        <translation>Spæl</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2241"/>
         <source>Start or stop playback</source>
-        <translation>Start or stop playback</translation>
+        <translation>Byrja ella enda spæl</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2250"/>
@@ -26439,7 +26439,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2302"/>
         <source>Rewind to start position</source>
-        <translation>Bakka til byrjanarplasering</translation>
+        <translation>Bakka til byrjunarstøðu</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2316"/>
@@ -26494,7 +26494,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2381"/>
         <source>Treble Clef</source>
-        <translation>G-lykil</translation>
+        <translation>G lykil</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2382"/>
@@ -26815,7 +26815,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2745"/>
         <source>Synthesizer</source>
-        <translation>Synthesisari</translation>
+        <translation>Syntesiesari</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2755"/>
@@ -26880,7 +26880,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2806"/>
         <source>Pan roll during playback</source>
-        <translation>Panorera lista tá spælt verður</translation>
+        <translation>Fylg við tá spælt verður</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2815"/>
@@ -26965,12 +26965,12 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2915"/>
         <source>Piano Keyboard</source>
-        <translation>Klaver</translation>
+        <translation>Klaver klaviatur</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2916"/>
         <source>Piano keyboard</source>
-        <translation>klaver</translation>
+        <translation>Klaver klaviatur</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2929"/>
@@ -27090,7 +27090,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3056"/>
         <source>Set loop in position</source>
-        <translation>Áset sloyfu inn plasering</translation>
+        <translation>Áset sloyfu byrjan</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3065"/>
@@ -27100,7 +27100,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3066"/>
         <source>Set loop out position</source>
-        <translation>Áset sloyfu út plasering</translation>
+        <translation>Áset sloyfu enda</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3075"/>
@@ -27125,52 +27125,52 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3088"/>
         <source>Play count-in at playback start</source>
-        <translation>Spæl tel-inn við spæl byrjan</translation>
+        <translation>Tel inn við spæl byrjan</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3097"/>
         <source>Increase Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Hækka spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3098"/>
         <source>Increase playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Hækka spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3099"/>
         <source>Increase the playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Hækka spæl ferðina</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3105"/>
         <source>Decrease Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Lækka spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3106"/>
         <source>Decrease playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Lækka spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3107"/>
         <source>Decrease the playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Lækka spælferðina</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3113"/>
         <source>Reset Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Nullstilla spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3114"/>
         <source>Reset playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Nullstilla spæl ferð</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3115"/>
         <source>Reset the playback speed to 100%</source>
-        <translation type="unfinished"/>
+        <translation>Nullstilla spæl ferð til 100%</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3121"/>
@@ -27816,12 +27816,12 @@ miseydnað: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3804"/>
         <source>Remove Empty Trailing Measures</source>
-        <translation>Tak burtur tómar taktir at enda</translation>
+        <translation>Tak burtur seinastu tómu taktirnar</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3805"/>
         <source>Remove empty trailing measures</source>
-        <translation>Tak burtur tómar taktir at enda</translation>
+        <translation>Tak burtur seinastu tómu taktirnar</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3814"/>
@@ -29027,7 +29027,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="36"/>
         <source>Treble clef</source>
-        <translation>Treble clef</translation>
+        <translation>G lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="38"/>
@@ -29062,32 +29062,32 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="44"/>
         <source>French violin clef</source>
-        <translation>French violin clef</translation>
+        <translation>Franskur violin lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="45"/>
         <source>Soprano clef</source>
-        <translation>Soprano clef</translation>
+        <translation>Sopran lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="46"/>
         <source>Mezzo-soprano clef</source>
-        <translation>Mezzo-soprano clef</translation>
+        <translation>Mezzo-sopran lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="47"/>
         <source>Alto clef</source>
-        <translation>Alto clef</translation>
+        <translation>Alt lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="48"/>
         <source>Tenor clef</source>
-        <translation>Tenor clef</translation>
+        <translation>Tenor lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="49"/>
         <source>Baritone clef (C clef)</source>
-        <translation>Baritone clef (C clef)</translation>
+        <translation>Baritone lykil (C)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="50"/>
@@ -29152,7 +29152,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="62"/>
         <source>Baritone clef (F clef)</source>
-        <translation>Baritone clef (F clef)</translation>
+        <translation>Baritone lykil (F)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="63"/>
@@ -29172,7 +29172,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="66"/>
         <source>Percussion</source>
-        <translation>Percussion</translation>
+        <translation>Slagverk</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="67"/>
@@ -29379,7 +29379,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="301"/>
         <source>Square Click</source>
-        <translation>Square Klikk</translation>
+        <translation>Kvadrat Klikk</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="302"/>
@@ -29808,7 +29808,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="38"/>
         <source>Measure Number</source>
-        <translation>Bar Number</translation>
+        <translation>Takt nummar</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="41"/>
@@ -29818,7 +29818,7 @@ miseydnað: </translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="44"/>
         <source>System Divider</source>
-        <translation>Skipanar passari</translation>
+        <translation>Skipan skiljari</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="59"/>
@@ -30555,17 +30555,17 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../mscore/zoombox.cpp" line="44"/>
         <source>Page Width</source>
-        <translation>Page Width</translation>
+        <translation>Síðu vídd</translation>
     </message>
     <message>
         <location filename="../../mscore/zoombox.cpp" line="45"/>
         <source>Whole Page</source>
-        <translation>Whole Page</translation>
+        <translation>Heil síða</translation>
     </message>
     <message>
         <location filename="../../mscore/zoombox.cpp" line="46"/>
         <source>Two Pages</source>
-        <translation>Two Pages</translation>
+        <translation>Tvær síður</translation>
     </message>
 </context>
 <context>
@@ -30954,7 +30954,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/note.cpp" line="221"/>
         <source>Normal</source>
-        <translation>Vanligt</translation>
+        <translation>Vanligur</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="222"/>
@@ -31098,7 +31098,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="44"/>
         <source>Articulations</source>
-        <translation>Framburðar</translation>
+        <translation>Framburðir</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="45"/>
@@ -31188,282 +31188,282 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2902"/>
         <source>Combining accordion coupler dot</source>
-        <translation type="unfinished"/>
+        <translation>Combining accordion coupler dot</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2903"/>
         <source>Combining left hand, 2 ranks, empty</source>
-        <translation type="unfinished"/>
+        <translation>Combining left hand, 2 ranks, empty</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2904"/>
         <source>Combining left hand, 3 ranks, empty (square)</source>
-        <translation type="unfinished"/>
+        <translation>Combining left hand, 3 ranks, empty (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2905"/>
         <source>Combining right hand, 3 ranks, empty</source>
-        <translation type="unfinished"/>
+        <translation>Combining right hand, 3 ranks, empty</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2906"/>
         <source>Combining right hand, 4 ranks, empty</source>
-        <translation type="unfinished"/>
+        <translation>Combining right hand, 4 ranks, empty</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2907"/>
         <source>Diatonic accordion clef</source>
-        <translation type="unfinished"/>
+        <translation>Diatonisk harmonika lykil</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2908"/>
         <source>Left hand, 2 ranks, 16&apos; stop (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, 16&apos; stop (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2909"/>
         <source>Left hand, 2 ranks, 8&apos; stop + 16&apos; stop (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, 8&apos; stop + 16&apos; stop (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2910"/>
         <source>Left hand, 2 ranks, 8&apos; stop (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, 8&apos; stop (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2911"/>
         <source>Left hand, 2 ranks, full master (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, full master (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2912"/>
         <source>Left hand, 2 ranks, master + 16&apos; stop (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, master + 16&apos; stop (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2913"/>
         <source>Left hand, 2 ranks, master (round)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 2 ranks, master (round)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2914"/>
         <source>Left hand, 3 ranks, 2&apos; stop + 8&apos; stop (square)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 3 ranks, 2&apos; stop + 8&apos; stop (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2915"/>
         <source>Left hand, 3 ranks, 2&apos; stop (square)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 3 ranks, 2&apos; stop (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2916"/>
         <source>Left hand, 3 ranks, 8&apos; stop (square)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 3 ranks, 8&apos; stop (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2917"/>
         <source>Left hand, 3 ranks, double 8&apos; stop (square)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 3 ranks, double 8&apos; stop (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2918"/>
         <source>Left hand, 3 ranks, 2&apos; stop + double 8&apos; stop (tutti) (square)</source>
-        <translation type="unfinished"/>
+        <translation>Left hand, 3 ranks, 2&apos; stop + double 8&apos; stop (tutti) (square)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2919"/>
         <source>Pull</source>
-        <translation type="unfinished"/>
+        <translation>Hála</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2920"/>
         <source>Push</source>
-        <translation type="unfinished"/>
+        <translation>Skumpa</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2921"/>
         <source>Right hand, 3 ranks, 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop (accordion)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop (accordion)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2922"/>
         <source>Right hand, 3 ranks, lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop (authentic musette)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop (authentic musette)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2923"/>
         <source>Right hand, 3 ranks, 8&apos; stop + 16&apos; stop (bandoneón)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 8&apos; stop + 16&apos; stop (bandoneón)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2924"/>
         <source>Right hand, 3 ranks, 16&apos; stop (bassoon)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 16&apos; stop (bassoon)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2925"/>
         <source>Right hand, 3 ranks, 8&apos; stop (clarinet)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 8&apos; stop (clarinet)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2926"/>
         <source>Right hand, 3 ranks, lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2927"/>
         <source>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2928"/>
         <source>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2929"/>
         <source>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop + 16&apos; stop (harmonium)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop + 16&apos; stop (harmonium)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2930"/>
         <source>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop (imitation musette)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop + upper tremolo 8&apos; stop (imitation musette)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2931"/>
         <source>Right hand, 3 ranks, lower tremolo 8&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, lower tremolo 8&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2932"/>
         <source>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop (master)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop (master)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2933"/>
         <source>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop (oboe)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + 8&apos; stop (oboe)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2934"/>
         <source>Right hand, 3 ranks, 4&apos; stop + 16&apos; stop (organ)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + 16&apos; stop (organ)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2935"/>
         <source>Right hand, 3 ranks, 4&apos; stop (piccolo)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop (piccolo)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2936"/>
         <source>Right hand, 3 ranks, lower tremolo 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, lower tremolo 8&apos; stop + upper tremolo 8&apos; stop + 16&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2937"/>
         <source>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + upper tremolo 8&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 4&apos; stop + lower tremolo 8&apos; stop + upper tremolo 8&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2938"/>
         <source>Right hand, 3 ranks, lower tremolo 8&apos; stop + upper tremolo 8&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, lower tremolo 8&apos; stop + upper tremolo 8&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2939"/>
         <source>Right hand, 3 ranks, upper tremolo 8&apos; stop</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, upper tremolo 8&apos; stop</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2940"/>
         <source>Right hand, 3 ranks, 8&apos; stop + upper tremolo 8&apos; stop (violin)</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 3 ranks, 8&apos; stop + upper tremolo 8&apos; stop (violin)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2941"/>
         <source>Right hand, 4 ranks, alto</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, alto</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2942"/>
         <source>Right hand, 4 ranks, bass/alto</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, bass/alto</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2943"/>
         <source>Right hand, 4 ranks, master</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, master</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2944"/>
         <source>Right hand, 4 ranks, soft bass</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, soft bass</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2945"/>
         <source>Right hand, 4 ranks, soft tenor</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, soft tenor</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2946"/>
         <source>Right hand, 4 ranks, soprano</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, soprano</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2947"/>
         <source>Right hand, 4 ranks, tenor</source>
-        <translation type="unfinished"/>
+        <translation>Right hand, 4 ranks, tenor</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2948"/>
         <source>Ricochet (2 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Ricochet (2 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2949"/>
         <source>Ricochet (3 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Ricochet (3 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2950"/>
         <source>Ricochet (4 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Ricochet (4 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2951"/>
         <source>Ricochet (5 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Ricochet (5 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2952"/>
         <source>Ricochet (6 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Ricochet (6 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2953"/>
         <source>Combining ricochet for stem (2 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Combining ricochet for stem (2 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2954"/>
         <source>Combining ricochet for stem (3 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Combining ricochet for stem (3 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2955"/>
         <source>Combining ricochet for stem (4 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Combining ricochet for stem (4 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2956"/>
         <source>Combining ricochet for stem (5 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Combining ricochet for stem (5 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2957"/>
         <source>Combining ricochet for stem (6 tones)</source>
-        <translation type="unfinished"/>
+        <translation>Combining ricochet for stem (6 tones)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2968"/>
@@ -31478,7 +31478,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2975"/>
         <source>Büyük mücenneb (sharp)</source>
-        <translation type="unfinished"/>
+        <translation>Büyük mücenneb (krossur)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2990"/>
@@ -31563,12 +31563,12 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3018"/>
         <source>Five-quarter-tones flat</source>
-        <translation type="unfinished"/>
+        <translation>Lækkaður 5 kvarttónar </translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3019"/>
         <source>Five-quarter-tones sharp</source>
-        <translation type="unfinished"/>
+        <translation>Hækkaður 5 kvarttónar</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3020"/>
@@ -31578,7 +31578,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3022"/>
         <source>Flat equal tempered semitone</source>
-        <translation type="unfinished"/>
+        <translation>Lækkaður væltempereraður hálvtóni</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3024"/>
@@ -31613,32 +31613,32 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3046"/>
         <source>Koron (quarter tone flat)</source>
-        <translation type="unfinished"/>
+        <translation>Koron (lækkaður kvarttóni)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3049"/>
         <source>Küçük mücenneb (sharp)</source>
-        <translation type="unfinished"/>
+        <translation>Küçük mücenneb (krossur)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3051"/>
         <source>Lower by one septimal comma</source>
-        <translation type="unfinished"/>
+        <translation>Lækka við einum septimalum komma</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3052"/>
         <source>Lower by one tridecimal quartertone</source>
-        <translation type="unfinished"/>
+        <translation>Lækka ein tridesimalan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3053"/>
         <source>Lower by one undecimal quartertone</source>
-        <translation type="unfinished"/>
+        <translation>Lækka ein undesimalan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3054"/>
         <source>Lower by two septimal commas</source>
-        <translation type="unfinished"/>
+        <translation>Lækka við tveimum septimalum kommum</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3058"/>
@@ -31693,54 +31693,54 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3082"/>
         <source>Lower by one equal tempered quarter-tone</source>
-        <translation type="unfinished"/>
+        <translation>Lækka ein væltempereraðan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3083"/>
         <source>Raise by one equal tempered quarter tone</source>
-        <translation type="unfinished"/>
+        <translation>Hækka ein væltempereraðan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3086"/>
         <location filename="../../libmscore/sym.cpp" line="3088"/>
         <source>Quarter-tone flat</source>
-        <translation type="unfinished"/>
+        <translation>Lækkaður kvarttóni</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3090"/>
         <source>Reversed flat (quarter-tone flat) (Stein)</source>
-        <translation type="unfinished"/>
+        <translation>Øvut b (kvartóna b) (stein)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3094"/>
         <location filename="../../libmscore/sym.cpp" line="3096"/>
         <source>Quarter-tone sharp</source>
-        <translation type="unfinished"/>
+        <translation>Hækkaður kvarttóni</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3097"/>
         <source>Half sharp (quarter-tone sharp) (Stein)</source>
-        <translation type="unfinished"/>
+        <translation>Hálvur krossur (hækkaður kvarttóni) (stein)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3099"/>
         <source>Raise by one septimal comma</source>
-        <translation type="unfinished"/>
+        <translation>Hækka við einum septimalum komma</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3100"/>
         <source>Raise by one tridecimal quartertone</source>
-        <translation type="unfinished"/>
+        <translation>Hækka ein tridesimalan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3101"/>
         <source>Raise by one undecimal quartertone</source>
-        <translation type="unfinished"/>
+        <translation>Hækka ein undesimalan kvarttóna</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3102"/>
         <source>Raise by two septimal commas</source>
-        <translation type="unfinished"/>
+        <translation>Hækka við tveimum septimalum kommum</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3108"/>
@@ -31750,7 +31750,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3110"/>
         <source>Sharp equal tempered semitone</source>
-        <translation type="unfinished"/>
+        <translation>Hækkaður væltempereraður hálvtóni</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3112"/>
@@ -31765,7 +31765,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3119"/>
         <source>Sharp sharp</source>
-        <translation type="unfinished"/>
+        <translation>Krossur krossur</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3120"/>
@@ -31790,139 +31790,139 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3130"/>
         <source>Sori (quarter tone sharp)</source>
-        <translation type="unfinished"/>
+        <translation>Sori (hækkaður kvarttóni)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3134"/>
         <location filename="../../libmscore/sym.cpp" line="3135"/>
         <source>Three-quarter-tones flat</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 3 kvarttónar</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3139"/>
         <source>Reversed flat and flat (three-quarter-tones flat) (Zimmermann)</source>
-        <translation type="unfinished"/>
+        <translation>Øvut b og b (lækkaður 3 kvarttónar) (Zimmermann)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3141"/>
         <location filename="../../libmscore/sym.cpp" line="3142"/>
         <source>Three-quarter-tones sharp</source>
-        <translation type="unfinished"/>
+        <translation>Hækkaður 3 kvarttónar</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3144"/>
         <source>One and a half sharps (three-quarter-tones sharp) (Stein)</source>
-        <translation type="unfinished"/>
+        <translation>Hækkaður ein og ein hálvur (hækkaður 3 kvarttónar) (Stein)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3152"/>
         <source>5/6 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 5/6 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3153"/>
         <source>5/6 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 5/6 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3154"/>
         <source>11/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 11/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3155"/>
         <source>11/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 11/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3156"/>
         <source>1/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3157"/>
         <source>1/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3158"/>
         <source>1/6 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/6 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3159"/>
         <source>1/6 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/6 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3160"/>
         <source>1/4 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/4 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3161"/>
         <source>1/4 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 1/4 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3162"/>
         <source>1/3 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/3 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3163"/>
         <source>1/3 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 1/3 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3164"/>
         <source>5/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 5/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3165"/>
         <source>5/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 5/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3166"/>
         <source>1/2 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 1/2 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3167"/>
         <source>1/2 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 1/2 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3168"/>
         <source>7/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 7/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3169"/>
         <source>7/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 7/12 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3170"/>
         <source>2/3 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 2/3 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3171"/>
         <source>2/3 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 2/3 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3172"/>
         <source>3/4 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Lækka 3/4 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3173"/>
         <source>3/4 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>Hækka 3/4 tóna (Wyschnegradsky)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3238"/>
@@ -31937,22 +31937,22 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3240"/>
         <source>Accent-staccato above</source>
-        <translation>Áherðsla-stakkato omanfyri</translation>
+        <translation>Áherðslu-stakkato omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3241"/>
         <source>Accent-staccato below</source>
-        <translation>Áherðsla-stakkato niðanfyri</translation>
+        <translation>Áherðslu-stakkato niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3242"/>
         <source>Laissez vibrer (l.v.) above</source>
-        <translation type="unfinished"/>
+        <translation>Laissez vibrer (l.v.) omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3243"/>
         <source>Laissez vibrer (l.v.) below</source>
-        <translation type="unfinished"/>
+        <translation>Laissez vibrer (l.v.) niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3244"/>
@@ -31997,32 +31997,32 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3252"/>
         <source>Soft accent-staccato above</source>
-        <translation>Veik áherðsla-sakkato omanfyri</translation>
+        <translation>Veikt áherðslu-sakkato omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3253"/>
         <source>Soft accent-staccato below</source>
-        <translation>Veik áherðsla-stakkato niðanfyri</translation>
+        <translation>Veikt áherðslu-stakkato niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3254"/>
         <source>Soft accent-tenuto above</source>
-        <translation>Veik áherðsla-tenuto omanfyri</translation>
+        <translation>Veikt áherðslu-tenuto omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3255"/>
         <source>Soft accent-tenuto below</source>
-        <translation>Veik áherðsla-tenuto niðanfyri</translation>
+        <translation>Veikt áherðslu-tenuto niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3256"/>
         <source>Soft accent-tenuto-staccato above</source>
-        <translation>Veik áherðsla-tenuto-stakkato omanfyri</translation>
+        <translation>Veikt áherðslu-tenuto-stakkato omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3257"/>
         <source>Soft accent-tenuto-staccato below</source>
-        <translation>Veik áherðsla-tenuto-stakkato niðanfyri</translation>
+        <translation>Veikt áherðslu-tenuto-stakkato niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3258"/>
@@ -32137,7 +32137,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3284"/>
         <source>Short barline</source>
-        <translation type="unfinished"/>
+        <translation>Stutt taktstrika</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3285"/>
@@ -32147,7 +32147,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3286"/>
         <source>Tick barline</source>
-        <translation type="unfinished"/>
+        <translation>Tjúkk taktstrika</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3332"/>
@@ -32233,7 +32233,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3509"/>
         <source>Piano</source>
-        <translation>Piano</translation>
+        <translation>Klaver</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3510"/>
@@ -32388,57 +32388,57 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4168"/>
         <source>1024th note (semihemidemisemihemidemisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>1024pt nóti (semihemidemisemihemidemisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4170"/>
         <source>128th note (semihemidemisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>128pt nóti (semihemidemisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4172"/>
         <source>16th note (semiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>16pt nóti (semiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4174"/>
         <source>256th note (demisemihemidemisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>256pt nóti (demisemihemidemisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4176"/>
         <source>32nd note (demisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>32pt nóti (demisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4178"/>
         <source>512th note (hemidemisemihemidemisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>512pt nóti (hemidemisemihemidemisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4180"/>
         <source>64th note (hemidemisemiquaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>64pt nóti (hemidemisemiquaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4182"/>
         <source>Eighth note (quaver) stem up</source>
-        <translation type="unfinished"/>
+        <translation>Áttandaparts nóti (quaver) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4186"/>
         <source>Half note (minim) stem up</source>
-        <translation type="unfinished"/>
+        <translation>Hálvnóti (minim) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4188"/>
         <source>Quarter note (crotchet) stem up</source>
-        <translation type="unfinished"/>
+        <translation>Fjórðingsnóti (crotchet) leggur upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4189"/>
         <source>Whole note (semibreve)</source>
-        <translation>Semibreve (whole note)</translation>
+        <translation>Semibreve (heil nóti)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4553"/>
@@ -32448,22 +32448,22 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4554"/>
         <source>Inverted mordent</source>
-        <translation type="unfinished"/>
+        <translation>Umvend mordent</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4574"/>
         <source>Mordent with upper prefix</source>
-        <translation type="unfinished"/>
+        <translation>Mordent forskoyti omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4576"/>
         <source>Slide</source>
-        <translation type="unfinished"/>
+        <translation>Glíðing</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4600"/>
         <source>Tremblement</source>
-        <translation type="unfinished"/>
+        <translation>Tremblement</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4602"/>
@@ -32473,137 +32473,137 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4603"/>
         <source>Turn</source>
-        <translation>Vend</translation>
+        <translation>Dupultslag</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4604"/>
         <source>Inverted turn</source>
-        <translation type="unfinished"/>
+        <translation>Umvent Dupultslag</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4899"/>
         <source>Snap pizzicato above</source>
-        <translation type="unfinished"/>
+        <translation>Slept pizzicato omanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4900"/>
         <source>Snap pizzicato below</source>
-        <translation type="unfinished"/>
+        <translation>Slept pizzicato niðanfyri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4906"/>
         <source>Repeat last bar</source>
-        <translation type="unfinished"/>
+        <translation>Endurtak seinastu takt</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4907"/>
         <source>Repeat last two bars</source>
-        <translation type="unfinished"/>
+        <translation>Eindurtak 2 seinastu taktir</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4908"/>
         <source>Repeat last four bars</source>
-        <translation type="unfinished"/>
+        <translation>Endurtak 4 seinastu taktir</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4911"/>
         <source>Left (start) repeat sign</source>
-        <translation type="unfinished"/>
+        <translation>Vinstra (byrjan) endurtøku strika</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4912"/>
         <source>Right (end) repeat sign</source>
-        <translation type="unfinished"/>
+        <translation>Høgra (endi) endurtøku strika</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4913"/>
         <source>Right and left repeat sign</source>
-        <translation type="unfinished"/>
+        <translation>Høgra og vinstra endurtøku strika</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4914"/>
         <source>1024th rest</source>
-        <translation type="unfinished"/>
+        <translation>1024th tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4915"/>
         <source>128th (semihemidemisemiquaver) rest</source>
-        <translation type="unfinished"/>
+        <translation>128pt (semihemidemisemiquaver) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4916"/>
         <source>16th (semiquaver) rest</source>
-        <translation type="unfinished"/>
+        <translation>16pt (semiquaver) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4917"/>
         <source>256th rest</source>
-        <translation type="unfinished"/>
+        <translation>256th tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4918"/>
         <source>32nd (demisemiquaver) rest</source>
-        <translation type="unfinished"/>
+        <translation>32pt (demisemiquaver) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4919"/>
         <source>512th rest</source>
-        <translation type="unfinished"/>
+        <translation>512th tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4920"/>
         <source>64th (hemidemisemiquaver) rest</source>
-        <translation type="unfinished"/>
+        <translation>64pt (hemidemisemiquaver) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4921"/>
         <source>Eighth (quaver) rest</source>
-        <translation type="unfinished"/>
+        <translation>Áttandaparts (quaver) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4922"/>
         <source>Double whole (breve) rest</source>
-        <translation type="unfinished"/>
+        <translation>Dupul heil (breve) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4923"/>
         <source>Double whole rest on leger lines</source>
-        <translation type="unfinished"/>
+        <translation>Dupul heil tøgn á eykalinjum</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4928"/>
         <source>Half (minim) rest</source>
-        <translation type="unfinished"/>
+        <translation>Hálv (minim) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4929"/>
         <source>Half rest on leger line</source>
-        <translation type="unfinished"/>
+        <translation>Hálv tøgn á eykalinjum</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4930"/>
         <source>Longa rest</source>
-        <translation type="unfinished"/>
+        <translation>Longa tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4931"/>
         <source>Maxima rest</source>
-        <translation type="unfinished"/>
+        <translation>Maxima tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4932"/>
         <source>Quarter (crotchet) rest</source>
-        <translation type="unfinished"/>
+        <translation>Fjórðings (crotchet) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4935"/>
         <source>Whole (semibreve) rest</source>
-        <translation type="unfinished"/>
+        <translation>Heil (semibreve) tøgn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4936"/>
         <source>Whole rest on leger line</source>
-        <translation type="unfinished"/>
+        <translation>Heil tøgn á eykalinju</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4945"/>
@@ -32613,7 +32613,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4946"/>
         <source>Segno (serpent)</source>
-        <translation type="unfinished"/>
+        <translation>Segno (serpent)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5024"/>
@@ -32623,12 +32623,12 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5028"/>
         <source>Harmonic</source>
-        <translation type="unfinished"/>
+        <translation>Yvirtóni</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5038"/>
         <source>Thumb position</source>
-        <translation type="unfinished"/>
+        <translation>Tummil støða</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5040"/>
@@ -32638,37 +32638,37 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5043"/>
         <source>System divider</source>
-        <translation type="unfinished"/>
+        <translation>Skipan skiljari</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5044"/>
         <source>Extra long system divider</source>
-        <translation type="unfinished"/>
+        <translation>Sera langur skipan skiljari</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5045"/>
         <source>Long system divider</source>
-        <translation type="unfinished"/>
+        <translation>Langur skipan skiljari</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5201"/>
         <source>Sawtooth line segment</source>
-        <translation type="unfinished"/>
+        <translation>Sawtooth linju stykki</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5203"/>
         <source>Wide sawtooth line segment</source>
-        <translation type="unfinished"/>
+        <translation>Vítt Sawtooth linju petti</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5220"/>
         <source>Vibrato large, faster</source>
-        <translation type="unfinished"/>
+        <translation>Stórt Vibrato, skjótari</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5225"/>
         <source>Vibrato large, slowest</source>
-        <translation type="unfinished"/>
+        <translation>Stórt Vibrato, seinri</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5298"/>
@@ -32683,7 +32683,7 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5300"/>
         <source>Up mordent</source>
-        <translation>Upp mordent</translation>
+        <translation>Mordent upp</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5301"/>
@@ -32693,12 +32693,12 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5313"/>
         <source>Space</source>
-        <translation type="unfinished"/>
+        <translation>Millumrúm</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5303"/>
         <source>Down mordent</source>
-        <translation>Niður mordent</translation>
+        <translation>Mordent niður</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="5304"/>
@@ -32713,12 +32713,12 @@ Taktin er ikki tóm</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="661"/>
         <source>Tick barline 2</source>
-        <translation type="unfinished"/>
+        <translation>Tjúkk taktstrika 2</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="663"/>
         <source>Short barline 2</source>
-        <translation type="unfinished"/>
+        <translation>Stutt taktstrika 2</translation>
     </message>
 </context>
 <context>

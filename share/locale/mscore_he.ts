@@ -246,22 +246,22 @@
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="45"/>
         <source>C major / A minor</source>
-        <translation type="unfinished"/>
+        <translation>דו מז&apos;ור / לה מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="46"/>
         <source>D♭ major / B♭ minor</source>
-        <translation type="unfinished"/>
+        <translation>רה במול מז&apos;ור/ סי במול מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="47"/>
         <source>D major / B minor</source>
-        <translation type="unfinished"/>
+        <translation>רה מז&apos;ור/ סי מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="48"/>
         <source>E♭ major / C minor</source>
-        <translation type="unfinished"/>
+        <translation>מי במול מז&apos;ור/ דו מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="49"/>
@@ -22667,7 +22667,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="67"/>
         <source>D♭ major / B♭ minor</source>
-        <translation type="unfinished"/>
+        <translation>רה במול מז&apos;ור/ סי במול מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="72"/>
@@ -22677,7 +22677,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="77"/>
         <source>E♭ major / C minor</source>
-        <translation type="unfinished"/>
+        <translation>מי במול מז&apos;ור/ דו מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="82"/>
@@ -22692,7 +22692,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="92"/>
         <source>C major / A minor</source>
-        <translation type="unfinished"/>
+        <translation>דו מז&apos;ור / לה מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="97"/>
@@ -22702,7 +22702,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="102"/>
         <source>D major / B minor</source>
-        <translation type="unfinished"/>
+        <translation>רה מז&apos;ור/ סי מינור</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="107"/>

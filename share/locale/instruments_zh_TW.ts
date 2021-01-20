@@ -2065,13 +2065,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="69"/>
         <source>E♭ Piccolo</source>
-        <translation type="unfinished"/>
+        <translation>降 E 調短笛</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="70"/>
         <source>E♭ Picc.</source>
         <comment>E♭ Piccolo</comment>
-        <translation type="unfinished"/>
+        <translation>E♭短笛</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="72"/>
@@ -2810,7 +2810,7 @@
         <location filename="../instruments/instrumentsxml.h" line="307"/>
         <location filename="../instruments/instrumentsxml.h" line="309"/>
         <source>B♭ Bass Clarinet</source>
-        <translation type="unfinished"/>
+        <translation>降 B 調低音單簧管</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="308"/>
@@ -3575,12 +3575,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="548"/>
         <source>Baritone Horn (Central Europe)</source>
-        <translation type="unfinished"/>
+        <translation>上低音圓號 (中歐)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="553"/>
         <source>Baritone Horn (Central Europe, Treble Clef)</source>
-        <translation type="unfinished"/>
+        <translation>上低音圓號（中歐，高音譜號）</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="557"/>
@@ -4351,13 +4351,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="877"/>
         <source>Cimbalom</source>
-        <translation type="unfinished"/>
+        <translation>欽巴龍</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="878"/>
         <source>Cimb.</source>
         <comment>Cimbalom</comment>
-        <translation type="unfinished"/>
+        <translation>Cimb.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="880"/>
@@ -5612,34 +5612,34 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1393"/>
         <source>Bandurria</source>
-        <translation type="unfinished"/>
+        <translation>班杜利亞吉他</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1394"/>
         <source>Band.</source>
         <comment>Bandurria</comment>
-        <translation type="unfinished"/>
+        <translation>Band.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1395"/>
         <source>Bandurria (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>班杜利亞吉他 (圖表記譜法)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1396"/>
         <source>Laúd</source>
-        <translation type="unfinished"/>
+        <translation>魯特琴</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1397"/>
         <source>Laúd</source>
         <comment>Laúd</comment>
-        <translation type="unfinished"/>
+        <translation>魯特琴</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1398"/>
         <source>Laúd (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>魯特琴 (圖表記譜法)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1399"/>
@@ -6598,13 +6598,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1457"/>
         <source>Octobass</source>
-        <translation type="unfinished"/>
+        <translation>三弦低音提琴</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1458"/>
         <source>Otb.</source>
         <comment>Octobass</comment>
-        <translation type="unfinished"/>
+        <translation>Otb.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1462"/>
@@ -6734,12 +6734,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="14"/>
         <source>Barbershop Quartet (Men)</source>
-        <translation type="unfinished"/>
+        <translation>無伴奏四重奏 (男聲)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="15"/>
         <source>Barbershop Quartet (Women)</source>
-        <translation type="unfinished"/>
+        <translation>無伴奏四重奏 (女聲)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="16"/>

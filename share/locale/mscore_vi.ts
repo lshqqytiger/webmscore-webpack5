@@ -306,37 +306,37 @@
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="57"/>
         <source>C Diminished</source>
-        <translation type="unfinished"/>
+        <translation>C Giảm</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="58"/>
         <source>D♭ Diminished</source>
-        <translation type="unfinished"/>
+        <translation>Db Giảm</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="59"/>
         <source>D Diminished</source>
-        <translation type="unfinished"/>
+        <translation>D Giảm</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="60"/>
         <source>C Half/Whole</source>
-        <translation type="unfinished"/>
+        <translation>C Nửa cung/Một cung</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="61"/>
         <source>D♭ Half/Whole</source>
-        <translation type="unfinished"/>
+        <translation>Db Nửa cung/Một cung</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="62"/>
         <source>D Half/Whole</source>
-        <translation type="unfinished"/>
+        <translation>D Nửa cung/Một cung</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="63"/>
         <source>C Whole tone</source>
-        <translation type="unfinished"/>
+        <translation>C Một cung</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="64"/>
@@ -346,12 +346,12 @@
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="65"/>
         <source>C Augmented</source>
-        <translation type="unfinished"/>
+        <translation>C Tăng</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="66"/>
         <source>D♭ Augmented</source>
-        <translation type="unfinished"/>
+        <translation>Db Tăng</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="67"/>
@@ -508,7 +508,7 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="432"/>
         <source>Makeup gain (dB)</source>
-        <translation type="unfinished"/>
+        <translation>Độ to bù (dB)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="435"/>
@@ -25301,7 +25301,7 @@ trong chuỗi thao tác đã làm
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1853"/>
         <source>Toggle &apos;MIDI Input&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Bật tắt &apos;thiết bị nhập MIDI&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1958"/>
@@ -25511,12 +25511,12 @@ trong chuỗi thao tác đã làm
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2871"/>
         <source>Show PDF Image</source>
-        <translation type="unfinished"/>
+        <translation>Hiển thị ảnh PDF</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2872"/>
         <source>Show PDF image</source>
-        <translation type="unfinished"/>
+        <translation>Hiển thị ảnh PDF</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2922"/>
@@ -25713,7 +25713,7 @@ trong chuỗi thao tác đã làm
     <message>
         <location filename="../../mscore/shortcut.cpp" line="525"/>
         <source>Add A to Chord</source>
-        <translation type="unfinished"/>
+        <translation>Thêm nốt A vào Hợp âm</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="532"/>
@@ -29045,17 +29045,17 @@ trong chuỗi thao tác đã làm
     <message>
         <location filename="../../libmscore/clef.cpp" line="51"/>
         <source>Soprano clef (French, 18th century)</source>
-        <translation type="unfinished"/>
+        <translation>Khóa soprano (Pháp, thế kỉ 18)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="52"/>
         <source>Alto clef (French, 18th century)</source>
-        <translation type="unfinished"/>
+        <translation>Khóa alto (Pháp, thế kỉ 18)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="53"/>
         <source>Tenor clef (French, 18th century)</source>
-        <translation type="unfinished"/>
+        <translation>Khóa tenor (Pháp, thế kỉ 18)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="54"/>
@@ -32123,7 +32123,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3345"/>
         <source>C clef</source>
-        <translation type="unfinished"/>
+        <translation>Khóa C</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3353"/>

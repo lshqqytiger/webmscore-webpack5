@@ -6065,7 +6065,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1183"/>
         <source>Strings - Plucked</source>
-        <translation>Cordas Tangidas</translation>
+        <translation>Cordas Dedilhadas</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1185"/>

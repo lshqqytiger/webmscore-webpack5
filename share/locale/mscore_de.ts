@@ -2256,12 +2256,12 @@
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1032"/>
         <source>Beside staff</source>
-        <translation>Neben Notenzeile</translation>
+        <translation>Außerhalb d. Notenzeile</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1039"/>
         <source>Through staff</source>
-        <translation>Durch Notenzeile</translation>
+        <translation>Durch d. Notenzeile</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1089"/>
@@ -2770,12 +2770,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2417"/>
         <source>Brace thickness:</source>
-        <translation>Klammerdicke:</translation>
+        <translation>Akkoladenklammerdicke:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2443"/>
         <source>Brace distance:</source>
-        <translation>Abstand Akkoladenklammer:</translation>
+        <translation>Akkoladenklammerabstand:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="101"/>
@@ -4472,12 +4472,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4997"/>
         <source>Reset &apos;Bracket hook height&apos; value</source>
-        <translation>Wert für &apos;Höhe Klammerhaken&apos; zurücksetzen</translation>
+        <translation>Wert für &apos;Klammerhakenhöhe&apos; zurücksetzen</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5011"/>
         <source>Bracket hook height:</source>
-        <translation>Höhe Klammerhaken:</translation>
+        <translation>Klammerhakenhöhe:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5065"/>
@@ -4585,7 +4585,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2388"/>
         <source>Bracket distance:</source>
-        <translation>Abstand Klammer:</translation>
+        <translation>Klammerabstand:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2453"/>
@@ -11279,7 +11279,7 @@ N-Tole würde Taktgrenze überschreiten</translation>
     <message>
         <location filename="../../mscore/metaedit.ui" line="212"/>
         <source>New…</source>
-        <translation>Neu…</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="238"/>
@@ -13769,7 +13769,7 @@ Sitzung wiederherstellen?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="6895"/>
         <source>Go To: </source>
-        <translation>Gehe zu: </translation>
+        <translation>Suche / Gehe zu: </translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8015"/>
@@ -14386,7 +14386,7 @@ um sie zur Liste auf der rechten Seite hinzuzufügen:</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="598"/>
         <source>Piano roll editor</source>
-        <translation>Pianowalzen-Editor</translation>
+        <translation>Pianorollen-Editor</translation>
     </message>
 </context>
 <context>
@@ -15359,7 +15359,7 @@ fehlgeschlagen: %2</translation>
     <message>
         <location filename="../../mscore/scoreview.cpp" line="420"/>
         <source>Piano Roll Editor…</source>
-        <translation>Pianowalzen-Editor…</translation>
+        <translation>Pianorollen-Editor…</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreview.cpp" line="425"/>
@@ -16819,7 +16819,7 @@ bitte wählen Sie einen anderen Namen:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1105"/>
         <source>Brace</source>
-        <translation>Geschweifte Klammer (Akkolade)</translation>
+        <translation>Akkoladenklammer (geschweift)</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1106"/>
@@ -23473,7 +23473,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="56"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>&amp;Speichern</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="58"/>
@@ -23528,7 +23528,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="110"/>
         <source>Export…</source>
-        <translation>Export…</translation>
+        <translation>&amp;Export…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="111"/>
@@ -23593,7 +23593,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="158"/>
         <source>Print…</source>
-        <translation>Drucken…</translation>
+        <translation>&amp;Drucken…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="159"/>
@@ -26724,7 +26724,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2655"/>
         <source>Find</source>
-        <translation>Suchen</translation>
+        <translation>Suche / Gehe zu</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2661"/>
@@ -26875,12 +26875,12 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2804"/>
         <source>Pan Piano Roll</source>
-        <translation>Pianoroll nachführen</translation>
+        <translation>Pianorolle nachführen</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2805"/>
         <source>Toggle pan piano roll</source>
-        <translation>Pianorollnachführung umschalten</translation>
+        <translation>Pianorollennachführung umschalten</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2806"/>
@@ -26910,7 +26910,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2829"/>
         <source>Parts…</source>
-        <translation>Auszüge…</translation>
+        <translation>A&amp;uszüge…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2830"/>
@@ -27912,7 +27912,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3893"/>
         <source>Zoom in horizontal - piano roll editor</source>
-        <translation>Horizontal hereinzoomen - Pianowalzen-Editor</translation>
+        <translation>Horizontal hereinzoomen - Pianorollen-Editor</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3901"/>
@@ -27922,7 +27922,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3902"/>
         <source>Zoom out horizontal - piano roll editor</source>
-        <translation>Horizontal herauszoomen - Pianowalzen-Editor</translation>
+        <translation>Horizontal herauszoomen - Pianorollen-Editor</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3910"/>
@@ -27932,7 +27932,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3911"/>
         <source>Zoom in vertical - piano roll editor</source>
-        <translation>Vertikal hereinzoomen - Pianowalzen-Editor</translation>
+        <translation>Vertikal hereinzoomen - Pianorollen-Editor</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3919"/>
@@ -27942,7 +27942,7 @@ fehlgeschlagen: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3920"/>
         <source>Zoom out vertical - piano roll editor</source>
-        <translation>Vertikal herauszoomen - Pianowalzen-Editor</translation>
+        <translation>Vertikal herauszoomen - Pianorollen-Editor</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3661"/>
@@ -32449,12 +32449,12 @@ Takt ist nicht leer</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4553"/>
         <source>Mordent</source>
-        <translation>Mordent</translation>
+        <translation>Pralltriller</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4554"/>
         <source>Inverted mordent</source>
-        <translation>Umgekehrter Mordent</translation>
+        <translation>Mordent</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4574"/>

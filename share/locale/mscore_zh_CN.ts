@@ -17303,13 +17303,13 @@ failed: </source>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>面板系，包含%n个面板</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="503"/>
         <source>%1, contains %n matching element(s)</source>
         <comment>palette</comment>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>%1，包含相符的%n个元素</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="504"/>
@@ -17377,7 +17377,7 @@ failed: </source>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="63"/>
         <source>%n palette(s) match(es)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>找到相符的%n个面板</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="95"/>
@@ -20563,7 +20563,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/fret.cpp" line="1503"/>
         <source>%n dot(s) on fret(s) %1</source>
         <extracomment>Omit the &quot;%n &quot; for the singular translation (and the &quot;(s)&quot; too)</extracomment>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>品格%1上有%n个点</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1514"/>
@@ -20598,7 +20598,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message numerus="yes">
         <location filename="../../libmscore/fret.cpp" line="1540"/>
         <source>%n string(s) total</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>共 %n 根弦</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/measure.cpp" line="1938"/>
@@ -20673,7 +20673,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="565"/>
         <source>line feed</source>
-        <translation type="unfinished"/>
+        <translation>换行</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="566"/>
@@ -24250,12 +24250,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="798"/>
         <source>Diatonic Up (Keep Degree Alterations)</source>
-        <translation type="unfinished"/>
+        <translation>全音上移（保持音程变化）</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="799"/>
         <source>Diatonic pitch up (Keep degree alterations)</source>
-        <translation type="unfinished"/>
+        <translation>全音上移（保持音程变化）</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="809"/>
@@ -24325,12 +24325,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="871"/>
         <source>Diatonic Down (Keep Degree Alterations)</source>
-        <translation type="unfinished"/>
+        <translation>全音下移（保持音程变化）</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="872"/>
         <source>Diatonic pitch down (Keep degree alterations)</source>
-        <translation type="unfinished"/>
+        <translation>全音下移（保持音程变化）</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="882"/>

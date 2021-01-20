@@ -490,15 +490,12 @@ void Beam::layoutGraceNotes()
                   }
             }
 
-      int idx = (_direction == Direction::AUTO || _direction == Direction::DOWN) ? 0 : 1;
       slope   = 0.0;
 
-      if (!_userModified[idx]) {
-            for (ChordRest* cr : _elements) {
-                  cr->setUp(_up);
-                  if (cr->isChord())
-                        toChord(cr)->layoutStem1();            /* create stems needed to calculate horizontal spacing */
-                  }
+      for (ChordRest* cr : _elements) {
+            cr->setUp(_up);
+            if (cr->isChord())
+                  toChord(cr)->layoutStem1();            /* create stems needed to calculate horizontal spacing */
             }
       }
 
@@ -2194,6 +2191,8 @@ std::vector<QPointF> Beam::gripsPositions(const EditData& ed) const
                   break;
                   }
             }
+      if (!c1) // no chord/rest found, no need to check again below
+            return {}; // just ignore the requested operation
       for (int i = n-1; i >= 0; --i) {
             if (_elements[i]->isChordRest()) {
                   c2 = toChordRest(_elements[i]);

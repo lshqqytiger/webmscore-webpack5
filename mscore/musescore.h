@@ -124,6 +124,8 @@ static const int PROJECT_LIST_LEN = 6;
 extern const char* voiceActions[];
 extern bool mscoreFirstStart;
 
+using NotesColors = QHash<int /* noteIndex */, QColor>;
+
 //---------------------------------------------------------
 //   IconActions
 //---------------------------------------------------------
@@ -552,6 +554,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
       virtual QMenu* createPopupMenu() override;
 
+      QByteArray exportMsczAsJSON(Score*);
       QByteArray exportPdfAsJSON(Score*);
 
    public slots:
@@ -599,6 +602,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       void writeSettings();
       void play(Element* e) const;
       void play(Element* e, int pitch) const;
+      void moveControlCursor();
       bool loadPlugin(const QString& filename);
       QString createDefaultName() const;
       void startAutoSave();
@@ -723,6 +727,7 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
 
 
       MasterScore* readScore(const QString& name);
+      NotesColors readNotesColors(const QString& filePath) const;
 
       bool saveAs(Score*, bool saveCopy = false);
       bool saveSelection(Score*);
@@ -733,8 +738,8 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       bool canSaveMp3();
       bool saveMp3(Score*, const QString& name);
       bool saveMp3(Score*, QIODevice*, bool& wasCanceled);
-      bool saveSvg(Score*, const QString& name);
-      bool saveSvg(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false);
+      bool saveSvg(Score*, const QString& name, const NotesColors& notesColors = NotesColors());
+      bool saveSvg(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false, const NotesColors& notesColors = NotesColors());
       bool savePng(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false);
       bool savePng(Score*, const QString& name);
       bool saveMidi(Score*, const QString& name);
@@ -745,9 +750,10 @@ class MuseScore : public QMainWindow, public MuseScoreCore {
       QJsonObject saveMetadataJSON(Score*);
 
       /////The methods are used in the musescore.com backend
-      bool exportAllMediaFiles(const QString& inFilePath, const QString& outFilePath = "/dev/stdout");
+      bool exportAllMediaFiles(const QString& inFilePath, const QString& highlightConfigPath, const QString& outFilePath = "/dev/stdout");
       bool exportScoreMetadata(const QString& inFilePath, const QString& outFilePath = "/dev/stdout");
       bool exportMp3AsJSON(const QString& inFilePath, const QString& outFilePath = "/dev/stdout");
+      bool saveScoreParts(const QString& inFilePath, const QString& outFilePath = "/dev/stdout");
       bool exportPartsPdfsToJSON(const QString& inFilePath, const QString& outFilePath = "/dev/stdout");
       bool exportTransposedScoreToJSON(const QString& inFilePath, const QString& transposeOptions, const QString& outFilePath = "/dev/stdout");
       /////////////////////////////////////////////////

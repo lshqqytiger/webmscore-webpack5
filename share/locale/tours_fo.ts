@@ -76,7 +76,7 @@ Brúka sniðvegin &quot;M&quot; fyri at sløkkja og tendra hesa funku.</translat
         <source>Welcome to note input, where you will enter notes and rests into your score.
     Click &quot;Next&quot; to learn more.</source>
         <comment>note-input</comment>
-        <translation>Hetta er nótapennurin. Við honum kann tú seta inn nótar og íhald á nótablaðið.
+        <translation>Hetta er nótapennurin. Við honum skrivar tú nótar og íhald á nótablaðið.
 Trýst &quot;Víðari&quot; og lær meira.</translation>
     </message>
     <message>
@@ -177,8 +177,8 @@ Hetta forðar fyri at lutir verða fluttir sjálvvirkandi, og loyvir tær, at se
         <source>Welcome to the Timeline, where you can view a high-level reduction of the score for easier navigation.
     Click &quot;Next&quot; to learn more.</source>
         <comment>timeline-tour</comment>
-        <translation>Hetta er tíðarlinjan, har tú kanst síggja samanumtøku av tónleikinum omanfrá, og tí lættliga leita á nótablaðnum
-Trýst á &quot;Víðari&quot; og lær meira</translation>
+        <translation>Hetta er tíðarlinjan, sum vísir samanumtøku av tónleikinum omanfrá, og ger tað møguligt lættliga at leita á nótablaðnum
+Halt fram við at trýsta á &quot;Víðari&quot;.</translation>
     </message>
     <message>
         <source>The timeline shows rehearsal marks, changes of tempo, key, and time signature, and other points of interest.
@@ -346,13 +346,16 @@ Um fleiri nótabløð eru frammi, ber til at skifta millum tey við teigum ovast
     You can also save to your musescore.com account if you go to File &gt; Save Online.
     The controls at the right of this toolbar control the display of your score.</source>
         <comment>welcome</comment>
-        <translation type="unfinished"/>
+        <translation>Amboðsbjálkin við fíluatgerðum loyvir tær at stovna/goyma/opna/prenta fílur og angra/endurtaka broytingar.
+    Eisini ber til at goyma á tínari musescore.com kontu um tú fer til Fíla &gt; Goym á netinum
+    Stýrisamboðini høgrumeðin á bjálkanum stýra sýningina av nótablaðnum.</translation>
     </message>
     <message>
         <source>The main menu contains most other commands.
     In addition, many commands can be accessed via keyboard shortcuts or by right-clicking (macOS: &quot;Ctrl&quot;+clicking) within the score view.</source>
         <comment>welcome</comment>
-        <translation type="unfinished"/>
+        <translation>Høvðusskráin inniheldur flest onnur stýriboð.
+    Afturat hesum er atgongd til nógv stýriboð við sniðvegum á knappaborðinum, ella við at høgra klikkja (macOS: &quot;Ctrl&quot;+klikk) í sýningina av nótablaðnum.</translation>
     </message>
     <message>
         <source>That's the end of this tour!
@@ -360,7 +363,10 @@ Um fleiri nótabløð eru frammi, ber til at skifta millum tey við teigum ovast
     To disable these, deselect &quot;Continue showing tours&quot; before closing this window.
     You can also enable/disable and reset tours in Help &gt; Tours.</source>
         <comment>welcome</comment>
-        <translation type="unfinished"/>
+        <translation>Her endar hesin túrurin!
+    Tá tú brúkar MuseScore, verða fleiri túrar sjónligir, sum greiða frá funkum.
+    Vel &quot;Halt fram við at vísa túrar&quot; frá áðrenn hesin kagin verður slóktur.
+    Til ber eisini at gilda/ógilda og nullstilla túrar í Hjálp &gt; Túrar.</translation>
     </message>
 </context>
 </TS>

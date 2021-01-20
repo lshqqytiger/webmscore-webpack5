@@ -642,7 +642,7 @@
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="287"/>
         <source>Sent! &lt;b&gt;Many thanks&lt;/b&gt;. Please refer to crash &lt;b&gt;%1&lt;/b&gt; in bug reports.</source>
-        <translation type="unfinished"/>
+        <translation>Poslano! &lt;b&gt;Najlepša hvala&lt;/b&gt;. Med poročili o hroščih poglejte sesutje &lt;b&gt;%1&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="296"/>
@@ -1712,7 +1712,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="52"/>
         <source>Cutaway</source>
-        <translation type="unfinished"/>
+        <translation>Odrez</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="271"/>
@@ -1742,7 +1742,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="304"/>
         <source>Merge matching rests</source>
-        <translation type="unfinished"/>
+        <translation>Združi ujemajoče pavze</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="450"/>
@@ -3079,7 +3079,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="141"/>
         <location filename="../../mscore/editstyle.ui" line="5995"/>
         <source>Volta</source>
-        <translation type="unfinished"/>
+        <translation>Oklepaj zaporedja (volta)</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="6027"/>
@@ -3382,7 +3382,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="181"/>
         <location filename="../../mscore/editstyle.ui" line="7498"/>
         <source>Fermatas</source>
-        <translation>Prenehljaji</translation>
+        <translation>Prenehljaji (korone)</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="171"/>
@@ -3965,13 +3965,13 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="9786"/>
         <location filename="../../mscore/editstyle.ui" line="10194"/>
         <source>Maximum shift above:</source>
-        <translation type="unfinished"/>
+        <translation>Največji zamik zgoraj:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9860"/>
         <location filename="../../mscore/editstyle.ui" line="10222"/>
         <source>Maximum shift below:</source>
-        <translation type="unfinished"/>
+        <translation>Največji zamik spodaj:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10081"/>
@@ -7478,17 +7478,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="88"/>
         <source>Layout position</source>
-        <translation type="unfinished"/>
+        <translation>Položaj postavitve</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="98"/>
         <source>Layout position:</source>
-        <translation type="unfinished"/>
+        <translation>Položaj postavitve:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="117"/>
         <source>Reset &apos;Layout position&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>Ponastavi vrednost &quot;Položaja postavitve&quot;</translation>
     </message>
 </context>
 <context>
@@ -10319,7 +10319,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_volta.ui" line="49"/>
         <source>Volta</source>
-        <translation type="unfinished"/>
+        <translation>Oklepaj zaporedja (volta)</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_volta.ui" line="74"/>
@@ -10835,7 +10835,8 @@ space unit</extracomment>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="507"/>
         <source>Halving the
 measure count</source>
-        <translation type="unfinished"/>
+        <translation>Prepolavljanje
+dob v taktu</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="527"/>
@@ -11632,7 +11633,7 @@ Poljudni povzetek je na:
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="102"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
 </context>
 <context>
@@ -12783,17 +12784,17 @@ Zvok: %5</translation>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="54"/>
         <source>Version %1</source>
-        <translation type="unfinished"/>
+        <translation>Različica %1</translation>
     </message>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="87"/>
         <source>Development Build</source>
-        <translation type="unfinished"/>
+        <translation>Razvojna</translation>
     </message>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="105"/>
         <source>Portable version</source>
-        <translation type="unfinished"/>
+        <translation>Prenosna različica</translation>
     </message>
 </context>
 <context>
@@ -13625,7 +13626,7 @@ izberite ga in poskusite znova.</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2085"/>
         <source>Workspaces</source>
-        <translation>Delovno okolje</translation>
+        <translation>Delovna okolja</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2289"/>
@@ -13662,7 +13663,7 @@ Ali ste prepričani, da želite nadaljevati?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4395"/>
         <source>Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>Običajni način</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4403"/>
@@ -13781,7 +13782,7 @@ Ali želite sejo obnoviti?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8067"/>
         <source>Initializing workspace…</source>
-        <translation>Začenjanje delovnega prostora ...</translation>
+        <translation>Začenjanje delovnega okolja ...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8071"/>
@@ -14660,7 +14661,7 @@ Ta vtičnik za delovanje potrebuje odprt notni zapis.</translation>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="153"/>
         <source>Percentage</source>
-        <translation type="unfinished"/>
+        <translation>Odstotkovni delež</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="154"/>
@@ -14753,7 +14754,7 @@ Ta vtičnik za delovanje potrebuje odprt notni zapis.</translation>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1307"/>
         <source>Applying…</source>
-        <translation type="unfinished"/>
+        <translation>Uveljavljanje ...</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1393"/>
@@ -15019,7 +15020,7 @@ je spodletelo: %2</translation>
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="286"/>
         <source>Staff: %1</source>
-        <translation type="unfinished"/>
+        <translation>Črtovje: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="457"/>
@@ -15988,7 +15989,7 @@ Ali si želite pogledati vodiče?</translation>
     <message>
         <location filename="../../mscore/workspacecombobox.cpp" line="65"/>
         <source>Select workspace</source>
-        <translation>Izberi delovno površino</translation>
+        <translation>Izberite delovno okolje</translation>
     </message>
 </context>
 <context>
@@ -15996,17 +15997,17 @@ Ali si želite pogledati vodiče?</translation>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="85"/>
         <source>Edit Workspace</source>
-        <translation>Uredi delovno površino</translation>
+        <translation>Uredi delovno okolje</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="93"/>
         <source>Create New Workspace</source>
-        <translation>Ustvari novo delovno površino</translation>
+        <translation>Ustvari novo delovno okolje</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="121"/>
         <source>Read Workspace Name</source>
-        <translation>Preberi ime delovne površine</translation>
+        <translation>Preberi ime delovnega okolja</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.cpp" line="122"/>
@@ -17303,13 +17304,13 @@ je spodletelo: </translation>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Drevo palet vsebuje  %n paleto</numerusform><numerusform>Drevo palet vsebuje  %n paleti</numerusform><numerusform>Drevo palet vsebuje  %n palete</numerusform><numerusform>Drevo palet vsebuje  %n palet</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="503"/>
         <source>%1, contains %n matching element(s)</source>
         <comment>palette</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 vsebuje %n ujemajoč predmet</numerusform><numerusform>%1 vsebuje %n ujemajoča predmeta</numerusform><numerusform>%1 vsebuje %n ujemajoče predmete</numerusform><numerusform>%1 vsebuje %n ujemajočih predmetov</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="504"/>
@@ -17377,7 +17378,7 @@ je spodletelo: </translation>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="63"/>
         <source>%n palette(s) match(es)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n paleta se ujema</numerusform><numerusform>%n paleti se ujemata</numerusform><numerusform>%n palete se ujemajo</numerusform><numerusform>%n palet se ujema</numerusform></translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="95"/>
@@ -17543,7 +17544,7 @@ je spodletelo: </translation>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="14"/>
         <source>Edit Pathlist</source>
-        <translation type="unfinished"/>
+        <translation>Uredi seznam poti</translation>
     </message>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="29"/>
@@ -17687,7 +17688,7 @@ glasnost</translation>
         <location filename="../../mscore/playpanel.ui" line="651"/>
         <location filename="../../mscore/playpanel.ui" line="654"/>
         <source>Playback speed (as percentage)</source>
-        <translation type="unfinished"/>
+        <translation>Hitrost predvajanja (v odstotkih)</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="663"/>
@@ -17711,7 +17712,7 @@ glasnost</translation>
         <location filename="../../mscore/playpanel.ui" line="839"/>
         <location filename="../../mscore/playpanel.ui" line="842"/>
         <source>Playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Hitrost predvajanja</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="898"/>
@@ -18334,55 +18335,55 @@ S tem se bo ponovno ocenilo vse vtičnike in zaznalo kakršne koli spremembe, ki
         <location filename="../../mscore/prefsdialog.ui" line="1071"/>
         <location filename="../../mscore/prefsdialog.ui" line="1077"/>
         <source>The default zoom level for new scores</source>
-        <translation type="unfinished"/>
+        <translation>Privzeta povečava pri novem notnem zapisu</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1074"/>
         <source>Default zoom level</source>
-        <translation type="unfinished"/>
+        <translation>Privzeta povečava</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1106"/>
         <source>Keyboard zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Natančnost preodmičenja s tipkovnico:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1113"/>
         <location filename="../../mscore/prefsdialog.ui" line="1119"/>
         <source>The number of steps it takes to double the zoom level using the mouse</source>
-        <translation type="unfinished"/>
+        <translation>Število korakov, potrebnih za enkratno povečavo z miško</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1116"/>
         <source>Mouse zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Natančnost preodmičenja z miško</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1135"/>
         <source>Mouse zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Natančnost preodmičenja z miško:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1148"/>
         <location filename="../../mscore/prefsdialog.ui" line="1154"/>
         <source>The default zoom type for new scores</source>
-        <translation type="unfinished"/>
+        <translation>Privzeta vrsta preodmičenja pri novem notnem zapisu</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1151"/>
         <source>Default zoom type</source>
-        <translation type="unfinished"/>
+        <translation>Privzeta vrsta preodmičenja</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1184"/>
         <location filename="../../mscore/prefsdialog.ui" line="1190"/>
         <source>The number of steps it takes to double the zoom level using the keyboard</source>
-        <translation type="unfinished"/>
+        <translation>Število korakov, potrebnih za enkratno povečavo s tipkovnico</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1187"/>
         <source>Keyboard zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Natančnost preodmičenja s tipkovnico</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1228"/>
@@ -19368,7 +19369,7 @@ Prilagajanje zakasnitve  lahko pomaga pri usklajevanju vaše MIDI strojne opreme
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3812"/>
         <source>Export all layout</source>
-        <translation type="unfinished"/>
+        <translation>Izvozi celotno postavitev</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4025"/>
@@ -20146,7 +20147,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
         <location filename="../../libmscore/note.cpp" line="3018"/>
         <location filename="../../libmscore/note.cpp" line="3041"/>
         <source>%1; String: %2; Fret: %3</source>
-        <translation type="unfinished"/>
+        <translation>%1; Struna: %2; Prečka: %3</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="3021"/>
@@ -20385,7 +20386,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
         <location filename="../../mscore/instrwidget.cpp" line="436"/>
         <location filename="../../mscore/templateBrowser.cpp" line="53"/>
         <source>%1 category</source>
-        <translation type="unfinished"/>
+        <translation>%1 zvrst</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="111"/>
@@ -20515,7 +20516,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1699"/>
         <source>%1 added</source>
-        <translation type="unfinished"/>
+        <translation>%1 dodano</translation>
     </message>
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1701"/>
@@ -20525,7 +20526,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1703"/>
         <source>%1, added %2, removed %3</source>
-        <translation type="unfinished"/>
+        <translation>%1, dodano %2, odstranjeno %3</translation>
     </message>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1444"/>
@@ -20563,7 +20564,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
         <location filename="../../libmscore/fret.cpp" line="1503"/>
         <source>%n dot(s) on fret(s) %1</source>
         <extracomment>Omit the &quot;%n &quot; for the singular translation (and the &quot;(s)&quot; too)</extracomment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n pika na prečki %1</numerusform><numerusform>%n piki na prečkah %1</numerusform><numerusform>%n pike na prečkah %1</numerusform><numerusform>%n pik na prečkah %1</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1514"/>
@@ -20598,7 +20599,7 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
     <message numerus="yes">
         <location filename="../../libmscore/fret.cpp" line="1540"/>
         <source>%n string(s) total</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Skupaj %n struna</numerusform><numerusform>Skupaj %n struni</numerusform><numerusform>Skupaj %n strune</numerusform><numerusform>Skupaj %n strun</numerusform></translation>
     </message>
     <message>
         <location filename="../../libmscore/measure.cpp" line="1938"/>
@@ -20618,67 +20619,67 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="51"/>
         <source>space</source>
-        <translation type="unfinished"/>
+        <translation>presledek</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="52"/>
         <source>dash</source>
-        <translation type="unfinished"/>
+        <translation>pomišljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="53"/>
         <source>equals</source>
-        <translation type="unfinished"/>
+        <translation>enačaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="54"/>
         <source>comma</source>
-        <translation type="unfinished"/>
+        <translation>pika</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="55"/>
         <source>period</source>
-        <translation type="unfinished"/>
+        <translation>vejica</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="56"/>
         <source>colon</source>
-        <translation type="unfinished"/>
+        <translation>dvopičje</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="57"/>
         <source>semicolon</source>
-        <translation type="unfinished"/>
+        <translation>podpičje</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="58"/>
         <source>left parenthesis</source>
-        <translation type="unfinished"/>
+        <translation>okrogli uklepaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="59"/>
         <source>right parenthesis</source>
-        <translation type="unfinished"/>
+        <translation>okrogli zaklepaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="60"/>
         <source>left bracket</source>
-        <translation type="unfinished"/>
+        <translation>oglati uklepaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="61"/>
         <source>right bracket</source>
-        <translation type="unfinished"/>
+        <translation>oglati zaklepaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="565"/>
         <source>line feed</source>
-        <translation type="unfinished"/>
+        <translation>nova vrstica</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="566"/>
         <source>blank</source>
-        <translation type="unfinished"/>
+        <translation>prazno</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="609"/>
@@ -20686,20 +20687,20 @@ Za najnovejšo različico pojdite na %1MuseScorovo spletišče%2 </translation>
         <location filename="../../libmscore/textbase.cpp" line="661"/>
         <location filename="../../libmscore/textbase.cpp" line="666"/>
         <source>%1 unselected</source>
-        <translation type="unfinished"/>
+        <translation>%1 neizbrano</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="614"/>
         <location filename="../../libmscore/textbase.cpp" line="669"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="649"/>
         <location filename="../../libmscore/textbase.cpp" line="662"/>
         <location filename="../../libmscore/textbase.cpp" line="665"/>
         <source>%1 selected</source>
-        <translation type="unfinished"/>
+        <translation>%1 izbrano</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1139"/>
@@ -21180,7 +21181,7 @@ Ali želite prepisati?</translation>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="47"/>
         <source>Same beat</source>
-        <translation type="unfinished"/>
+        <translation>Ista doba</translation>
     </message>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="82"/>
@@ -21195,7 +21196,7 @@ Ali želite prepisati?</translation>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="110"/>
         <source>Same measure</source>
-        <translation type="unfinished"/>
+        <translation>Isti takt</translation>
     </message>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="120"/>
@@ -21316,12 +21317,12 @@ Ali želite prepisati?</translation>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="166"/>
         <source>Same beat</source>
-        <translation type="unfinished"/>
+        <translation>Ista doba</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="173"/>
         <source>Same measure</source>
-        <translation type="unfinished"/>
+        <translation>Isti takt</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="183"/>
@@ -22191,47 +22192,47 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2276"/>
         <source>Repeat Text Left</source>
-        <translation type="unfinished"/>
+        <translation>Besedilo začetnega ponavljaja</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2277"/>
         <source>Repeat Text Right</source>
-        <translation type="unfinished"/>
+        <translation>Besedilo končnega ponavljaja</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2283"/>
         <source>Volta</source>
-        <translation type="unfinished"/>
+        <translation>Oklepaj zaporedja (volta)</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2302"/>
         <source>User-7</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 7</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2303"/>
         <source>User-8</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 8</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2304"/>
         <source>User-9</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 8</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2305"/>
         <source>User-10</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 10</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2306"/>
         <source>User-11</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 11</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2307"/>
         <source>User-12</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 12</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2278"/>
@@ -22316,32 +22317,32 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2296"/>
         <source>User-1</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 1</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2297"/>
         <source>User-2</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 2</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2298"/>
         <source>User-3</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 3</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2299"/>
         <source>User-4</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 4</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2300"/>
         <source>User-5</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 5</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2301"/>
         <source>User-6</source>
-        <translation type="unfinished"/>
+        <translation>Uporabnik 6</translation>
     </message>
 </context>
 <context>
@@ -22608,7 +22609,7 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
         <location filename="../../mscore/timesigwizard.ui" line="443"/>
         <location filename="../../mscore/timesigwizard.ui" line="446"/>
         <source>Quarter notes per minute</source>
-        <translation type="unfinished"/>
+        <translation>Četrtink na minuto</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="166"/>
@@ -22700,7 +22701,7 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="14"/>
         <source>Edit Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Uredi orodno vrstico</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="26"/>
@@ -22720,7 +22721,7 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="80"/>
         <source>Workspace:</source>
-        <translation>Delovni prostor:</translation>
+        <translation>Delovno okolje:</translation>
     </message>
 </context>
 <context>
@@ -22738,12 +22739,12 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="32"/>
         <source>Transpose to key (specified at concert pitch)</source>
-        <translation type="unfinished"/>
+        <translation>Prestavi v lestvico (določeno s komornim tonom)</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="35"/>
         <source>To Key</source>
-        <translation type="unfinished"/>
+        <translation>V lestvico</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="57"/>
@@ -23256,7 +23257,7 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="45"/>
         <source>Interpretation:</source>
-        <translation type="unfinished"/>
+        <translation>Izvajanje:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="55"/>
@@ -23267,23 +23268,23 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
         <location filename="../../mscore/inspector/voicing_select.ui" line="69"/>
         <source>Jazz</source>
         <extracomment>adding 9th and 13th as desired</extracomment>
-        <translation type="unfinished"/>
+        <translation>Jazzovsko</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="74"/>
         <source>Literal</source>
         <extracomment>Literally following the chord symbols text</extracomment>
-        <translation type="unfinished"/>
+        <translation>Kot napisano</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="83"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Samodejno</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="88"/>
         <source>Root Only</source>
-        <translation type="unfinished"/>
+        <translation>Samo osnovni ton</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="93"/>
@@ -23301,19 +23302,19 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
         <location filename="../../mscore/inspector/voicing_select.ui" line="103"/>
         <source>Six Note</source>
         <extracomment>6 note chord</extracomment>
-        <translation type="unfinished"/>
+        <translation>Šesterozvočni</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="108"/>
         <source>Four Note</source>
         <extracomment>4 note chord</extracomment>
-        <translation type="unfinished"/>
+        <translation>Četverozvočni</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="113"/>
         <source>Three Note</source>
         <extracomment>3 note chord</extracomment>
-        <translation type="unfinished"/>
+        <translation>Trozvočni</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="122"/>
@@ -23323,12 +23324,12 @@ Opomba: &quot;Ctrl+Premakni+1&quot; šteje kot ena kombinacija.</translation>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="127"/>
         <source>Until Measure End</source>
-        <translation type="unfinished"/>
+        <translation>Do konca takta</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="132"/>
         <source>Chord/Rest Duration</source>
-        <translation type="unfinished"/>
+        <translation>Trajanje sozvoka/pavze</translation>
     </message>
 </context>
 <context>
@@ -23353,12 +23354,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/workspacedialog.ui" line="35"/>
         <source>Workspace Name:</source>
-        <translation>Ime delovne površine:</translation>
+        <translation>Ime delovnega okolja:</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.ui" line="45"/>
         <source>Select extra components to save to the workspace:</source>
-        <translation>Izberite dodatne sestavine, ki jih želite shraniti v delovno površino:</translation>
+        <translation>Izberite dodatne sestavine, ki jih želite shraniti v delovno okolje:</translation>
     </message>
     <message>
         <location filename="../../mscore/workspacedialog.ui" line="54"/>
@@ -24105,57 +24106,57 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="160"/>
         <source>Print score/part</source>
-        <translation type="unfinished"/>
+        <translation>Natisni notni zapis/part</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="271"/>
         <source>Note input: Toggle Entry/Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: preklapljaj med načinoma vnos/običajni</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="282"/>
         <source>Note input: Enter Step-Time mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: postopni način</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="293"/>
         <source>Note input: Enter Re-Pitch mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: način s spreminjanjem višin</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="304"/>
         <source>Note input: Enter Rhythm mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: način s spreminjanjem trajanja</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="315"/>
         <source>Note input: Enter Real-Time (Automatic) mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: stvarnočasni (samodejni) način</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="316"/>
         <source>Enter notes at a fixed tempo indicated by a metronome beat</source>
-        <translation type="unfinished"/>
+        <translation>Vnesite note pri stalnem tempu, ki ga narekuje taktomer</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="326"/>
         <source>Note input: Enter Real-Time (Manual) mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: stvarnočasni (ročni) način</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="327"/>
         <source>Enter notes while tapping a key or pedal to set the tempo</source>
-        <translation type="unfinished"/>
+        <translation>Vnesite note ob udarjanju po tipki ali pedalu, s čimer določate tempo</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="337"/>
         <source>Note input: Enter Insert mode</source>
-        <translation type="unfinished"/>
+        <translation>Vnašanje not: vrivni način</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="338"/>
         <source>Insert notes by increasing measure duration</source>
-        <translation type="unfinished"/>
+        <translation>Vstavite note in za toliko podaljšate trajanje takta</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="658"/>
@@ -24477,12 +24478,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1039"/>
         <source>Previous System</source>
-        <translation type="unfinished"/>
+        <translation>Predhodna vrstica</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1040"/>
         <source>Go to previous system</source>
-        <translation type="unfinished"/>
+        <translation>Pojdi v predhodno vrstico</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1046"/>
@@ -24517,42 +24518,42 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1067"/>
         <source>Next System</source>
-        <translation type="unfinished"/>
+        <translation>Naslednja vrstica</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1068"/>
         <source>Go to next system</source>
-        <translation type="unfinished"/>
+        <translation>Pojdi v naslednjo vrstico</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1074"/>
         <source>Top Staff</source>
-        <translation type="unfinished"/>
+        <translation>Zgornje črtovje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1075"/>
         <source>Go to top staff</source>
-        <translation type="unfinished"/>
+        <translation>Pojdi v zgornje črtovje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1081"/>
         <source>First Empty Trailing Measure</source>
-        <translation type="unfinished"/>
+        <translation>Prvi prazni takt na koncu</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1082"/>
         <source>Go to first empty trailing measure</source>
-        <translation type="unfinished"/>
+        <translation>Podji v prvi prazni takt na koncu</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1088"/>
         <source>Next Staff or Voice</source>
-        <translation>Naslednje Notno črtovje ali Glas</translation>
+        <translation>Naslednje Črtovje ali Glas</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1089"/>
         <source>Next staff or voice</source>
-        <translation>Naslednje notno črtovje ali glas</translation>
+        <translation>Naslednje črtovje ali glas</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1095"/>
@@ -25073,70 +25074,70 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1558"/>
         <source>256th Note</source>
-        <translation type="unfinished"/>
+        <translation>256-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1559"/>
         <source>Note duration: 256th</source>
-        <translation type="unfinished"/>
+        <translation>Trajanje note: 256-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1560"/>
         <location filename="../../mscore/shortcut.cpp" line="3350"/>
         <source>256th note</source>
-        <translation type="unfinished"/>
+        <translation>256-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1569"/>
         <source>512th Note</source>
-        <translation type="unfinished"/>
+        <translation>512-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1570"/>
         <source>Note duration: 512th</source>
-        <translation type="unfinished"/>
+        <translation>Trajanje note: 512-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1571"/>
         <location filename="../../mscore/shortcut.cpp" line="3360"/>
         <source>512th note</source>
-        <translation type="unfinished"/>
+        <translation>512-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1580"/>
         <source>1024th Note</source>
-        <translation type="unfinished"/>
+        <translation>1024-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1581"/>
         <source>Note duration: 1024th</source>
-        <translation type="unfinished"/>
+        <translation>Trajanje note: 1024-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1582"/>
         <location filename="../../mscore/shortcut.cpp" line="3370"/>
         <source>1024th note</source>
-        <translation type="unfinished"/>
+        <translation>1024-inka</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1591"/>
         <source>Increase Active Duration</source>
-        <translation type="unfinished"/>
+        <translation>Podaljšaj izbrano trajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1592"/>
         <source>Increase active duration</source>
-        <translation type="unfinished"/>
+        <translation>Podaljšaj izbrano trajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1598"/>
         <source>Decrease Active Duration</source>
-        <translation type="unfinished"/>
+        <translation>Skrajšaj izbrano trajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1599"/>
         <source>Decrease active duration</source>
-        <translation type="unfinished"/>
+        <translation>Skrajšaj izbrano trajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1605"/>
@@ -25249,13 +25250,13 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1751"/>
         <source>Grace: quarter</source>
-        <translation>Predložek: četrtinka</translation>
+        <translation>Četrtinski predložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1761"/>
         <location filename="../../mscore/shortcut.cpp" line="1763"/>
         <source>Grace: 16th</source>
-        <translation>Predložek: 16-inka</translation>
+        <translation>16-inski predložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1762"/>
@@ -25266,7 +25267,7 @@ je spodletelo:</translation>
         <location filename="../../mscore/shortcut.cpp" line="1773"/>
         <location filename="../../mscore/shortcut.cpp" line="1775"/>
         <source>Grace: 32nd</source>
-        <translation>Predložek: 32-inka</translation>
+        <translation>32-inski predložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1774"/>
@@ -25281,12 +25282,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1787"/>
         <source>Grace: eighth after</source>
-        <translation>Doložek: osminka</translation>
+        <translation>Osminski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1799"/>
         <source>Grace: 16th after</source>
-        <translation>Doložek: 16-inka</translation>
+        <translation>16-inski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1798"/>
@@ -25296,7 +25297,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1811"/>
         <source>Grace: 32nd after</source>
-        <translation>Doložek: 32-inka</translation>
+        <translation>32-inski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1810"/>
@@ -25346,7 +25347,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1852"/>
         <source>MIDI Input</source>
-        <translation>Dovod MIDI</translation>
+        <translation>Vhod MIDI</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1853"/>
@@ -25391,7 +25392,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2233"/>
         <source>Add image</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj sliko</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2240"/>
@@ -25758,7 +25759,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="336"/>
         <source>Insert</source>
-        <translation>Vstavi</translation>
+        <translation>Vrini</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="525"/>
@@ -25853,22 +25854,22 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="948"/>
         <source>Get Location</source>
-        <translation type="unfinished"/>
+        <translation>Pridobi mesto</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="949"/>
         <source>Accessibility: Get location</source>
-        <translation type="unfinished"/>
+        <translation>Dostopnost: Pridobi mesto</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1186"/>
         <source>Screen: Previous</source>
-        <translation type="unfinished"/>
+        <translation>Zaslon: Predhodi</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1192"/>
         <source>Screen: Next</source>
-        <translation type="unfinished"/>
+        <translation>Zaslon: Naslednji</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1249"/>
@@ -25946,7 +25947,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1694"/>
         <source>Note input: ♮</source>
-        <translation>Vpis note: razvezaj</translation>
+        <translation>Vnašanje not: razvezaj</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1704"/>
@@ -25957,7 +25958,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1705"/>
         <source>Note input: ♭</source>
-        <translation>Vpis note: nižaj</translation>
+        <translation>Vnašanje not: nižaj</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1715"/>
@@ -25968,22 +25969,22 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1716"/>
         <source>Note input: Double ♭</source>
-        <translation>Vpis note: dvojni nižaj</translation>
+        <translation>Vnašanje not: dvojni nižaj</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1785"/>
         <source>Grace: Eighth After</source>
-        <translation>Doložek: osminka</translation>
+        <translation>Osminski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1797"/>
         <source>Grace: 16th After</source>
-        <translation>Doložek: 16-inka</translation>
+        <translation>16-inski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1809"/>
         <source>Grace: 32nd After</source>
-        <translation>Doložek: 32-inka</translation>
+        <translation>32-inski doložek</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1864"/>
@@ -26013,22 +26014,22 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1896"/>
         <source>Beam 16th Sub</source>
-        <translation>Prečka s prehodom na 16-inko</translation>
+        <translation>Začetek 16-inske prečke</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1897"/>
         <source>Beam 16th sub</source>
-        <translation>Prečka s prehodom na 16-inko</translation>
+        <translation>Začetek 16-inske prečke</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1907"/>
         <source>Beam 32nd Sub</source>
-        <translation>Prečka s prehodom na 32-inko</translation>
+        <translation>Začetek 32-inske prečke</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1908"/>
         <source>Beam 32nd sub</source>
-        <translation>Prečka s prehodom na 32-inko</translation>
+        <translation>Začetek 32-inske prečke</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1918"/>
@@ -26166,12 +26167,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2064"/>
         <source>Workspaces</source>
-        <translation>Delovno okolje</translation>
+        <translation>Delovna okolja</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2065"/>
         <source>Toggle &apos;Workspaces&apos; toolbar</source>
-        <translation>Preklopi delovno okolje</translation>
+        <translation>Preklopi orodno vrstico &quot;Delovn okolja&quot;</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2071"/>
@@ -26181,7 +26182,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2079"/>
         <source>Add new workspace</source>
-        <translation>Dodaj novo delovno površino</translation>
+        <translation>Dodaj novo delovno okolje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2085"/>
@@ -26326,7 +26327,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2191"/>
         <source>Add Roman numeral analysis</source>
-        <translation type="unfinished"/>
+        <translation>Dodaj rimskoštevilčno razčlembo</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2197"/>
@@ -26747,12 +26748,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2683"/>
         <source>Zoom to Page Width or Previous Magnification Level</source>
-        <translation type="unfinished"/>
+        <translation>Preodmiči glede na širino strani ali na prejšnjo povečavo</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2684"/>
         <source>Zoom to page-width / previous magnification level</source>
-        <translation type="unfinished"/>
+        <translation>Preodmiči na širino strani / prejšnjo povečavo</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2690"/>
@@ -26882,7 +26883,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2815"/>
         <source>Documents Side by Side</source>
-        <translation>Skladbi drugo ob drugi</translation>
+        <translation>Skladbi druga ob drugi</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2816"/>
@@ -27127,47 +27128,47 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3097"/>
         <source>Increase Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Pohitri predvajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3098"/>
         <source>Increase playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Pohitri predvajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3099"/>
         <source>Increase the playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Povečaj hitrost predvajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3105"/>
         <source>Decrease Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Upočasni predvajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3106"/>
         <source>Decrease playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Upočasni predvajanje</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3107"/>
         <source>Decrease the playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Zmanjšaj hitrost predvajanja</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3113"/>
         <source>Reset Playback Speed</source>
-        <translation type="unfinished"/>
+        <translation>Ponastavi hitrost predvajanja</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3114"/>
         <source>Reset playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Ponastavi hitrost predvajanja</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3115"/>
         <source>Reset the playback speed to 100%</source>
-        <translation type="unfinished"/>
+        <translation>Vrni hitrost predvajanja na 100%</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3121"/>
@@ -27332,7 +27333,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3259"/>
         <source>Note duration: Double whole (TAB)</source>
-        <translation>Trajanje note: dvojna celinka (TAB)</translation>
+        <translation>Vrednost note: dvojna celinka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3268"/>
@@ -27342,7 +27343,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3269"/>
         <source>Note duration: Whole (TAB)</source>
-        <translation>Trajanje note: celinka (TAB)</translation>
+        <translation>Vrednost note: celinka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3278"/>
@@ -27352,7 +27353,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3279"/>
         <source>Note duration: Half (TAB)</source>
-        <translation>Trajanje note: polovinka (TAB)</translation>
+        <translation>Vrednost note: polovinka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3288"/>
@@ -27362,7 +27363,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3289"/>
         <source>Note duration: Quarter (TAB)</source>
-        <translation>Trajanje note: četrtinka (TAB)</translation>
+        <translation>Vrednost note: četrtinka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3298"/>
@@ -27372,7 +27373,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3299"/>
         <source>Note duration: Eighth (TAB)</source>
-        <translation>Trajanje note: osminka (TAB)</translation>
+        <translation>Vrednost note: osminka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3308"/>
@@ -27382,7 +27383,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3309"/>
         <source>Note duration: 16th (TAB)</source>
-        <translation>Trajanje note: 16-inka (TAB)</translation>
+        <translation>Vrednost note: 16-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3318"/>
@@ -27392,7 +27393,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3319"/>
         <source>Note duration: 32nd (TAB)</source>
-        <translation>Trajanje note: 32-inka (TAB)</translation>
+        <translation>Vrednost note: 32-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3328"/>
@@ -27402,7 +27403,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3329"/>
         <source>Note duration: 64th (TAB)</source>
-        <translation>Trajanje note: 64-inka (TAB)</translation>
+        <translation>Vrednost note: 64-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3338"/>
@@ -27412,57 +27413,57 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3339"/>
         <source>Note duration: 128th (TAB)</source>
-        <translation>Trajanje note: 128-inka (TAB)</translation>
+        <translation>Vrednost note: 128-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3348"/>
         <source>256th Note (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>256-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3349"/>
         <source>Note duration: 256th (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Vrednost note: 256-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3358"/>
         <source>512th Note (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>512-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3359"/>
         <source>Note duration: 512th (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Vrednost note: 512-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3368"/>
         <source>1024th Note (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>1024-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3369"/>
         <source>Note duration: 1024th (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Vrednost note: 1024-inka (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3378"/>
         <source>Increase Active Duration (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Podaljšaj izbrano vrednost (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3379"/>
         <source>Increase active duration (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Podaljšaj izbrano vrednost (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3385"/>
         <source>Decrease Active Duration (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Skrajšaj izbrano vrednost (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3386"/>
         <source>Decrease active duration (TAB)</source>
-        <translation type="unfinished"/>
+        <translation>Skrajšaj izbrano vrednost (TAB)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3392"/>
@@ -27899,42 +27900,42 @@ je spodletelo:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3892"/>
         <source>Zoom In Horizontally</source>
-        <translation type="unfinished"/>
+        <translation>Približaj vodoravno</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3893"/>
         <source>Zoom in horizontal - piano roll editor</source>
-        <translation type="unfinished"/>
+        <translation>Približaj vodoravno - lukentrak urejevalnik</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3901"/>
         <source>Zoom Out Horizontally</source>
-        <translation type="unfinished"/>
+        <translation>Oddalji vodoravno</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3902"/>
         <source>Zoom out horizontal - piano roll editor</source>
-        <translation type="unfinished"/>
+        <translation>Oddalji vodoravno - lukentrak urejevalnik</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3910"/>
         <source>Zoom In Vertically</source>
-        <translation type="unfinished"/>
+        <translation>Približaj navpično</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3911"/>
         <source>Zoom in vertical - piano roll editor</source>
-        <translation type="unfinished"/>
+        <translation>Približaj navopično - lukentrak urejevalnik</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3919"/>
         <source>Zoom Out Vertically</source>
-        <translation type="unfinished"/>
+        <translation>Oddalji navpično</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3920"/>
         <source>Zoom out vertical - piano roll editor</source>
-        <translation type="unfinished"/>
+        <translation>Oddalji navpično - lukentrak urejevalnik</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3661"/>
@@ -29189,12 +29190,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/clef.cpp" line="70"/>
         <source>Tablature Serif</source>
-        <translation type="unfinished"/>
+        <translation>Tablatura serifno</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="71"/>
         <source>Tablature Serif 4 lines</source>
-        <translation type="unfinished"/>
+        <translation>Štirivrstične tablature serifno</translation>
     </message>
 </context>
 <context>
@@ -29215,7 +29216,7 @@ je spodletelo:</translation>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="306"/>
         <location filename="../../libmscore/drumset.cpp" line="252"/>
         <source>Side Stick</source>
-        <translation type="unfinished"/>
+        <translation>Prečni klik</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="307"/>
@@ -29233,7 +29234,7 @@ je spodletelo:</translation>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="310"/>
         <location filename="../../libmscore/drumset.cpp" line="255"/>
         <source>Low Floor Tom</source>
-        <translation type="unfinished"/>
+        <translation>Stoječi nizki tom</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="311"/>
@@ -29245,7 +29246,7 @@ je spodletelo:</translation>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="312"/>
         <location filename="../../libmscore/drumset.cpp" line="257"/>
         <source>High Floor Tom</source>
-        <translation type="unfinished"/>
+        <translation>Stoječi gornji tom</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="313"/>
@@ -29416,7 +29417,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="331"/>
         <source>Mute Hi Conga</source>
-        <translation type="unfinished"/>
+        <translation>Dušena gornja konga</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="334"/>
@@ -29825,7 +29826,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="60"/>
         <source>Fermata</source>
-        <translation>Korona</translation>
+        <translation>Prenehljaj (korona)</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="61"/>
@@ -29930,7 +29931,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="81"/>
         <source>Volta</source>
-        <translation type="unfinished"/>
+        <translation>Oklepaj zaporedja (volta)</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="82"/>
@@ -29970,7 +29971,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="89"/>
         <source>Volta Segment</source>
-        <translation type="unfinished"/>
+        <translation>Odsek oklepaja zaporedja (volta)</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="90"/>
@@ -30045,12 +30046,12 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="103"/>
         <source>Shadow Note</source>
-        <translation type="unfinished"/>
+        <translation>Senca note</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="104"/>
         <source>Tab Duration Symbol</source>
-        <translation type="unfinished"/>
+        <translation>Znak trajanja tablatur</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="105"/>
@@ -30105,7 +30106,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="115"/>
         <source>Text Line Base</source>
-        <translation type="unfinished"/>
+        <translation>Izhodišče napisne črte</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="116"/>
@@ -30201,7 +30202,7 @@ je spodletelo:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="134"/>
         <source>Ossia</source>
-        <translation type="unfinished"/>
+        <translation>Druga možnost (ossia)</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="135"/>
@@ -30236,19 +30237,22 @@ Izberite noto ali pavzo in ponovno poskusite</translation>
         <location filename="../../libmscore/mscore.cpp" line="131"/>
         <source>No note selected:
 Please select a note and retry</source>
-        <translation type="unfinished"/>
+        <translation>Nobene note ni izbrane:
+Izberite noto in ponovno poskusite</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="135"/>
         <source>No flippable element selected:
 Please select an element that can be flipped and retry</source>
-        <translation type="unfinished"/>
+        <translation>Izbran ni noben predmet, ki bi ga bilo mogoče preobrniti:
+Izberite predmet, ki ga je mogoče preobrniti, in poskusite ponovno</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="136"/>
         <source>No staff selected:
 Please select one or more staves and retry</source>
-        <translation type="unfinished"/>
+        <translation>Nobeno črtovje ni izbrano:
+Izberite eno ali več črtovij in poskusite ponovno</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="137"/>
@@ -30701,32 +30705,32 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/note.cpp" line="262"/>
         <source>Do (Walker)</source>
-        <translation type="unfinished"/>
+        <translation>Do (Walker)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="263"/>
         <source>Re (Walker)</source>
-        <translation type="unfinished"/>
+        <translation>Re (Walker)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="264"/>
         <source>Ti (Walker)</source>
-        <translation type="unfinished"/>
+        <translation>Si (Walker)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="265"/>
         <source>Do (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>Do (Funk)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="266"/>
         <source>Re (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>Re (Funk)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="267"/>
         <source>Ti (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>Si (Funk)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="270"/>
@@ -30851,7 +30855,7 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/note.cpp" line="296"/>
         <source>F (Name)</source>
-        <translation type="unfinished"/>
+        <translation>F (ime)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="297"/>
@@ -30964,32 +30968,32 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/note.cpp" line="224"/>
         <source>Solfège Movable Do</source>
-        <translation>Premični solfege</translation>
+        <translation>Solimzacijski s premičnim Do</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="225"/>
         <source>Solfège Fixed Do</source>
-        <translation type="unfinished"/>
+        <translation>Solimzacijski s stalnim Do</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="226"/>
         <source>4-shape (Walker)</source>
-        <translation type="unfinished"/>
+        <translation>4-oblični (Walker)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="227"/>
         <source>7-shape (Aikin)</source>
-        <translation type="unfinished"/>
+        <translation>7-oblični (Aikini)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="228"/>
         <source>7-shape (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>4-oblični (Funk)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="229"/>
         <source>7-shape (Walker)</source>
-        <translation type="unfinished"/>
+        <translation>7-oblični (Walker)</translation>
     </message>
 </context>
 <context>
@@ -31922,12 +31926,12 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/sym.cpp" line="3238"/>
         <source>Accent above</source>
-        <translation type="unfinished"/>
+        <translation>Poudarek (akcent) zgoraj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3239"/>
         <source>Accent below</source>
-        <translation type="unfinished"/>
+        <translation>Poudarek (akcent) spodaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3240"/>
@@ -32132,12 +32136,12 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/sym.cpp" line="3284"/>
         <source>Short barline</source>
-        <translation type="unfinished"/>
+        <translation>Kratka taktnica</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3285"/>
         <source>Single barline</source>
-        <translation type="unfinished"/>
+        <translation>Enojna taktnica</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3286"/>
@@ -32157,27 +32161,27 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/sym.cpp" line="3339"/>
         <source>Breath mark (comma)</source>
-        <translation type="unfinished"/>
+        <translation>Dih (vejica)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3340"/>
         <source>Breath mark (Salzedo)</source>
-        <translation type="unfinished"/>
+        <translation>Dih (Salzedo)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3341"/>
         <source>Breath mark (tick-like)</source>
-        <translation type="unfinished"/>
+        <translation>Dih (kljukica)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3342"/>
         <source>Breath mark (upbow-like)</source>
-        <translation type="unfinished"/>
+        <translation>Dih (v obliki V)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3345"/>
         <source>C clef</source>
-        <translation type="unfinished"/>
+        <translation>C-ključ</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3353"/>
@@ -32208,132 +32212,132 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/sym.cpp" line="3428"/>
         <source>Square coda</source>
-        <translation type="unfinished"/>
+        <translation>Kvadratna koda</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3490"/>
         <source>Forte</source>
-        <translation type="unfinished"/>
+        <translation>Glasno (forte)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3500"/>
         <source>Mezzo</source>
-        <translation type="unfinished"/>
+        <translation>Srednje (mezzo)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3501"/>
         <source>Niente</source>
-        <translation type="unfinished"/>
+        <translation>Brezglasno (niente)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3509"/>
         <source>Piano</source>
-        <translation>Klavir</translation>
+        <translation>Tiho (piano)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3510"/>
         <source>Rinforzando</source>
-        <translation type="unfinished"/>
+        <translation>Rinforzando</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3513"/>
         <source>Sforzando</source>
-        <translation type="unfinished"/>
+        <translation>Sforzato (močno poudarjeno)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3520"/>
         <source>Z</source>
-        <translation type="unfinished"/>
+        <translation>Z</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3586"/>
         <source>F clef</source>
-        <translation type="unfinished"/>
+        <translation>F-ključ</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3596"/>
         <source>Fermata above</source>
-        <translation type="unfinished"/>
+        <translation>Zgornji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3597"/>
         <source>Fermata below</source>
-        <translation type="unfinished"/>
+        <translation>Spodnji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3598"/>
         <source>Long fermata above</source>
-        <translation type="unfinished"/>
+        <translation>Dolgi zgornji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3599"/>
         <source>Long fermata below</source>
-        <translation type="unfinished"/>
+        <translation>Dolgi spodnji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3600"/>
         <source>Long fermata (Henze) above</source>
-        <translation type="unfinished"/>
+        <translation>Dolgi zgornji henzejev prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3601"/>
         <source>Long fermata (Henze) below</source>
-        <translation type="unfinished"/>
+        <translation>Dolgi spodnji henzejev prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3602"/>
         <source>Short fermata above</source>
-        <translation type="unfinished"/>
+        <translation>Kratki zgornji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3603"/>
         <source>Short fermata below</source>
-        <translation type="unfinished"/>
+        <translation>Kratki spodnji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3604"/>
         <source>Short fermata (Henze) above</source>
-        <translation type="unfinished"/>
+        <translation>Kratki zgornji henzejev prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3605"/>
         <source>Short fermata (Henze) below</source>
-        <translation type="unfinished"/>
+        <translation>Kratki spodnji henzejev prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3606"/>
         <source>Very long fermata above</source>
-        <translation type="unfinished"/>
+        <translation>Zelo dolgi zgornji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3607"/>
         <source>Very long fermata below</source>
-        <translation type="unfinished"/>
+        <translation>Zelo dolgi spodnji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3608"/>
         <source>Very short fermata above</source>
-        <translation type="unfinished"/>
+        <translation>Zelo kratki zgornji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3609"/>
         <source>Very short fermata below</source>
-        <translation type="unfinished"/>
+        <translation>Zelo kratki spodnji prenehljaj</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3744"/>
         <source>G clef</source>
-        <translation type="unfinished"/>
+        <translation>G-ključ</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3770"/>
         <source>Fade in</source>
-        <translation>Postopno okrepi</translation>
+        <translation>Krepljenje</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3771"/>
         <source>Fade out</source>
-        <translation>Postopno izzveni</translation>
+        <translation>Izzvenevanje</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3793"/>
@@ -32343,7 +32347,7 @@ takt ni prazen
     <message>
         <location filename="../../libmscore/sym.cpp" line="3917"/>
         <source>Right-hand fingering, first finger</source>
-        <translation type="unfinished"/>
+        <translation>Prstni red desne roke, prvi prst</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3918"/>

@@ -56,21 +56,25 @@ const int MAX_NUMBER_LEVEL = 6; // maximum number of overlapping MusicXML object
 
 struct CreditWords {
       int page;
+      QString type;
       double defaultX;
       double defaultY;
+      double fontSize;
       QString justify;
       QString hAlign;
       QString vAlign;
       QString words;
-      CreditWords(int p, double a, double b, QString c, QString d, QString e, QString f)
+      CreditWords(int p, QString tp, double dx, double dy, double fs, QString j, QString ha, QString va, QString w)
             {
             page = p;
-            defaultX = a;
-            defaultY = b;
-            justify  = c;
-            hAlign   = d;
-            vAlign   = e;
-            words    = f;
+            type = tp;
+            defaultX = dx;
+            defaultY = dy;
+            fontSize = fs;
+            justify  = j;
+            hAlign   = ha;
+            vAlign   = va;
+            words    = w;
             }
       };
 

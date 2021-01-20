@@ -7362,7 +7362,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="183"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Lejátszás</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="206"/>
@@ -7531,7 +7531,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="164"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>Hangszer kiválasztása…</translation>
     </message>
 </context>
 <context>
@@ -11252,7 +11252,7 @@ az n-ola kilógna az ütemből</translation>
     <message>
         <location filename="../../mscore/metaedit.ui" line="136"/>
         <source>API-Level</source>
-        <translation type="unfinished"/>
+        <translation>API szint</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="142"/>
@@ -13220,7 +13220,7 @@ módosításait bezárás előtt?</translation>
         <location filename="../../mscore/file.cpp" line="1804"/>
         <location filename="../../mscore/file.cpp" line="1886"/>
         <source>Uncompressed MusicXML File (outdated)</source>
-        <translation type="unfinished"/>
+        <translation>Tömörítetlen MusicXML fájl (elavult)</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1807"/>
@@ -15302,7 +15302,7 @@ nem sikerült: %2</translation>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="265"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>Hangszer kiválasztása…</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="274"/>

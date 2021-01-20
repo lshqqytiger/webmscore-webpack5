@@ -4,7 +4,7 @@
     <message>
         <location filename="../../mscore/aboutbox.ui" line="14"/>
         <source>About MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>A-zivout MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/aboutbox.ui" line="121"/>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../../mscore/aboutmusicxmlbox.ui" line="6"/>
         <source>About MusicXML</source>
-        <translation type="unfinished"/>
+        <translation>A-zivout MusicXML</translation>
     </message>
 </context>
 <context>
@@ -30,7 +30,7 @@
     <message>
         <location filename="../../aeolus/aeolus_gui.ui" line="29"/>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Width</translation>
     </message>
     <message>
         <location filename="../../aeolus/aeolus_gui.ui" line="36"/>
@@ -180,7 +180,7 @@
     <message>
         <location filename="../../mscore/articulation.ui" line="38"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/articulation.ui" line="43"/>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../../mscore/harmonyedit.ui" line="48"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv</translation>
     </message>
     <message>
         <location filename="../../mscore/harmonyedit.ui" line="96"/>
@@ -576,7 +576,7 @@
     <message>
         <location filename="../../crashreporter/crashreporter.ui" line="60"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.ui" line="29"/>
@@ -622,7 +622,7 @@
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="274"/>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="295"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <location filename="../../thirdparty/libcrashreporter-qt/src/libcrashreporter-gui/CrashReporter.cpp" line="145"/>
@@ -668,7 +668,7 @@
     <message>
         <location filename="../../libmscore/mscore.cpp" line="200"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="201"/>
@@ -691,12 +691,12 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="92"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="119"/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ...</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="126"/>
@@ -722,7 +722,7 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="68"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="108"/>
@@ -772,7 +772,7 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="501"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="506"/>
@@ -792,22 +792,22 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="345"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="350"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="355"/>
         <source>3</source>
-        <translation type="unfinished"/>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="360"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="408"/>
@@ -830,7 +830,7 @@
     <message>
         <location filename="../../mscore/editinstrument.ui" line="26"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/editinstrument.ui" line="36"/>
@@ -1682,7 +1682,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="338"/>
         <source>Instrument:</source>
-        <translation type="unfinished"/>
+        <translation>Benveg:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="373"/>
@@ -1722,7 +1722,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="279"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="284"/>
@@ -1737,7 +1737,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="294"/>
         <source>Instrument</source>
-        <translation type="unfinished"/>
+        <translation>Benveg</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="304"/>
@@ -1932,7 +1932,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="822"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="827"/>
@@ -2023,7 +2023,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="150"/>
         <source>Lines:</source>
-        <translation type="unfinished"/>
+        <translation>Linennoù:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="176"/>
@@ -2049,7 +2049,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="235"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="254"/>
@@ -2072,7 +2072,7 @@
     <message>
         <location filename="../../mscore/editstafftype.ui" line="105"/>
         <source>Lines:</source>
-        <translation type="unfinished"/>
+        <translation>Linennoù:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="140"/>
@@ -2133,13 +2133,13 @@
         <location filename="../../mscore/editstafftype.ui" line="442"/>
         <location filename="../../mscore/editstafftype.ui" line="722"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="459"/>
         <location filename="../../mscore/editstafftype.ui" line="738"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="469"/>
@@ -2287,7 +2287,7 @@
         <location filename="../../mscore/editstafftype.ui" line="1181"/>
         <source>None</source>
         <comment>neither short nor slashed stem</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1197"/>
@@ -2324,7 +2324,7 @@
         <location filename="../../mscore/editstafftype.ui" line="847"/>
         <source>None</source>
         <comment>neither note symbols nor stems and beams</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1316"/>
@@ -2591,7 +2591,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="4501"/>
         <location filename="../../mscore/editstyle.ui" line="8529"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="66"/>
@@ -2599,7 +2599,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="1858"/>
         <location filename="../../mscore/editstyle.ui" line="2092"/>
         <source>Page</source>
-        <translation type="unfinished"/>
+        <translation>Pajenn</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="1260"/>
@@ -2974,7 +2974,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="6605"/>
         <location filename="../../mscore/editstyle.ui" line="7068"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5292"/>
@@ -3063,7 +3063,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5670"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5690"/>
@@ -3131,7 +3131,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="6444"/>
         <location filename="../../mscore/editstyle.ui" line="6595"/>
         <source>Line style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="146"/>
@@ -3234,7 +3234,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9384"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9423"/>
@@ -3344,13 +3344,13 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="9164"/>
         <location filename="../../mscore/editstyle.ui" line="10674"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9196"/>
         <location filename="../../mscore/editstyle.ui" line="10681"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="76"/>
@@ -3678,7 +3678,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10282"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10326"/>
@@ -3903,13 +3903,13 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="5151"/>
         <source>None</source>
         <comment>no tuplet number</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5203"/>
         <source>None</source>
         <comment>no tuplet bracket</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="6165"/>
@@ -4011,7 +4011,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10540"/>
         <source>Margin:</source>
-        <translation type="unfinished"/>
+        <translation>Marz:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10547"/>
@@ -4402,7 +4402,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="32"/>
         <location filename="../../mscore/editstyle.ui" line="9312"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9318"/>
@@ -4487,7 +4487,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5082"/>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Perzhioù</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5088"/>
@@ -4498,7 +4498,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="5099"/>
         <location filename="../../mscore/editstyle.ui" line="5193"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5104"/>
@@ -4780,12 +4780,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10357"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10688"/>
         <source>Color:</source>
-        <translation type="unfinished"/>
+        <translation>Liv:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10695"/>
@@ -4968,7 +4968,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="196"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="248"/>
@@ -4983,7 +4983,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="291"/>
         <source>Add instrument</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ ur benveg</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="304"/>
@@ -4998,27 +4998,27 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="355"/>
         <source>Instrument</source>
-        <translation type="unfinished"/>
+        <translation>Benveg</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="360"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="368"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="376"/>
         <source>3</source>
-        <translation type="unfinished"/>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="384"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="212"/>
@@ -5061,28 +5061,28 @@ space unit</extracomment>
     <message>
         <location filename="../../audio/midi/fluid/fluid_gui.ui" line="135"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluid_gui.ui" line="145"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="121"/>
         <source>Loading…</source>
-        <translation type="unfinished"/>
+        <translation>O kargañ...</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="121"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="302"/>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="337"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="303"/>
@@ -5161,7 +5161,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/importmidi_ui/importmidi_panel.ui" line="284"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -5184,12 +5184,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="107"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="114"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -5217,7 +5217,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_accidental.ui" line="111"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Bihan</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_accidental.ui" line="124"/>
@@ -5340,7 +5340,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="615"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="618"/>
@@ -5601,7 +5601,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="232"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="206"/>
@@ -5626,7 +5626,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="178"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ambitus.ui" line="183"/>
@@ -5694,7 +5694,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_arpeggio.ui" line="82"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_arpeggio.ui" line="89"/>
@@ -5792,7 +5792,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="105"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="110"/>
@@ -5827,7 +5827,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="319"/>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Perzhioù</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="244"/>
@@ -5842,7 +5842,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="290"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="295"/>
@@ -5852,7 +5852,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="326"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
 </context>
 <context>
@@ -5870,7 +5870,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="159"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="264"/>
@@ -5885,7 +5885,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="168"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="88"/>
@@ -5935,7 +5935,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="204"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_barline.ui" line="242"/>
@@ -5983,7 +5983,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="199"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="204"/>
@@ -6086,17 +6086,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="159"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="233"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="351"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="152"/>
@@ -6111,7 +6111,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="201"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="204"/>
@@ -6136,12 +6136,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="101"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="214"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="133"/>
@@ -6156,7 +6156,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="114"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="298"/>
@@ -6279,7 +6279,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="92"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="97"/>
@@ -6324,7 +6324,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="160"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Bihan</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_chord.ui" line="202"/>
@@ -6380,12 +6380,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="213"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="101"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="274"/>
@@ -6568,12 +6568,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="184"/>
         <source>Color:</source>
-        <translation type="unfinished"/>
+        <translation>Liv:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="203"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Liv</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="148"/>
@@ -6654,7 +6654,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_fermata.ui" line="173"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
 </context>
 <context>
@@ -6672,12 +6672,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="88"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="95"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="114"/>
@@ -6700,12 +6700,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="77"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="96"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
 </context>
 <context>
@@ -6911,17 +6911,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="264"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="297"/>
         <source>Text:</source>
-        <translation type="unfinished"/>
+        <translation>Testenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="151"/>
         <source>Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rizh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="102"/>
@@ -6966,7 +6966,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="320"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="336"/>
@@ -6996,7 +6996,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="251"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="254"/>
@@ -7006,7 +7006,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="287"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="187"/>
@@ -7021,7 +7021,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="134"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="138"/>
@@ -7036,17 +7036,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="349"/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Testenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="226"/>
         <source>Show text</source>
-        <translation type="unfinished"/>
+        <translation>Diskouez an destenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="82"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
 </context>
 <context>
@@ -7069,7 +7069,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="92"/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Liv</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="102"/>
@@ -7120,12 +7120,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="110"/>
         <source>Width:</source>
-        <translation type="unfinished"/>
+        <translation>Ledander:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="129"/>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Ledander</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="151"/>
@@ -7238,7 +7238,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="460"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="245"/>
@@ -7263,12 +7263,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="341"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="422"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="406"/>
@@ -7279,7 +7279,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="284"/>
         <source>Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rizh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="403"/>
@@ -7352,17 +7352,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="85"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="143"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="183"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="206"/>
@@ -7410,12 +7410,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="57"/>
         <source>Image</source>
-        <translation type="unfinished"/>
+        <translation>Skeudenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="82"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="95"/>
@@ -7425,7 +7425,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="112"/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Ment</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_image.ui" line="122"/>
@@ -7473,7 +7473,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="57"/>
         <source>Instrument Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv ar benveg</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_iname.ui" line="88"/>
@@ -7506,12 +7506,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="95"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="111"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="128"/>
@@ -7531,7 +7531,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="164"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>Dibab ur benveg...</translation>
     </message>
 </context>
 <context>
@@ -7650,12 +7650,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_lasso.ui" line="109"/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Ment</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lasso.ui" line="92"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
 </context>
 <context>
@@ -7706,22 +7706,22 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="60"/>
         <source>Line</source>
-        <translation type="unfinished"/>
+        <translation>Linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="85"/>
         <source>Line color:</source>
-        <translation type="unfinished"/>
+        <translation>Liv al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="98"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="111"/>
         <source>Line style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="127"/>
@@ -7731,7 +7731,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="140"/>
         <source>Line color</source>
-        <translation type="unfinished"/>
+        <translation>Liv al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="182"/>
@@ -7751,7 +7751,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="232"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="235"/>
@@ -7807,7 +7807,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="153"/>
         <source>Line style</source>
-        <translation type="unfinished"/>
+        <translation>Stil al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="157"/>
@@ -7855,12 +7855,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_lyric.ui" line="82"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lyric.ui" line="101"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lyric.ui" line="108"/>
@@ -7941,12 +7941,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_marker.ui" line="74"/>
         <source>Label:</source>
-        <translation type="unfinished"/>
+        <translation>Skritellig:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_marker.ui" line="93"/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>Skritellig</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_marker.ui" line="110"/>
@@ -7991,7 +7991,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_marker.ui" line="145"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_marker.ui" line="153"/>
@@ -8024,12 +8024,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="108"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="127"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_measurenumber.ui" line="134"/>
@@ -8142,7 +8142,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="661"/>
         <source>Line</source>
-        <translation type="unfinished"/>
+        <translation>Linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="682"/>
@@ -8162,7 +8162,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="495"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Implijer</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="579"/>
@@ -8177,12 +8177,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="342"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="247"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="152"/>
@@ -8232,7 +8232,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="197"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="215"/>
@@ -8277,7 +8277,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="95"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Bihan</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="563"/>
@@ -8310,7 +8310,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_notedot.ui" line="105"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_notedot.ui" line="110"/>
@@ -8343,7 +8343,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="82"/>
         <source>Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rizh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="95"/>
@@ -8353,7 +8353,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="114"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="118"/>
@@ -8507,7 +8507,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_rest.ui" line="88"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Bihan</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_rest.ui" line="101"/>
@@ -8657,7 +8657,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_slur.ui" line="151"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_slur.ui" line="156"/>
@@ -8695,12 +8695,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_spacer.ui" line="74"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_spacer.ui" line="93"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_spacer.ui" line="96"/>
@@ -8744,17 +8744,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="182"/>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Perzhioù</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="88"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="110"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
 </context>
 <context>
@@ -8812,12 +8812,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="312"/>
         <source>Lines:</source>
-        <translation type="unfinished"/>
+        <translation>Linennoù:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="259"/>
         <source>Lines</source>
-        <translation type="unfinished"/>
+        <translation>Linennoù</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="186"/>
@@ -8933,7 +8933,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftypechange.ui" line="305"/>
         <source>Small</source>
-        <translation type="unfinished"/>
+        <translation>Bihan</translation>
     </message>
 </context>
 <context>
@@ -8956,7 +8956,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="182"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="187"/>
@@ -8971,7 +8971,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="206"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="219"/>
@@ -8981,7 +8981,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="117"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stem.ui" line="82"/>
@@ -9168,12 +9168,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="133"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="152"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="159"/>
@@ -9216,7 +9216,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="57"/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Testenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="88"/>
@@ -9247,12 +9247,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="193"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="232"/>
         <source>Margin</source>
-        <translation type="unfinished"/>
+        <translation>Marz</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="245"/>
@@ -9272,7 +9272,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="281"/>
         <source>Margin:</source>
-        <translation type="unfinished"/>
+        <translation>Marz:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="297"/>
@@ -9348,7 +9348,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_text.ui" line="145"/>
         <location filename="../../mscore/inspector/inspector_text.ui" line="148"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="471"/>
@@ -9426,7 +9426,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="1161"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="1111"/>
@@ -9443,7 +9443,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="1092"/>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="1145"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="435"/>
@@ -9498,7 +9498,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="685"/>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="958"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="305"/>
@@ -9603,7 +9603,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="503"/>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="909"/>
         <source>Text:</source>
-        <translation type="unfinished"/>
+        <translation>Testenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="337"/>
@@ -9679,7 +9679,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_timesig.ui" line="144"/>
         <source>Properties</source>
-        <translation type="unfinished"/>
+        <translation>Perzhioù</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_timesig.ui" line="88"/>
@@ -9708,7 +9708,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="105"/>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="148"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="110"/>
@@ -9761,12 +9761,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="146"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="82"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="210"/>
@@ -9776,7 +9776,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="236"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="243"/>
@@ -9844,7 +9844,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="213"/>
         <source>Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rizh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="233"/>
@@ -9859,7 +9859,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="88"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="92"/>
@@ -9904,7 +9904,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="161"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="166"/>
@@ -9914,7 +9914,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="226"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
 </context>
 <context>
@@ -9937,7 +9937,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="393"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="243"/>
@@ -9962,12 +9962,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="302"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="269"/>
         <source>Line thickness</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="142"/>
@@ -9977,7 +9977,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="380"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="189"/>
@@ -10002,12 +10002,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="338"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="250"/>
         <source>Line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Tevder al linenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="135"/>
@@ -10018,7 +10018,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="175"/>
         <source>None</source>
         <comment>no tuplet number style</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="196"/>
@@ -10060,19 +10060,19 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="111"/>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="219"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="229"/>
         <source>None</source>
         <comment>no tuplet bracket style</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="351"/>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="354"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="357"/>
@@ -10187,12 +10187,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_vbox.ui" line="205"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vbox.ui" line="317"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vbox.ui" line="158"/>
@@ -10266,17 +10266,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="118"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="125"/>
         <source>Type:</source>
-        <translation type="unfinished"/>
+        <translation>Rizh:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="144"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="153"/>
@@ -10355,13 +10355,13 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/instrwizard.ui" line="32"/>
         <source>Instrument list</source>
-        <translation type="unfinished"/>
+        <translation>Listenn ar binvioù</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwizard.ui" line="70"/>
         <location filename="../../mscore/instrwizard.ui" line="73"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwizard.ui" line="80"/>
@@ -10373,7 +10373,7 @@ space unit</extracomment>
         <location filename="../../mscore/instrwizard.ui" line="115"/>
         <location filename="../../mscore/instrwizard.ui" line="118"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwizard.ui" line="131"/>
@@ -10414,12 +10414,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="14"/>
         <source>Instruments</source>
-        <translation type="unfinished"/>
+        <translation>Binvioù</translation>
     </message>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="47"/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ</translation>
     </message>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="54"/>
@@ -10429,17 +10429,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="80"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../mscore/instrdialog.ui" line="87"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.cpp" line="412"/>
         <source>All instruments</source>
-        <translation type="unfinished"/>
+        <translation>An holl binvioù</translation>
     </message>
 </context>
 <context>
@@ -10447,13 +10447,13 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/instrwidget.ui" line="14"/>
         <source>Instruments</source>
-        <translation type="unfinished"/>
+        <translation>Binvioù</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.ui" line="55"/>
         <location filename="../../mscore/instrwidget.ui" line="80"/>
         <source>Instrument list</source>
-        <translation type="unfinished"/>
+        <translation>Listenn ar binvioù</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.ui" line="42"/>
@@ -10464,13 +10464,13 @@ space unit</extracomment>
         <location filename="../../mscore/instrwidget.ui" line="91"/>
         <location filename="../../mscore/instrwidget.ui" line="97"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.ui" line="148"/>
         <location filename="../../mscore/instrwidget.ui" line="151"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.ui" line="170"/>
@@ -10571,7 +10571,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/keyedit.ui" line="128"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
 </context>
 <context>
@@ -10590,12 +10590,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/layer.ui" line="30"/>
         <source>Create</source>
-        <translation type="unfinished"/>
+        <translation>Krouiñ</translation>
     </message>
     <message>
         <location filename="../../mscore/layer.ui" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/layer.ui" line="81"/>
@@ -10621,7 +10621,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/layer.ui" line="286"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Deskrivadur</translation>
     </message>
 </context>
 <context>
@@ -10644,7 +10644,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/cloud/logindialog.ui" line="110"/>
         <source>Password:</source>
-        <translation type="unfinished"/>
+        <translation>Ger-tremen:</translation>
     </message>
     <message>
         <location filename="../../mscore/cloud/logindialog.ui" line="123"/>
@@ -10657,7 +10657,7 @@ space unit</extracomment>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="64"/>
         <source>Import</source>
-        <translation type="unfinished"/>
+        <translation>Enporzhiañ</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="81"/>
@@ -10763,43 +10763,43 @@ space unit</extracomment>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="438"/>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="450"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="439"/>
         <source>3</source>
-        <translation type="unfinished"/>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="440"/>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="451"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="441"/>
         <source>5</source>
-        <translation type="unfinished"/>
+        <translation>5</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="442"/>
         <source>6</source>
-        <translation type="unfinished"/>
+        <translation>6</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="443"/>
         <source>7</source>
-        <translation type="unfinished"/>
+        <translation>7</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="444"/>
         <source>9</source>
-        <translation type="unfinished"/>
+        <translation>9</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="445"/>
         <source>12</source>
-        <translation type="unfinished"/>
+        <translation>12</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="446"/>
@@ -10814,7 +10814,7 @@ space unit</extracomment>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="452"/>
         <source>8</source>
-        <translation type="unfinished"/>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="453"/>
@@ -10952,7 +10952,7 @@ Would you like to locate %2 now?</source>
         <location filename="../../mscore/masterpalette.cpp" line="229"/>
         <location filename="../../mscore/musescore.cpp" line="6282"/>
         <source>Symbols</source>
-        <translation type="unfinished"/>
+        <translation>Arouezioù</translation>
     </message>
 </context>
 <context>
@@ -10960,7 +10960,7 @@ Would you like to locate %2 now?</source>
     <message>
         <location filename="../../mscore/measureproperties.cpp" line="276"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.cpp" line="277"/>
@@ -11040,22 +11040,22 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="184"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="189"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="194"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="199"/>
         <source>8</source>
-        <translation type="unfinished"/>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="204"/>
@@ -11120,7 +11120,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="409"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="414"/>
@@ -11163,12 +11163,12 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/measuresdialog.ui" line="107"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../mscore/measuresdialog.ui" line="114"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -11271,17 +11271,17 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/metaedit.ui" line="238"/>
         <source>Ok</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="245"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="258"/>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="28"/>
@@ -11409,7 +11409,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="412"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="291"/>
@@ -11504,7 +11504,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/qml/palettes/MoreElementsPopup.qml" line="208"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/MoreElementsPopup.qml" line="215"/>
@@ -11611,7 +11611,7 @@ A human-readable summary is available:
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="102"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
 </context>
 <context>
@@ -11624,7 +11624,7 @@ A human-readable summary is available:
     <message>
         <location filename="../../mscore/searchComboBox.cpp" line="100"/>
         <source>Page</source>
-        <translation type="unfinished"/>
+        <translation>Pajenn</translation>
     </message>
     <message>
         <location filename="../../mscore/searchComboBox.cpp" line="104"/>
@@ -11687,7 +11687,7 @@ A human-readable summary is available:
     <message>
         <location filename="../../mscore/palette/createpalettedialog.cpp" line="34"/>
         <source>Create</source>
-        <translation type="unfinished"/>
+        <translation>Krouiñ</translation>
     </message>
 </context>
 <context>
@@ -11695,7 +11695,7 @@ A human-readable summary is available:
     <message>
         <location filename="../../mscore/downloadUtils.cpp" line="62"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/downloadUtils.cpp" line="63"/>
@@ -11741,7 +11741,7 @@ A human-readable summary is available:
     <message>
         <location filename="../../mscore/drumroll.cpp" line="107"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Implijer</translation>
     </message>
     <message>
         <location filename="../../mscore/drumroll.cpp" line="116"/>
@@ -11873,7 +11873,7 @@ failed: %2</source>
         <location filename="../../mscore/editstyle.cpp" line="406"/>
         <source>None</source>
         <comment>no tuplet number type</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.cpp" line="409"/>
@@ -11889,7 +11889,7 @@ failed: %2</source>
         <location filename="../../mscore/editstyle.cpp" line="411"/>
         <source>None</source>
         <comment>no tuplet bracket type</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.cpp" line="447"/>
@@ -11985,7 +11985,7 @@ failed: %2</source>
         <location filename="../../mscore/editstyle.cpp" line="593"/>
         <source>None</source>
         <comment>no frame for text</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.cpp" line="594"/>
@@ -12054,7 +12054,7 @@ failed: %2</source>
         <location filename="../../mscore/inspector/inspector.cpp" line="1034"/>
         <source>None</source>
         <comment>no accidental bracket type</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="1035"/>
@@ -12123,7 +12123,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspectorBend.cpp" line="66"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
 </context>
 <context>
@@ -12144,7 +12144,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspectorGroupElement.cpp" line="42"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorGroupElement.cpp" line="54"/>
@@ -12220,7 +12220,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="970"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="971"/>
@@ -12277,7 +12277,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="747"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="762"/>
@@ -12353,7 +12353,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspectorTremoloBar.cpp" line="67"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
 </context>
 <context>
@@ -12503,7 +12503,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/cloud/loginmanager.cpp" line="654"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/cloud/loginmanager.cpp" line="690"/>
@@ -12606,7 +12606,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/metaedit.cpp" line="109"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.cpp" line="143"/>
@@ -12634,7 +12634,7 @@ failed: %2</source>
         <location filename="../../mscore/metaedit.cpp" line="232"/>
         <location filename="../../mscore/metaedit.cpp" line="270"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.cpp" line="218"/>
@@ -12759,7 +12759,7 @@ Sound: %5</source>
         <location filename="../../mscore/exportaudio.cpp" line="319"/>
         <location filename="../../mscore/musescore.cpp" line="7173"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/exportaudio.cpp" line="320"/>
@@ -12864,7 +12864,7 @@ Sound: %5</source>
         <location filename="../../mscore/file.cpp" line="256"/>
         <location filename="../../mscore/musescore.cpp" line="5303"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="257"/>
@@ -13184,7 +13184,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="1807"/>
         <location filename="../../mscore/file.cpp" line="1859"/>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Ezporzhiañ</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1859"/>
@@ -13312,7 +13312,7 @@ Do you want to replace it?
     <message>
         <location filename="../../mscore/file.cpp" line="2881"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Skeudennoù</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="2881"/>
@@ -13584,7 +13584,7 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2289"/>
         <source>Are you sure?</source>
-        <translation type="unfinished"/>
+        <translation>Ha sur oc&apos;h?</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2290"/>
@@ -13668,7 +13668,7 @@ Are you sure you want to proceed?</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4482"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4485"/>
@@ -13795,12 +13795,12 @@ Restore session?</source>
     <message>
         <location filename="../../mscore/workspace.cpp" line="145"/>
         <source>Edit</source>
-        <translation type="unfinished"/>
+        <translation>Embann</translation>
     </message>
     <message>
         <location filename="../../mscore/workspace.cpp" line="150"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/workspace.cpp" line="155"/>
@@ -13967,7 +13967,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette.cpp" line="278"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/palette.cpp" line="279"/>
@@ -14226,22 +14226,22 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="236"/>
         <source>Voice 1</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 1</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="237"/>
         <source>Voice 2</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 2</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="238"/>
         <source>Voice 3</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 3</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="239"/>
         <source>Voice 4</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 4</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="265"/>
@@ -14291,7 +14291,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="302"/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Implijer</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="310"/>
@@ -14356,7 +14356,7 @@ connection enabled</source>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="414"/>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="500"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="234"/>
@@ -14402,7 +14402,7 @@ Save before closing?</source>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="315"/>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Handelv:</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="316"/>
@@ -14448,7 +14448,7 @@ This plugin requires an open score to run.
     <message>
         <location filename="../../mscore/plugin/pluginManager.cpp" line="361"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginManager.cpp" line="362"/>
@@ -14800,7 +14800,7 @@ This plugin requires an open score to run.
     <message>
         <location filename="../../mscore/realizeharmonydialog.cpp" line="52"/>
         <source>Show more…</source>
-        <translation type="unfinished"/>
+        <translation>Diskouez muioc&apos;h...</translation>
     </message>
 </context>
 <context>
@@ -14828,7 +14828,7 @@ This plugin requires an open score to run.
         <location filename="../../mscore/resourceManager.cpp" line="170"/>
         <location filename="../../mscore/resourceManager.cpp" line="252"/>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>Hizivaat</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.cpp" line="154"/>
@@ -15146,7 +15146,7 @@ failed: %2</source>
         <location filename="../../mscore/propertymenu.cpp" line="142"/>
         <location filename="../../mscore/scoreview.cpp" line="438"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="163"/>
@@ -15230,12 +15230,12 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="265"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>Dibab ur benveg...</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="274"/>
         <source>Style…</source>
-        <translation type="unfinished"/>
+        <translation>Stil...</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="260"/>
@@ -15260,7 +15260,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/scoreview.cpp" line="321"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreview.cpp" line="325"/>
@@ -15446,7 +15446,7 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="78"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Yezh</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="79"/>
@@ -15484,12 +15484,12 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="149"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Ya</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="150"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Ket</translation>
     </message>
 </context>
 <context>
@@ -15728,7 +15728,7 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../mscore/tourhandler.cpp" line="440"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <location filename="../../mscore/tourhandler.cpp" line="442"/>
@@ -15942,7 +15942,7 @@ please choose a different name:</source>
         <location filename="../../mscore/zoombox.cpp" line="93"/>
         <location filename="../../mscore/zoombox.cpp" line="94"/>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Zoum</translation>
     </message>
 </context>
 <context>
@@ -15986,7 +15986,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/importmidi_ui/importmidi_delegate.cpp" line="154"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
 </context>
 <context>
@@ -16087,7 +16087,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/newwizard.ui" line="27"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation>Titl</translation>
     </message>
     <message>
         <location filename="../../mscore/newwizard.ui" line="30"/>
@@ -16122,7 +16122,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/newwizard.ui" line="44"/>
         <source>Subtitle</source>
-        <translation type="unfinished"/>
+        <translation>Istitl</translation>
     </message>
     <message>
         <location filename="../../mscore/newwizard.ui" line="54"/>
@@ -16254,7 +16254,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/pianoroll/notetweakerdialog.ui" line="118"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
 </context>
 <context>
@@ -16262,7 +16262,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/inspector/offset_select.ui" line="24"/>
         <source>X:</source>
-        <translation type="unfinished"/>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/offset_select.ui" line="43"/>
@@ -16284,7 +16284,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/inspector/offset_select.ui" line="107"/>
         <source>Y:</source>
-        <translation type="unfinished"/>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/offset_select.ui" line="88"/>
@@ -16371,12 +16371,12 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="141"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="151"/>
         <source>Width:</source>
-        <translation type="unfinished"/>
+        <translation>Ledander:</translation>
     </message>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="164"/>
@@ -16422,12 +16422,12 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="280"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="290"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/pagesettings.ui" line="316"/>
@@ -16716,7 +16716,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="1015"/>
         <source>Accordion</source>
-        <translation type="unfinished"/>
+        <translation>Akordeoñs</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1098"/>
@@ -16931,7 +16931,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="1300"/>
         <source>Lines</source>
-        <translation type="unfinished"/>
+        <translation>Linennoù</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1308"/>
@@ -17022,7 +17022,7 @@ please choose a different name:</source>
         <location filename="../../mscore/menus.cpp" line="1107"/>
         <location filename="../../mscore/menus.cpp" line="1469"/>
         <source>Line</source>
-        <translation type="unfinished"/>
+        <translation>Linenn</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1472"/>
@@ -17047,7 +17047,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="1567"/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Testenn</translation>
     </message>
     <message>
         <location filename="../../mscore/masterpalette.cpp" line="228"/>
@@ -17094,7 +17094,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/qml/palettes/Palette.qml" line="782"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/Palette.qml" line="787"/>
@@ -17104,7 +17104,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/palette/palettemodel.cpp" line="758"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../libmscore/glissando.cpp" line="54"/>
@@ -17132,7 +17132,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/paletteCellProperties.ui" line="26"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteCellProperties.ui" line="33"/>
@@ -17147,12 +17147,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/paletteCellProperties.ui" line="60"/>
         <source>Y:</source>
-        <translation type="unfinished"/>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteCellProperties.ui" line="70"/>
         <source>X:</source>
-        <translation type="unfinished"/>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteCellProperties.ui" line="80"/>
@@ -17176,7 +17176,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/paletteProperties.ui" line="22"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteProperties.ui" line="49"/>
@@ -17186,12 +17186,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/paletteProperties.ui" line="56"/>
         <source>Width:</source>
-        <translation type="unfinished"/>
+        <translation>Ledander:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteProperties.ui" line="73"/>
         <source>Height:</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder:</translation>
     </message>
     <message>
         <location filename="../../mscore/paletteProperties.ui" line="90"/>
@@ -17254,7 +17254,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesListPopup.qml" line="132"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesListPopup.qml" line="134"/>
@@ -17282,7 +17282,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="50"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="56"/>
@@ -17464,12 +17464,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="29"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="36"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
 </context>
 <context>
@@ -17606,7 +17606,7 @@ volume</source>
     <message>
         <location filename="../../mscore/playpanel.ui" line="663"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="795"/>
@@ -17654,7 +17654,7 @@ volume</source>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="91"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>Restr</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="102"/>
@@ -17664,28 +17664,28 @@ volume</source>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="108"/>
         <source>Edit</source>
-        <translation type="unfinished"/>
+        <translation>Embann</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="120"/>
         <source>New</source>
-        <translation type="unfinished"/>
+        <translation>Nevez</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="128"/>
         <source>Open…</source>
-        <translation type="unfinished"/>
+        <translation>Digeriñ...</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="136"/>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="139"/>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="179"/>
         <source>Reload</source>
-        <translation type="unfinished"/>
+        <translation>Adkargañ</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="187"/>
@@ -17700,12 +17700,12 @@ volume</source>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="155"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Dizober</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="163"/>
         <source>Redo</source>
-        <translation type="unfinished"/>
+        <translation>Adober</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="171"/>
@@ -17728,12 +17728,12 @@ volume</source>
     <message>
         <location filename="../../mscore/plugin/pluginManager.ui" line="47"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginManager.ui" line="91"/>
         <source>Version:</source>
-        <translation type="unfinished"/>
+        <translation>Handelv:</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginManager.ui" line="84"/>
@@ -17793,12 +17793,12 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="505"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Yezh</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="514"/>
         <source>Select language</source>
-        <translation type="unfinished"/>
+        <translation>Dibab ar yezh</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="524"/>
@@ -17903,7 +17903,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="140"/>
         <source>Images:</source>
-        <translation type="unfinished"/>
+        <translation>Skeudennoù:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="150"/>
@@ -17918,7 +17918,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="170"/>
         <source>Styles:</source>
-        <translation type="unfinished"/>
+        <translation>Stiloù:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="180"/>
@@ -18068,17 +18068,17 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="465"/>
         <source>Select style</source>
-        <translation type="unfinished"/>
+        <translation>Dibab ar stil</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="469"/>
         <source>Dark</source>
-        <translation type="unfinished"/>
+        <translation>Teñval</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="474"/>
         <source>Light</source>
-        <translation type="unfinished"/>
+        <translation>Sklaer</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="442"/>
@@ -18163,7 +18163,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
         <location filename="../../mscore/prefsdialog.ui" line="841"/>
         <location filename="../../mscore/prefsdialog.ui" line="1022"/>
         <source>Color:</source>
-        <translation type="unfinished"/>
+        <translation>Liv:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="865"/>
@@ -18206,7 +18206,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
         <location filename="../../mscore/prefsdialog.ui" line="936"/>
         <location filename="../../mscore/prefsdialog.ui" line="939"/>
         <source>Paper</source>
-        <translation type="unfinished"/>
+        <translation>Paper</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1003"/>
@@ -18241,7 +18241,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1062"/>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Zoum</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1071"/>
@@ -18584,7 +18584,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2162"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2172"/>
@@ -18684,7 +18684,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2516"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Dizober</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2526"/>
@@ -18737,7 +18737,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2616"/>
         <source>Instrument list 2:</source>
-        <translation type="unfinished"/>
+        <translation>Listenn binvioù 2:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2629"/>
@@ -18747,22 +18747,22 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2646"/>
         <source>Instrument list 1:</source>
-        <translation type="unfinished"/>
+        <translation>Listenn binvioù 1:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2656"/>
         <source>Instrument list 1</source>
-        <translation type="unfinished"/>
+        <translation>Listenn binvioù 1</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2666"/>
         <source>Style:</source>
-        <translation type="unfinished"/>
+        <translation>Stil:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2676"/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stil</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2679"/>
@@ -18810,7 +18810,7 @@ This will re-evaluate all plugins, picking up any changes that may have occurred
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2746"/>
         <source>Instrument list 2</source>
-        <translation type="unfinished"/>
+        <translation>Listenn binvioù 2</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2759"/>
@@ -18958,7 +18958,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3371"/>
         <source>Import</source>
-        <translation type="unfinished"/>
+        <translation>Enporzhiañ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3377"/>
@@ -18988,7 +18988,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="495"/>
         <source>Font size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment an nodrezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="793"/>
@@ -19265,12 +19265,12 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3638"/>
         <source>Yes</source>
-        <translation type="unfinished"/>
+        <translation>Ya</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3645"/>
         <source>No</source>
-        <translation type="unfinished"/>
+        <translation>Ket</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3812"/>
@@ -19300,7 +19300,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4168"/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4234"/>
@@ -19336,7 +19336,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3685"/>
         <source>Export</source>
-        <translation type="unfinished"/>
+        <translation>Ezporzhiañ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3710"/>
@@ -19453,7 +19453,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4158"/>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4165"/>
@@ -19479,12 +19479,12 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
         <location filename="../../mscore/prefsdialog.ui" line="4201"/>
         <location filename="../../mscore/prefsdialog.ui" line="4332"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4224"/>
         <source>Print</source>
-        <translation type="unfinished"/>
+        <translation>Moullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4221"/>
@@ -19494,7 +19494,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4237"/>
         <source>Update</source>
-        <translation type="unfinished"/>
+        <translation>Hizivaat</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4243"/>
@@ -19513,7 +19513,7 @@ Adjusting latency can help synchronize your MIDI hardware with MuseScore&apos;s 
     <message>
         <location filename="../../mscore/plugin/mscorePlugins.cpp" line="390"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/mscorePlugins.cpp" line="391"/>
@@ -19549,7 +19549,7 @@ failed: %2</source>
         <location filename="../../libmscore/hairpin.cpp" line="879"/>
         <location filename="../../libmscore/jump.cpp" line="95"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../libmscore/durationtype.cpp" line="796"/>
@@ -19747,7 +19747,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/file.cpp" line="175"/>
         <source>unknown type</source>
-        <translation type="unfinished"/>
+        <translation>rizh dianav</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="180"/>
@@ -19973,7 +19973,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../libmscore/keysig.cpp" line="685"/>
         <source>%1: Custom</source>
-        <translation type="unfinished"/>
+        <translation>%1: Personelaet</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/api/qmlpluginapi.cpp" line="344"/>
@@ -20016,7 +20016,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/rest.cpp" line="898"/>
         <location filename="../../libmscore/rest.cpp" line="910"/>
         <source>Voice: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh: %1</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="3014"/>
@@ -20166,7 +20166,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../mscore/inspector/inspectorTextBase.cpp" line="53"/>
         <source>None</source>
         <comment>no frame for text</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorTextBase.cpp" line="54"/>
@@ -20182,17 +20182,17 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="27"/>
         <source>None</source>
         <comment>no hook type</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="28"/>
         <source>90°</source>
-        <translation type="unfinished"/>
+        <translation>90°</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="29"/>
         <source>45°</source>
-        <translation type="unfinished"/>
+        <translation>45°</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="30"/>
@@ -20202,7 +20202,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../mscore/inspector/inspectorTextLineBase.cpp" line="40"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorMeasureNumber.cpp" line="42"/>
@@ -20276,7 +20276,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../avsomr/ret.cpp" line="111"/>
         <source>Ok</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="113"/>
@@ -20351,7 +20351,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="36"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="65"/>
@@ -20386,7 +20386,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="83"/>
         <source>Loading…</source>
-        <translation type="unfinished"/>
+        <translation>O kargañ...</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="86"/>
@@ -20443,7 +20443,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
     <message>
         <location filename="../../libmscore/fret.cpp" line="1496"/>
         <source>%1 and %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 ha %2</translation>
     </message>
     <message numerus="yes">
         <location filename="../../libmscore/fret.cpp" line="1503"/>
@@ -20578,7 +20578,7 @@ Visit the %1MuseScore website%2 to obtain the latest version.</source>
         <location filename="../../libmscore/textbase.cpp" line="614"/>
         <location filename="../../libmscore/textbase.cpp" line="669"/>
         <source>%1, %2</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="649"/>
@@ -20731,7 +20731,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/workspace.cpp" line="174"/>
         <source>Are you sure?</source>
-        <translation type="unfinished"/>
+        <translation>Ha sur oc&apos;h?</translation>
     </message>
     <message>
         <location filename="../../mscore/workspace.cpp" line="175"/>
@@ -20779,7 +20779,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../omr/omr.cpp" line="144"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../omr/omr.cpp" line="160"/>
@@ -20813,7 +20813,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="172"/>
         <source>Show more…</source>
-        <translation type="unfinished"/>
+        <translation>Diskouez muioc&apos;h...</translation>
     </message>
 </context>
 <context>
@@ -20844,7 +20844,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="65"/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Handelv</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="80"/>
@@ -20854,23 +20854,23 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="101"/>
         <source>Languages</source>
-        <translation type="unfinished"/>
+        <translation>Yezhoù</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="137"/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Yezh</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="142"/>
         <source>Filename</source>
-        <translation type="unfinished"/>
+        <translation>Anv ar restr</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="70"/>
         <location filename="../../mscore/resourceManager.ui" line="147"/>
         <source>File Size</source>
-        <translation type="unfinished"/>
+        <translation>Ment ar restr</translation>
     </message>
     <message>
         <location filename="../../mscore/resourceManager.ui" line="75"/>
@@ -20889,7 +20889,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/inspector/scale_select.ui" line="38"/>
         <source>X:</source>
-        <translation type="unfinished"/>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/scale_select.ui" line="89"/>
@@ -20899,7 +20899,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/inspector/scale_select.ui" line="76"/>
         <source>Y:</source>
-        <translation type="unfinished"/>
+        <translation>Y:</translation>
     </message>
 </context>
 <context>
@@ -21016,17 +21016,17 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/scorePreview.ui" line="50"/>
         <source>Size:</source>
-        <translation type="unfinished"/>
+        <translation>Ment:</translation>
     </message>
     <message>
         <location filename="../../mscore/scorePreview.ui" line="60"/>
         <source>Created: </source>
-        <translation type="unfinished"/>
+        <translation>Bet savet:</translation>
     </message>
     <message>
         <location filename="../../mscore/scorePreview.ui" line="123"/>
         <source>Name:</source>
-        <translation type="unfinished"/>
+        <translation>Anv:</translation>
     </message>
 </context>
 <context>
@@ -21035,7 +21035,7 @@ Do you want to overwrite it?</source>
         <location filename="../../mscore/selectdialog.ui" line="14"/>
         <location filename="../../mscore/selectdialog.ui" line="34"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="54"/>
@@ -21113,22 +21113,22 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/selectinstr.ui" line="14"/>
         <source>Select Instrument</source>
-        <translation type="unfinished"/>
+        <translation>Dibab ar benveg</translation>
     </message>
     <message>
         <location filename="../../mscore/selectinstr.ui" line="28"/>
         <source>Current instrument:</source>
-        <translation type="unfinished"/>
+        <translation>Benveg bremanel:</translation>
     </message>
     <message>
         <location filename="../../mscore/selectinstr.ui" line="60"/>
         <source>0</source>
-        <translation type="unfinished"/>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../../mscore/selectinstr.ui" line="68"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
 </context>
 <context>
@@ -21141,7 +21141,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="34"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Dibab</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="103"/>
@@ -21244,12 +21244,12 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="29"/>
         <source>Load</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/fluid/fluidgui.cpp" line="30"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -21262,12 +21262,12 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="33"/>
         <source>Load</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="34"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -21329,7 +21329,7 @@ Note: this last shortcut would be noted &quot;Ctrl+A,Ctrl+B,Ctrl+C,Ctrl+D&quot;<
     <message>
         <location filename="../../mscore/shortcutcapturedialog.ui" line="151"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcutcapturedialog.ui" line="164"/>
@@ -21355,7 +21355,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/shortcutcapturedialog.ui" line="174"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
 </context>
 <context>
@@ -21363,22 +21363,22 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/inspector/size_select.ui" line="37"/>
         <source>Width</source>
-        <translation type="unfinished"/>
+        <translation>Ledander</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/size_select.ui" line="30"/>
         <source>W:</source>
-        <translation type="unfinished"/>
+        <translation>L:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/size_select.ui" line="72"/>
         <source>Height</source>
-        <translation type="unfinished"/>
+        <translation>Uhelder</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/size_select.ui" line="65"/>
         <source>H:</source>
-        <translation type="unfinished"/>
+        <translation>U:</translation>
     </message>
 </context>
 <context>
@@ -21432,7 +21432,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/stafftext.ui" line="230"/>
         <location filename="../../mscore/stafftext.ui" line="4198"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="78"/>
@@ -21441,7 +21441,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/stafftext.ui" line="243"/>
         <location filename="../../mscore/stafftext.ui" line="4203"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="91"/>
@@ -21450,7 +21450,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/stafftext.ui" line="256"/>
         <location filename="../../mscore/stafftext.ui" line="4208"/>
         <source>3</source>
-        <translation type="unfinished"/>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="104"/>
@@ -21459,12 +21459,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/stafftext.ui" line="269"/>
         <location filename="../../mscore/stafftext.ui" line="4213"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="285"/>
         <source>Voice:</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh:</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="292"/>
@@ -21481,13 +21481,13 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/stafftext.ui" line="345"/>
         <location filename="../../mscore/stafftext.ui" line="385"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="350"/>
         <location filename="../../mscore/stafftext.ui" line="390"/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Deskrivadur</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="365"/>
@@ -21538,7 +21538,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4140"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4158"/>
@@ -21559,42 +21559,42 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4218"/>
         <source>5</source>
-        <translation type="unfinished"/>
+        <translation>5</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4223"/>
         <source>6</source>
-        <translation type="unfinished"/>
+        <translation>6</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4228"/>
         <source>7</source>
-        <translation type="unfinished"/>
+        <translation>7</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4233"/>
         <source>8</source>
-        <translation type="unfinished"/>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4238"/>
         <source>9</source>
-        <translation type="unfinished"/>
+        <translation>9</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4243"/>
         <source>10</source>
-        <translation type="unfinished"/>
+        <translation>10</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4248"/>
         <source>11</source>
-        <translation type="unfinished"/>
+        <translation>11</translation>
     </message>
     <message>
         <location filename="../../mscore/stafftext.ui" line="4253"/>
         <source>12</source>
-        <translation type="unfinished"/>
+        <translation>12</translation>
     </message>
 </context>
 <context>
@@ -21630,7 +21630,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/startcenter.ui" line="91"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
 </context>
 <context>
@@ -21638,12 +21638,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/symboldialog.ui" line="14"/>
         <source>Symbols</source>
-        <translation type="unfinished"/>
+        <translation>Arouezioù</translation>
     </message>
     <message>
         <location filename="../../mscore/symboldialog.ui" line="25"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/symboldialog.ui" line="32"/>
@@ -21658,7 +21658,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/symboldialog.ui" line="92"/>
         <source>Font:</source>
-        <translation type="unfinished"/>
+        <translation>Nodrezh:</translation>
     </message>
 </context>
 <context>
@@ -21921,7 +21921,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/templateBrowser.ui" line="25"/>
         <source>Search</source>
-        <translation type="unfinished"/>
+        <translation>Klask</translation>
     </message>
     <message>
         <location filename="../../mscore/templateBrowser.ui" line="35"/>
@@ -21947,12 +21947,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2244"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation>Titl</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2245"/>
         <source>Subtitle</source>
-        <translation type="unfinished"/>
+        <translation>Istitl</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2246"/>
@@ -22032,7 +22032,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2265"/>
         <source>Translator</source>
-        <translation type="unfinished"/>
+        <translation>Troer</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2266"/>
@@ -22087,32 +22087,32 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2302"/>
         <source>User-7</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-7</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2303"/>
         <source>User-8</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-8</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2304"/>
         <source>User-9</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-9</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2305"/>
         <source>User-10</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-10</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2306"/>
         <source>User-11</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-11</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2307"/>
         <source>User-12</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-12</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2278"/>
@@ -22122,7 +22122,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2243"/>
         <source>Default</source>
-        <translation type="unfinished"/>
+        <translation>Diouer</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2260"/>
@@ -22197,22 +22197,22 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2296"/>
         <source>User-1</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-1</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2297"/>
         <source>User-2</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-2</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2298"/>
         <source>User-3</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-3</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2299"/>
         <source>User-4</source>
-        <translation type="unfinished"/>
+        <translation>Implijer-4</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2300"/>
@@ -22230,7 +22230,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/importmidi_ui/importmidi_delegate.cpp" line="64"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Mat eo</translation>
     </message>
 </context>
 <context>
@@ -22254,24 +22254,24 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/timedialog.ui" line="106"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="111"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="116"/>
         <location filename="../../mscore/timedialog.ui" line="173"/>
         <location filename="../../mscore/timedialog.ui" line="205"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="121"/>
         <source>8</source>
-        <translation type="unfinished"/>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="126"/>
@@ -22291,7 +22291,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/timedialog.ui" line="154"/>
         <source>Text:</source>
-        <translation type="unfinished"/>
+        <translation>Testenn:</translation>
     </message>
     <message>
         <location filename="../../mscore/timedialog.ui" line="273"/>
@@ -22301,7 +22301,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/timedialog.ui" line="276"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
 </context>
 <context>
@@ -22352,7 +22352,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/timesigproperties.ui" line="220"/>
         <source>Text:</source>
-        <translation type="unfinished"/>
+        <translation>Testenn:</translation>
     </message>
 </context>
 <context>
@@ -22411,25 +22411,25 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/timesigwizard.ui" line="113"/>
         <location filename="../../mscore/timesigwizard.ui" line="288"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="118"/>
         <location filename="../../mscore/timesigwizard.ui" line="293"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="123"/>
         <location filename="../../mscore/timesigwizard.ui" line="298"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="128"/>
         <location filename="../../mscore/timesigwizard.ui" line="303"/>
         <source>8</source>
-        <translation type="unfinished"/>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="133"/>
@@ -23042,7 +23042,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/tupletdialog.ui" line="34"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Rizh</translation>
     </message>
     <message>
         <location filename="../../mscore/tupletdialog.ui" line="42"/>
@@ -23074,13 +23074,13 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/tupletdialog.ui" line="181"/>
         <source>None</source>
         <comment>no tuplet number style</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/tupletdialog.ui" line="226"/>
         <source>None</source>
         <comment>no tuplet bracket style</comment>
-        <translation type="unfinished"/>
+        <translation>Hini ebet</translation>
     </message>
     <message>
         <location filename="../../mscore/tupletdialog.ui" line="191"/>
@@ -23091,7 +23091,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/tupletdialog.ui" line="209"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
 </context>
 <context>
@@ -23159,7 +23159,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="83"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="88"/>
@@ -23170,7 +23170,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
         <location filename="../../mscore/inspector/voicing_select.ui" line="93"/>
         <source>Close</source>
         <extracomment>all notes within an octave</extracomment>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="98"/>
@@ -23280,28 +23280,28 @@ failed: </source>
     <message>
         <location filename="../../audio/midi/zerberus/zerberus_gui.ui" line="134"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberus_gui.ui" line="144"/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="105"/>
         <source>Loading…</source>
-        <translation type="unfinished"/>
+        <translation>O kargañ...</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="105"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Nullañ</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="252"/>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="340"/>
         <source>MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore</translation>
     </message>
     <message>
         <location filename="../../audio/midi/zerberus/zerberusgui.cpp" line="253"/>
@@ -23334,7 +23334,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="46"/>
         <source>Open…</source>
-        <translation type="unfinished"/>
+        <translation>Digeriñ...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="48"/>
@@ -23344,7 +23344,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="56"/>
         <source>Save</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="58"/>
@@ -23444,7 +23444,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="140"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Serriñ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="142"/>
@@ -23469,13 +23469,13 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="159"/>
         <source>Print</source>
-        <translation type="unfinished"/>
+        <translation>Moullañ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="169"/>
         <location filename="../../mscore/shortcut.cpp" line="170"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Dizober</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="171"/>
@@ -23486,7 +23486,7 @@ failed: </source>
         <location filename="../../mscore/shortcut.cpp" line="180"/>
         <location filename="../../mscore/shortcut.cpp" line="181"/>
         <source>Redo</source>
-        <translation type="unfinished"/>
+        <translation>Adober</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="182"/>
@@ -24622,7 +24622,7 @@ failed: </source>
         <location filename="../../mscore/shortcut.cpp" line="1276"/>
         <location filename="../../mscore/shortcut.cpp" line="1277"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Dilemel</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1286"/>
@@ -25185,42 +25185,42 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1820"/>
         <source>1</source>
-        <translation type="unfinished"/>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1821"/>
         <source>Voice 1</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 1</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1828"/>
         <source>2</source>
-        <translation type="unfinished"/>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1829"/>
         <source>Voice 2</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 2</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1836"/>
         <source>3</source>
-        <translation type="unfinished"/>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1837"/>
         <source>Voice 3</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 3</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1844"/>
         <source>4</source>
-        <translation type="unfinished"/>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1845"/>
         <source>Voice 4</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 4</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1852"/>
@@ -25265,12 +25265,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2232"/>
         <source>Image</source>
-        <translation type="unfinished"/>
+        <translation>Skeudenn</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2233"/>
         <source>Add image</source>
-        <translation type="unfinished"/>
+        <translation>Ouzhpenniñ ur skeudenn</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2240"/>
@@ -25390,12 +25390,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2700"/>
         <source>Style…</source>
-        <translation type="unfinished"/>
+        <translation>Stil...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2701"/>
         <source>Edit style</source>
-        <translation type="unfinished"/>
+        <translation>Embann ar stil</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2738"/>
@@ -25557,12 +25557,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="47"/>
         <source>File &gt; Open</source>
-        <translation type="unfinished"/>
+        <translation>Restr &gt; Digeriñ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="57"/>
         <source>File &gt; Save</source>
-        <translation type="unfinished"/>
+        <translation>Restr &gt; Enrollañ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="66"/>
@@ -25582,12 +25582,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="141"/>
         <source>File &gt; Close</source>
-        <translation type="unfinished"/>
+        <translation>Restr &gt; Serriñ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="149"/>
         <source>File &gt; New</source>
-        <translation type="unfinished"/>
+        <translation>Restr &gt; Nevez</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="222"/>
@@ -26130,7 +26130,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2141"/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Testenn</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2142"/>
@@ -26140,7 +26140,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2148"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation>Titl</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2149"/>
@@ -26150,7 +26150,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2155"/>
         <source>Subtitle</source>
-        <translation type="unfinished"/>
+        <translation>Istitl</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2156"/>
@@ -26260,7 +26260,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2239"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>Seniñ</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2241"/>
@@ -26330,22 +26330,22 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2338"/>
         <source>Load Style…</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ ur stil...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2339"/>
         <source>Load style</source>
-        <translation type="unfinished"/>
+        <translation>Kargañ ar stil</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2349"/>
         <source>Save Style…</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ ar stil...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2350"/>
         <source>Save style</source>
-        <translation type="unfinished"/>
+        <translation>Enrollañ ar stil</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2360"/>
@@ -26871,22 +26871,22 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2950"/>
         <source>Page Settings…</source>
-        <translation type="unfinished"/>
+        <translation>Arventennoù ar bajenn...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2951"/>
         <source>Page settings</source>
-        <translation type="unfinished"/>
+        <translation>Arventennoù ar bajenn</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2957"/>
         <source>Album…</source>
-        <translation type="unfinished"/>
+        <translation>Albom...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2958"/>
         <source>Album</source>
-        <translation type="unfinished"/>
+        <translation>Albom</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2967"/>
@@ -27111,7 +27111,7 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3176"/>
         <source>Symbols…</source>
-        <translation type="unfinished"/>
+        <translation>Arouezioù...</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3177"/>
@@ -29564,17 +29564,17 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="36"/>
         <source>Symbol</source>
-        <translation type="unfinished"/>
+        <translation>Arouez</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="37"/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Testenn</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="39"/>
         <source>Instrument Name</source>
-        <translation type="unfinished"/>
+        <translation>Anv ar benveg</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="40"/>
@@ -29654,7 +29654,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="99"/>
         <source>Image</source>
-        <translation type="unfinished"/>
+        <translation>Skeudenn</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="58"/>
@@ -29939,7 +29939,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="106"/>
         <source>Page</source>
-        <translation type="unfinished"/>
+        <translation>Pajenn</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="107"/>
@@ -30257,7 +30257,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/preferences.cpp" line="112"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Skeudennoù</translation>
     </message>
 </context>
 <context>
@@ -30474,7 +30474,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/marker.cpp" line="39"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
 </context>
 <context>
@@ -30757,12 +30757,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/note.cpp" line="303"/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Personelaet</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="308"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="309"/>
@@ -30815,7 +30815,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/note.cpp" line="220"/>
         <source>Auto</source>
-        <translation type="unfinished"/>
+        <translation>Emgefreek</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="221"/>
@@ -30889,22 +30889,22 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="34"/>
         <source>Voice 1</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 1</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="35"/>
         <source>Voice 2</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 2</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="36"/>
         <source>Voice 3</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 3</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="37"/>
         <source>Voice 4</source>
-        <translation type="unfinished"/>
+        <translation>Mouezh 4</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="40"/>
@@ -31041,7 +31041,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/preferences.cpp" line="117"/>
         <source>Styles</source>
-        <translation type="unfinished"/>
+        <translation>Stiloù</translation>
     </message>
 </context>
 <context>
@@ -31049,7 +31049,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2683"/>
         <source>No symbol</source>
-        <translation type="unfinished"/>
+        <translation>Arouez ebet</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="2902"/>
@@ -32099,7 +32099,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3509"/>
         <source>Piano</source>
-        <translation type="unfinished"/>
+        <translation>Piano</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3510"/>

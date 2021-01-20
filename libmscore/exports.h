@@ -7,12 +7,14 @@
 
 namespace Ms {
 
+    using NotesColors = QHash<int /* noteIndex */, QColor>;
+
     extern bool saveXml(Score*, QIODevice*);
     extern bool saveXml(Score*, const QString& name);
     extern bool saveMxl(Score*, const QString& name);
     extern bool saveMxl(Score*, QIODevice*);
 
-    bool saveSvg(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false);
+    bool saveSvg(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false, const NotesColors& notesColors = NotesColors());
     bool savePng(Score*, QIODevice*, int pageNum = 0, bool drawPageBackground = false, bool transparent = true);
 
     bool savePdf(Score* score, QIODevice* device);

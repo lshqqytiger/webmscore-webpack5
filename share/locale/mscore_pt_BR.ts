@@ -2319,7 +2319,7 @@ ultrapassa o limite.</translation>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="688"/>
         <source>Show fingering in tablature</source>
-        <translation>Mostrar digitação na tablatura</translation>
+        <translation>Mostrar dedilhado na tablatura</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="847"/>
@@ -6663,12 +6663,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="14"/>
         <source>Fingering Inspector</source>
-        <translation>Inspetor de Digitação</translation>
+        <translation>Inspetor de Dedilhado</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="57"/>
         <source>Fingering</source>
-        <translation>Digitação</translation>
+        <translation>Dedilhado</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fingering.ui" line="88"/>
@@ -16566,7 +16566,7 @@ Por favor, corrija os compassos corrompidos e tente novamente.</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="794"/>
         <source>Fingering</source>
-        <translation>Digitação</translation>
+        <translation>Dedilhado</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1125"/>
@@ -16759,17 +16759,17 @@ Por favor, corrija os compassos corrompidos e tente novamente.</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="803"/>
         <source>Fingering %1</source>
-        <translation>Digitação %1</translation>
+        <translation>Dedo %1</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="809"/>
         <source>RH Guitar Fingering %1</source>
-        <translation>Digitação M.D. Guitarra %1</translation>
+        <translation>Dedilhado M.D. Guitarra %1</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="815"/>
         <source>LH Guitar Fingering %1</source>
-        <translation>Digitação M.E. Guitarra %1</translation>
+        <translation>Dedilhado M.E. Guitarra %1</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="821"/>
@@ -22105,17 +22105,17 @@ Nota: &quot;Ctrl+Shift+1&quot; é uma combinação de tecla.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2251"/>
         <source>Fingering</source>
-        <translation>Digitação</translation>
+        <translation>Dedilhado</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2252"/>
         <source>LH Guitar Fingering</source>
-        <translation>Digitação M.E. Guitarra</translation>
+        <translation>Dedilhado M.E. Guitarra</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2253"/>
         <source>RH Guitar Fingering</source>
-        <translation>Digitação M.D. Guitarra</translation>
+        <translation>Dedilhado M.D. Guitarra</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2254"/>
@@ -25580,7 +25580,7 @@ falhou: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2922"/>
         <source>Score Comparison Tool</source>
-        <translation>Ferramenta de Comparação de Paritura</translation>
+        <translation>Ferramenta de Comparação de Partitura</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2923"/>
@@ -26370,12 +26370,12 @@ falhou: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2218"/>
         <source>Fingering</source>
-        <translation>Digitação</translation>
+        <translation>Dedilhado</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2219"/>
         <source>Add fingering</source>
-        <translation>Adicionar digitação</translation>
+        <translation>Adicionar dedilhado</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2225"/>
@@ -29879,7 +29879,7 @@ falhou: </translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="69"/>
         <source>Fingering</source>
-        <translation>Digitação</translation>
+        <translation>Dedilhado</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="70"/>
@@ -31049,7 +31049,7 @@ O compasso não está vazio</translation>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="40"/>
         <source>Fingerings</source>
-        <translation>Digitações</translation>
+        <translation>Dedilhados</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="41"/>
@@ -32354,22 +32354,22 @@ O compasso não está vazio</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3917"/>
         <source>Right-hand fingering, first finger</source>
-        <translation>Digitação da mão direita, primeiro dedo</translation>
+        <translation>Dedilhado da mão direita, primeiro dedo</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3918"/>
         <source>Right-hand fingering, second finger</source>
-        <translation>Digitação da mão direita, segundo dedo</translation>
+        <translation>Dedilhado da mão direita, segundo dedo</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3919"/>
         <source>Right-hand fingering, third finger</source>
-        <translation>Digitação da mão direita, terceiro dedo</translation>
+        <translation>Dedilhado da mão direita, terceiro dedo</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3920"/>
         <source>Right-hand fingering, thumb</source>
-        <translation>Digitação da mão direita, polegar</translation>
+        <translation>Dedilhado da mão direita, polegar</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4005"/>

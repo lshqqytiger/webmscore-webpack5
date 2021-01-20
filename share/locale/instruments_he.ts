@@ -4104,7 +4104,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="800"/>
         <source>Percussion - Pitched</source>
-        <translation type="unfinished"/>
+        <translation>כלי הקשה - מלודיה</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="802"/>
@@ -4419,7 +4419,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="894"/>
         <source>Concert Bass Drum</source>
-        <translation type="unfinished"/>
+        <translation>תוף באס קונצרטי</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="895"/>
@@ -4430,7 +4430,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="896"/>
         <source>Piccolo Snare</source>
-        <translation type="unfinished"/>
+        <translation>סנייר פיקולו</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="897"/>
@@ -4452,7 +4452,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="900"/>
         <source>Concert Toms</source>
-        <translation type="unfinished"/>
+        <translation>תופי טום קונצרטים</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="901"/>
@@ -4522,13 +4522,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="920"/>
         <source>Tam-Tam</source>
-        <translation type="unfinished"/>
+        <translation>טאם-טאם</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="921"/>
         <source>Tam</source>
         <comment>Tam-Tam</comment>
-        <translation type="unfinished"/>
+        <translation>טאם</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="923"/>
@@ -5211,7 +5211,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1131"/>
         <source>Pad Synthesizer</source>
-        <translation type="unfinished"/>
+        <translation>סינתיסייזר פאד</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1132"/>
@@ -5328,7 +5328,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1153"/>
         <source>Halo Synthesizer</source>
-        <translation type="unfinished"/>
+        <translation>סינתיסייזר Halo</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1154"/>
@@ -5492,7 +5492,7 @@
         <location filename="../instruments/instrumentsxml.h" line="1376"/>
         <location filename="../instruments/instrumentsxml.h" line="1381"/>
         <source>pop</source>
-        <translation type="unfinished"/>
+        <translation>פופ</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1350"/>
@@ -5776,7 +5776,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1165"/>
         <source>Mallet Synthesizer</source>
-        <translation type="unfinished"/>
+        <translation>סינתיסייזר כלי הקשה</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1167"/>
@@ -6183,12 +6183,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1233"/>
         <source>Guitar (Treble Clef)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה (מפתח סול)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1236"/>
         <source>Classical Guitar (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה קלאסית (טאבלאטורה)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1237"/>
@@ -6225,7 +6225,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1243"/>
         <source>Baritone Guitar</source>
-        <translation type="unfinished"/>
+        <translation>גיטרת באריטון</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1244"/>
@@ -6256,17 +6256,17 @@
         <location filename="../instruments/instrumentsxml.h" line="1271"/>
         <location filename="../instruments/instrumentsxml.h" line="1279"/>
         <source>jazz</source>
-        <translation type="unfinished"/>
+        <translation>ג&apos;אז</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1256"/>
         <source>Acoustic Guitar (Treble Clef)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה אקוסטית (מפתח סול)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1257"/>
         <source>Acoustic Guitar (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה אקוסטית (טאבלאטורה)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1259"/>
@@ -6301,7 +6301,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1276"/>
         <source>distortion</source>
-        <translation type="unfinished"/>
+        <translation>דיסטורשן</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1277"/>
@@ -6311,12 +6311,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1282"/>
         <source>Electric Guitar (Treble Clef)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה חשמלית (מפתח סול)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1283"/>
         <source>Electric Guitar (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה חשמלית (טאבלאטורה)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1285"/>
@@ -6714,7 +6714,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="10"/>
         <source>SATB Closed Score</source>
-        <translation type="unfinished"/>
+        <translation>פרטיטורת SATB סגורה</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="11"/>
@@ -6799,7 +6799,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="27"/>
         <source>Guitar + Tablature</source>
-        <translation type="unfinished"/>
+        <translation>גיטרה + טאבלטורה</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="28"/>
@@ -6819,7 +6819,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="31"/>
         <source>Jazz Lead Sheet</source>
-        <translation type="unfinished"/>
+        <translation>תווים ל&quot;ליד&quot; ג&apos;אז</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="32"/>

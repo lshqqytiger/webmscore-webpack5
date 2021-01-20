@@ -3607,7 +3607,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="691"/>
         <source>Autoplace</source>
-        <translation type="unfinished"/>
+        <translation>자동 배치</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="697"/>
@@ -4021,7 +4021,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10580"/>
         <source>Reset &apos;Margin&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>마진 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10604"/>
@@ -4121,7 +4121,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4367"/>
         <source>Dot to dot distance:</source>
-        <translation type="unfinished"/>
+        <translation>점 간 거리:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5364"/>
@@ -4670,7 +4670,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8252"/>
         <source>Reset &apos;Dash pad&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>대시 패드 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="8266"/>
@@ -4775,7 +4775,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10276"/>
         <source>Edit Text Style</source>
-        <translation type="unfinished"/>
+        <translation>텍스트 스타일 변경</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10357"/>
@@ -4835,7 +4835,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10343"/>
         <source>Reset &apos;Name&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>이름 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10431"/>
@@ -5813,12 +5813,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="270"/>
         <source>Ornament style:</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음 스타일:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="286"/>
         <source>Ornament style</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음 스타일</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_articulation.ui" line="309"/>
@@ -5999,7 +5999,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="220"/>
         <source>Custom position</source>
-        <translation type="unfinished"/>
+        <translation>사용자 지정 위치</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_beam.ui" line="233"/>
@@ -6147,7 +6147,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="133"/>
         <source>Reset &apos;Size&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>크기 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="311"/>
@@ -6162,7 +6162,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_bend.ui" line="298"/>
         <source>Reset &apos;Style&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>스타일 값 초기화</translation>
     </message>
 </context>
 <context>
@@ -6426,12 +6426,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="156"/>
         <source>Change speed</source>
-        <translation type="unfinished"/>
+        <translation>속도 변경하기</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="163"/>
         <source>Slow</source>
-        <translation type="unfinished"/>
+        <translation>느리게</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="168"/>
@@ -6441,7 +6441,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="173"/>
         <source>Fast</source>
-        <translation type="unfinished"/>
+        <translation>빠르게</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="187"/>
@@ -6461,7 +6461,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="242"/>
         <source>Change speed:</source>
-        <translation type="unfinished"/>
+        <translation>속도 변경하기:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="256"/>
@@ -6514,7 +6514,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="218"/>
         <source>Reset &apos;Color&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>색 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="231"/>
@@ -6529,7 +6529,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="270"/>
         <source>Automatic placement</source>
-        <translation type="unfinished"/>
+        <translation>자동 배치</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="283"/>
@@ -6696,7 +6696,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="49"/>
         <source>Frame Text</source>
-        <translation type="unfinished"/>
+        <translation>프레임 텍스트</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_frametext.ui" line="77"/>
@@ -6952,17 +6952,17 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="192"/>
         <source>White Keys</source>
-        <translation type="unfinished"/>
+        <translation>백건</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="197"/>
         <source>Black Keys</source>
-        <translation type="unfinished"/>
+        <translation>흑건</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="313"/>
         <source>Reset &apos;Size&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>크기 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="320"/>
@@ -6987,7 +6987,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="382"/>
         <source>Reset &apos;Style&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>스타일 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_glissando.ui" line="280"/>
@@ -7085,12 +7085,12 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="122"/>
         <source>Enable Autoplace</source>
-        <translation type="unfinished"/>
+        <translation>자동 배치 활성화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="132"/>
         <source>Disable Autoplace</source>
-        <translation type="unfinished"/>
+        <translation>자동 배치 비활성화</translation>
     </message>
 </context>
 <context>
@@ -7146,7 +7146,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="196"/>
         <source>Create system header</source>
-        <translation type="unfinished"/>
+        <translation>시스템 헤더 만들기</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hbox.ui" line="209"/>
@@ -7363,7 +7363,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="183"/>
         <source>Play</source>
-        <translation type="unfinished"/>
+        <translation>재생</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="206"/>
@@ -7532,7 +7532,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="164"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>악기 선택하기...</translation>
     </message>
 </context>
 <context>
@@ -7669,7 +7669,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="57"/>
         <source>Let Ring</source>
-        <translation type="unfinished"/>
+        <translation>Let Ring</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="82"/>
@@ -7783,7 +7783,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="309"/>
         <source>Reset &apos;Color&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>색 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="322"/>
@@ -8188,22 +8188,22 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="152"/>
         <source>Dot 3</source>
-        <translation type="unfinished"/>
+        <translation>점 3</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="139"/>
         <source>Dot 2</source>
-        <translation type="unfinished"/>
+        <translation>점 2</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="126"/>
         <source>Dot 1</source>
-        <translation type="unfinished"/>
+        <translation>점 1</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="165"/>
         <source>Dot 4</source>
-        <translation type="unfinished"/>
+        <translation>점 4</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="278"/>
@@ -8427,7 +8427,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="57"/>
         <source>Palm Mute</source>
-        <translation type="unfinished"/>
+        <translation>팜 뮤트</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="82"/>
@@ -9243,7 +9243,7 @@ space unit</extracomment>
         <location filename="../../mscore/inspector/inspector_text.ui" line="167"/>
         <location filename="../../mscore/inspector/inspector_text.ui" line="532"/>
         <source>Reset &apos;Style&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>스타일 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="193"/>
@@ -9253,7 +9253,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="232"/>
         <source>Margin</source>
-        <translation type="unfinished"/>
+        <translation>마진</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="245"/>
@@ -9303,7 +9303,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="359"/>
         <source>Thickness</source>
-        <translation type="unfinished"/>
+        <translation>두께</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="378"/>
@@ -9318,7 +9318,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="417"/>
         <source>Corner radius</source>
-        <translation type="unfinished"/>
+        <translation>모서리 곡률</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="436"/>
@@ -9703,7 +9703,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="101"/>
         <source>Tremolo range</source>
-        <translation type="unfinished"/>
+        <translation>트레몰로 범위</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="105"/>
@@ -9719,7 +9719,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="131"/>
         <source>Stroke style:</source>
-        <translation type="unfinished"/>
+        <translation>스트로크 스타일:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolo.ui" line="153"/>
@@ -9772,7 +9772,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="210"/>
         <source>Tremolo bar type:</source>
-        <translation type="unfinished"/>
+        <translation>트레몰로 바 형식:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tremolobar.ui" line="236"/>
@@ -9830,7 +9830,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="157"/>
         <source>Ornament style</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음 스타일</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="180"/>
@@ -9850,7 +9850,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="233"/>
         <source>Ornament style:</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음 스타일:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="200"/>
@@ -9933,7 +9933,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="406"/>
         <source>Reset &apos;Style&apos; values</source>
-        <translation type="unfinished"/>
+        <translation>스타일 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="393"/>
@@ -9993,7 +9993,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="373"/>
         <source>Reset &apos;Size&apos; value</source>
-        <translation type="unfinished"/>
+        <translation>크기 값 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tuplet.ui" line="288"/>
@@ -11270,7 +11270,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/metaedit.ui" line="209"/>
         <source>Add a tag to this score.</source>
-        <translation type="unfinished"/>
+        <translation>이 악보에 태그 추가하기</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="212"/>
@@ -11325,7 +11325,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixer.ui" line="113"/>
         <source>Master Gain</source>
-        <translation type="unfinished"/>
+        <translation>마스터 게인</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixer.ui" line="120"/>
@@ -11339,7 +11339,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="53"/>
         <source>Chorus:</source>
-        <translation type="unfinished"/>
+        <translation>코러스:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="66"/>
@@ -11382,7 +11382,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="180"/>
         <source>Reverb:</source>
-        <translation type="unfinished"/>
+        <translation>반향:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="311"/>
@@ -11403,7 +11403,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="384"/>
         <source>Channel name</source>
-        <translation type="unfinished"/>
+        <translation>채널 이름</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="224"/>
@@ -11429,17 +11429,17 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="469"/>
         <source>Sound name</source>
-        <translation type="unfinished"/>
+        <translation>사운드 이름</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="484"/>
         <source>Track color:</source>
-        <translation type="unfinished"/>
+        <translation>트랙 색:</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="510"/>
         <source>Track color</source>
-        <translation type="unfinished"/>
+        <translation>트랙 색</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="375"/>
@@ -11472,7 +11472,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixertrackchannel.ui" line="264"/>
         <source>Channel name</source>
-        <translation type="unfinished"/>
+        <translation>채널 이름</translation>
     </message>
 </context>
 <context>
@@ -11590,7 +11590,8 @@ tuplet would cross measure</source>
         <location filename="../../mscore/musescoredialogs.cpp" line="114"/>
         <source>Visit %1www.musescore.org%2 for new versions and more information.
 Support MuseScore with your %3donation%4.</source>
-        <translation type="unfinished"/>
+        <translation>Musescore의 새로운 버전과 더 많은 정보를 보려면 %1www.musescore.org%2 에 방문하십시오.
+당신의 %3후원%4 으로 MuseScore를 지원하십시오.</translation>
     </message>
     <message>
         <location filename="../../mscore/musescoredialogs.cpp" line="121"/>
@@ -11685,7 +11686,7 @@ W3C 커뮤니티 기여자 라이선스 계약에 따른 그룹
     <message>
         <location filename="../../crashreporter/crashreporter.cpp" line="126"/>
         <source>Crash report uploaded successfully!</source>
-        <translation type="unfinished"/>
+        <translation>충돌 보고서가 성공적으로 업로드 되었습니다.</translation>
     </message>
     <message>
         <location filename="../../crashreporter/crashreporter.cpp" line="130"/>
@@ -11725,7 +11726,7 @@ W3C 커뮤니티 기여자 라이선스 계약에 따른 그룹
     <message>
         <location filename="../../mscore/drumtools.cpp" line="100"/>
         <source>Drumset Tools</source>
-        <translation type="unfinished"/>
+        <translation>드럼셋 툴</translation>
     </message>
     <message>
         <location filename="../../mscore/drumtools.cpp" line="101"/>
@@ -11781,7 +11782,7 @@ W3C 커뮤니티 기여자 라이선스 계약에 따른 그룹
     <message>
         <location filename="../../mscore/editdrumset.cpp" line="572"/>
         <source>MuseScore may not be able to load this drumset file.</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore가 이 드럼 세트 파일을 로드할 수 없습니다.</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.cpp" line="601"/>
@@ -11856,7 +11857,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/editstyle.cpp" line="395"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>가운데</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.cpp" line="396"/>
@@ -12186,22 +12187,22 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspectorHairpin.cpp" line="32"/>
         <source>Crescendo Hairpin</source>
-        <translation type="unfinished"/>
+        <translation>크레센도 헤어핀</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorHairpin.cpp" line="33"/>
         <source>Decrescendo Hairpin</source>
-        <translation type="unfinished"/>
+        <translation>디크레센도 헤어핀</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorHairpin.cpp" line="34"/>
         <source>Crescendo Line</source>
-        <translation type="unfinished"/>
+        <translation>크레센도 선</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorHairpin.cpp" line="35"/>
         <source>Decrescendo Line</source>
-        <translation type="unfinished"/>
+        <translation>디크레센도 선</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorHairpin.cpp" line="38"/>
@@ -12234,7 +12235,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="969"/>
         <source>Unknown</source>
-        <translation type="unfinished"/>
+        <translation>알 수 없음</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="970"/>
@@ -12244,42 +12245,42 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="971"/>
         <source>Major</source>
-        <translation type="unfinished"/>
+        <translation>장조</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="972"/>
         <source>Minor</source>
-        <translation type="unfinished"/>
+        <translation>단조</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="973"/>
         <source>Dorian</source>
-        <translation type="unfinished"/>
+        <translation>도리안</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="974"/>
         <source>Phrygian</source>
-        <translation type="unfinished"/>
+        <translation>프리지안</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="975"/>
         <source>Lydian</source>
-        <translation type="unfinished"/>
+        <translation>리디안</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="976"/>
         <source>Mixolydian</source>
-        <translation type="unfinished"/>
+        <translation>믹솔리디안</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="977"/>
         <source>Ionian</source>
-        <translation type="unfinished"/>
+        <translation>아이오니안</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="978"/>
         <source>Locrian</source>
-        <translation type="unfinished"/>
+        <translation>로크리안</translation>
     </message>
 </context>
 <context>
@@ -12301,22 +12302,22 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="762"/>
         <source>Dot 1</source>
-        <translation type="unfinished"/>
+        <translation>점 1</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="765"/>
         <source>Dot 2</source>
-        <translation type="unfinished"/>
+        <translation>점 2</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="768"/>
         <source>Dot 3</source>
-        <translation type="unfinished"/>
+        <translation>점 3</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="775"/>
         <source>Dot 4</source>
-        <translation type="unfinished"/>
+        <translation>점 4</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector.cpp" line="778"/>
@@ -12479,12 +12480,12 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/cloud/logindialog.cpp" line="48"/>
         <source>Create an account</source>
-        <translation type="unfinished"/>
+        <translation>계정 만들기</translation>
     </message>
     <message>
         <location filename="../../mscore/cloud/logindialog.cpp" line="49"/>
         <source>Forgot password?</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호를 잊어버리셨나요?</translation>
     </message>
     <message>
         <location filename="../../mscore/cloud/logindialog.cpp" line="65"/>
@@ -12618,7 +12619,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/metaedit.cpp" line="60"/>
         <source>Not saved yet,</source>
-        <translation type="unfinished"/>
+        <translation>아직 저장 안 됨.</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.cpp" line="61"/>
@@ -12820,17 +12821,17 @@ Sound: %5</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="733"/>
         <source>Please wait; unpacking extension…</source>
-        <translation type="unfinished"/>
+        <translation>잠시만 기다려주세요; 확장 기능 압축 해제 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="812"/>
         <source>Please wait; loading SoundFonts…</source>
-        <translation type="unfinished"/>
+        <translation>잠시만 기다려주세요; 사운드 폰트 로딩 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2587"/>
         <source>Don&apos;t ask me again.</source>
-        <translation type="unfinished"/>
+        <translation>다시 알리지 마세요.</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2588"/>
@@ -12840,7 +12841,7 @@ Sound: %5</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2590"/>
         <source>Reset the positions of all elements?</source>
-        <translation type="unfinished"/>
+        <translation>모든 요소의 포지션을 초기화하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2592"/>
@@ -12860,7 +12861,7 @@ Sound: %5</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4447"/>
         <source>Drumset input mode</source>
-        <translation type="unfinished"/>
+        <translation>드럼 세트 입력 모드</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5994"/>
@@ -12934,7 +12935,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="296"/>
         <source>BB Files (experimental)</source>
-        <translation type="unfinished"/>
+        <translation>BB 파일 (실험적인 기능)</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="297"/>
@@ -12949,7 +12950,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="299"/>
         <source>Guitar Pro Files</source>
-        <translation type="unfinished"/>
+        <translation>Guitar Pro 파일</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="300"/>
@@ -12959,7 +12960,7 @@ before closing?</source>
     <message>
         <location filename="../../mscore/file.cpp" line="301"/>
         <source>MuseScore Backup Files</source>
-        <translation type="unfinished"/>
+        <translation>MuseScore 백업 파일</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="318"/>
@@ -12977,7 +12978,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="2522"/>
         <location filename="../../mscore/file.cpp" line="2600"/>
         <source>MuseScore 3 File</source>
-        <translation type="unfinished"/>
+        <translation>MuscScore 3 파일</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="455"/>
@@ -12986,7 +12987,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="2523"/>
         <location filename="../../mscore/file.cpp" line="2601"/>
         <source>Uncompressed MuseScore 3 File</source>
-        <translation type="unfinished"/>
+        <translation>비압축 MuseScore 3 파일</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="469"/>
@@ -13206,7 +13207,7 @@ before closing?</source>
         <location filename="../../mscore/file.cpp" line="1804"/>
         <location filename="../../mscore/file.cpp" line="1886"/>
         <source>Uncompressed MusicXML File (outdated)</source>
-        <translation type="unfinished"/>
+        <translation>비압축 MusicXML 파일</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1807"/>
@@ -13543,7 +13544,7 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="1093"/>
         <source>Audio track</source>
-        <translation type="unfinished"/>
+        <translation>오디오 트랙</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="1691"/>
@@ -13761,12 +13762,12 @@ Restore session?</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8024"/>
         <source>Loading SoundFonts…</source>
-        <translation type="unfinished"/>
+        <translation>사운드 폰트 로딩 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8067"/>
         <source>Initializing workspace…</source>
-        <translation type="unfinished"/>
+        <translation>작업 영역 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8071"/>
@@ -13781,37 +13782,37 @@ Restore session?</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8095"/>
         <source>Initializing startup wizard…</source>
-        <translation type="unfinished"/>
+        <translation>시작 마법사 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8111"/>
         <source>Initializing preferences…</source>
-        <translation type="unfinished"/>
+        <translation>특성 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8151"/>
         <source>Initializing main window…</source>
-        <translation type="unfinished"/>
+        <translation>메인 창 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8176"/>
         <source>Restoring session…</source>
-        <translation type="unfinished"/>
+        <translation>세션 저장 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8200"/>
         <source>Loading scores…</source>
-        <translation type="unfinished"/>
+        <translation>악보 로딩 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8211"/>
         <source>Initializing start center…</source>
-        <translation type="unfinished"/>
+        <translation>시작 센터 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8233"/>
         <source>Initializing tours…</source>
-        <translation type="unfinished"/>
+        <translation>투어 초기화 중...</translation>
     </message>
     <message>
         <location filename="../../mscore/tupletdialog.cpp" line="153"/>
@@ -13841,7 +13842,7 @@ Restore session?</source>
     <message>
         <location filename="../../mscore/workspace.cpp" line="155"/>
         <source>Reset workspace</source>
-        <translation type="unfinished"/>
+        <translation>작업 영역 초기화</translation>
     </message>
 </context>
 <context>
@@ -13917,7 +13918,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="388"/>
         <source>Choose key signature:</source>
-        <translation type="unfinished"/>
+        <translation>조성 선택하기:</translation>
     </message>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="393"/>
@@ -13927,7 +13928,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="395"/>
         <source>Choose a key signature</source>
-        <translation type="unfinished"/>
+        <translation>조성 선택하기</translation>
     </message>
 </context>
 <context>
@@ -13953,7 +13954,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="269"/>
         <source>Choose time signature and tempo:</source>
-        <translation type="unfinished"/>
+        <translation>박자표와 박자 선택하기:</translation>
     </message>
 </context>
 <context>
@@ -13995,7 +13996,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette.cpp" line="200"/>
         <source>Show More</source>
-        <translation type="unfinished"/>
+        <translation>더 보기</translation>
     </message>
     <message>
         <location filename="../../mscore/palette.cpp" line="269"/>
@@ -14033,12 +14034,12 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette/palettecelldialog.cpp" line="123"/>
         <source>The palette cell properties have been modified.</source>
-        <translation type="unfinished"/>
+        <translation>팔레트 셀 특성이 수정되었습니다.</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/palettecelldialog.cpp" line="124"/>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished"/>
+        <translation>변경 사항을 저장하시겠습니까?</translation>
     </message>
 </context>
 <context>
@@ -14056,7 +14057,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="79"/>
         <source>The palette was hidden or changed</source>
-        <translation type="unfinished"/>
+        <translation>팔레트가 숨겨졌거나 바뀌었습니다.</translation>
     </message>
 </context>
 <context>
@@ -14064,12 +14065,12 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette/palettedialog.cpp" line="146"/>
         <source>The palette properties have been modified.</source>
-        <translation type="unfinished"/>
+        <translation>팔레트 특성이 수정되었습니다.</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/palettedialog.cpp" line="147"/>
         <source>Do you want to save your changes?</source>
-        <translation type="unfinished"/>
+        <translation>변경 사항을 저장하시겠습니까?</translation>
     </message>
 </context>
 <context>
@@ -14077,12 +14078,12 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="814"/>
         <source>Do you want to permanently delete this custom palette?</source>
-        <translation type="unfinished"/>
+        <translation>사용자 지정 팔레트를 영구적으로 삭제하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="841"/>
         <source>Do you want to restore this palette to its default state? All changes to this palette will be lost.</source>
-        <translation type="unfinished"/>
+        <translation>이 팔레트를 기본 상태로 복원하시겠습니까? 이 팔레트의 변경 사항은 모두 초기화됩니다.</translation>
     </message>
 </context>
 <context>
@@ -14187,7 +14188,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="630"/>
         <source>Set Voice 1</source>
-        <translation type="unfinished"/>
+        <translation>목소리 1로 설정</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="634"/>
@@ -15276,7 +15277,7 @@ failed: %2</source>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="265"/>
         <source>Select Instrument…</source>
-        <translation type="unfinished"/>
+        <translation>악기 선택하기...</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="274"/>
@@ -15916,7 +15917,7 @@ Please select a measure and try again</source>
     <message>
         <location filename="../../importexport/musicxml/musicxmlsupport.cpp" line="179"/>
         <source>Unknown</source>
-        <translation type="unfinished"/>
+        <translation>알 수 없음</translation>
     </message>
     <message>
         <location filename="../../importexport/musicxml/musicxmlsupport.cpp" line="182"/>
@@ -16742,7 +16743,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="844"/>
         <source>Tremolos</source>
-        <translation type="unfinished"/>
+        <translation>트레몰로</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="894"/>
@@ -16762,7 +16763,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="979"/>
         <source>Ornaments</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1015"/>
@@ -17083,12 +17084,12 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/menus.cpp" line="1476"/>
         <source>Let Ring</source>
-        <translation type="unfinished"/>
+        <translation>Let Ring</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1487"/>
         <source>Palm Mute</source>
-        <translation type="unfinished"/>
+        <translation>팜 뮤트</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1499"/>
@@ -20285,7 +20286,7 @@ MusicXML 파일을 열 수 없습니다.</translation>
     <message>
         <location filename="../../mscore/inspector/inspectorMeasureNumber.cpp" line="43"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>가운데</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspectorMeasureNumber.cpp" line="44"/>
@@ -22230,12 +22231,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../libmscore/style.cpp" line="2285"/>
         <source>Let Ring</source>
-        <translation type="unfinished"/>
+        <translation>Let Ring</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2286"/>
         <source>Palm Mute</source>
-        <translation type="unfinished"/>
+        <translation>팜 뮤트</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2288"/>
@@ -22654,12 +22655,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="14"/>
         <source>Edit Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>툴 바 수정</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="26"/>
         <source>Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>툴 바</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="39"/>
@@ -22669,7 +22670,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="52"/>
         <source>Available Actions</source>
-        <translation type="unfinished"/>
+        <translation>가능한 활동</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="80"/>
@@ -22986,12 +22987,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="461"/>
         <source>Single ♯ and ♭ Only</source>
-        <translation type="unfinished"/>
+        <translation>단일 샵 또는 단일 플랫 사용하기</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="466"/>
         <source>Use Double ♯ and ♭</source>
-        <translation type="unfinished"/>
+        <translation>더블샵 또는 더블 플랫 사용하기</translation>
     </message>
 </context>
 <context>
@@ -23014,7 +23015,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="141"/>
         <source>Palette menu</source>
-        <translation type="unfinished"/>
+        <translation>팔레트 메뉴</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="165"/>
@@ -23024,12 +23025,12 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="165"/>
         <source>Hide Palette</source>
-        <translation type="unfinished"/>
+        <translation>팔레트 숨기기</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="169"/>
         <source>Insert New Palette</source>
-        <translation type="unfinished"/>
+        <translation>새 팔레트 삽입</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="174"/>
@@ -23039,7 +23040,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="181"/>
         <source>Reset Palette</source>
-        <translation type="unfinished"/>
+        <translation>팔레트 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/TreePaletteHeader.qml" line="185"/>
@@ -27808,12 +27809,12 @@ failed: </source>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3845"/>
         <source>Reset Tours</source>
-        <translation type="unfinished"/>
+        <translation>투어 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3846"/>
         <source>Reset tours</source>
-        <translation type="unfinished"/>
+        <translation>투어 초기화</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3855"/>
@@ -29113,12 +29114,12 @@ failed: </source>
     <message>
         <location filename="../../libmscore/clef.cpp" line="64"/>
         <source>F clef (French, 18th century)</source>
-        <translation type="unfinished"/>
+        <translation>낮은음자리표 (18세기 프랑스)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="65"/>
         <source>F clef (19th century)</source>
-        <translation type="unfinished"/>
+        <translation>낮은음자리표 (19세기)</translation>
     </message>
     <message>
         <location filename="../../libmscore/clef.cpp" line="66"/>
@@ -29490,12 +29491,12 @@ failed: </source>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="358"/>
         <source>Snare (Rim shot)</source>
-        <translation type="unfinished"/>
+        <translation>스네어 (림 샷)</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="359"/>
         <source>Ride (Edge)</source>
-        <translation type="unfinished"/>
+        <translation>라이드 (가장자리)</translation>
     </message>
     <message>
         <location filename="../../importexport/guitarpro/importgtp.cpp" line="362"/>
@@ -29654,7 +29655,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="40"/>
         <source>Slur Segment</source>
-        <translation type="unfinished"/>
+        <translation>이음줄 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="43"/>
@@ -29764,7 +29765,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="41"/>
         <source>Tie Segment</source>
-        <translation type="unfinished"/>
+        <translation>붙임줄 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="44"/>
@@ -29784,7 +29785,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="61"/>
         <source>Chord Line</source>
-        <translation type="unfinished"/>
+        <translation>코드 라인</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="62"/>
@@ -29889,7 +29890,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="82"/>
         <source>Hairpin Segment</source>
-        <translation type="unfinished"/>
+        <translation>헤어핀 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="83"/>
@@ -29899,22 +29900,22 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="84"/>
         <source>Trill Segment</source>
-        <translation type="unfinished"/>
+        <translation>트릴 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="85"/>
         <source>Let Ring Segment</source>
-        <translation type="unfinished"/>
+        <translation>Let Ring 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="86"/>
         <source>Vibrato Segment</source>
-        <translation type="unfinished"/>
+        <translation>비브라토 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="87"/>
         <source>Palm Mute Segment</source>
-        <translation type="unfinished"/>
+        <translation>팜 뮤트 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="88"/>
@@ -29924,7 +29925,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="89"/>
         <source>Volta Segment</source>
-        <translation type="unfinished"/>
+        <translation>볼타 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="90"/>
@@ -29939,7 +29940,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="92"/>
         <source>Glissando Segment</source>
-        <translation type="unfinished"/>
+        <translation>글리산도 세그먼트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="93"/>
@@ -30039,7 +30040,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="111"/>
         <source>Let Ring</source>
-        <translation type="unfinished"/>
+        <translation>Let Ring</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="112"/>
@@ -30049,7 +30050,7 @@ failed: </source>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="113"/>
         <source>Palm Mute</source>
-        <translation type="unfinished"/>
+        <translation>팜 뮤트</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="114"/>
@@ -30169,25 +30170,29 @@ failed: </source>
         <location filename="../../libmscore/mscore.cpp" line="132"/>
         <source>No chord/rest selected:
 Please select a chord or rest and retry</source>
-        <translation type="unfinished"/>
+        <translation>코드/쉼표가 선택되지 않았습니다.
+코드/쉼표를 선택하고 다시 시도해 주십시오.</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="133"/>
         <source>No note or lyrics selected:
 Please select a note or lyrics and retry</source>
-        <translation type="unfinished"/>
+        <translation>음표 또는 가사가 선택되지 않았습니다.
+음표 또는 쉼표를 선택하고 다시 시도해 주십시오.</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="134"/>
         <source>No note or rest selected:
 Please select a note or rest and retry</source>
-        <translation type="unfinished"/>
+        <translation>음표 또는 쉼표가 선택되지 않았습니다.
+음표 또는 쉼표를 선택하고 다시 시도해 주십시오.</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="131"/>
         <source>No note selected:
 Please select a note and retry</source>
-        <translation type="unfinished"/>
+        <translation>음표가 선택되지 않았습니다.
+음표를 선택하고 다시 시도해 주십시오.</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="135"/>
@@ -30210,7 +30215,7 @@ Please select a note or figured bass and retry</source>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="139"/>
         <source>Cannot insert chord/rest in tuplet</source>
-        <translation type="unfinished"/>
+        <translation>잇단음표의 코드/쉼표에는 삽입할 수 없습니다.</translation>
     </message>
     <message>
         <location filename="../../libmscore/mscore.cpp" line="140"/>
@@ -30375,32 +30380,32 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="27"/>
         <source>US-QWERTY</source>
-        <translation type="unfinished"/>
+        <translation>미국 QWERTY</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="28"/>
         <source>UK-QWERTY</source>
-        <translation type="unfinished"/>
+        <translation>영국 QWERTY</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="29"/>
         <source>QWERTZ</source>
-        <translation type="unfinished"/>
+        <translation>QWERTZ</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="30"/>
         <source>AZERTY</source>
-        <translation type="unfinished"/>
+        <translation>AZERTY</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="31"/>
         <source>BEPO</source>
-        <translation type="unfinished"/>
+        <translation>BEPO</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="32"/>
         <source>DVORAK</source>
-        <translation type="unfinished"/>
+        <translation>DVORAK</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="33"/>
@@ -30450,12 +30455,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="42"/>
         <source>Spanish</source>
-        <translation type="unfinished"/>
+        <translation>스페인어</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="43"/>
         <source>Italian</source>
-        <translation type="unfinished"/>
+        <translation>이탈리아어</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="44"/>
@@ -30465,27 +30470,27 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="45"/>
         <source>Portuguese</source>
-        <translation type="unfinished"/>
+        <translation>포르투갈어</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="46"/>
         <source>US - International</source>
-        <translation type="unfinished"/>
+        <translation>영어 (국제)</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="47"/>
         <source>Dutch</source>
-        <translation type="unfinished"/>
+        <translation>네덜란드어</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="48"/>
         <source>Korean - Dubeolsik</source>
-        <translation type="unfinished"/>
+        <translation>한국어 (두벌식)</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="49"/>
         <source>Korean - Sebeolsik</source>
-        <translation type="unfinished"/>
+        <translation>한국어 (세벌식)</translation>
     </message>
     <message>
         <location filename="../../mscore/startupWizard.cpp" line="50"/>
@@ -30664,17 +30669,17 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/note.cpp" line="265"/>
         <source>Do (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>도 (펑크)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="266"/>
         <source>Re (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>레 (펑크)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="267"/>
         <source>Ti (Funk)</source>
-        <translation type="unfinished"/>
+        <translation>시 (펑크)</translation>
     </message>
     <message>
         <location filename="../../libmscore/note.cpp" line="270"/>
@@ -31021,12 +31026,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="55"/>
         <source>Tremolos</source>
-        <translation type="unfinished"/>
+        <translation>트레몰로</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="49"/>
         <source>Pedal Lines</source>
-        <translation type="unfinished"/>
+        <translation>페달 선</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="38"/>
@@ -31046,12 +31051,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="45"/>
         <source>Ornaments</source>
-        <translation type="unfinished"/>
+        <translation>꾸밈음</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="50"/>
         <source>Other Lines</source>
-        <translation type="unfinished"/>
+        <translation>기타 선</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="51"/>
@@ -31596,7 +31601,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3061"/>
         <source>Natural flat</source>
-        <translation type="unfinished"/>
+        <translation>제자리표-플랫</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3063"/>
@@ -31611,7 +31616,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3067"/>
         <source>Natural sharp</source>
-        <translation type="unfinished"/>
+        <translation>제자리표-샵</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3068"/>
@@ -31760,132 +31765,132 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3152"/>
         <source>5/6 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>5/6 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3153"/>
         <source>5/6 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>5/6 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3154"/>
         <source>11/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>11/12 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3155"/>
         <source>11/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>11/12 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3156"/>
         <source>1/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/12 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3157"/>
         <source>1/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/12 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3158"/>
         <source>1/6 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/6 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3159"/>
         <source>1/6 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/6 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3160"/>
         <source>1/4 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/4 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3161"/>
         <source>1/4 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/4 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3162"/>
         <source>1/3 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/3 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3163"/>
         <source>1/3 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/3 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3164"/>
         <source>5/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>5/12 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3165"/>
         <source>5/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>5/12 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3166"/>
         <source>1/2 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/2 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3167"/>
         <source>1/2 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>1/2 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3168"/>
         <source>7/12 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>7/12 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3169"/>
         <source>7/12 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>7/12 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3170"/>
         <source>2/3 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>2/3 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3171"/>
         <source>2/3 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>2/3 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3172"/>
         <source>3/4 tone flat (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>3/4 톤 플랫 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3173"/>
         <source>3/4 tone sharp (Wyschnegradsky)</source>
-        <translation type="unfinished"/>
+        <translation>3/4 톤 샵 (비슈네그라드스키)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3238"/>
         <source>Accent above</source>
-        <translation type="unfinished"/>
+        <translation>악센트 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3239"/>
         <source>Accent below</source>
-        <translation type="unfinished"/>
+        <translation>악센트 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3240"/>
         <source>Accent-staccato above</source>
-        <translation type="unfinished"/>
+        <translation>악센트-스타카토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3241"/>
         <source>Accent-staccato below</source>
-        <translation type="unfinished"/>
+        <translation>악센트-스타카토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3242"/>
@@ -31900,32 +31905,32 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3244"/>
         <source>Marcato above</source>
-        <translation type="unfinished"/>
+        <translation>마르카토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3245"/>
         <source>Marcato below</source>
-        <translation type="unfinished"/>
+        <translation>마르카토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3246"/>
         <source>Marcato-staccato above</source>
-        <translation type="unfinished"/>
+        <translation>마르카토-스타카토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3247"/>
         <source>Marcato-staccato below</source>
-        <translation type="unfinished"/>
+        <translation>마르카토-스타카토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3248"/>
         <source>Marcato-tenuto above</source>
-        <translation type="unfinished"/>
+        <translation>마르카토-테누토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3249"/>
         <source>Marcato-tenuto below</source>
-        <translation type="unfinished"/>
+        <translation>마르카토-테누토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3250"/>
@@ -31970,12 +31975,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3258"/>
         <source>Staccatissimo above</source>
-        <translation type="unfinished"/>
+        <translation>스타카티시모 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3259"/>
         <source>Staccatissimo below</source>
-        <translation type="unfinished"/>
+        <translation>스타카티시모 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3260"/>
@@ -32000,12 +32005,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3264"/>
         <source>Staccato above</source>
-        <translation type="unfinished"/>
+        <translation>스타카토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3265"/>
         <source>Staccato below</source>
-        <translation type="unfinished"/>
+        <translation>스타카토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3266"/>
@@ -32020,32 +32025,32 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3268"/>
         <source>Tenuto above</source>
-        <translation type="unfinished"/>
+        <translation>테누토 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3269"/>
         <source>Tenuto-accent above</source>
-        <translation type="unfinished"/>
+        <translation>테누토-악센트 (위)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3270"/>
         <source>Tenuto-accent below</source>
-        <translation type="unfinished"/>
+        <translation>테누토-악센트 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3271"/>
         <source>Tenuto below</source>
-        <translation type="unfinished"/>
+        <translation>테누토 (아래)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3272"/>
         <source>Louré (tenuto-staccato) above</source>
-        <translation type="unfinished"/>
+        <translation>루레 (테누토-스타카토) 위</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3273"/>
         <source>Louré (tenuto-staccato) below</source>
-        <translation type="unfinished"/>
+        <translation>루레 (테누토-스타카토) 아래</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3274"/>
@@ -32125,7 +32130,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3345"/>
         <source>C clef</source>
-        <translation type="unfinished"/>
+        <translation>가온음자리표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3353"/>
@@ -32161,17 +32166,17 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3490"/>
         <source>Forte</source>
-        <translation type="unfinished"/>
+        <translation>포르테</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3500"/>
         <source>Mezzo</source>
-        <translation type="unfinished"/>
+        <translation>메조</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3501"/>
         <source>Niente</source>
-        <translation type="unfinished"/>
+        <translation>니엔테</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3509"/>
@@ -32181,12 +32186,12 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3510"/>
         <source>Rinforzando</source>
-        <translation type="unfinished"/>
+        <translation>린포르찬도</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3513"/>
         <source>Sforzando</source>
-        <translation type="unfinished"/>
+        <translation>스포르찬도</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3520"/>
@@ -32196,7 +32201,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3586"/>
         <source>F clef</source>
-        <translation type="unfinished"/>
+        <translation>낮은음자리표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3596"/>
@@ -32271,7 +32276,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3744"/>
         <source>G clef</source>
-        <translation type="unfinished"/>
+        <translation>높은음자리표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="3770"/>
@@ -32466,7 +32471,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4914"/>
         <source>1024th rest</source>
-        <translation type="unfinished"/>
+        <translation>1024분 쉼표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4915"/>
@@ -32481,7 +32486,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4917"/>
         <source>256th rest</source>
-        <translation type="unfinished"/>
+        <translation>256분 쉼표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4918"/>
@@ -32491,7 +32496,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4919"/>
         <source>512th rest</source>
-        <translation type="unfinished"/>
+        <translation>512분 쉼표</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4920"/>
@@ -33507,7 +33512,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/textpalette.cpp" line="456"/>
         <source>Gothic</source>
-        <translation type="unfinished"/>
+        <translation>고딕</translation>
     </message>
     <message>
         <location filename="../../mscore/textpalette.cpp" line="457"/>
@@ -33582,7 +33587,7 @@ Measure is not empty</source>
     <message>
         <location filename="../../mscore/textpalette.cpp" line="471"/>
         <source>Lydian</source>
-        <translation type="unfinished"/>
+        <translation>리디안</translation>
     </message>
     <message>
         <location filename="../../mscore/textpalette.cpp" line="472"/>

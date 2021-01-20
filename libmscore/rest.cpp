@@ -265,7 +265,7 @@ Element* Rest::drop(EditData& data)
                         if (seg) {
                               ChordRest* cr = toChordRest(seg->element(track()));
                               if (cr)
-                                    score()->nextInputPos(cr, true);
+                                    score()->nextInputPos(cr, false);
                               }
                         }
                   delete e;
@@ -392,13 +392,12 @@ void Rest::layout()
       rxpos() = 0.0;
       const StaffType* stt = staffType();
       if (stt && stt->isTabStaff()) {
-            const StaffType* tab = stt;
             // if rests are shown and note values are shown as duration symbols
-            if (tab->showRests() && tab->genDurations()) {
+            if (stt->showRests() && stt->genDurations()) {
                   TDuration::DurationType type = durationType().type();
                   int                     dots = durationType().dots();
                   // if rest is whole measure, convert into actual type and dot values
-                  if (type == TDuration::DurationType::V_MEASURE) {
+                  if (type == TDuration::DurationType::V_MEASURE && measure()) {
                         Fraction ticks = measure()->ticks();
                         TDuration dur  = TDuration(ticks).type();
                         type           = dur.type();
@@ -406,9 +405,9 @@ void Rest::layout()
                         }
                   // symbol needed; if not exist, create, if exists, update duration
                   if (!_tabDur)
-                        _tabDur = new TabDurationSymbol(score(), tab, type, dots);
+                        _tabDur = new TabDurationSymbol(score(), stt, type, dots);
                   else
-                        _tabDur->setDuration(type, dots, tab);
+                        _tabDur->setDuration(type, dots, stt);
                   _tabDur->setParent(this);
 // needed?        _tabDur->setTrack(track());
                   _tabDur->layout();
@@ -429,7 +428,7 @@ void Rest::layout()
 
       qreal yOff       = offset().y();
       const Staff* stf = staff();
-      const StaffType*  st = stf->staffTypeForElement(this);
+      const StaffType*  st = stf ? stf->staffTypeForElement(this) : 0;
       qreal lineDist = st ? st->lineDistance().val() : 1.0;
       int userLine   = yOff == 0.0 ? 0 : lrint(yOff / (lineDist * _spatium));
       int lines      = st ? st->lines() : 5;
@@ -786,7 +785,7 @@ void Rest::reset()
 
 qreal Rest::mag() const
       {
-      qreal m = staff()->mag(this);
+      qreal m = staff() ? staff()->mag(this) : 1.0;
       if (small())
             m *= score()->styleD(Sid::smallNoteMag);
       return m;

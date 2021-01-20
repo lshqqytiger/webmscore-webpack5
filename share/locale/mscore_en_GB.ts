@@ -11279,7 +11279,7 @@ tuplet would cross bar</translation>
     <message>
         <location filename="../../mscore/metaedit.ui" line="212"/>
         <source>New…</source>
-        <translation>New…</translation>
+        <translation>New</translation>
     </message>
     <message>
         <location filename="../../mscore/metaedit.ui" line="238"/>
@@ -13769,7 +13769,7 @@ Restore session?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="6895"/>
         <source>Go To: </source>
-        <translation>Go To: </translation>
+        <translation>Find / Go To: </translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8015"/>
@@ -14955,7 +14955,7 @@ Check your internet connection.</translation>
         <location filename="../../mscore/resourceManager.cpp" line="351"/>
         <location filename="../../mscore/resourceManager.cpp" line="402"/>
         <source>Updated</source>
-        <translation>Updated</translation>
+        <translation>Up to date</translation>
     </message>
 </context>
 <context>
@@ -23471,7 +23471,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="56"/>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation>&amp;Save</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="58"/>
@@ -23491,7 +23491,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="77"/>
         <source>Save As…</source>
-        <translation>Save As…</translation>
+        <translation>Save &amp;As…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="79"/>
@@ -23526,7 +23526,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="110"/>
         <source>Export…</source>
-        <translation>Export…</translation>
+        <translation>&amp;Export…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="111"/>
@@ -23591,7 +23591,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="158"/>
         <source>Print…</source>
-        <translation>Print…</translation>
+        <translation>&amp;Print…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="159"/>
@@ -26722,7 +26722,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2655"/>
         <source>Find</source>
-        <translation>Find</translation>
+        <translation>Find / Go To</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2661"/>
@@ -26908,7 +26908,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2829"/>
         <source>Parts…</source>
-        <translation>Parts…</translation>
+        <translation>Par&amp;ts…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2830"/>
@@ -27078,7 +27078,7 @@ failed: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3025"/>
         <source>Resource Manager…</source>
-        <translation>Resource Manager…</translation>
+        <translation>&amp;Resource Manager…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3026"/>
@@ -32446,12 +32446,12 @@ Bar is not empty</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4553"/>
         <source>Mordent</source>
-        <translation>Mordent</translation>
+        <translation>Short trill</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4554"/>
         <source>Inverted mordent</source>
-        <translation>Inverted mordent</translation>
+        <translation>Mordent</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4574"/>

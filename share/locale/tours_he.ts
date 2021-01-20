@@ -9,7 +9,7 @@
     <message>
         <source>The Playback Controls toolbar allows you to play/pause your score and control various aspects of playback.</source>
         <comment>welcome</comment>
-        <translation>סרגל בקרי השמע מאפשר לך לנגן/לעצור את היצירה שלך ולשלוט במגוון היבטים של השמע.</translation>
+        <translation>סרגל בקרת השמע מאפשר לך לנגן/לעצור את היצירה שלך ולשלוט במגוון היבטים של השמע.</translation>
     </message>
     <message>
         <source>The Note Input toolbar allows you to enter notes and rests into your score.</source>
@@ -111,37 +111,42 @@
     <message>
         <source>Additional navigation tools include the Timeline and Navigator, both found in the View menu.</source>
         <comment>navigate-tour</comment>
-        <translation type="unfinished"/>
+        <translation>בין כלי הניווט הנוספים יש את הטיימליין ואת המנווט, ששניהם נמצאים בתפריט התצוגה.</translation>
     </message>
     <message>
         <source>Welcome to the Inspector, where you can change individual properties for selected elements.
     Click &quot;Next&quot; to learn more.</source>
         <comment>inspector-tour</comment>
-        <translation type="unfinished"/>
+        <translation>ברוכים הבאים לפקח, בו תוכלו לשנות מאפיינים בנפרד עבור אלמנטים שבחרתם.
+לחצו &quot;הבא&quot; כדי ללמוד עוד.</translation>
     </message>
     <message>
         <source>Begin by selecting one or more elements in your score, then use the check boxes, spin boxes, dropdown menus, and other controls to change values for the various properties.
     The set of properties available will differ according to the type of selected elements or elements.</source>
         <comment>inspector-tour</comment>
-        <translation type="unfinished"/>
+        <translation>התחילו בבחירה של אלמנט אחד או יותר בפרטיטורה שלכם, ואז השתמשו בלחצני הבחירה, המחוונים, התפריטים הנגללים ושאר כפתורי הבקרה כדי לשנות ערכים למאפיינים שונים.
+המאפיינים המוגדרים עשויים להשתנות בהתאם לסוג האלמנטים שבחרתם.</translation>
     </message>
     <message>
         <source>If you have selected elements of different types, only a few settings common to all elements will be available.
     You can click the &quot;Notes&quot; and other buttons at the bottom of the Inspector to limit the selection to just the elements of the specified type.</source>
         <comment>inspector-tour</comment>
-        <translation type="unfinished"/>
+        <translation>אם בחרתם באלמנטים מסוגים שונים, רק מעט מההגדרות שמשותפות לכל האלמנטים יהיו זמינות.
+אתם יכולים ללחוץ &quot;תווים&quot; וכפתורים אחרים בתחתית הפקח כדי להגביל את הבחירה רק לאלמנטים מסוג מסוים.</translation>
     </message>
     <message>
         <source>The Inspector allows you to control various properties of the elements in your score.</source>
         <comment>welcome</comment>
-        <translation type="unfinished"/>
+        <translation>הפקח מאפשר לכם לשלוט במאפיינים משתנים של האלמנטים בפרטיטורה שלכם.</translation>
     </message>
     <message>
         <source>Autoplace is a new feature that automatically detects and avoids many types of collisions between elements.
     You can also manually adjust the position of autoplaced elements, or disable autoplace for selected elements.
     Click &quot;Next&quot; to learn more.</source>
         <comment>autoplace-tour</comment>
-        <translation type="unfinished"/>
+        <translation>מיקום אוטומטי הוא תכונה חדשה שפועלת אוטומטית ומונעת סוגים שונים של התנגשויות בין אלמנטים.
+אתם יכולים להתאים ידנית את ההעמדה של אלמנטים ממקומים אוטומטית, או לבטל את המיקום האוטומטי של אלמנטים נבחרים.
+לחצו &quot;הבא&quot; כדי ללמוד עוד.</translation>
     </message>
     <message>
         <source>Autoplace positions most elements according to standard music engraving practice,

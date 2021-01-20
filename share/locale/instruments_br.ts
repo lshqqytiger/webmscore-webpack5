@@ -826,7 +826,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="434"/>
         <source>Accordion</source>
-        <translation type="unfinished"/>
+        <translation>Akordeoñs</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="436"/>
@@ -1881,7 +1881,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1067"/>
         <source>Piano</source>
-        <translation type="unfinished"/>
+        <translation>Piano</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1069"/>
@@ -5672,7 +5672,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1420"/>
         <source>Violins</source>
-        <translation type="unfinished"/>
+        <translation>Violoñsoù</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1421"/>
@@ -6567,7 +6567,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1415"/>
         <source>Violin</source>
-        <translation type="unfinished"/>
+        <translation>Violoñs</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1425"/>
@@ -6809,7 +6809,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="29"/>
         <source>Piano</source>
-        <translation type="unfinished"/>
+        <translation>Piano</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="30"/>

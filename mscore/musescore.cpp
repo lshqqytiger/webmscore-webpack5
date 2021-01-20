@@ -14,6 +14,8 @@
 
 #include <fenv.h>
 #include <QStyleFactory>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "config.h"
 
@@ -197,6 +199,7 @@ static double userDPI = 0.0;
 int trimMargin = -1;
 bool noWebView = false;
 bool exportScoreParts = false;
+bool saveScoreParts = false;
 bool ignoreWarnings = false;
 bool exportScoreMedia = false;
 bool exportScoreMeta = false;
@@ -204,6 +207,7 @@ bool exportScoreMp3 = false;
 bool exportScorePartsPdf = false;
 static bool exportTransposedScore = false;
 static QString transposeExportOptions;
+static QString highlightConfigPath;
 
 QString mscoreGlobalShare;
 
@@ -606,6 +610,17 @@ void MuseScore::notifyElementDraggedToScoreView()
 void MuseScore::onLongOperationFinished()
       {
       infoMsgBox->accept();
+      }
+
+//---------------------------------------------------------
+//   moveControlCursor
+//---------------------------------------------------------
+
+void MuseScore::moveControlCursor()
+      {
+      if (!cv)
+            return;
+      cv->moveControlCursorNearCursor();
       }
 
 //---------------------------------------------------------
@@ -3521,6 +3536,9 @@ static void loadScores(const QStringList& argv)
                               MasterScore* score = mscore->readScore(startScore);
                               if (startScore.startsWith(":/") && score) {
                                     score->setStyle(MScore::defaultStyle());
+                                    if (preferences.getBool(PREF_SCORE_HARMONY_PLAY_DISABLE_NEW)) {
+                                          score->style().set(Sid::harmonyPlay, false);
+                                          }
                                     score->style().checkChordList();
                                     score->styleChanged();
                                     score->setName(mscore->createDefaultName());
@@ -3532,6 +3550,9 @@ static void loadScores(const QStringList& argv)
                                     score = mscore->readScore(":/data/My_First_Score.mscx");
                                     if (score) {
                                           score->setStyle(MScore::defaultStyle());
+                                          if (preferences.getBool(PREF_SCORE_HARMONY_PLAY_DISABLE_NEW)) {
+                                                score->style().set(Sid::harmonyPlay, false);
+                                                }
                                           score->style().checkChordList();
                                           score->styleChanged();
                                           score->setName(mscore->createDefaultName());
@@ -3826,11 +3847,13 @@ static bool doProcessJob(QString jsonFile)
 static bool processNonGui(const QStringList& argv)
       {
       if (exportScoreMedia)
-            return mscore->exportAllMediaFiles(argv[0]);
+            return mscore->exportAllMediaFiles(argv[0], highlightConfigPath);
       if (exportScoreMeta)
             return mscore->exportScoreMetadata(argv[0]);
       else if (exportScoreMp3)
             return mscore->exportMp3AsJSON(argv[0]);
+      else if (saveScoreParts)
+            return mscore->saveScoreParts(argv[0]);
       else if (exportScorePartsPdf)
             return mscore->exportPartsPdfsToJSON(argv[0]);
       else if (exportTransposedScore)
@@ -5227,8 +5250,10 @@ void MuseScore::autoSaveTimerTimeout()
                               return;
                               }
                         s->setTmpName(tf.fileName());
-                        QFileInfo info(tf.fileName());
-                        s->saveCompressedFile(&tf, info, false, false);  // no thumbnail
+
+                        QString fileName = QFileInfo(tf.fileName()).completeBaseName() + ".mscx";
+                        s->saveCompressedFile(&tf, fileName, false, false);  // no thumbnail
+
                         tf.close();
                         sessionChanged = true;
                         }
@@ -5923,10 +5948,9 @@ void MuseScore::transpose()
       }
 
 //---------------------------------------------------------
-//   cmdRealizeChordSymbols
+//   realizeChordSymbols
 ///   Realize selected chord symbols into notes on the staff.
-///   Currently just pops up a dialog to list TPCs,
-///   Intervals, and pitches.
+///   Display dialog to offer overrides to default behavior
 //---------------------------------------------------------
 
 void MuseScore::realizeChordSymbols()
@@ -7506,6 +7530,51 @@ MuseScoreApplication* MuseScoreApplication::initApplication(int& argc, char** ar
       QCoreApplication::setOrganizationDomain("musescore.org");
       QCoreApplication::setApplicationVersion(MuseScore::fullVersion());
 
+      { //! NOTE Check qml cache
+            QString qmlcachePath = qgetenv("QML_DISK_CACHE_PATH");
+            if (qmlcachePath.isEmpty()) {
+                qmlcachePath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/qmlcache";
+                }
+
+            QDir qmlcacheDir(qmlcachePath);
+            bool isNeedClearQmlCache = false;
+            bool isNeedWriteQmlRevision = false;
+            if (qmlcacheDir.exists()) {
+                QFile qmlcacheRefFile(qmlcacheDir.absolutePath() +"/qmlcache.revision");
+                if (qmlcacheRefFile.open(QIODevice::ReadOnly)) {
+                    QString qmlcacheRef = QString(qmlcacheRefFile.readAll()).trimmed();
+                    if (qmlcacheRef != revision)
+                        isNeedClearQmlCache = true;
+                    }
+                else {
+                    isNeedClearQmlCache = true;
+                    isNeedWriteQmlRevision = true;
+                    }
+
+                }
+            else {
+                isNeedWriteQmlRevision = true;
+                }
+
+            if (isNeedClearQmlCache) {
+                bool ok = qmlcacheDir.removeRecursively();
+                if (!ok)
+                    qCritical() << "failed clear qml cache dir: " << qmlcacheDir.absolutePath();
+                }
+
+            if (isNeedWriteQmlRevision) {
+                qmlcacheDir.mkpath(qmlcacheDir.absolutePath());
+                QFile qmlcacheRefFile(qmlcacheDir.absolutePath() +"/qmlcache.revision");
+                if (qmlcacheRefFile.open(QIODevice::WriteOnly)) {
+                    if (!qmlcacheRefFile.write(revision.toLatin1()))
+                        qCritical() << "failed write file: " << qmlcacheRefFile.fileName();
+                    }
+                else {
+                    qCritical() << "failed open file: " << qmlcacheRefFile.fileName();
+                    }
+                }
+      }
+
 #ifdef BUILD_CRASH_REPORTER
       {
       static_assert(sizeof(CRASHREPORTER_EXECUTABLE) > 1,
@@ -7583,8 +7652,10 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
       parser.addOption(QCommandLineOption({"b", "bitrate"}, "Use with '-o <file>.mp3', sets bitrate, in kbps", "bitrate"));
       parser.addOption(QCommandLineOption({"E", "install-extension"}, "Install an extension, load soundfont as default unless -e is passed too", "extension file"));
       parser.addOption(QCommandLineOption(      "score-media", "Export all media (excepting mp3) for a given score in a single JSON file and print it to stdout"));
+      parser.addOption(QCommandLineOption(      "highlight-config", "Set highlight to svg, generated from a given score", "highlight-config"));
       parser.addOption(QCommandLineOption(      "score-meta", "Export score metadata to JSON document and print it to stdout"));
       parser.addOption(QCommandLineOption(      "score-mp3", "Generate mp3 for the given score and export the data to a single JSON file, print it to stdout"));
+      parser.addOption(QCommandLineOption(      "score-parts", "Generate parts data for the given score and save them to separate mscz files"));
       parser.addOption(QCommandLineOption(      "score-parts-pdf", "Generate parts data for the given score and export the data to a single JSON file, print it to stdout"));
       parser.addOption(QCommandLineOption(      "score-transpose", "Transpose the given score and export the data to a single JSON file, print it to stdout", "options"));
       parser.addOption(QCommandLineOption(      "raw-diff", "Print a raw diff for the given scores"));
@@ -7727,7 +7798,11 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
             exportScoreMedia = true;
             MScore::noGui = true;
             converterMode = true;
+
+            if (parser.isSet("highlight-config")) {
+                highlightConfigPath = parser.value("highlight-config");
             }
+      }
 
       if (parser.isSet("score-meta")) {
             exportScoreMeta = true;
@@ -7737,6 +7812,12 @@ MuseScoreApplication::CommandLineParseResult MuseScoreApplication::parseCommandL
 
       if (parser.isSet("score-mp3")) {
             exportScoreMp3 = true;
+            MScore::noGui = true;
+            converterMode = true;
+            }
+
+      if (parser.isSet("score-parts")) {
+            saveScoreParts = true;
             MScore::noGui = true;
             converterMode = true;
             }
@@ -8244,6 +8325,91 @@ void MuseScore::init(QStringList& argv)
       if (settings.value("synthControlVisible", false).toBool())
             mscore->showSynthControl(true);
       }
+
+
+bool MuseScore::saveScoreParts(const QString& inFilePath, const QString& outFilePath)
+{
+    MasterScore* score = mscore->readScore(inFilePath);
+    if (!score) {
+        return false;
+    }
+
+    if (!styleFile.isEmpty()) {
+        QFile f(styleFile);
+        if (f.open(QIODevice::ReadOnly)) {
+            score->style().load(&f);
+        }
+    }
+    score->switchToPageMode();
+
+    // if no parts, generate parts from existing instruments
+    if (score->excerpts().isEmpty()) {
+        auto excerpts = Excerpt::createAllExcerpt(score);
+        for (Excerpt* e : excerpts) {
+              Score* nscore = new Score(e->oscore());
+              e->setPartScore(nscore);
+              nscore->style().set(Sid::createMultiMeasureRests, true);
+              auto excerptCmdFake = new AddExcerpt(e);
+              excerptCmdFake->redo(nullptr);
+              Excerpt::createExcerpt(e);
+        }
+    }
+
+    QJsonArray partsObjList;
+    QJsonArray partsMetaList;
+    QJsonArray partsTitles;
+
+    for (Excerpt* excerpt : score->excerpts()) {
+        Score* part = excerpt->partScore();
+        QMap<QString, QString> partMetaTags = part->metaTags();
+
+        QJsonValue partTitle(part->title());
+        partsTitles << partTitle;
+
+        QVariantMap meta;
+        for (const QString& key: partMetaTags.keys()) {
+            meta[key] = partMetaTags[key];
+        }
+
+        QJsonValue partMetaObj = QJsonObject::fromVariantMap(meta);
+        partsMetaList << partMetaObj;
+
+        QJsonValue partObj(QString::fromLatin1(exportMsczAsJSON(part)));
+        partsObjList << partObj;
+    }
+
+    QJsonObject json;
+    json["parts"] = partsTitles;
+    json["partsMeta"] = partsMetaList;
+    json["partsBin"] = partsObjList;
+
+    QJsonDocument jsonDoc(json);
+    QFile out(outFilePath);
+
+    bool res = out.open(QIODevice::WriteOnly);
+    if (res) {
+        out.write(jsonDoc.toJson(QJsonDocument::Compact));
+        out.close();
+    }
+
+    delete score;
+    return res;
+}
+
+QByteArray MuseScore::exportMsczAsJSON(Score* score)
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite);
+
+    QString fileName = saveFilename(score->title()) + ".mscz";
+    score->saveCompressedFile(&buffer, fileName, false, true);
+
+    buffer.open(QIODevice::ReadOnly);
+    QByteArray scoreData = buffer.readAll();
+    buffer.close();
+
+    return scoreData.toBase64();
+}
 
 //---------------------------------------------------------
 //   exportPartsPdfsToJSON

@@ -333,7 +333,14 @@ Rest* Score::setRest(const Fraction& _tick, int track, const Fraction& _l, bool 
                   //
                   // compute list of durations which will fit l
                   //
-                  std::vector<TDuration> dList = toRhythmicDurationList(f, true, tick - measure->tick(), sigmap()->timesig(tick).nominal(), measure, useDots ? 1 : 0);
+                  std::vector<TDuration> dList;
+                  if (tuplet || staff->isLocalTimeSignature(tick)) {
+                        dList = toDurationList(l, useDots);
+                        std::reverse(dList.begin(), dList.end());
+                        }
+                  else {
+                        dList = toRhythmicDurationList(f, true, tick - measure->tick(), sigmap()->timesig(tick).nominal(), measure, useDots ? 1 : 0);
+                        }
                   if (dList.empty())
                         return 0;
 
@@ -805,6 +812,8 @@ void Score::cmdAddTimeSig(Measure* fm, int staffIdx, TimeSig* ts, bool local)
                   std::pair<int, int> staffIdxRange = getStaffIdxRange(score);
                   for (int si = staffIdxRange.first; si < staffIdxRange.second; ++si) {
                         TimeSig* nsig = toTimeSig(seg->element(si * VOICES));
+                        if (!nsig)
+                              continue;
                         nsig->undoChangeProperty(Pid::SHOW_COURTESY, ts->showCourtesySig());
                         nsig->undoChangeProperty(Pid::TIMESIG, QVariant::fromValue(ts->sig()));
                         nsig->undoChangeProperty(Pid::TIMESIG_TYPE, int(ts->timeSigType()));
@@ -1580,7 +1589,8 @@ void Score::cmdFlip()
                || e->isPalmMuteSegment()
                || e->isFermata()
                || e->isLyrics()
-               || e->isTrillSegment()) {
+               || e->isTrillSegment()
+               || e->isBreath()) {
                   e->undoChangeProperty(Pid::AUTOPLACE, true);
                   // getProperty() delegates call from spannerSegment to Spanner
                   Placement p = Placement(e->getProperty(Pid::PLACEMENT).toInt());
@@ -3000,6 +3010,8 @@ void Score::insertMeasure(ElementType type, MeasureBase* measure, bool createEmp
             MeasureBase* mb = toMeasureBase(Element::create(type, score));
             mb->setTick(tick);
 
+            if (im)
+                  im = im->top(); // don't try to insert in front of nested frame
             mb->setNext(im);
             mb->setPrev(im ? im->prev() : score->last());
             if (mb->isMeasure()) {
@@ -3301,7 +3313,7 @@ void Score::localTimeDelete()
       MeasureBase* ie;
 
       if (endSegment)
-            ie = endSegment->prev() ? endSegment->measure() : endSegment->measure()->prev();
+            ie = endSegment->prev(SegmentType::ChordRest) ? endSegment->measure() : endSegment->measure()->prev();
       else
             ie = lastMeasure();
 
@@ -3332,7 +3344,40 @@ void Score::localTimeDelete()
             break;
             };
 
-      deselectAll();
+      if (noteEntryMode()) {
+            Segment* currentSegment = endSegment;
+            ChordRest* cr = nullptr;
+            if (!currentSegment && lastMeasureMM()) {
+                  // deleted to end of score - get last cr on current track
+                  currentSegment = lastMeasureMM()->last();
+                  if (currentSegment) {
+                        cr = currentSegment->nextChordRest(_is.track(), true);
+                        if (cr)
+                              currentSegment = cr->segment();
+                        }
+                  }
+            if (!currentSegment) {
+                  // no cr found - append a new measure
+                  appendMeasures(1);
+                  currentSegment = lastMeasureMM()->first(SegmentType::ChordRest);
+                  }
+            _is.setSegment(currentSegment);
+            cr = _is.cr();
+            if (cr) {
+                  if (cr->isChord())
+                        select(toChord(cr)->upNote(), SelectType::SINGLE);
+                  else
+                        select(cr, SelectType::SINGLE);
+                  }
+            else {
+                  // could not find cr to select,
+                  // may be that there is a "hole" in the current track
+                  deselectAll();
+                  }
+            }
+      else {
+            deselectAll();
+            }
       }
 
 //---------------------------------------------------------
@@ -3341,6 +3386,9 @@ void Score::localTimeDelete()
 
 void Score::timeDelete(Measure* m, Segment* startSegment, const Fraction& f)
       {
+      if (f.isZero())
+            return;
+
       const Fraction tick  = startSegment->rtick();
       const Fraction len   = f;
       const Fraction etick = tick + len;
@@ -4618,9 +4666,11 @@ void Score::undoAddElement(Element* element)
                         if (ne->isFretDiagram()) {
                               FretDiagram* fd = toFretDiagram(ne);
                               Harmony* fdHarmony = fd->harmony();
-                              fdHarmony->setScore(score);
-                              fdHarmony->setSelected(false);
-                              fdHarmony->setTrack(staffIdx * VOICES + element->voice());
+                              if (fdHarmony) {
+                                    fdHarmony->setScore(score);
+                                    fdHarmony->setSelected(false);
+                                    fdHarmony->setTrack(staffIdx * VOICES + element->voice());
+                                    }
                               }
                         }
 

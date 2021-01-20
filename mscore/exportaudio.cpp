@@ -17,6 +17,8 @@
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //=============================================================================
 
+#include <QFile>
+
 #include "config.h"
 #ifdef HAS_AUDIOFILE
 #include "thirdparty/libsndfile/src/sndfile.h"
@@ -421,6 +423,7 @@ bool saveAudio(Score* score, const QString& name)
             SF_INFO info;
             SNDFILE *sf = nullptr;
             const QString filename;
+            QFile file;
       public:
             SoundFileDevice(int sampleRate, int format, const QString& name)
                   : filename(name) {
@@ -452,7 +455,12 @@ bool saveAudio(Score* score, const QString& name)
                   if ((mode & QIODevice::WriteOnly) == 0) {
                         return false;
                         }
-                  sf     = sf_open(qPrintable(filename), SFM_WRITE, &info);
+
+                  file.setFileName(filename);
+                  if (!file.open(mode)) {
+                        return false;
+                        }
+                  sf = sf_open_fd(file.handle(), SFM_WRITE, &info, false);
                   if (sf == nullptr) {
                         qDebug("open soundfile failed: %s", sf_strerror(sf));
                         return false;
@@ -474,6 +482,7 @@ bool saveAudio(Score* score, const QString& name)
                         qDebug("close soundfile failed");
                         }
                   sf = nullptr;
+                  file.close();
                   QIODevice::close();
                   }
             };

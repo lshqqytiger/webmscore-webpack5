@@ -354,8 +354,6 @@ class Movements : public std::vector<MasterScore*> {
       UndoStack* _undo;
       QList<Page*> _pages;          // pages are build from systems
       MStyle _style;
-      std::vector<Text*> _headersText;
-      std::vector<Text*> _footersText;
 
    public:
       Movements();
@@ -367,10 +365,6 @@ class Movements : public std::vector<MasterScore*> {
       UndoStack* undo() const                 { return _undo;                }
       MStyle& style()                         { return _style;               }
       const MStyle& style() const             { return _style;               }
-      std::vector<Text*> headersText() const  { return _headersText;         }
-      std::vector<Text*> footersText() const  { return _footersText;         }
-      void setHeaderText(Text* t, int index)  { _headersText[index] = t;     }
-      void setFooterText(Text* t, int index)  { _footersText[index] = t;     }
       };
 
 //---------------------------------------------------------------------------------------
@@ -426,6 +420,9 @@ class Score : public QObject, public ScoreElement {
       MasterScore* _masterScore { 0 };
       QList<MuseScoreView*> viewer;
       Excerpt* _excerpt  { 0 };
+
+      std::vector<Text*> _headersText;
+      std::vector<Text*> _footersText;
 
       QString _mscoreVersion;
       int _mscoreRevision;
@@ -807,7 +804,7 @@ class Score : public QObject, public ScoreElement {
       bool saveFile(QFileInfo& info);
       bool saveFile(QIODevice* f, bool msczFormat, bool onlySelection = false);
       bool saveCompressedFile(QFileInfo&, bool onlySelection, bool createThumbnail = true);
-      bool saveCompressedFile(QIODevice *, const QFileInfo &, bool onlySelection, bool createThumbnail = true);
+      bool saveCompressedFile(QIODevice*, const QString& fileName, bool onlySelection, bool createThumbnail = true);
 
       void print(QPainter* printer, int page);
       ChordRest* getSelectedChordRest() const;
@@ -940,7 +937,7 @@ class Score : public QObject, public ScoreElement {
       void addLyrics(const Fraction& tick, int staffIdx, const QString&);
 
       void updateSwing();
-      void createPlayEvents(Measure* start = nullptr, Measure* end = nullptr);
+      void createPlayEvents(Measure const * start = nullptr, Measure const * const end = nullptr);
 
       void updateCapo();
       void updateVelo();
@@ -968,8 +965,8 @@ class Score : public QObject, public ScoreElement {
       void lassoSelectEnd();
 
       Page* searchPage(const QPointF&) const;
-      QList<System*> searchSystem(const QPointF& p, const System* preferredSystem = nullptr, qreal spacingFactor = 0.5) const;
-      Measure* searchMeasure(const QPointF& p, const System* preferredSystem = nullptr, qreal spacingFactor = 0.5) const;
+      QList<System*> searchSystem(const QPointF& p, const System* preferredSystem = nullptr, qreal spacingFactor = 0.5, qreal preferredSpacingFactor = 1.0) const;
+      Measure* searchMeasure(const QPointF& p, const System* preferredSystem = nullptr, qreal spacingFactor = 0.5, qreal preferredSpacingFactor = 1.0) const;
 
       bool getPosition(Position* pos, const QPointF&, int voice) const;
 
@@ -982,9 +979,8 @@ class Score : public QObject, public ScoreElement {
       void adjustBracketsIns(int sidx, int eidx);
       void adjustKeySigs(int sidx, int eidx, KeyList km);
 
-      Measure* searchLabel(const QString& s, Measure* startMeasure = nullptr, Measure* endMeasure = nullptr);
-      Measure* searchLabelWithinSectionFirst(const QString& s, Measure* sectionStartMeasure, Measure* sectionEndMeasure);
       virtual inline const RepeatList& repeatList() const;
+      virtual inline const RepeatList& repeatList2() const;
       qreal utick2utime(int tick) const;
       int utime2utick(qreal utime) const;
 
@@ -1222,10 +1218,10 @@ class Score : public QObject, public ScoreElement {
 
       bool isTopScore() const;
 
-      Text* headerText(int index) const               { return movements()->headersText()[index];     }
-      Text* footerText(int index) const               { return movements()->footersText()[index];     }
-      void setHeaderText(Text* t, int index)          { movements()->setHeaderText(t, index);         }
-      void setFooterText(Text* t, int index)          { movements()->setFooterText(t, index);         }
+      Text* headerText(int index) const               { return _headersText[index];     }
+      Text* footerText(int index) const               { return _footersText[index];     }
+      void setHeaderText(Text* t, int index)          { _headersText.at(index) = t;     }
+      void setFooterText(Text* t, int index)          { _footersText.at(index) = t;     }
 
       void cmdAddPitch(int note, bool addFlag, bool insert);
       void forAllLyrics(std::function<void(Lyrics*)> f);
@@ -1261,6 +1257,7 @@ class MasterScore : public Score {
       TimeSigMap* _sigmap;
       TempoMap* _tempomap;
       RepeatList* _repeatList;
+      RepeatList* _repeatList2;
       bool _expandRepeats     { MScore::playRepeats };
       bool _playlistDirty     { true };
       QList<Excerpt*> _excerpts;
@@ -1324,6 +1321,7 @@ class MasterScore : public Score {
       void setExpandRepeats(bool expandRepeats);
       void updateRepeatListTempo();
       virtual const RepeatList& repeatList() const override;
+      virtual const RepeatList& repeatList2() const override;
 
       virtual QList<Excerpt*>& excerpts() override                    { return _excerpts;   }
       virtual const QList<Excerpt*>& excerpts() const override        { return _excerpts;   }
@@ -1444,6 +1442,7 @@ class ScoreLoad {
 
 inline UndoStack* Score::undoStack() const             { return _masterScore->undoStack();      }
 inline const RepeatList& Score::repeatList()  const    { return _masterScore->repeatList();     }
+inline const RepeatList& Score::repeatList2()  const   { return _masterScore->repeatList2();    }
 inline TempoMap* Score::tempomap() const               { return _masterScore->tempomap();       }
 inline TimeSigMap* Score::sigmap() const               { return _masterScore->sigmap();         }
 inline QList<Excerpt*>& Score::excerpts()              { return _masterScore->excerpts();       }

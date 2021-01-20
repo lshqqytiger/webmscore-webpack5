@@ -590,6 +590,14 @@ MasterScore* MuseScore::getNewFile()
                   delete score;
                   return 0;
                   }
+            if (preferences.getBool(PREF_SCORE_HARMONY_PLAY_DISABLE_NEW)) {
+                  tscore->style().set(Sid::harmonyPlay, false);
+                  }
+            else if (preferences.getBool(PREF_SCORE_HARMONY_PLAY_DISABLE_COMPATIBILITY)) {
+                  // if template was older, then harmonyPlay may have been forced off by the compatibility preference
+                  // that's not appropriatew when creating new scores, even from old templates, so return it to default
+                  tscore->style().set(Sid::harmonyPlay, MScore::defaultStyle().value(Sid::harmonyPlay));
+                  }
             score->setStyle(tscore->style());
 
             // create instruments from template
@@ -640,6 +648,9 @@ MasterScore* MuseScore::getNewFile()
             }
       else {
             score = new MasterScore(MScore::defaultStyle());
+            if (preferences.getBool(PREF_SCORE_HARMONY_PLAY_DISABLE_NEW)) {
+                  score->style().set(Sid::harmonyPlay, false);
+                  }
             newWizard->createInstruments(score);
             }
       score->setCreated(true);
@@ -1804,7 +1815,7 @@ void MuseScore::exportFile()
 #ifdef USE_LAME
       fl.append(tr("MP3 Audio") + " (*.mp3)");
 #endif
-      fl.append(tr("Standard MIDI File") + " (*.mid)");
+      fl.append(tr("Standard MIDI File") + " (*.mid *.midi)");
       fl.append(tr("Compressed MusicXML File") + " (*.mxl)");
       fl.append(tr("Uncompressed MusicXML File") + " (*.musicxml)");
       fl.append(tr("Uncompressed MusicXML File (outdated)") + " (*.xml)");
@@ -1886,7 +1897,7 @@ bool MuseScore::exportParts()
 #ifdef USE_LAME
       fl.append(tr("MP3 Audio") + " (*.mp3)");
 #endif
-      fl.append(tr("Standard MIDI File") + " (*.mid)");
+      fl.append(tr("Standard MIDI File") + " (*.mid *.midi)");
       fl.append(tr("Compressed MusicXML File") + " (*.mxl)");
       fl.append(tr("Uncompressed MusicXML File") + " (*.musicxml)");
       fl.append(tr("Uncompressed MusicXML File (outdated)") + " (*.xml)");
@@ -2091,8 +2102,8 @@ bool MuseScore::saveAs(Score* cs_, bool saveCopy, const QString& path, const QSt
             // save as compressed MusicXML *.mxl file
             rv = saveMxl(cs_, fn);
             }
-      else if (ext == "mid") {
-            // save as midi file *.mid
+      else if ((ext == "mid") || (ext == "midi")) {
+            // save as midi file *.mid resp. *.midi
             rv = saveMidi(cs_, fn);
             }
       else if (ext == "pdf") {
@@ -2978,7 +2989,7 @@ QString MuseScore::getWallpaper(const QString& caption)
 // [This file is currently undergoing a bunch of changes, and that's the kind
 // [of edit that must be coordinated with the MuseScore master code base.
 //
-bool MuseScore::saveSvg(Score* score, const QString& saveName)
+bool MuseScore::saveSvg(Score* score, const QString& saveName, const NotesColors& notesColors)
       {
       const QList<Page*>& pl = score->pages();
       int pages = pl.size();
@@ -3017,7 +3028,8 @@ bool MuseScore::saveSvg(Score* score, const QString& saveName)
             QFile f(fileName);
             if (!f.open(QIODevice::WriteOnly))
                   return false;
-            bool rv = saveSvg(score, &f, pageNumber);
+            bool rv = saveSvg(score, &f, pageNumber, /* drawPageBackground */ false, notesColors);
+
             if (!rv)
                   return false;
             }
@@ -3027,9 +3039,46 @@ bool MuseScore::saveSvg(Score* score, const QString& saveName)
 #endif
 
 //---------------------------------------------------------
+//   MuseScore::readNotesColors
+///  Read notes colors from json file
+//---------------------------------------------------------
+
+NotesColors readNotesColors(const QString& filePath)
+{
+    if (filePath.isEmpty()) {
+        return NotesColors();
+    }
+
+    QFile file;
+    file.setFileName(filePath);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString content = file.readAll();
+    file.close();
+
+    QJsonDocument document = QJsonDocument::fromJson(content.toUtf8());
+    QJsonObject obj = document.object();
+    QJsonArray colors = obj.value("highlight").toArray();
+
+    NotesColors result;
+
+    for (const QJsonValue& colorObj: colors) {
+        QJsonObject cobj = colorObj.toObject();
+        QJsonArray notesIndexes = cobj.value("notes").toArray();
+        QColor notesColor = QColor(cobj.value("color").toString());
+
+        for (const QJsonValue& index: notesIndexes) {
+            result.insert(index.toInt(), notesColor);
+        }
+    }
+
+    return result;
+}
+
+//---------------------------------------------------------
+//   MuseScore::saveSvg
 ///  Save a single page as SVG
 //---------------------------------------------------------
-bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground)
+bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackground, const NotesColors& notesColors)
       {
       QString title(score->title());
       score->setPrinting(true);
@@ -3124,6 +3173,16 @@ bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
       QList<Element*> pel = page->elements();
       qStableSort(pel.begin(), pel.end(), elementLessThan);
       ElementType eType;
+
+      int lastNoteIndex = -1;
+      for (int i = 0; i < pageNumber; ++i) {
+          for (const Element* element: score->pages()[i]->elements()) {
+              if (element->type() == ElementType::NOTE) {
+                  lastNoteIndex++;
+              }
+          }
+      }
+
       for (const Element* e : pel) {
             // Always exclude invisible elements
             if (!e->visible())
@@ -3142,7 +3201,21 @@ bool saveSvg(Score* score, QIODevice* device, int pageNumber, bool drawPageBackg
             printer.setElement(e);
 
             // Paint it
-            paintElement(p, e);
+            if (e->type() == ElementType::NOTE) {
+                QColor color = e->color();
+                int currentNoteIndex = (++lastNoteIndex);
+
+                if (notesColors.contains(currentNoteIndex)) {
+                    color = notesColors[currentNoteIndex];
+                }
+
+                Element *note = dynamic_cast<const Note*>(e)->clone();
+                note->setColor(color);
+                paintElement(p, note);
+                delete note;
+            } else {
+                paintElement(p, e);
+            }
             }
       p.end(); // Writes MuseScore SVG file to disk, finally
 
@@ -3507,7 +3580,7 @@ QByteArray MuseScore::exportPdfAsJSON(Score* score)
 //   exportAllMediaFiles
 //---------------------------------------------------------
 
-bool MuseScore::exportAllMediaFiles(const QString& inFilePath, const QString& outFilePath)
+bool MuseScore::exportAllMediaFiles(const QString& inFilePath, const QString& highlightConfigPath, const QString& outFilePath)
       {
       std::unique_ptr<MasterScore> score(mscore->readScore(inFilePath));
       if (!score)
@@ -3547,7 +3620,10 @@ bool MuseScore::exportAllMediaFiles(const QString& inFilePath, const QString& ou
             QByteArray svgData;
             QBuffer svgDevice(&svgData);
             svgDevice.open(QIODevice::ReadWrite);
-            res &= mscore->saveSvg(score.get(), &svgDevice, i, /* drawPageBackground */ true);
+
+            NotesColors notesColors = readNotesColors(highlightConfigPath);
+            res &= mscore->saveSvg(score.get(), &svgDevice, i, /* drawPageBackground */ true, notesColors);
+
             bool lastArrayValue = ((score->pages().size() - 1) == i);
             jsonWriter.addValue(svgData.toBase64(), lastArrayValue);
             }
@@ -3716,8 +3792,8 @@ bool MuseScore::exportTransposedScoreToJSON(const QString& inFilePath, const QSt
       bool saved = false;
       QTemporaryFile tmpFile(QString("%1_transposed.XXXXXX.mscz").arg(score->title()));
       if (tmpFile.open()) {
-            QFileInfo fi(tmpFile.fileName());
-            saved = score->Score::saveCompressedFile(&tmpFile, fi, /* onlySelection */ false);
+            QString fileName = QFileInfo(tmpFile.fileName()).completeBaseName() + ".mscx";
+            saved = score->Score::saveCompressedFile(&tmpFile, fileName, /* onlySelection */ false);
             tmpFile.close();
             tmpFile.open();
             jsonWriter.addValue(tmpFile.readAll().toBase64());

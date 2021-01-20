@@ -1742,7 +1742,7 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="304"/>
         <source>Merge matching rests</source>
-        <translation>Erstat samtidig pause i flere stemmer med kun én pause.</translation>
+        <translation>Sammenlæg samtidige pauser til en</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="450"/>
@@ -12793,7 +12793,7 @@ Lyd: %5</translation>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="105"/>
         <source>Portable version</source>
-        <translation>Portable version</translation>
+        <translation>Portabel version</translation>
     </message>
 </context>
 <context>
@@ -13822,7 +13822,7 @@ Genskab sessionen?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8211"/>
         <source>Initializing start center…</source>
-        <translation>Initialiserer opstartscenter</translation>
+        <translation>Initialiserer startcenter</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8233"/>
@@ -13932,7 +13932,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="388"/>
         <source>Choose key signature:</source>
-        <translation>Vælg toneart</translation>
+        <translation>Vælg toneart:</translation>
     </message>
     <message>
         <location filename="../../mscore/newwizard.cpp" line="393"/>
@@ -14195,7 +14195,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="614"/>
         <source>Cut notes</source>
-        <translation>Afkort noder</translation>
+        <translation>Klip noder</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="618"/>
@@ -14248,7 +14248,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="101"/>
         <source>Part:</source>
-        <translation>Instrument:</translation>
+        <translation>Stemme:</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="196"/>
@@ -14373,7 +14373,7 @@ connection enabled</source>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="569"/>
         <source>Part: %1</source>
-        <translation>Del: %1</translation>
+        <translation>Stemme: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="589"/>
@@ -16579,12 +16579,12 @@ prøv med et andet navn: </translation>
     <message>
         <location filename="../../libmscore/arpeggio.cpp" line="29"/>
         <source>Up arpeggio</source>
-        <translation>Opad arpeggio</translation>
+        <translation>Stigende arpeggio</translation>
     </message>
     <message>
         <location filename="../../libmscore/arpeggio.cpp" line="30"/>
         <source>Down arpeggio</source>
-        <translation>Nedad arpeggio</translation>
+        <translation>Faldende arpeggio</translation>
     </message>
     <message>
         <location filename="../../libmscore/arpeggio.cpp" line="31"/>
@@ -16594,12 +16594,12 @@ prøv med et andet navn: </translation>
     <message>
         <location filename="../../libmscore/arpeggio.cpp" line="32"/>
         <source>Up arpeggio straight</source>
-        <translation>Opad lige arpeggio</translation>
+        <translation>Stigende lige arpeggio</translation>
     </message>
     <message>
         <location filename="../../libmscore/arpeggio.cpp" line="33"/>
         <source>Down arpeggio straight</source>
-        <translation>Nedad lige arpeggio</translation>
+        <translation>Faldende lige arpeggio</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1573"/>
@@ -16852,32 +16852,32 @@ prøv med et andet navn: </translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1508"/>
         <source>Half note = 80 BPM</source>
-        <translation>Halvnode = 80 BPM</translation>
+        <translation>Halvnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1509"/>
         <source>Quarter note = 80 BPM</source>
-        <translation>4.-delsnode = 80 BPM</translation>
+        <translation>4.-delsnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1510"/>
         <source>Eighth note = 80 BPM</source>
-        <translation>8.-delsnode = 80 BPM</translation>
+        <translation>8.-delsnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1511"/>
         <source>Dotted half note = 80 BPM</source>
-        <translation>Punkteret halvnode = 80 BPM</translation>
+        <translation>Punkteret halvnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1512"/>
         <source>Dotted quarter note = 80 BPM</source>
-        <translation>Punkteret 4.-delsnode = 80 BPM</translation>
+        <translation>Punkteret 4.-delsnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1513"/>
         <source>Dotted eighth note = 80 BPM</source>
-        <translation>Punkteret 8.-delsnode = 80 BPM</translation>
+        <translation>Punkteret 8.-delsnode = 80 slag/min</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1530"/>
@@ -17198,7 +17198,7 @@ mislykkedes:</translation>
     <message>
         <location filename="../../libmscore/glissando.cpp" line="55"/>
         <source>Wavy glissando</source>
-        <translation>Bølgende glissando</translation>
+        <translation>Bølget glissando</translation>
     </message>
 </context>
 <context>
@@ -17303,7 +17303,7 @@ mislykkedes:</translation>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="29"/>
         <source>Palettes Tree, contains %n palette(s)</source>
-        <translation><numerusform>Palettetræet indeholder %n palette</numerusform><numerusform>Palettetræet indeholder %n paletter</numerusform></translation>
+        <translation><numerusform>Palettetræet indeholder %n palette</numerusform><numerusform>Palettetræet indeholder %n palette(r)</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../../mscore/qml/palettes/PaletteTree.qml" line="503"/>
@@ -17594,7 +17594,7 @@ mislykkedes:</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="17"/>
         <source>Multiply the duration by thousandths of the full note duration</source>
-        <translation>Ændr varigheden af nodeværdien i tusinddele (1000 = Fuld værdi)</translation>
+        <translation>Gang nodevarigheden med tusinddele af nodeværdien</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="19"/>
@@ -17895,7 +17895,7 @@ Dette vil reevaluere alle programudvidelser og opsamle eventuelle ændringer.</t
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="598"/>
         <source>Program Start</source>
-        <translation>Programopstart</translation>
+        <translation>Programstart</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="604"/>
@@ -17915,27 +17915,27 @@ Dette vil reevaluere alle programudvidelser og opsamle eventuelle ændringer.</t
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="646"/>
         <source>Insert path to starting score</source>
-        <translation>Indsæt sti til opstartsnodeark</translation>
+        <translation>Indsæt sti til startnodeark</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="656"/>
         <source>Choose starting score</source>
-        <translation>Vælg opstartsnodeark</translation>
+        <translation>Vælg startnodeark</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="659"/>
         <source>Opens a file dialog for selecting the starting score</source>
-        <translation>Åbner dialog til valg af opstartsnodeark</translation>
+        <translation>Åbner dialog til valg af startnodeark</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="675"/>
         <source>Show splash screen</source>
-        <translation>Vis opstartsbillede</translation>
+        <translation>Vis startbillede</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="611"/>
         <source>Show start center</source>
-        <translation>Vis opstartscenter</translation>
+        <translation>Vis startcenter</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="97"/>
@@ -19323,22 +19323,22 @@ Justering af latency kan gøre det lettere at synkronisere MIDI udstyr med MuseS
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3583"/>
         <source>128th</source>
-        <translation>128.</translation>
+        <translation>1/128</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3588"/>
         <source>256th</source>
-        <translation>256.</translation>
+        <translation>1/256</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3593"/>
         <source>512th</source>
-        <translation>512.</translation>
+        <translation>1/512</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3598"/>
         <source>1024th</source>
-        <translation>1024.</translation>
+        <translation>1/1024</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3622"/>
@@ -21738,7 +21738,7 @@ Bemærk: &quot;Ctrl+Skift+1&quot; er én tastkombination.</translation>
     <message>
         <location filename="../../mscore/startcenter.ui" line="20"/>
         <source>Start Center</source>
-        <translation>Opstartscenter</translation>
+        <translation>Startcenter</translation>
     </message>
     <message>
         <location filename="../../mscore/startcenter.ui" line="71"/>
@@ -23107,22 +23107,22 @@ Bemærk: &quot;Ctrl+Skift+1&quot; er én tastkombination.</translation>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="41"/>
         <source>Eighth through stem</source>
-        <translation>8. gennem nodehals</translation>
+        <translation>1/8 gennem nodehals</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="42"/>
         <source>16th through stem</source>
-        <translation>16.  gennem nodehals</translation>
+        <translation>1/16  gennem nodehals</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="43"/>
         <source>32nd through stem</source>
-        <translation>32. gennem nodehals</translation>
+        <translation>1/32 gennem nodehals</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="44"/>
         <source>64th through stem</source>
-        <translation>64. gennem nodehals</translation>
+        <translation>1/64 gennem nodehals</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="45"/>
@@ -23132,22 +23132,22 @@ Bemærk: &quot;Ctrl+Skift+1&quot; er én tastkombination.</translation>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="46"/>
         <source>Eighth between notes</source>
-        <translation>8. mellem noder</translation>
+        <translation>1/8 mellem noder</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="47"/>
         <source>16th between notes</source>
-        <translation>16. mellem noder</translation>
+        <translation>1/16 mellem noder</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="48"/>
         <source>32nd between notes</source>
-        <translation>32. mellem noder</translation>
+        <translation>1/32 mellem noder</translation>
     </message>
     <message>
         <location filename="../../libmscore/tremolo.cpp" line="49"/>
         <source>64th between notes</source>
-        <translation>64. mellem noder</translation>
+        <translation>1/64 mellem noder</translation>
     </message>
 </context>
 <context>
@@ -24144,7 +24144,7 @@ slog fejl:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="327"/>
         <source>Enter notes while tapping a key or pedal to set the tempo</source>
-        <translation>Indspil fra keyboard med taktslag fra pedal eller tastetryk</translation>
+        <translation>Indspil noder med taktslag fra pedal eller tastetryk</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="337"/>
@@ -24757,7 +24757,7 @@ slog fejl:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1306"/>
         <source>Append One Measure</source>
-        <translation>Tilføj en takt</translation>
+        <translation>Tilføj én takt</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1307"/>
@@ -24777,7 +24777,7 @@ slog fejl:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1320"/>
         <source>Insert One Measure</source>
-        <translation>Indsæt en takt</translation>
+        <translation>Indsæt én takt</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1321"/>
@@ -24992,7 +24992,7 @@ slog fejl:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1503"/>
         <source>Eighth Note</source>
-        <translation>8.-dels node</translation>
+        <translation>8.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1504"/>
@@ -25072,7 +25072,7 @@ slog fejl:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1558"/>
         <source>256th Note</source>
-        <translation>256.-dels node</translation>
+        <translation>256.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1559"/>
@@ -25083,12 +25083,12 @@ slog fejl:</translation>
         <location filename="../../mscore/shortcut.cpp" line="1560"/>
         <location filename="../../mscore/shortcut.cpp" line="3350"/>
         <source>256th note</source>
-        <translation>256.-dels node</translation>
+        <translation>256.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1569"/>
         <source>512th Note</source>
-        <translation>512.-dels node</translation>
+        <translation>512.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1570"/>
@@ -25099,12 +25099,12 @@ slog fejl:</translation>
         <location filename="../../mscore/shortcut.cpp" line="1571"/>
         <location filename="../../mscore/shortcut.cpp" line="3360"/>
         <source>512th note</source>
-        <translation>512.-dels node</translation>
+        <translation>512.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1580"/>
         <source>1024th Note</source>
-        <translation>1024.-dels node</translation>
+        <translation>1024.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1581"/>
@@ -25115,7 +25115,7 @@ slog fejl:</translation>
         <location filename="../../mscore/shortcut.cpp" line="1582"/>
         <location filename="../../mscore/shortcut.cpp" line="3370"/>
         <source>1024th note</source>
-        <translation>1024.-dels node</translation>
+        <translation>1024.-delsnode</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1591"/>
@@ -32504,7 +32504,7 @@ Takten er ikke tom</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4911"/>
         <source>Left (start) repeat sign</source>
-        <translation>Start gentagelsestaktstreg</translation>
+        <translation>Start gentagelsestegn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4912"/>
@@ -32514,7 +32514,7 @@ Takten er ikke tom</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4913"/>
         <source>Right and left repeat sign</source>
-        <translation>Stop og start gentagelsestegn</translation>
+        <translation>Slut og start gentagelsestegn</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4914"/>

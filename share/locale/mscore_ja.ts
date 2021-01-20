@@ -10548,7 +10548,7 @@ space unit</extracomment>
         <location filename="../../libmscore/instrument.cpp" line="32"/>
         <source>harmony</source>
         <extracomment>Channel name for the chord symbols playback channel, best keep translation shorter than 11 letters</extracomment>
-        <translation type="unfinished"/>
+        <translation>ハーモニー</translation>
     </message>
 </context>
 <context>
@@ -11432,7 +11432,7 @@ tuplet would cross measure</source>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="469"/>
         <source>Sound name</source>
-        <translation>音名</translation>
+        <translation>サウンド名</translation>
     </message>
     <message>
         <location filename="../../mscore/mixer/mixerdetails.ui" line="484"/>
@@ -12793,7 +12793,7 @@ Sound: %5</source>
     <message>
         <location filename="../../mscore/mssplashscreen.cpp" line="105"/>
         <source>Portable version</source>
-        <translation type="unfinished"/>
+        <translation>ポータブル バージョン</translation>
     </message>
 </context>
 <context>
@@ -13662,7 +13662,7 @@ Are you sure you want to proceed?</source>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4395"/>
         <source>Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>通常モード</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4403"/>
@@ -22675,7 +22675,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="348"/>
         <source>Enter Number of Measures:</source>
-        <translation type="unfinished"/>
+        <translation>小節数を入力:</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="363"/>
@@ -22742,7 +22742,7 @@ Note: &quot;Ctrl+Shift+1&quot; is one key combination.</source>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="32"/>
         <source>Transpose to key (specified at concert pitch)</source>
-        <translation type="unfinished"/>
+        <translation>キーを移調 (指定されたコンサートピッチへ)</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="35"/>

@@ -3164,7 +3164,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4553"/>
         <source>Vertical Distance from Notes</source>
-        <translation type="unfinished"/>
+        <translation>Notetatik distantzia bertikala</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4725"/>
@@ -3174,7 +3174,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4735"/>
         <source>Horizontal Distance from Notes</source>
-        <translation type="unfinished"/>
+        <translation>Notetatik distantzia horizontala</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4884"/>
@@ -3250,12 +3250,12 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9618"/>
         <source>German</source>
-        <translation type="unfinished"/>
+        <translation>Alemaniarra</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9628"/>
         <source>Full German</source>
-        <translation type="unfinished"/>
+        <translation>Alemaniarra Osoa</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9638"/>
@@ -3265,7 +3265,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9648"/>
         <source>French</source>
-        <translation type="unfinished"/>
+        <translation>Frantziarra</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9670"/>
@@ -3285,7 +3285,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9693"/>
         <source>All caps note names</source>
-        <translation type="unfinished"/>
+        <translation>Noten izena guztiak maiuskuletan</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9719"/>
@@ -3401,13 +3401,13 @@ arteko distantzia:</translation>
         <location filename="../../mscore/editstyle.ui" line="191"/>
         <location filename="../../mscore/editstyle.ui" line="7829"/>
         <source>Tempo Text</source>
-        <translation type="unfinished"/>
+        <translation>Tenpoaren Testua</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="206"/>
         <location filename="../../mscore/editstyle.ui" line="8943"/>
         <source>Rehearsal Marks</source>
-        <translation type="unfinished"/>
+        <translation>Entsegu Markak</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="166"/>
@@ -3428,7 +3428,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="268"/>
         <source>MuseScore will change the style to suit the font better</source>
-        <translation type="unfinished"/>
+        <translation>MuseScorek estiloa aldatuko du letra motari hobeto moldatzeko</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="271"/>
@@ -3758,12 +3758,12 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2163"/>
         <source>Horizontal placement:</source>
-        <translation type="unfinished"/>
+        <translation>Kokapen horizontala:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2204"/>
         <source>Vertical placement:</source>
-        <translation type="unfinished"/>
+        <translation>Kokapen bertikala</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2836"/>
@@ -3982,7 +3982,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10084"/>
         <source>Barre line thickness:</source>
-        <translation type="unfinished"/>
+        <translation>Barra-lerroaren lodiera:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10292"/>
@@ -4294,7 +4294,7 @@ arteko distantzia:</translation>
         <location filename="../../mscore/editstyle.ui" line="8893"/>
         <location filename="../../mscore/editstyle.ui" line="8962"/>
         <source>Position below:</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena azpian:</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2285"/>
@@ -4974,7 +4974,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="248"/>
         <source>Instruments in Score</source>
-        <translation type="unfinished"/>
+        <translation>Instrumentuak Partituran</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="263"/>
@@ -4994,7 +4994,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="336"/>
         <source>Instruments in Part</source>
-        <translation type="unfinished"/>
+        <translation>Instrumentuak Partean</translation>
     </message>
     <message>
         <location filename="../../mscore/excerptsdialog.ui" line="355"/>
@@ -5170,7 +5170,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="14"/>
         <source>Insert Measures</source>
-        <translation type="unfinished"/>
+        <translation>Konpasak Txertatu</translation>
     </message>
     <message>
         <location filename="../../mscore/insertmeasuresdialog.ui" line="39"/>
@@ -6180,12 +6180,12 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_bracket.ui" line="88"/>
         <source>Column</source>
-        <translation type="unfinished"/>
+        <translation>Zutabea</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bracket.ui" line="95"/>
         <source>Column:</source>
-        <translation type="unfinished"/>
+        <translation>Zutabea:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_bracket.ui" line="111"/>
@@ -6242,7 +6242,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_caesura.ui" line="155"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_caesura.ui" line="178"/>
@@ -6252,7 +6252,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_caesura.ui" line="88"/>
         <source>Pause</source>
-        <translation type="unfinished"/>
+        <translation>Pausatu</translation>
     </message>
 </context>
 <context>
@@ -6396,7 +6396,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="303"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="284"/>
@@ -6431,7 +6431,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="163"/>
         <source>Slow</source>
-        <translation type="unfinished"/>
+        <translation>Geldoa</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="168"/>
@@ -6441,7 +6441,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="173"/>
         <source>Fast</source>
-        <translation type="unfinished"/>
+        <translation>Arina</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="187"/>
@@ -6461,7 +6461,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="242"/>
         <source>Change speed:</source>
-        <translation type="unfinished"/>
+        <translation>Aldatu abiadura:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="256"/>
@@ -6529,7 +6529,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="270"/>
         <source>Automatic placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapen automatikoa</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="283"/>
@@ -6539,7 +6539,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="296"/>
         <source>Minimum distance</source>
-        <translation type="unfinished"/>
+        <translation>Gutxienezko distantzia</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_element.ui" line="299"/>
@@ -6625,7 +6625,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_fermata.ui" line="156"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_fermata.ui" line="160"/>
@@ -7085,12 +7085,12 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="122"/>
         <source>Enable Autoplace</source>
-        <translation type="unfinished"/>
+        <translation>Aktibatu Autokokatu</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_group_element.ui" line="132"/>
         <source>Disable Autoplace</source>
-        <translation type="unfinished"/>
+        <translation>Desaktibatu Autokokatu</translation>
     </message>
 </context>
 <context>
@@ -7315,7 +7315,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="189"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_hairpin.ui" line="193"/>
@@ -7378,7 +7378,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="156"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="160"/>
@@ -7522,7 +7522,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="144"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_instrchange.ui" line="161"/>
@@ -7545,7 +7545,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_jump.ui" line="57"/>
         <source>Jump</source>
-        <translation type="unfinished"/>
+        <translation>Jauzi egin</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_jump.ui" line="82"/>
@@ -7679,7 +7679,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="101"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_letring.ui" line="105"/>
@@ -7712,7 +7712,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="85"/>
         <source>Line color:</source>
-        <translation type="unfinished"/>
+        <translation>Lerroaren kolorea:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_line.ui" line="98"/>
@@ -7871,7 +7871,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_lyric.ui" line="127"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_lyric.ui" line="144"/>
@@ -8389,7 +8389,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="157"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_ottava.ui" line="161"/>
@@ -8437,7 +8437,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="101"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_palmmute.ui" line="105"/>
@@ -8475,7 +8475,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_pedal.ui" line="101"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_pedal.ui" line="105"/>
@@ -8556,7 +8556,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_sectionbreak.ui" line="150"/>
         <source>Pause</source>
-        <translation type="unfinished"/>
+        <translation>Pausatu</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_sectionbreak.ui" line="153"/>
@@ -8740,7 +8740,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="152"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_stafftext.ui" line="182"/>
@@ -9159,7 +9159,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="57"/>
         <source>Tempo Text</source>
-        <translation type="unfinished"/>
+        <translation>Tenpoaren Testua</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="104"/>
@@ -9184,7 +9184,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="178"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_tempotext.ui" line="201"/>
@@ -9394,7 +9394,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_textline.ui" line="88"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textline.ui" line="92"/>
@@ -9555,7 +9555,7 @@ arteko distantzia:</translation>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="582"/>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="805"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_textlinebase.ui" line="216"/>
@@ -9885,7 +9885,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="121"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_trill.ui" line="125"/>
@@ -10252,7 +10252,7 @@ arteko distantzia:</translation>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="101"/>
         <source>Placement</source>
-        <translation type="unfinished"/>
+        <translation>Kokapena</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_vibrato.ui" line="105"/>
@@ -27792,7 +27792,7 @@ huts egin du:</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3855"/>
         <source>Toggle Automatic Placement</source>
-        <translation type="unfinished"/>
+        <translation>Aktibatu Kokapen Automatikoa</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3856"/>
@@ -29793,7 +29793,7 @@ huts egin du:</translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="68"/>
         <source>Jump</source>
-        <translation type="unfinished"/>
+        <translation>Jauzi egin</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="69"/>

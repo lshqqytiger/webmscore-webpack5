@@ -722,7 +722,7 @@
     <message>
         <location filename="../../mscore/editdrumset.ui" line="68"/>
         <source>Name</source>
-        <translation>Pangalan</translation>
+        <translation>Ngalan</translation>
     </message>
     <message>
         <location filename="../../mscore/editdrumset.ui" line="108"/>
@@ -16092,7 +16092,7 @@ please choose a different name:</source>
     <message>
         <location filename="../../mscore/newwizard.ui" line="20"/>
         <source>Title:</source>
-        <translation>Pabalat:</translation>
+        <translation>Pamagat:</translation>
     </message>
     <message>
         <location filename="../../mscore/newwizard.ui" line="27"/>

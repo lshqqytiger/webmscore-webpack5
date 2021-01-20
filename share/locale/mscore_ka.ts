@@ -1937,12 +1937,12 @@
     <message>
         <location filename="../../mscore/editstaff.ui" line="827"/>
         <source>Sharps</source>
-        <translation type="unfinished"/>
+        <translation>ძიეზები</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="832"/>
         <source>Flats</source>
-        <translation type="unfinished"/>
+        <translation>ბემოლები</translation>
     </message>
     <message>
         <location filename="../../mscore/editstaff.ui" line="876"/>

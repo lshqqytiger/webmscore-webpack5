@@ -771,6 +771,9 @@ int diatonicUpDown(Key k, int pitch, int steps)
 
 Note* searchTieNote(Note* note)
       {
+      if (!note)
+            return nullptr;
+
       Note* note2  = 0;
       Chord* chord = note->chord();
       Segment* seg = chord->segment();
@@ -783,7 +786,7 @@ Note* searchTieNote(Note* note)
 
             // try to tie to next grace note
 
-            int index = chord->graceIndex();
+            int index = note->chord()->graceIndex();
             for (Chord* c : chord->graceNotes()) {
                   if (c->graceIndex() == index + 1) {
                         note2 = c->findNote(note->pitch());
@@ -1017,6 +1020,8 @@ std::vector<SymId> toTimeSigString(const QString& s)
             { 40,    SymId::timeSigParensLeftSmall  },  // '('
             { 41,    SymId::timeSigParensRightSmall },  // ')'
             { 162,   SymId::timeSigCutCommon        },  // '¢'
+            { 189,   SymId::timeSigFractionHalf     },
+            { 188,   SymId::timeSigFractionQuarter  },
             { 59664, SymId::mensuralProlation1      },
             { 79,    SymId::mensuralProlation2      },  // 'O'
             { 59665, SymId::mensuralProlation2      },

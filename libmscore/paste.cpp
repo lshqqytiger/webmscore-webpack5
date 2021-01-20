@@ -363,6 +363,7 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                            || tag == "StaffText"
                            || tag == "TempoText"
                            || tag == "FiguredBass"
+                           || tag == "Sticking"
                            || tag == "Fermata"
                            ) {
                               Element* el = Element::name2Element(tag, this);
@@ -397,8 +398,9 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                               }
                         else if (tag == "Breath") {
                               Breath* breath = new Breath(this);
-                              breath->read(e);
                               breath->setTrack(e.track());
+                              breath->setPlacement(breath->track() & 1 ? Placement::BELOW : Placement::ABOVE);
+                              breath->read(e);
                               Fraction tick = doScale ? (e.tick() - dstTick) * scale + dstTick : e.tick();
                               Measure* m = tick2measure(tick);
                               if (m->tick() == tick)
@@ -847,6 +849,16 @@ void Score::pasteSymbols(XmlReader& e, ChordRest* dst)
                                     el->setTrack(destTrack);
                                     el->setParent(cr);
                                     if (!el->isFermata() && cr->isRest())
+                                          delete el;
+                                    else
+                                          undoAddElement(el);
+                                    }
+                              else if (tag == "StaffText" || tag == "Sticking") {
+                                    Element* el = Element::name2Element(tag, this);
+                                    el->read(e);
+                                    el->setTrack(destTrack);
+                                    el->setParent(currSegm);
+                                    if (el->isSticking() && cr->isRest())
                                           delete el;
                                     else
                                           undoAddElement(el);

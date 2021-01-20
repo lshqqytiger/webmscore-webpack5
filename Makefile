@@ -21,7 +21,6 @@ CPUS      := $(shell getconf _NPROCESSORS_ONLN 2>/dev/null || getconf NPROCESSOR
 
 PREFIX    = "/usr/local"
 VERSION   := $(shell cmake -P config.cmake | sed -n -e "s/^.*VERSION  *//p")
-BUILD_NUMBER=""
 
 # Override SUFFIX and LABEL when multiple versions are installed to avoid conflicts.
 SUFFIX=""# E.g.: SUFFIX="dev" --> "mscore" becomes "mscoredev"

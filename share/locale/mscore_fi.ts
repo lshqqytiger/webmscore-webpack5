@@ -2549,7 +2549,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="541"/>
         <source>Don&apos;t hide empty staves in first system</source>
-        <translation>Älä piilota tyhjiä tahteja ensimmäisessä systeemissä</translation>
+        <translation>Älä piilota tyhjiä viivastoja ensimmäisessä systeemissä</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="565"/>

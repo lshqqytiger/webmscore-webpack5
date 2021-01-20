@@ -248,8 +248,7 @@ const char* _saveMsc(uintptr_t score_ptr, bool compressed, int excerptId) {
     buffer.open(QIODevice::ReadWrite);
 
     if (compressed) {
-        QFileInfo info("score.mscz");
-        score->saveCompressedFile(&buffer, info, false, true);
+        score->saveCompressedFile(&buffer, "score.mscx", false, true);
     } else {
         score->saveFile(&buffer, false, false);
     }

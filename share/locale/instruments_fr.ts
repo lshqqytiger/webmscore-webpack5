@@ -2722,13 +2722,13 @@
         <location filename="../instruments/instrumentsxml.h" line="282"/>
         <source>Cl.</source>
         <comment>Clarinet</comment>
-        <translation>Cla.</translation>
+        <translation>Clar.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="284"/>
         <source>P. Cl.</source>
         <comment>Piccolo Clarinet</comment>
-        <translation>Cla. Picc.</translation>
+        <translation>Clar. Picc.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="286"/>
@@ -2804,7 +2804,7 @@
         <location filename="../instruments/instrumentsxml.h" line="306"/>
         <source>B. Cl.</source>
         <comment>Bass Clarinet</comment>
-        <translation>Cl. Basse</translation>
+        <translation>Clar. Basse</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="307"/>

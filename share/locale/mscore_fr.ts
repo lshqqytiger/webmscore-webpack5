@@ -389,7 +389,7 @@
     <message>
         <location filename="../../mscore/breaksdialog.ui" line="47"/>
         <source>measures</source>
-        <translation>Mesures</translation>
+        <translation>mesures</translation>
     </message>
     <message>
         <location filename="../../mscore/breaksdialog.ui" line="69"/>
@@ -503,7 +503,7 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="403"/>
         <source>The balance between the RMS and peak envelope followers. RMS is generally better for subtle musical compression and peak is better for heavier, fast compression and percussion.</source>
-        <translation>L&apos;équilibre entre les courbes d&apos;enveloppe de puissance efficace (RMS) et de puissance de pic. Le RMS est meilleur pour une compression musicale plus subtile, tandis que le pic est meilleur pour une compression plus puissante, plus percussive et plus rapide.</translation>
+        <translation>L&apos;équilibre entre les courbes d&apos;enveloppe de puissance efficace (RMS) et de puissance crête. La valeur RMS est meilleure pour une compression musicale plus subtile, tandis que la valeur crête est meilleure pour une compression plus puissante, plus percussive et plus rapide.</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="432"/>
@@ -2287,7 +2287,7 @@
         <location filename="../../mscore/editstafftype.ui" line="1181"/>
         <source>None</source>
         <comment>neither short nor slashed stem</comment>
-        <translation>Aucun</translation>
+        <translation>Aucune</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1197"/>
@@ -2324,7 +2324,7 @@
         <location filename="../../mscore/editstafftype.ui" line="847"/>
         <source>None</source>
         <comment>neither note symbols nor stems and beams</comment>
-        <translation>Aucun</translation>
+        <translation>Aucune</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1316"/>
@@ -2339,7 +2339,7 @@
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1355"/>
         <source>Create a new staff type of current group.</source>
-        <translation>Créer une nouvelle portée pour le groupe courant.</translation>
+        <translation>Créer un nouveau type de portée pour le groupe courant.</translation>
     </message>
     <message>
         <location filename="../../mscore/editstafftype.ui" line="1358"/>
@@ -3406,7 +3406,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="206"/>
         <location filename="../../mscore/editstyle.ui" line="8943"/>
         <source>Rehearsal Marks</source>
-        <translation>Symboles de répétition</translation>
+        <translation>Repères de répétition</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="166"/>
@@ -3652,7 +3652,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="890"/>
         <source>Reset &apos;Staff distance&apos; value</source>
-        <translation>Réinitialiser la &apos;Distance entre portées&apos;</translation>
+        <translation>Réinitialiser la valeur &apos;Distance entre portées&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="957"/>
@@ -3767,7 +3767,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2836"/>
         <source>Reset &apos;Staff line thickness&apos; value</source>
-        <translation>Réinitialiser l&apos;épaisseur des lignes de portée</translation>
+        <translation>Réinitialiser la valeur &apos;Épaisseur des lignes de portée&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="2853"/>
@@ -3986,7 +3986,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10292"/>
         <source>Reset &apos;Follow staff size&apos; value</source>
-        <translation>Réinitialiser la &apos;Suit le paramètre Espace de portée&apos;</translation>
+        <translation>Réinitialiser la valeur &apos;Suit le paramètre Espace de portée&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="10387"/>
@@ -4376,7 +4376,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9258"/>
         <source>from top of staff</source>
-        <translation>du début de la portée</translation>
+        <translation>du haut de la portée</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="9265"/>
@@ -4477,7 +4477,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5011"/>
         <source>Bracket hook height:</source>
-        <translation>Hauteur du crochet :</translation>
+        <translation>Hauteur du crochet système :</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="5065"/>
@@ -9267,7 +9267,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="274"/>
         <source>Reset &apos;Border color&apos; values</source>
-        <translation>Réinitialiser la valeur &apos;Couleur de bordure&apos;</translation>
+        <translation>Réinitialiser les valeurs &apos;Couleur de bordure&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="281"/>
@@ -9342,7 +9342,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="519"/>
         <source>Reset &apos;Follow staff size&apos; value</source>
-        <translation>Réinitialiser la &apos;Suit le paramètre Espace de portée&apos;</translation>
+        <translation>Réinitialiser la valeur &apos;Suit le paramètre Espace de portée&apos;</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_text.ui" line="145"/>
@@ -10946,8 +10946,8 @@ l&apos;anacrouse</translation>
 You only need to do this once.
 
 Would you like to locate %2 now?</source>
-        <translation>MuseScore n&apos;est pas capable d&apos;exporter directement en MP3, mais à la place vous pouvez utiliser la bibliothèque Lame disponible gratuitement. Vous devez obtenir %1 séparément (pour les détails, voir le manuel), et ensuite ajouter le fichier à MuseScore.
-La manipulation doit être faite qu&apos;une seule fois.
+        <translation>MuseScore ne peut pas exporter directement en MP3, mais vous pouvez installer la bibliothèque Lame disponible gratuitement. Vous devez obtenir %1 séparément (pour les détails, voir le manuel), et ensuite ajouter le fichier à MuseScore.
+La manipulation ne doit être faite qu&apos;une seule fois.
 
 Voulez vous ajouter %2 maintenant ?</translation>
     </message>
@@ -11108,7 +11108,7 @@ La division irrégulière dépasserait la mesure</translation>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="301"/>
         <source>Play count:</source>
-        <translation>Nombre de répétitions de lecture :</translation>
+        <translation>Nombre de lectures :</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="343"/>
@@ -11153,7 +11153,7 @@ La division irrégulière dépasserait la mesure</translation>
     <message>
         <location filename="../../mscore/measureproperties.ui" line="477"/>
         <source>Go to next measure</source>
-        <translation>Mesure suivante</translation>
+        <translation>Aller à la mesure suivante</translation>
     </message>
 </context>
 <context>
@@ -11651,7 +11651,7 @@ Un condensé aisément consultable est disponible ici :
     <message>
         <location filename="../../mscore/searchComboBox.cpp" line="104"/>
         <source>Rehearsal Mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../mscore/searchComboBox.cpp" line="107"/>
@@ -12592,7 +12592,7 @@ a échoué : %2</translation>
     <message>
         <location filename="../../mscore/measureproperties.cpp" line="123"/>
         <source>Measure Properties for Measure %1</source>
-        <translation>Propriétés de la mesure pour mesure %1</translation>
+        <translation>Propriétés de la mesure %1</translation>
     </message>
     <message>
         <location filename="../../mscore/measureproperties.cpp" line="156"/>
@@ -13488,7 +13488,7 @@ Veuillez sélectionner une mesure et réessayer</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2128"/>
         <source>&amp;Measure</source>
-        <translation>Mesures</translation>
+        <translation>Mesure</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2126"/>
@@ -14181,7 +14181,7 @@ connexion Internet</translation>
     <message>
         <location filename="../../mscore/pathlistdialog.cpp" line="58"/>
         <source>Choose a directory</source>
-        <translation>Choisir un répertoire de travail</translation>
+        <translation>Choisir un dossier</translation>
     </message>
 </context>
 <context>
@@ -14767,7 +14767,7 @@ Ce plugin nécessite qu&apos;une partition soit ouverte pour fonctionner.
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1395"/>
         <source>Warning: You used the same CoreMIDI IAC bus for input and output. This will cause problematic loopback, whereby MuseScore&apos;s output MIDI messages will be sent back to MuseScore as input, causing confusion. To avoid this problem, access Audio MIDI Setup via Spotlight to create a dedicated virtual port for MuseScore&apos;s MIDI output, restart MuseScore, return to Preferences, and select your new virtual port for MuseScore&apos;s MIDI output. Other programs may then use that dedicated virtual port to receive MuseScore&apos;s MIDI output.</source>
-        <translation>Attention : Vous utilisez le même bus CoreMIDI IAC pour l&apos;entrée et la sortie. Ceci va provoquer une boucle: MuseScore va envoyer ses messages MIDI à sa propre entrée. Pour éviter ce problème, accéder &quot;Configuration Audio et MIDI&quot; via Spotlight pour créer un port virtuel dédié pour la sortie MIDI de MuseScore, relancer MuseScore, et dans Préférences, choisissez votre nouveau port virtuel pour la sortie MIDI. Les autres programmes peuvent maintenant utiliser ce port dédié pour recevoir les messages MIDI de MuseScore.</translation>
+        <translation>Attention : Vous utilisez le même bus CoreMIDI IAC pour l&apos;entrée et la sortie. Ceci va provoquer une boucle, MuseScore va envoyer ses messages MIDI à sa propre entrée. Pour éviter ce problème, accéder &quot;Configuration Audio et MIDI&quot; via Spotlight pour créer un port virtuel dédié pour la sortie MIDI de MuseScore, relancer MuseScore, et dans Préférences, choisissez votre nouveau port virtuel pour la sortie MIDI. Les autres programmes peuvent maintenant utiliser ce port dédié pour recevoir les messages MIDI de MuseScore.</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1434"/>
@@ -14945,7 +14945,7 @@ Ce plugin nécessite qu&apos;une partition soit ouverte pour fonctionner.
         <location filename="../../mscore/resourceManager.cpp" line="395"/>
         <source>Unable to download, save and verify the package.
 Check your internet connection.</source>
-        <translation>Impossible de télécharger, enregistrer et vérifier le paquet.
+        <translation>Impossible de télécharger, enregistrer et vérifier le package.
 Veuillez vérifier votre connexion à Internet.</translation>
     </message>
     <message>
@@ -15065,7 +15065,7 @@ a échoué : %2</translation>
         <location filename="../../mscore/scoreaccessibility.cpp" line="349"/>
         <location filename="../../mscore/scoreaccessibility.cpp" line="350"/>
         <source>List Selection</source>
-        <translation>Choix de liste</translation>
+        <translation>Liste de sélection</translation>
     </message>
 </context>
 <context>
@@ -15117,7 +15117,7 @@ a échoué : %2</translation>
     <message>
         <location filename="../../mscore/scorecmp/scorelistmodel.cpp" line="138"/>
         <source>Current version</source>
-        <translation>Version courante</translation>
+        <translation>Version actuelle</translation>
     </message>
     <message>
         <location filename="../../mscore/scorecmp/scorelistmodel.cpp" line="140"/>
@@ -15243,7 +15243,7 @@ a échoué : %2</translation>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="177"/>
         <source>Hide Courtesy Clef</source>
-        <translation>Masquer le rappel de la clef</translation>
+        <translation>Masquer le rappel de la Clef</translation>
     </message>
     <message>
         <location filename="../../mscore/propertymenu.cpp" line="178"/>
@@ -15373,7 +15373,7 @@ a échoué : %2</translation>
         <location filename="../../mscore/scoreview.cpp" line="2685"/>
         <source>No measures selected:
 Please select a range of measures to join and try again</source>
-        <translation>Aucune mesure sélectionnée : 
+        <translation>Aucunes mesures sélectionnées : 
 Veuillez sélectionner un ensemble de mesures et réessayer</translation>
     </message>
     <message>
@@ -15381,9 +15381,9 @@ Veuillez sélectionner un ensemble de mesures et réessayer</translation>
         <source>No staves found:
 please use the instruments dialog to
 first create some staves</source>
-        <translation>Aucune portée trouvée :
+        <translation>Aucunes portées trouvées :
 veuillez utiliser la fenêtre de dialogue des
-instruments pour d&apos;abord créer quelques portées</translation>
+instruments et créer quelques portées</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreview.cpp" line="4778"/>
@@ -15461,7 +15461,7 @@ Veuillez sélectionner une mesure et réessayer</translation>
     <message>
         <location filename="../../mscore/instrwidget.cpp" line="110"/>
         <source>Custom Standard</source>
-        <translation>Standard personnalisé</translation>
+        <translation>Standard personnalisée</translation>
     </message>
     <message>
         <location filename="../../mscore/instrwidget.cpp" line="112"/>
@@ -15722,7 +15722,7 @@ Souhaitez-vous voir ces visites guidées ?</translation>
         <location filename="../../mscore/timeline.cpp" line="783"/>
         <location filename="../../mscore/timeline.cpp" line="1120"/>
         <source>Rehearsal Mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../mscore/timeline.cpp" line="784"/>
@@ -16643,7 +16643,7 @@ veuillez choisir un nom différent :</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1591"/>
         <source>Rehearsal mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1594"/>
@@ -17800,7 +17800,7 @@ principal</translation>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="171"/>
         <source>Close Plugin Creator</source>
-        <translation>Fermer le créateur de plugins</translation>
+        <translation>Fermer le créateur de plugin</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.ui" line="182"/>
@@ -17874,7 +17874,7 @@ L&apos;ensemble des plugins sera rafraîchi, ce qui mettra à jour les changemen
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="90"/>
         <source>Preferences Tab Manager</source>
-        <translation>Gestion des onglets de préférences</translation>
+        <translation>Gestionnaire des onglets de préférences</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="100"/>
@@ -18926,12 +18926,12 @@ L&apos;ensemble des plugins sera rafraîchi, ce qui mettra à jour les changemen
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2874"/>
         <source>API</source>
-        <translation>Interface</translation>
+        <translation>API</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2877"/>
         <source>Choose API</source>
-        <translation>Choix de l&apos;interface</translation>
+        <translation>Choix de l&apos;API</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="2903"/>
@@ -19412,7 +19412,7 @@ Ajuster correctement la latence permet aussi de synchroniser les périphériques
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4300"/>
         <source>Advanced tab</source>
-        <translation>Onglet Avancés</translation>
+        <translation>Onglet Avancé</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4303"/>
@@ -19494,7 +19494,7 @@ Ajuster correctement la latence permet aussi de synchroniser les périphériques
         <location filename="../../mscore/prefsdialog.ui" line="3862"/>
         <source>DPI</source>
         <extracomment>dots per inch</extracomment>
-        <translation>ppp</translation>
+        <translation>PPP</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3894"/>
@@ -19936,7 +19936,7 @@ Allez sur le %1site de MuseScore%2 pour télécharger la dernière version.</tra
     <message>
         <location filename="../../importexport/musicxml/importxml.cpp" line="204"/>
         <source>File &apos;%1&apos; is not a valid MusicXML file</source>
-        <translation>Le fichier « %1 » n&apos;est pas un fichier MusicXML valide</translation>
+        <translation>Le fichier &apos;%1&apos; n&apos;est pas un fichier MusicXML valide</translation>
     </message>
     <message>
         <location filename="../../importexport/musicxml/importxml.cpp" line="256"/>
@@ -20172,7 +20172,7 @@ Allez sur le %1site de MuseScore%2 pour télécharger la dernière version.</tra
         <location filename="../../libmscore/read206.cpp" line="3906"/>
         <location filename="../../libmscore/read301.cpp" line="206"/>
         <source>XML read error at line %1, column %2: %3</source>
-        <translation>Erreur de lecture XML à la ligne %1 colonne %2: %3</translation>
+        <translation>Erreur de lecture XML à la ligne %1, colonne %2 : %3</translation>
     </message>
     <message>
         <location filename="../../libmscore/rest.cpp" line="899"/>
@@ -21039,7 +21039,7 @@ Voulez-vous le remplacer ?</translation>
     <message>
         <location filename="../../mscore/scorecmp/scorecmp_tool.ui" line="27"/>
         <source>Choose scores to compare:</source>
-        <translation>Choisir les partition à comparer :</translation>
+        <translation>Choisir les partitions à comparer :</translation>
     </message>
     <message>
         <location filename="../../mscore/scorecmp/scorecmp_tool.ui" line="33"/>
@@ -22192,7 +22192,7 @@ Note : Ctrl+Shift+1 est une combinaison de touches.</translation>
     <message>
         <location filename="../../libmscore/style.cpp" line="2274"/>
         <source>Rehearsal Mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2276"/>
@@ -26347,7 +26347,7 @@ a échoué : </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2204"/>
         <source>Rehearsal Mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2205"/>
@@ -26482,7 +26482,7 @@ a échoué : </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2361"/>
         <source>Select all</source>
-        <translation>Sélectionner tout</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2370"/>
@@ -28022,12 +28022,12 @@ a échoué : </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3763"/>
         <source>Resequence Rehearsal Marks</source>
-        <translation>Remettre les repères dans l&apos;ordre</translation>
+        <translation>Remettre les repères de répétition dans l&apos;ordre</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3764"/>
         <source>Resequence rehearsal marks</source>
-        <translation>Remettre les repères dans l&apos;ordre</translation>
+        <translation>Remettre les repères de répétition dans l&apos;ordre</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3773"/>
@@ -29901,7 +29901,7 @@ a échoué : </translation>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="74"/>
         <source>Rehearsal Mark</source>
-        <translation>Repère</translation>
+        <translation>Repère de répétition</translation>
     </message>
     <message>
         <location filename="../../libmscore/scoreElement.cpp" line="75"/>

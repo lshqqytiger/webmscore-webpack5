@@ -22001,7 +22001,7 @@ Poznámka: Ctrl+Shift+1 je jedna kombinace kláves.</translation>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="92"/>
         <source>We&apos;d like to collect anonymous telemetry data to help us prioritize improvements. This includes how often you use certain features, statistics on preferred file formats, crashes, number of instruments per score, etc.</source>
-        <translation>Chtěli bychom sbírat anonymní na dálku změřená údaje, aby nám pomohly seřadit vylepšení podle důležitosti. Jde nám o to zjistit, jak často využijete některé funkce, o statistiku souborových formátů, jimž dáváte přednost, důvody pádů programu, počet nástrojů v notovém zápisu atd.</translation>
+        <translation>Chtěli bychom sbírat anonymní na dálku změřené údaje, aby nám pomohly seřadit vylepšení podle důležitosti. Jde nám o to zjistit, jak často využijete některé funkce, o statistiku souborových formátů, jimž dáváte přednost, důvody pádů programu, počet nástrojů v notovém zápisu atd.</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="109"/>
@@ -22031,7 +22031,7 @@ Poznámka: Ctrl+Shift+1 je jedna kombinace kláves.</translation>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="183"/>
         <source>For more information, please take a look at our %1Privacy Policy%2</source>
-        <translation>Pro další informace se podívejte na naši %1Politiku soukromí%2</translation>
+        <translation>Pro další informace se podívejte na naši %1politiku soukromí%2</translation>
     </message>
 </context>
 <context>

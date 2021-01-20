@@ -2065,13 +2065,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="69"/>
         <source>E♭ Piccolo</source>
-        <translation type="unfinished"/>
+        <translation>Pícolo en Mi♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="70"/>
         <source>E♭ Picc.</source>
         <comment>E♭ Piccolo</comment>
-        <translation type="unfinished"/>
+        <translation>Pic. Mi♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="72"/>
@@ -2406,13 +2406,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="181"/>
         <source>C Tin Whistle</source>
-        <translation type="unfinished"/>
+        <translation>Tin whistle en Do</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="182"/>
         <source>C Tin Wh.</source>
         <comment>C Tin Whistle</comment>
-        <translation type="unfinished"/>
+        <translation>Tin wh. Do</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="183"/>
@@ -2810,7 +2810,7 @@
         <location filename="../instruments/instrumentsxml.h" line="307"/>
         <location filename="../instruments/instrumentsxml.h" line="309"/>
         <source>B♭ Bass Clarinet</source>
-        <translation type="unfinished"/>
+        <translation>Clarinete baixo en Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="308"/>
@@ -2857,46 +2857,46 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="321"/>
         <source>Pocket Sax in C</source>
-        <translation type="unfinished"/>
+        <translation>Saxo Pocket en Do</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="322"/>
         <source>C Pkt. Sax</source>
         <comment>Pocket Sax in C</comment>
-        <translation type="unfinished"/>
+        <translation>Saxo Pkt. Do</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="323"/>
         <source>Pocket Sax in B♭</source>
-        <translation type="unfinished"/>
+        <translation>Saxo Pocket en Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="324"/>
         <source>B♭ Pkt. Sax</source>
         <comment>Pocket Sax in B♭</comment>
-        <translation type="unfinished"/>
+        <translation>Saxo Pkt. Si♭</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="325"/>
         <source>Pocket Sax in D</source>
-        <translation type="unfinished"/>
+        <translation>Saxo Pocket en Re</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="326"/>
         <source>D Pkt. Sax</source>
         <comment>Pocket Sax in D</comment>
-        <translation type="unfinished"/>
+        <translation>Saxo Pkt. Re</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="327"/>
         <source>Pocket Sax in G</source>
-        <translation type="unfinished"/>
+        <translation>Saxo Pocket en Sol</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="328"/>
         <source>G Pkt. Sax</source>
         <comment>Pocket Sax in G</comment>
-        <translation type="unfinished"/>
+        <translation>Saxo Pkt. Sol</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="330"/>
@@ -3427,7 +3427,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="459"/>
         <source>Horn in C alto</source>
-        <translation type="unfinished"/>
+        <translation>Corno en Do alto</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="460"/>
@@ -3438,7 +3438,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="463"/>
         <source>Horn in B♭ alto</source>
-        <translation type="unfinished"/>
+        <translation>Corno en Si♭ alto</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="464"/>
@@ -3497,7 +3497,7 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="497"/>
         <source>Horn in C (Bass Clef)</source>
-        <translation type="unfinished"/>
+        <translation>Corno en Do (Clave de Fa)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="501"/>
@@ -3575,12 +3575,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="548"/>
         <source>Baritone Horn (Central Europe)</source>
-        <translation type="unfinished"/>
+        <translation>Corno barítono (centro de Europa)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="553"/>
         <source>Baritone Horn (Central Europe, Treble Clef)</source>
-        <translation type="unfinished"/>
+        <translation>Corno barítono (Centro de europa, Clave de Sol)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="557"/>
@@ -4351,13 +4351,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="877"/>
         <source>Cimbalom</source>
-        <translation type="unfinished"/>
+        <translation>Címbalo húngaro</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="878"/>
         <source>Cimb.</source>
         <comment>Cimbalom</comment>
-        <translation type="unfinished"/>
+        <translation>Cimb. h.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="880"/>
@@ -4386,13 +4386,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="887"/>
         <source>Carillon</source>
-        <translation type="unfinished"/>
+        <translation>Carillón</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="888"/>
         <source>Car.</source>
         <comment>Carillon</comment>
-        <translation type="unfinished"/>
+        <translation>Car.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="889"/>
@@ -5612,34 +5612,34 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1393"/>
         <source>Bandurria</source>
-        <translation type="unfinished"/>
+        <translation>Bandurria</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1394"/>
         <source>Band.</source>
         <comment>Bandurria</comment>
-        <translation type="unfinished"/>
+        <translation>Band.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1395"/>
         <source>Bandurria (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>Bandurria (Tabulatura)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1396"/>
         <source>Laúd</source>
-        <translation type="unfinished"/>
+        <translation>Laúde</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1397"/>
         <source>Laúd</source>
         <comment>Laúd</comment>
-        <translation type="unfinished"/>
+        <translation>Laúde</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1398"/>
         <source>Laúd (Tablature)</source>
-        <translation type="unfinished"/>
+        <translation>Laúde (Tabulatura)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1399"/>
@@ -6598,13 +6598,13 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1457"/>
         <source>Octobass</source>
-        <translation type="unfinished"/>
+        <translation>Octobaixo</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1458"/>
         <source>Otb.</source>
         <comment>Octobass</comment>
-        <translation type="unfinished"/>
+        <translation>Otb.</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="1462"/>
@@ -6734,12 +6734,12 @@
     <message>
         <location filename="../instruments/instrumentsxml.h" line="14"/>
         <source>Barbershop Quartet (Men)</source>
-        <translation type="unfinished"/>
+        <translation>Cuarteto de barbaría (Homes)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="15"/>
         <source>Barbershop Quartet (Women)</source>
-        <translation type="unfinished"/>
+        <translation>Cuarteto de barbaría (Mulleres)</translation>
     </message>
     <message>
         <location filename="../instruments/instrumentsxml.h" line="16"/>

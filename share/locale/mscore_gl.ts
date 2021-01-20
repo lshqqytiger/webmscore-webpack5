@@ -13655,7 +13655,7 @@ Confirma que desexa proseguir?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4395"/>
         <source>Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>Modo normal</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="4403"/>
@@ -13734,12 +13734,12 @@ Restaurar a sesión?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5939"/>
         <source>Invalid selection. Cannot realize chord symbol</source>
-        <translation type="unfinished"/>
+        <translation>A selección non é válida. Non é posíbel realizar o símbolo do acorde</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5955"/>
         <source>No chord symbol selected. Cannot realize chord symbol</source>
-        <translation type="unfinished"/>
+        <translation>Non se seleccionou ningún símbolo de acordo. Non é posíbel realizar o símbolo do acorde</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="6433"/>
@@ -13764,7 +13764,7 @@ Restaurar a sesión?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8015"/>
         <source>Initializing sequencer and audio driver…</source>
-        <translation type="unfinished"/>
+        <translation>A inicializar o secuenciador e controlador de son</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="8024"/>
@@ -13995,7 +13995,7 @@ activada</translation>
     <message>
         <location filename="../../mscore/openfilelocation.cpp" line="34"/>
         <source>Open Containing Folder</source>
-        <translation type="unfinished"/>
+        <translation>Abrir o contedor contedor</translation>
     </message>
 </context>
 <context>
@@ -14188,17 +14188,17 @@ activada</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="614"/>
         <source>Cut notes</source>
-        <translation type="unfinished"/>
+        <translation>Cortar notas</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="618"/>
         <source>Copy notes</source>
-        <translation type="unfinished"/>
+        <translation>Copiar notas</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="622"/>
         <source>Paste notes here</source>
-        <translation type="unfinished"/>
+        <translation>Pegar as notas aquí</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoview.cpp" line="630"/>
@@ -14241,7 +14241,7 @@ activada</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="101"/>
         <source>Part:</source>
-        <translation type="unfinished"/>
+        <translation>Parte:</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="196"/>
@@ -14251,27 +14251,27 @@ activada</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="197"/>
         <source>Insert Note</source>
-        <translation type="unfinished"/>
+        <translation>Inserir nota</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="198"/>
         <source>Append Note to Chord</source>
-        <translation type="unfinished"/>
+        <translation>Amecer nota a acorde</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="199"/>
         <source>Cut Chord</source>
-        <translation type="unfinished"/>
+        <translation>Cortar acorde</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="200"/>
         <source>Erase Note</source>
-        <translation type="unfinished"/>
+        <translation>Borrar nota</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="201"/>
         <source>Change Chord Length</source>
-        <translation type="unfinished"/>
+        <translation>Cambiar lonxitude do acorde</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="202"/>
@@ -14366,7 +14366,7 @@ activada</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="569"/>
         <source>Part: %1</source>
-        <translation type="unfinished"/>
+        <translation>Parte: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="589"/>
@@ -14447,7 +14447,7 @@ Gárdanse antes de fechar?</translation>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="304"/>
         <source>Component is not a MuseScore plugin</source>
-        <translation type="unfinished"/>
+        <translation>O compoñente non é un engadido do MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/plugin/pluginCreator.cpp" line="313"/>
@@ -14654,7 +14654,7 @@ Este engadido require que haxa unha partitura aberta para se executar.
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="153"/>
         <source>Percentage</source>
-        <translation type="unfinished"/>
+        <translation>Porcentaxe</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="154"/>
@@ -14747,7 +14747,7 @@ Este engadido require que haxa unha partitura aberta para se executar.
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1307"/>
         <source>Applying…</source>
-        <translation type="unfinished"/>
+        <translation>A aplicar...</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1393"/>
@@ -14857,12 +14857,12 @@ Este engadido require que haxa unha partitura aberta para se executar.
     <message>
         <location filename="../../mscore/realizeharmonydialog.cpp" line="52"/>
         <source>Show less…</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar menos...</translation>
     </message>
     <message>
         <location filename="../../mscore/realizeharmonydialog.cpp" line="52"/>
         <source>Show more…</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar máis...</translation>
     </message>
 </context>
 <context>
@@ -15012,7 +15012,7 @@ o ficheiro de estilo %1:
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="286"/>
         <source>Staff: %1</source>
-        <translation type="unfinished"/>
+        <translation>Pentagrama: %1</translation>
     </message>
     <message>
         <location filename="../../mscore/scoreaccessibility.cpp" line="457"/>
@@ -15400,7 +15400,7 @@ Seleccione un compás e ténteo de novo</translation>
     <message>
         <location filename="../../mscore/selectnotedialog.cpp" line="52"/>
         <source>%1 Note</source>
-        <translation type="unfinished"/>
+        <translation>Nota %1</translation>
     </message>
 </context>
 <context>
@@ -15890,7 +15890,7 @@ Seleccione un compás e ténteo de novo</translation>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="364"/>
         <source>Do you want to hide these custom palette cells or permanently delete them?</source>
-        <translation type="unfinished"/>
+        <translation>Desexa agochar estas celas de paleta personalizada ou eliminalas permanentemente?</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
@@ -15900,7 +15900,7 @@ Seleccione un compás e ténteo de novo</translation>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="373"/>
         <source>Do you want to permanently delete these custom palette cells?</source>
-        <translation type="unfinished"/>
+        <translation>Desexa eliminar estas celas de paleta personalizada permanentemente?</translation>
     </message>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
@@ -15910,7 +15910,7 @@ Seleccione un compás e ténteo de novo</translation>
     <message>
         <location filename="../../mscore/palette/paletteworkspace.cpp" line="393"/>
         <source>Do you want to hide these custom palettes or permanently delete them?</source>
-        <translation type="unfinished"/>
+        <translation>Desexa agochar estas paletas personalizadas ou eliminalas permanentemente?</translation>
     </message>
 </context>
 <context>
@@ -16023,7 +16023,7 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/stringutils.cpp" line="106"/>
         <source>%1 B</source>
-        <translation type="unfinished"/>
+        <translation>%1 B</translation>
     </message>
     <message>
         <location filename="../../mscore/stringutils.cpp" line="112"/>
@@ -16034,19 +16034,19 @@ escolla un nome diferente:</translation>
         <location filename="../../mscore/stringutils.cpp" line="116"/>
         <location filename="../../mscore/stringutils.cpp" line="123"/>
         <source>%1 MB</source>
-        <translation type="unfinished"/>
+        <translation>%1 MB</translation>
     </message>
     <message>
         <location filename="../../mscore/stringutils.cpp" line="127"/>
         <location filename="../../mscore/stringutils.cpp" line="134"/>
         <source>%1 GB</source>
-        <translation type="unfinished"/>
+        <translation>%1 GB</translation>
     </message>
     <message>
         <location filename="../../mscore/stringutils.cpp" line="138"/>
         <location filename="../../mscore/stringutils.cpp" line="144"/>
         <source>%1 TB</source>
-        <translation type="unfinished"/>
+        <translation>%1 TB</translation>
     </message>
 </context>
 <context>
@@ -16277,7 +16277,7 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/pianoroll/notetweakerdialog.ui" line="14"/>
         <source>Note Tweaker</source>
-        <translation type="unfinished"/>
+        <translation>Axustador de notas</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/notetweakerdialog.ui" line="20"/>
@@ -16287,7 +16287,7 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/pianoroll/notetweakerdialog.ui" line="26"/>
         <source>Fraction of beat:</source>
-        <translation type="unfinished"/>
+        <translation>Fracción de pulso:</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/notetweakerdialog.ui" line="34"/>
@@ -16814,12 +16814,12 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1419"/>
         <source>Pedal (with ped and line)</source>
-        <translation type="unfinished"/>
+        <translation>Pedal (con ped e liña)</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1427"/>
         <source>Pedal (with ped and asterisk)</source>
-        <translation type="unfinished"/>
+        <translation>Pedal (con ped e asterisco)</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1433"/>
@@ -16844,32 +16844,32 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1508"/>
         <source>Half note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Branca = 80 BPM</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1509"/>
         <source>Quarter note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Negra = 80 BMP</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1510"/>
         <source>Eighth note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Corchea = 80 BPM</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1511"/>
         <source>Dotted half note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Branca con punto = 80 BPM</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1512"/>
         <source>Dotted quarter note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Negra con punto = 80 BPM</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1513"/>
         <source>Dotted eighth note = 80 BPM</source>
-        <translation type="unfinished"/>
+        <translation>Corchea con punto = 80 BPM</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1530"/>
@@ -16939,22 +16939,22 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1667"/>
         <source>S/A</source>
-        <translation type="unfinished"/>
+        <translation>S/A</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1673"/>
         <source>Soprano/Alto</source>
-        <translation type="unfinished"/>
+        <translation>Soprano/Alto</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1676"/>
         <source>T/B</source>
-        <translation type="unfinished"/>
+        <translation>T/B</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1682"/>
         <source>Tenor/Bass</source>
-        <translation type="unfinished"/>
+        <translation>Tenor/Baixo</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1685"/>
@@ -16969,12 +16969,12 @@ escolla un nome diferente:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="1694"/>
         <source>B/B</source>
-        <translation type="unfinished"/>
+        <translation>B/B</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1700"/>
         <source>Bari/Bass</source>
-        <translation type="unfinished"/>
+        <translation>Barítono/Baixo</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="1731"/>
@@ -17353,7 +17353,7 @@ produciu un erro:</translation>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="41"/>
         <source>Add Palettes</source>
-        <translation type="unfinished"/>
+        <translation>Engadir paletas</translation>
     </message>
     <message>
         <location filename="../../mscore/qml/palettes/PalettesWidgetHeader.qml" line="50"/>
@@ -17535,7 +17535,7 @@ produciu un erro:</translation>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="14"/>
         <source>Edit Pathlist</source>
-        <translation type="unfinished"/>
+        <translation>Editar lista de rutas</translation>
     </message>
     <message>
         <location filename="../../mscore/pathlistdialog.ui" line="29"/>
@@ -17581,12 +17581,12 @@ produciu un erro:</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="16"/>
         <source>Duration (multiplier)</source>
-        <translation type="unfinished"/>
+        <translation>Duración (multiplicador)</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="17"/>
         <source>Multiply the duration by thousandths of the full note duration</source>
-        <translation type="unfinished"/>
+        <translation>Multiplicar a duración por milésimas da duración da nota enteira</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="19"/>
@@ -17596,27 +17596,27 @@ produciu un erro:</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="20"/>
         <source>Shorten or lengthen by thousandths of a whole note</source>
-        <translation type="unfinished"/>
+        <translation>Acurtar ou  prolongar por milésimas de redonda</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="22"/>
         <source>Velocity (relative)</source>
-        <translation type="unfinished"/>
+        <translation>Velocidade (relativa)</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="23"/>
         <source>Increase or decrease the velocity by the specified value</source>
-        <translation type="unfinished"/>
+        <translation>Aumentar ou reducir a velocidade no valor indicado</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="25"/>
         <source>Velocity (absolute)</source>
-        <translation type="unfinished"/>
+        <translation>Velocidade (absoluta)</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianolevelsfilter.cpp" line="26"/>
         <source>Ignore dynamic markings and set the velocity directly</source>
-        <translation type="unfinished"/>
+        <translation>Ignorar as marcas de dinámica e indicar a velocidade directamente</translation>
     </message>
 </context>
 <context>
@@ -17679,7 +17679,7 @@ volume</translation>
         <location filename="../../mscore/playpanel.ui" line="651"/>
         <location filename="../../mscore/playpanel.ui" line="654"/>
         <source>Playback speed (as percentage)</source>
-        <translation type="unfinished"/>
+        <translation>Velocidade de reprodución (como porcentaxe)</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="663"/>
@@ -17703,7 +17703,7 @@ volume</translation>
         <location filename="../../mscore/playpanel.ui" line="839"/>
         <location filename="../../mscore/playpanel.ui" line="842"/>
         <source>Playback speed</source>
-        <translation type="unfinished"/>
+        <translation>Velocidade de reprodución</translation>
     </message>
     <message>
         <location filename="../../mscore/playpanel.ui" line="898"/>
@@ -18220,12 +18220,12 @@ Isto avalía de novo todos os engadidos, recollendo todos os cambios que se teñ
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="776"/>
         <source>Telemetry</source>
-        <translation type="unfinished"/>
+        <translation>Telemetría</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="782"/>
         <source>Send anonymous telemetry data to MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>Enviar telemetría anónima a MuseScore</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="796"/>
@@ -18326,55 +18326,55 @@ Isto avalía de novo todos os engadidos, recollendo todos os cambios que se teñ
         <location filename="../../mscore/prefsdialog.ui" line="1071"/>
         <location filename="../../mscore/prefsdialog.ui" line="1077"/>
         <source>The default zoom level for new scores</source>
-        <translation type="unfinished"/>
+        <translation>O nivel de ampliación predeterminado das partituras novas</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1074"/>
         <source>Default zoom level</source>
-        <translation type="unfinished"/>
+        <translation>Nivel de ampliación predeterminado</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1106"/>
         <source>Keyboard zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Precisión da ampliación co teclado</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1113"/>
         <location filename="../../mscore/prefsdialog.ui" line="1119"/>
         <source>The number of steps it takes to double the zoom level using the mouse</source>
-        <translation type="unfinished"/>
+        <translation>O número de pasos que leva duplicar o nivel de ampliación empregando o rato</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1116"/>
         <source>Mouse zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Precisión da ampliación co rato</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1135"/>
         <source>Mouse zoom precision:</source>
-        <translation type="unfinished"/>
+        <translation>Precisión da ampliación co rato:</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1148"/>
         <location filename="../../mscore/prefsdialog.ui" line="1154"/>
         <source>The default zoom type for new scores</source>
-        <translation type="unfinished"/>
+        <translation>Tipo de ampliación predeterminada das partituras novas</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1151"/>
         <source>Default zoom type</source>
-        <translation type="unfinished"/>
+        <translation>Tipo de ampliación predeterminada</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1184"/>
         <location filename="../../mscore/prefsdialog.ui" line="1190"/>
         <source>The number of steps it takes to double the zoom level using the keyboard</source>
-        <translation type="unfinished"/>
+        <translation>O número de pasos que leva duplicar o nivel de ampliación empregando o rato</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1187"/>
         <source>Keyboard zoom precision</source>
-        <translation type="unfinished"/>
+        <translation>Precisión da ampliación co teclado</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1228"/>
@@ -19345,7 +19345,7 @@ Axustar a latencia pode axudar a sincronizar o hardware de MIDI co sintetizador 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3631"/>
         <source>Always ask</source>
-        <translation type="unfinished"/>
+        <translation>Preguntar sempre</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3638"/>
@@ -19360,7 +19360,7 @@ Axustar a latencia pode axudar a sincronizar o hardware de MIDI co sintetizador 
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3812"/>
         <source>Export all layout</source>
-        <translation type="unfinished"/>
+        <translation>Exportar a disposición enteira</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="4025"/>
@@ -19870,7 +19870,7 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../mscore/file.cpp" line="204"/>
         <source>File &quot;%1&quot; is critically corrupted and cannot be processed.</source>
-        <translation type="unfinished"/>
+        <translation>O ficheiro «%1» está corrompido criticamente e non é posíbel procesalo.</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="208"/>
@@ -20347,7 +20347,7 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../libmscore/harmony.cpp" line="1982"/>
         <source>lower case</source>
-        <translation type="unfinished"/>
+        <translation>minúsculas</translation>
     </message>
     <message>
         <location filename="../../libmscore/harmony.cpp" line="2035"/>
@@ -20385,17 +20385,17 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../avsomr/ret.cpp" line="114"/>
         <source>Failed reading file</source>
-        <translation type="unfinished"/>
+        <translation>Non foi posíbel ler o ficheiro</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="115"/>
         <source>Failed clearing directory</source>
-        <translation type="unfinished"/>
+        <translation>Non foi posíbel limpar o directorio</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="116"/>
         <source>File not supported</source>
-        <translation type="unfinished"/>
+        <translation>Non se admite este ficheiro</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="118"/>
@@ -20405,7 +20405,7 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../avsomr/ret.cpp" line="119"/>
         <source>Server error</source>
-        <translation type="unfinished"/>
+        <translation>Erro do servidor</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="121"/>
@@ -20430,17 +20430,17 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../avsomr/ret.cpp" line="140"/>
         <source>Please try again</source>
-        <translation type="unfinished"/>
+        <translation>Tente de novo</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="149"/>
         <source>Choose another file</source>
-        <translation type="unfinished"/>
+        <translation>Escoller outro ficheiro</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="151"/>
         <source>Check your internet connection</source>
-        <translation type="unfinished"/>
+        <translation>Comprobe a súa conexión á Internet</translation>
     </message>
     <message>
         <location filename="../../avsomr/ret.cpp" line="154"/>
@@ -20455,47 +20455,47 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="65"/>
         <source>Preparing…</source>
-        <translation type="unfinished"/>
+        <translation>A preparar...</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="68"/>
         <source>Successfully prepared</source>
-        <translation type="unfinished"/>
+        <translation>Preparado correctamente</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="70"/>
         <source>Failed to prepare</source>
-        <translation type="unfinished"/>
+        <translation>Non foi posíbel preparar</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="74"/>
         <source>Processing…</source>
-        <translation type="unfinished"/>
+        <translation>A procesar...</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="77"/>
         <source>Successfully processed</source>
-        <translation type="unfinished"/>
+        <translation>Procesado correctamente</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="79"/>
         <source>Failed to process</source>
-        <translation type="unfinished"/>
+        <translation>Non foi posíbel procesar</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="83"/>
         <source>Loading…</source>
-        <translation type="unfinished"/>
+        <translation>A cargar...</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="86"/>
         <source>Successfully loaded</source>
-        <translation type="unfinished"/>
+        <translation>Cargouse correctamente</translation>
     </message>
     <message>
         <location filename="../../avsomr/ui/recognitionproccessdialog.cpp" line="88"/>
         <source>Failed to load</source>
-        <translation type="unfinished"/>
+        <translation>Non foi posíbel cargar</translation>
     </message>
     <message>
         <location filename="../../libmscore/cmd.cpp" line="1699"/>
@@ -20613,22 +20613,22 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../libmscore/textbase.cpp" line="53"/>
         <source>equals</source>
-        <translation type="unfinished"/>
+        <translation>igual a</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="54"/>
         <source>comma</source>
-        <translation type="unfinished"/>
+        <translation>vírgula</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="55"/>
         <source>period</source>
-        <translation type="unfinished"/>
+        <translation>punto</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="56"/>
         <source>colon</source>
-        <translation type="unfinished"/>
+        <translation>dous puntos</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="57"/>
@@ -20648,22 +20648,22 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../libmscore/textbase.cpp" line="60"/>
         <source>left bracket</source>
-        <translation type="unfinished"/>
+        <translation>paréntese esquerdo</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="61"/>
         <source>right bracket</source>
-        <translation type="unfinished"/>
+        <translation>paréntese dereito</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="565"/>
         <source>line feed</source>
-        <translation type="unfinished"/>
+        <translation>salto de liña</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="566"/>
         <source>blank</source>
-        <translation type="unfinished"/>
+        <translation>espazo en branco</translation>
     </message>
     <message>
         <location filename="../../libmscore/textbase.cpp" line="609"/>
@@ -20694,7 +20694,7 @@ Visite o %1sitio web do MuseScore%2 para obter a versión máis recente.</transl
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1141"/>
         <source>Installed</source>
-        <translation type="unfinished"/>
+        <translation>Instalado</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.cpp" line="1143"/>
@@ -20913,7 +20913,7 @@ Desexa substituílo?</translation>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="172"/>
         <source>Show more…</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar máis...</translation>
     </message>
 </context>
 <context>
@@ -21165,7 +21165,7 @@ Desexa substituílo?</translation>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="47"/>
         <source>Same beat</source>
-        <translation type="unfinished"/>
+        <translation>O mesmo pulso</translation>
     </message>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="82"/>
@@ -21180,7 +21180,7 @@ Desexa substituílo?</translation>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="110"/>
         <source>Same measure</source>
-        <translation type="unfinished"/>
+        <translation>O mesmo compás</translation>
     </message>
     <message>
         <location filename="../../mscore/selectdialog.ui" line="120"/>
@@ -21261,7 +21261,7 @@ Desexa substituílo?</translation>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="138"/>
         <source>Same note type:</source>
-        <translation type="unfinished"/>
+        <translation>O mesmo tipo de nota:</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="40"/>
@@ -21301,12 +21301,12 @@ Desexa substituílo?</translation>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="166"/>
         <source>Same beat</source>
-        <translation type="unfinished"/>
+        <translation>O mesmo pulso</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="173"/>
         <source>Same measure</source>
-        <translation type="unfinished"/>
+        <translation>O mesmo compás</translation>
     </message>
     <message>
         <location filename="../../mscore/selectnotedialog.ui" line="183"/>
@@ -21972,32 +21972,32 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="72"/>
         <source>Help us improve MuseScore</source>
-        <translation type="unfinished"/>
+        <translation>Axúdenos a mellorar o MuseScore</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="92"/>
         <source>We&apos;d like to collect anonymous telemetry data to help us prioritize improvements. This includes how often you use certain features, statistics on preferred file formats, crashes, number of instruments per score, etc.</source>
-        <translation type="unfinished"/>
+        <translation>Gustaríanos recoller datos de telemetría anónimos para axudar a priorizar as melloras. Isto inclúe a frecuencia coa que vostede emprega determinadas funcións, estatísticas sobre os formatos de ficheiro preferidos, fallos xerais, número de instrumentos por partitura, etc.</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="109"/>
         <source>We &lt;u&gt;do not&lt;/u&gt; collect any personal data or sensitive information, such as location, source code, file names, or music</source>
-        <translation type="unfinished"/>
+        <translation>&lt;u&gt;Non&lt;/u&gt; recollemos ningún dato persoal nin información sensíbel, como lugar, código fonte, nomes de ficheiro ou música</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="116"/>
         <source>Do you allow MuseScore to send us anonymous reports?</source>
-        <translation type="unfinished"/>
+        <translation>Permite que o MuseScore nos envíe informes anónimos?</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="140"/>
         <source>Yes, send anonymous reports</source>
-        <translation type="unfinished"/>
+        <translation>Si, enviar informes anónimos</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="153"/>
         <source>(You can change this behaviour any time in &apos;Preferences… &gt; General &gt; Telemetry&apos;)</source>
-        <translation type="unfinished"/>
+        <translation>(Pode cambiar este comportamento en calquera momento en «Preferencias... &gt; Xeral &gt; Telemetría»»</translation>
     </message>
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="170"/>
@@ -22007,7 +22007,7 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../telemetry/qml/TelemetryPermissionDialog.qml" line="183"/>
         <source>For more information, please take a look at our %1Privacy Policy%2</source>
-        <translation type="unfinished"/>
+        <translation>Para máis información, bótelle unha ollada á nosa %1Política de provacidade%2</translation>
     </message>
 </context>
 <context>
@@ -22191,32 +22191,32 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../libmscore/style.cpp" line="2302"/>
         <source>User-7</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-7</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2303"/>
         <source>User-8</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-8</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2304"/>
         <source>User-9</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-9</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2305"/>
         <source>User-10</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-10</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2306"/>
         <source>User-11</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-11</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2307"/>
         <source>User-12</source>
-        <translation type="unfinished"/>
+        <translation>Usuario-12</translation>
     </message>
     <message>
         <location filename="../../libmscore/style.cpp" line="2278"/>
@@ -22593,7 +22593,7 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
         <location filename="../../mscore/timesigwizard.ui" line="443"/>
         <location filename="../../mscore/timesigwizard.ui" line="446"/>
         <source>Quarter notes per minute</source>
-        <translation type="unfinished"/>
+        <translation>Negras por minuto</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="166"/>
@@ -22656,7 +22656,7 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="348"/>
         <source>Enter Number of Measures:</source>
-        <translation type="unfinished"/>
+        <translation>Introduza o número de compases:</translation>
     </message>
     <message>
         <location filename="../../mscore/timesigwizard.ui" line="363"/>
@@ -22685,7 +22685,7 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="14"/>
         <source>Edit Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Editar barra de ferramentas</translation>
     </message>
     <message>
         <location filename="../../mscore/toolbarEditor.ui" line="26"/>
@@ -22723,12 +22723,12 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../mscore/transposedialog.ui" line="32"/>
         <source>Transpose to key (specified at concert pitch)</source>
-        <translation type="unfinished"/>
+        <translation>Transportar a tonalidade (indicada en Do de concerto)</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="35"/>
         <source>To Key</source>
-        <translation type="unfinished"/>
+        <translation>A tonalidade</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="57"/>
@@ -23241,7 +23241,7 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="45"/>
         <source>Interpretation:</source>
-        <translation type="unfinished"/>
+        <translation>Interpretación:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="55"/>
@@ -23252,13 +23252,13 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
         <location filename="../../mscore/inspector/voicing_select.ui" line="69"/>
         <source>Jazz</source>
         <extracomment>adding 9th and 13th as desired</extracomment>
-        <translation type="unfinished"/>
+        <translation>Jazz</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="74"/>
         <source>Literal</source>
         <extracomment>Literally following the chord symbols text</extracomment>
-        <translation type="unfinished"/>
+        <translation>Literal</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="83"/>
@@ -23268,13 +23268,13 @@ Nota: &quot;Ctrl+Maiúsc+1&quot; sería unha combinación de teclas.</translatio
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="88"/>
         <source>Root Only</source>
-        <translation type="unfinished"/>
+        <translation>Só a raíz</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="93"/>
         <source>Close</source>
         <extracomment>all notes within an octave</extracomment>
-        <translation type="unfinished"/>
+        <translation>Pechar</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/voicing_select.ui" line="98"/>
@@ -24090,12 +24090,12 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="160"/>
         <source>Print score/part</source>
-        <translation type="unfinished"/>
+        <translation>Imprimir partitura/parte</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="271"/>
         <source>Note input: Toggle Entry/Normal mode</source>
-        <translation type="unfinished"/>
+        <translation>Introdución de notas: Alternar modos de Entrada/Normal</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="282"/>
@@ -24462,12 +24462,12 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1039"/>
         <source>Previous System</source>
-        <translation type="unfinished"/>
+        <translation>Sistema anterior</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1040"/>
         <source>Go to previous system</source>
-        <translation type="unfinished"/>
+        <translation>Ir ao sistema anterior</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1046"/>
@@ -24502,12 +24502,12 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1067"/>
         <source>Next System</source>
-        <translation type="unfinished"/>
+        <translation>Sistema seguinte</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1068"/>
         <source>Go to next system</source>
-        <translation type="unfinished"/>
+        <translation>Ir ao sistema seguinte</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1074"/>
@@ -25058,18 +25058,18 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1558"/>
         <source>256th Note</source>
-        <translation type="unfinished"/>
+        <translation>Nota semicuartifusa</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1559"/>
         <source>Note duration: 256th</source>
-        <translation type="unfinished"/>
+        <translation>Duración de notas: Semicuartifusa</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1560"/>
         <location filename="../../mscore/shortcut.cpp" line="3350"/>
         <source>256th note</source>
-        <translation type="unfinished"/>
+        <translation>Nota semicuartifusa</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1569"/>
@@ -25376,7 +25376,7 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2233"/>
         <source>Add image</source>
-        <translation type="unfinished"/>
+        <translation>Engadir imaxe</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2240"/>
@@ -25838,12 +25838,12 @@ produciu un fallo: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="948"/>
         <source>Get Location</source>
-        <translation type="unfinished"/>
+        <translation>Obter localización</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="949"/>
         <source>Accessibility: Get location</source>
-        <translation type="unfinished"/>
+        <translation>Accesibilidade: Obter localización</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="1186"/>
@@ -32501,7 +32501,7 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4914"/>
         <source>1024th rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de 1024ª</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4915"/>
@@ -32516,7 +32516,7 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4917"/>
         <source>256th rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de semicuartifusa</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4918"/>
@@ -32526,7 +32526,7 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4919"/>
         <source>512th rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de 512ª</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4920"/>
@@ -32541,17 +32541,17 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4922"/>
         <source>Double whole (breve) rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de cadrada (breve)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4923"/>
         <source>Double whole rest on leger lines</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de cadrada en liña adicional</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4928"/>
         <source>Half (minim) rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de mínima (branca)</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4929"/>
@@ -32561,7 +32561,7 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4930"/>
         <source>Longa rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de longa</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4931"/>
@@ -32576,7 +32576,7 @@ O compás non está baleiro</translation>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4935"/>
         <source>Whole (semibreve) rest</source>
-        <translation type="unfinished"/>
+        <translation>Silencio de redonda</translation>
     </message>
     <message>
         <location filename="../../libmscore/sym.cpp" line="4936"/>

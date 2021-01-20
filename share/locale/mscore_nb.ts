@@ -498,17 +498,17 @@
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="359"/>
         <source>The distance from the threshold where the knee curve starts.</source>
-        <translation type="unfinished"/>
+        <translation>Avstanden fra terskelen der knekurven starter.</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="403"/>
         <source>The balance between the RMS and peak envelope followers. RMS is generally better for subtle musical compression and peak is better for heavier, fast compression and percussion.</source>
-        <translation type="unfinished"/>
+        <translation>Balansen mellom RMS- og peak-envelope-følgere. Som regel er RMS bedre for subtil musikalsk kompresjon, mens peak er bedre for kraftigere og rask kompresjon på for eksempel perkusjon.</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="432"/>
         <source>Makeup gain (dB)</source>
-        <translation type="unfinished"/>
+        <translation>Kompenseringsvolum (dB)</translation>
     </message>
     <message>
         <location filename="../../effects/compressor/compressor_gui.ui" line="435"/>
@@ -13562,7 +13562,7 @@ vennligst velg en takt og prøv igjen</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2122"/>
         <source>&amp;Intervals</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Intervaller</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2124"/>
@@ -13587,7 +13587,7 @@ vennligst velg en takt og prøv igjen</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2073"/>
         <source>Check for &amp;Update</source>
-        <translation>Sjekk etter &amp;oppdatering</translation>
+        <translation>Se etter &amp;oppdateringer</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="2074"/>
@@ -16677,7 +16677,7 @@ vennligst velg et annet navn:</translation>
     <message>
         <location filename="../../mscore/menus.cpp" line="682"/>
         <source>Repeats &amp; Jumps</source>
-        <translation>Repetisjoner &amp; hopp</translation>
+        <translation>Repetisjoner og hopp</translation>
     </message>
     <message>
         <location filename="../../mscore/menus.cpp" line="736"/>

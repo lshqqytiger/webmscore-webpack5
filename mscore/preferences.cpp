@@ -26,6 +26,26 @@
 #endif
 
 namespace Ms {
+//! Note: see musescore.h getSharePath(). This copy is needed for build without MuseScore
+QString sharePath()
+      {
+#ifdef Q_OS_WIN
+      QDir dir(QCoreApplication::applicationDirPath() + QString("/../" INSTALL_NAME));
+      return dir.absolutePath() + "/";
+#else
+#ifdef Q_OS_MAC
+      QDir dir(QCoreApplication::applicationDirPath() + QString("/../Resources"));
+      return dir.absolutePath() + "/";
+#else
+      // Try relative path (needed for portable AppImage and non-standard installations)
+      QDir dir(QCoreApplication::applicationDirPath() + QString("/../share/" INSTALL_NAME));
+      if (dir.exists())
+            return dir.absolutePath() + "/";
+      // Otherwise fall back to default location (e.g. if binary has moved relative to share)
+      return QString( INSTPREFIX "/share/" INSTALL_NAME);
+#endif
+#endif
+      }
 
 Preferences preferences;
 
@@ -178,6 +198,8 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IO_PULSEAUDIO_USEPULSEAUDIO,                     new BoolPreference(defaultUsePulseAudio, false)},
             {PREF_SCORE_CHORD_PLAYONADDNOTE,                       new BoolPreference(true, false)},
             {PREF_SCORE_HARMONY_PLAY_ONEDIT,                       new BoolPreference(true, false)},
+            {PREF_SCORE_HARMONY_PLAY_DISABLE_COMPATIBILITY,        new BoolPreference(true, true)},
+            {PREF_SCORE_HARMONY_PLAY_DISABLE_NEW,                  new BoolPreference(false, true)},
             {PREF_SCORE_NOTE_PLAYONCLICK,                          new BoolPreference(true, false)},
             {PREF_SCORE_NOTE_DEFAULTPLAYDURATION,                  new IntPreference(300 /* ms */, false)},
             {PREF_SCORE_NOTE_WARNPITCHRANGE,                       new BoolPreference(true, false)},
@@ -188,8 +210,8 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_CANVAS_FG_USECOLOR_IN_PALETTES,               new BoolPreference(false, false)},
             {PREF_UI_CANVAS_BG_COLOR,                              new ColorPreference(QColor("#142433"), false)},
             {PREF_UI_CANVAS_FG_COLOR,                              new ColorPreference(QColor("#f9f9f9"), false)},
-            {PREF_UI_CANVAS_BG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("wallpaper/background1.png")).absoluteFilePath(), false)},
-            {PREF_UI_CANVAS_FG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("wallpaper/paper5.png")).absoluteFilePath(), false)},
+            {PREF_UI_CANVAS_BG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath()).arg("wallpaper/background1.png")).absoluteFilePath(), false)},
+            {PREF_UI_CANVAS_FG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath()).arg("wallpaper/paper5.png")).absoluteFilePath(), false)},
             {PREF_UI_CANVAS_ZOOM_DEFAULT_TYPE,                     new IntPreference(0, false)},
             {PREF_UI_CANVAS_ZOOM_DEFAULT_LEVEL,                    new IntPreference(100, false)},
             {PREF_UI_CANVAS_ZOOM_PRECISION_KEYBOARD,               new IntPreference(2, false)},

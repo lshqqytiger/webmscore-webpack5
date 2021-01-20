@@ -3158,7 +3158,7 @@ space unit</extracomment>
         <location filename="../../mscore/editstyle.ui" line="216"/>
         <location filename="../../mscore/editstyle.ui" line="9358"/>
         <source>Chord Symbols</source>
-        <translation>Simboli accordo</translation>
+        <translation>Sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/editstyle.ui" line="4553"/>
@@ -6410,7 +6410,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="108"/>
         <source>Velocity:</source>
-        <translation>Dinamica:</translation>
+        <translation>Intensità:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_dynamic.ui" line="127"/>
@@ -7337,7 +7337,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="14"/>
         <source>Chord Symbol Inspector</source>
-        <translation>Ispettore Simboli accordo</translation>
+        <translation>Ispettore Sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_harmony.ui" line="57"/>
@@ -8267,7 +8267,7 @@ space unit</extracomment>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="592"/>
         <source>Velocity:</source>
-        <translation>Dinamica:</translation>
+        <translation>Intensità:</translation>
     </message>
     <message>
         <location filename="../../mscore/inspector/inspector_note.ui" line="605"/>
@@ -10889,7 +10889,7 @@ testo metronomo</translation>
         <source>Show
 chord symbols</source>
         <translation>Mostra
-simboli accordo</translation>
+sigle accordali</translation>
     </message>
     <message>
         <location filename="../../importexport/midiimport/importmidi_model.cpp" line="694"/>
@@ -11601,7 +11601,7 @@ Supporta MuseScore con la tua %3donazione%4.</translation>
         <location filename="../../mscore/musescoredialogs.cpp" line="121"/>
         <source>Copyright &amp;copy; 1999-2020 MuseScore BVBA and others.
 Published under the GNU General Public License.</source>
-        <translation>Diritto d&apos;autore &amp;copia 1999-2020 MuseScore BVBA e altri.
+        <translation>Diritto d&apos;autore &amp;copia; 1999-2020 MuseScore BVBA e altri.
 Pubblicato sotto la GNU General Public License.</translation>
     </message>
 </context>
@@ -11676,7 +11676,7 @@ Gruppo sotto l&apos;Accordo di licenza per i contributori della comunità del W3
     <message>
         <location filename="../../mscore/harmonyedit.cpp" line="46"/>
         <source>Chord Symbols Style Editor</source>
-        <translation>Editore di stile dei simboli degli accordi</translation>
+        <translation>Editore di stile delle sigle accordali</translation>
     </message>
 </context>
 <context>
@@ -11753,7 +11753,7 @@ Gruppo sotto l&apos;Accordo di licenza per i contributori della comunità del W3
     <message>
         <location filename="../../mscore/drumroll.cpp" line="104"/>
         <source>Velocity:</source>
-        <translation>Dinamica:</translation>
+        <translation>Intensità:</translation>
     </message>
     <message>
         <location filename="../../mscore/drumroll.cpp" line="106"/>
@@ -12740,7 +12740,7 @@ Suono: %6</translation>
     <message>
         <location filename="../../mscore/mixer/mixertrackchannel.cpp" line="204"/>
         <source>This channel is a child of part %1</source>
-        <translation>Questo canale è un figlio di parte %1</translation>
+        <translation>Questo canale appartiene alla parte %1</translation>
     </message>
 </context>
 <context>
@@ -13055,18 +13055,18 @@ prima di chiudere?</translation>
     <message>
         <location filename="../../mscore/file.cpp" line="1198"/>
         <source>Chord Symbols Style File</source>
-        <translation>File di stile simboli accordo</translation>
+        <translation>File di stile sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1209"/>
         <location filename="../../mscore/file.cpp" line="1237"/>
         <source>Load Chord Symbols Style</source>
-        <translation>Carica stile simboli degli accordi</translation>
+        <translation>Carica stile sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1216"/>
         <source>Save Chord Symbols Style</source>
-        <translation>Salva stile simboli degli accordi</translation>
+        <translation>Salva stile sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/file.cpp" line="1280"/>
@@ -13742,7 +13742,7 @@ Ripristinare la sessione?</translation>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5939"/>
         <source>Invalid selection. Cannot realize chord symbol</source>
-        <translation>Selezione non valida. Impossibile realizzare i simboli accordo </translation>
+        <translation>Selezione non valida. Impossibile realizzare le sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/musescore.cpp" line="5955"/>
@@ -14344,7 +14344,7 @@ connessione internet attiva</translation>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="299"/>
         <source>Velocity:</source>
-        <translation>Dinamica:</translation>
+        <translation>Intensità:</translation>
     </message>
     <message>
         <location filename="../../mscore/pianoroll/pianoroll.cpp" line="301"/>
@@ -18455,12 +18455,12 @@ Questo valuterà nuovamente tutti i plugin, rilevando eventuali modifiche che po
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1489"/>
         <source>Play Chord Symbols</source>
-        <translation>Riproduci simboli accordo</translation>
+        <translation>Riproduci sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1501"/>
         <source>Play chord symbol when editing</source>
-        <translation> Riproduci simboli accordo durante la modifica</translation>
+        <translation> Riproduci sigle accordali durante la modifica</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="1514"/>
@@ -19430,7 +19430,7 @@ Regolare la latenza può aiutare a sincronizzare l&apos;hardware MIDI con il sin
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3685"/>
         <source>Export</source>
-        <translation>Esportazione</translation>
+        <translation>Esporta</translation>
     </message>
     <message>
         <location filename="../../mscore/prefsdialog.ui" line="3710"/>
@@ -20910,17 +20910,17 @@ Vuoi sovrascriverlo?</translation>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="14"/>
         <source>Realize Chord Symbols</source>
-        <translation>Realizza i simboli degli accordi</translation>
+        <translation>Realizza le sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="17"/>
         <source>Convert chord symbols into notes</source>
-        <translation>Converti i simboli degli accordi in note</translation>
+        <translation>Converti le sigle accordali in note</translation>
     </message>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="41"/>
         <source>Chord symbols to be realized:</source>
-        <translation>Simboli degli accordi da realizzare:</translation>
+        <translation>Sigle accordali da realizzare:</translation>
     </message>
     <message>
         <location filename="../../mscore/realizeharmonydialog.ui" line="95"/>
@@ -23029,7 +23029,7 @@ Nota: &quot;Ctrl+Shift+1&quot; è una combinazione di tasti.</translation>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="447"/>
         <source>Transpose chord symbols</source>
-        <translation>Trasponi i simboli degli accordi</translation>
+        <translation>Trasponi le sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/transposedialog.ui" line="461"/>
@@ -24112,7 +24112,7 @@ fallita: </translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="271"/>
         <source>Note input: Toggle Entry/Normal mode</source>
-        <translation>Inserimento note: Commuta Inserimento/Modalità normale</translation>
+        <translation>Inserimento note: commuta Inserimento/Modalità normale</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="282"/>
@@ -26770,12 +26770,12 @@ dividere di nuovo alle posizioni ritmiche</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2710"/>
         <source>Chord Symbols…</source>
-        <translation>Simboli accordo…</translation>
+        <translation>Sigle accordali…</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2711"/>
         <source>Edit chord symbols style</source>
-        <translation>Modifica lo stile simboli degli accordi</translation>
+        <translation>Modifica lo stile delle sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="2717"/>
@@ -27656,112 +27656,112 @@ dividere di nuovo alle posizioni ritmiche</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3530"/>
         <source>Longa Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una longa (B.F./simboli accordo)</translation>
+        <translation>Avanza di una longa (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3531"/>
         <source>Advance of a longa (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una longa (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una longa (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3537"/>
         <source>Breve Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una breve (B.F./simboli accordo)</translation>
+        <translation>Avanza di una breve (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3538"/>
         <source>Advance of a double whole note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una breve (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una breve (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3544"/>
         <source>Whole Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una semibreve (B.F./simboli accordo)</translation>
+        <translation>Avanza di una semibreve (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3545"/>
         <source>Advance of a whole note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una semibreve (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una semibreve (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3551"/>
         <source>Half Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una minima (B.F./simboli accordo)</translation>
+        <translation>Avanza di una minima (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3552"/>
         <source>Advance of a half note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una minima (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una minima (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3558"/>
         <source>Quarter Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una semiminima (B.F./simboli accordo)</translation>
+        <translation>Avanza di una semiminima (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3559"/>
         <source>Advance of a quarter note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una semiminima (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una semiminima (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3565"/>
         <source>Eighth Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una croma (B.F./simboli accordo)</translation>
+        <translation>Avanza di una croma (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3566"/>
         <source>Advance of an eighth note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una croma (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una croma (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3572"/>
         <source>16th Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una semicroma (B.F./simboli accordo)</translation>
+        <translation>Avanza di una semicroma (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3573"/>
         <source>Advance of a 16th note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una semicroma (Basso continuo/ solo simboli accordo)</translation>
+        <translation>Avanza di una semicroma (Basso continuo/sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3579"/>
         <source>32nd Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una biscroma (B.F./simboli accordo)</translation>
+        <translation>Avanza di una biscroma (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3580"/>
         <source>Advance of a 32nd note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una biscroma (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una biscroma (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3586"/>
         <source>64th Note Advance (F.B./Chord Symbol)</source>
-        <translation>Avanza di una semibiscroma (B.F./simboli accordo)</translation>
+        <translation>Avanza di una semibiscroma (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3587"/>
         <source>Advance of a 64th note (Figured bass/Chord symbol only)</source>
-        <translation>Avanza di una semibiscroma (B.F./solo simboli accordo)</translation>
+        <translation>Avanza di una semibiscroma (B.F./solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3593"/>
         <source>Previous Measure (F.B./Chord Symbol)</source>
-        <translation>Battuta precedente (B.F./simboli accordo)</translation>
+        <translation>Battuta precedente (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3594"/>
         <source>Previous measure (Figured bass/Chord symbol only)</source>
-        <translation>Battuta precedente (Basso continuo/solo simboli accordo)</translation>
+        <translation>Battuta precedente (Basso continuo/solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3600"/>
         <source>Next Measure (F.B./Chord Symbol)</source>
-        <translation>Battuta successiva (B.F./simboli accordo)</translation>
+        <translation>Battuta successiva (B.F./sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3601"/>
         <source>Next measure (Figured bass/Chord symbol only)</source>
-        <translation>Battuta successiva (Basso continuo/solo simboli accordo)</translation>
+        <translation>Battuta successiva (Basso continuo/solo sigle accordali)</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3607"/>
@@ -27786,17 +27786,17 @@ dividere di nuovo alle posizioni ritmiche</translation>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3712"/>
         <source>Realize Chord Symbols</source>
-        <translation>Realizza i simboli degli accordi</translation>
+        <translation>Realizza le sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3713"/>
         <source>Realize chord symbols</source>
-        <translation>Realizza i simboli degli accordi</translation>
+        <translation>Realizza le sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3714"/>
         <source>Convert chord symbols into notes</source>
-        <translation>Converti i simboli degli accordi in note</translation>
+        <translation>Converti le sigle accordali in note</translation>
     </message>
     <message>
         <location filename="../../mscore/shortcut.cpp" line="3784"/>
@@ -31055,7 +31055,7 @@ la battuta non è vuota</translation>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="42"/>
         <source>Chord Symbols</source>
-        <translation>Simboli accordo</translation>
+        <translation>Sigle accordali</translation>
     </message>
     <message>
         <location filename="../../mscore/selectionwindow.cpp" line="43"/>

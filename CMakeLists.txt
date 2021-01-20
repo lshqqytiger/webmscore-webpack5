@@ -6,6 +6,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.3.0)
 
 include(build/functions.cmake) # library of CMake functions ("fn__" namespace)
 
+# Print Qt version or fail the build if Qt (qmake) is not in PATH.
+fn__require_program(QMAKE Qt --version "https://musescore.org/en/handbook/developers-handbook/compilation" qmake)
+
 set (CI $ENV{CI})
 if (CI)
     SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
@@ -59,6 +62,11 @@ set(USE_SSE           FALSE)
 SET (USE_WEBENGINE 0)
 
 # Setup version number and general build settings
+SET(MUSESCORE_BUILD_CONFIG "release" CACHE STRING "Build config")
+# Possible MUSESCORE_BUILD_CONFIG values:
+# - dev     - for development/nightly builds
+# - testing - for testing versions (alpha, beta, RC)
+# - release - for stable release builds
 include("${CMAKE_CURRENT_LIST_DIR}/config.cmake")
 
 option(BUILD_PCH "Build using precompiled headers." ON)
