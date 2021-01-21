@@ -26,6 +26,7 @@
 #include "staff.h"
 #include "segment.h"
 #include "stafftype.h"
+#include "part.h"
 
 namespace Ms {
 
@@ -121,9 +122,14 @@ void Clef::layout()
             Fraction tick = clefSeg->tick();
             const StaffType* st = staff()->staffType(tick);
             bool show     = st->genClef();        // check staff type allows clef display
+            StaffGroup staffGroup = st->group();
+
+            // if not tab, use instrument->useDrumset to set staffGroup (to allow pitched to unpitched in same staff)
+            if ( staffGroup != StaffGroup::TAB)
+                  staffGroup = staff()->part()->instrument(this->tick())->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
 
             // check clef is compatible with staff type group:
-            if (ClefInfo::staffGroup(clefType()) != st->group()) {
+            if (ClefInfo::staffGroup(clefType()) != staffGroup) {
                   if (tick > Fraction(0,1) && !generated()) // if clef is not generated, hide it
                         show = false;
                   else                          // if generated, replace with initial clef type
@@ -154,7 +160,7 @@ void Clef::layout()
       qreal yoff     = 0.0;
       if (clefType() !=  ClefType::INVALID && clefType() !=  ClefType::MAX) {
             symId = ClefInfo::symId(clefType());
-            yoff = lineDist * (lines - ClefInfo::line(clefType()));
+            yoff = lineDist * (5 - ClefInfo::line(clefType())); 
             }
       else
             symId = SymId::noSym;
@@ -166,24 +172,30 @@ void Clef::layout()
             case ClefType::TAB:                            // TAB clef
                   // on tablature, position clef at half the number of spaces * line distance
                   yoff = lineDist * (lines - 1) * .5;
+                  stepOffset = 0; //  ignore stepOffset for TAB and pecussion clefs
                   break;
             case ClefType::TAB4:                            // TAB clef 4 strings
                   // on tablature, position clef at half the number of spaces * line distance
                   yoff = lineDist * (lines - 1) * .5;
+                  stepOffset = 0;
                   break;
             case ClefType::TAB_SERIF:                           // TAB clef alternate style
                   // on tablature, position clef at half the number of spaces * line distance
                   yoff = lineDist * (lines - 1) * .5;
+                  stepOffset = 0;
                   break;
             case ClefType::TAB4_SERIF:                           // TAB clef alternate style
                   // on tablature, position clef at half the number of spaces * line distance
                   yoff = lineDist * (lines - 1) * .5;
+                  stepOffset = 0;
                   break;
             case ClefType::PERC:                           // percussion clefs
                   yoff = lineDist * (lines - 1) * 0.5;
+                  stepOffset = 0;
                   break;
             case ClefType::PERC2:
                   yoff = lineDist * (lines - 1) * 0.5;
+                  stepOffset = 0;
                   break;
             case ClefType::INVALID:
             case ClefType::MAX:
@@ -196,7 +208,7 @@ void Clef::layout()
       // other clefs are right aligned
       QRectF r(symBbox(symId));
       qreal x = segment() && segment()->rtick().isNotZero() ? -r.right() : 0.0;
-      setPos(x, yoff * _spatium + (stepOffset * -_spatium));
+      setPos(x, yoff * _spatium + (stepOffset * 0.5 * _spatium));
 
       setbbox(r);
       }

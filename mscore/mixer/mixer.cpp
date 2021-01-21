@@ -76,7 +76,7 @@ char userRangeToReverb(double v) { return (char)qBound(0, static_cast<int>(v / 1
 
 Mixer::Mixer(QWidget* parent)
     : QDockWidget(qApp->translate("Mixer", "Mixer"), parent),
-      showDetails(true),
+      showDetails(preferences.getBool(PREF_IO_MIDI_SHOWCONTROLSINMIXER)),
       trackHolder(nullptr)
       {
 
@@ -228,6 +228,8 @@ void Mixer::retranslate(bool firstTime)
       {
       setWindowTitle(qApp->translate("Mixer", "Mixer"));
       if (!firstTime) {
+            retranslateUi(this);
+            mixerDetails->retranslateUi(mixerDetails);
             for (int i = 0; i < trackAreaLayout->count(); i++) {
                   PartEdit* p = getPartAtIndex(i);
                   if (p) p->retranslateUi(p);
@@ -452,8 +454,9 @@ void Mixer::updateTracks()
 //   midiPrefsChanged
 //---------------------------------------------------------
 
-void Mixer::midiPrefsChanged(bool)
+void Mixer::midiPrefsChanged(bool showMidiControls)
       {
+      showDetailsToggled(showMidiControls);
       updateTracks();
       }
 
@@ -503,6 +506,7 @@ void MuseScore::showMixer(bool visible)
 
       if (mixer == 0) {
             mixer = new Mixer(this);
+            mixer->showDetailsToggled(preferences.getBool(PREF_IO_MIDI_SHOWCONTROLSINMIXER));
             mscore->stackUnder(mixer);
             if (synthControl)
                   connect(synthControl, SIGNAL(soundFontChanged()), mixer, SLOT(updateTrack()));

@@ -611,7 +611,7 @@ void TextCursor::accessibileMessage(QString& accMsg, int oldRow, int oldCol, QSt
                   if (accMsg.isEmpty()) // no characters were skipped
                         accMsg = oldSelection;
                   else
-                        accMsg = QObject::tr("%1, %2").arg(accMsg).arg(oldSelection);
+                        accMsg = QObject::tr("%1, %2").arg(accMsg, oldSelection);
                   }
 
             return;
@@ -666,7 +666,7 @@ void TextCursor::accessibileMessage(QString& accMsg, int oldRow, int oldCol, QSt
             str2 = QObject::tr("%1 unselected").arg(str2);
             }
 
-      accMsg =  QObject::tr("%1, %2").arg(str1).arg(str2);
+      accMsg =  QObject::tr("%1, %2").arg(str1, str2);
       }
 
 //---------------------------------------------------------
@@ -699,7 +699,7 @@ TextFragment TextFragment::split(int column)
       TextFragment f;
       f.format = format;
 
-      for (const QChar& c : text) {
+      for (const QChar& c : qAsConst(text)) {
             if (col == column) {
                   if (idx) {
                         if (idx < text.size()) {
@@ -725,7 +725,7 @@ TextFragment TextFragment::split(int column)
 int TextFragment::columns() const
       {
       int col = 0;
-      for (const QChar& c : text) {
+      for (const QChar& c : qAsConst(text)) {
             if (c.isHighSurrogate())
                   continue;
             ++col;
@@ -751,6 +751,19 @@ void TextFragment::draw(QPainter* p, const TextBase* t) const
       QFont f(font(t));
       f.setPointSizeF(f.pointSizeF() * MScore::pixelRatio);
 #ifndef Q_OS_MACOS
+      TextBase::drawTextWorkaround(p, f, pos, text);
+#else
+      p->setFont(f);
+      p->drawText(pos, text);
+#endif
+      }
+
+//---------------------------------------------------------
+//   drawTextWorkaround
+//---------------------------------------------------------
+
+void TextBase::drawTextWorkaround(QPainter* p, QFont& f, const QPointF pos, const QString text)
+      {
       qreal mm = p->worldTransform().m11();
       if (!(MScore::pdfPrinting) && (mm < 1.0) && f.bold() && !(f.underline())) {
             // workaround for https://musescore.org/en/node/284218
@@ -819,10 +832,6 @@ void TextFragment::draw(QPainter* p, const TextBase* t) const
             p->setFont(f);
             p->drawText(pos, text);
             }
-#else
-      p->setFont(f);
-      p->drawText(pos, text);
-#endif
       }
 
 //---------------------------------------------------------
@@ -992,6 +1001,10 @@ void TextBlock::layout(TextBase* t)
                   _lineSpacing = qMax(_lineSpacing, fm.lineSpacing());
                   }
             }
+
+      // Apply style/custom line spacing
+      _lineSpacing *= t->textLineSpacing();
+
       qreal rx;
       if (t->align() & Align::RIGHT)
             rx = layoutWidth-_bbox.right();
@@ -1012,7 +1025,7 @@ void TextBlock::layout(TextBase* t)
 QList<TextFragment>* TextBlock::fragmentsWithoutEmpty()
       {
       QList<TextFragment>* list = new QList<TextFragment>();
-      for (auto x :_fragments) {
+      for (const auto &x :qAsConst(_fragments)) {
             if (x.text.isEmpty()) {
                   continue;
                   }
@@ -1035,7 +1048,7 @@ qreal TextBlock::xpos(int column, const TextBase* t) const
                   return f.pos.x();
             QFontMetricsF fm(f.font(t), MScore::paintDevice());
             int idx = 0;
-            for (const QChar& c : f.text) {
+            for (const QChar& c : qAsConst(f.text)) {
                   ++idx;
                   if (c.isHighSurrogate())
                         continue;
@@ -1058,7 +1071,7 @@ const TextFragment* TextBlock::fragment(int column) const
       int col = 0;
       auto f = _fragments.begin();
       for (; f != _fragments.end(); ++f) {
-            for (const QChar& c : f->text) {
+            for (const QChar& c : qAsConst(f->text)) {
                   if (c.isHighSurrogate())
                         continue;
                   if (column == col)
@@ -1102,7 +1115,7 @@ int TextBlock::columns() const
       {
       int col = 0;
       for (const TextFragment& f : _fragments) {
-            for (const QChar& c : f.text) {
+            for (const QChar& c : qAsConst(f.text)) {
                   if (!c.isHighSurrogate())
                         ++col;
                   }
@@ -1124,7 +1137,7 @@ int TextBlock::column(qreal x, TextBase* t) const
             if (x <= f.pos.x())
                   return col;
             qreal px = 0.0;
-            for (const QChar& c : f.text) {
+            for (const QChar& c : qAsConst(f.text)) {
                   ++idx;
                   if (c.isHighSurrogate())
                         continue;
@@ -1210,7 +1223,7 @@ QList<TextFragment>::iterator TextBlock::fragment(int column, int* rcol, int* ri
       for (auto i = _fragments.begin(); i != _fragments.end(); ++i) {
             *rcol = 0;
             *ridx = 0;
-            for (const QChar& c : i->text) {
+            for (const QChar& c : qAsConst(i->text)) {
                   if (col == column)
                         return i;
                   ++*ridx;
@@ -1234,7 +1247,7 @@ QString TextBlock::remove(int column, TextCursor* cursor)
       for (auto i = _fragments.begin(); i != _fragments.end(); ++i) {
             int idx  = 0;
             int rcol = 0;
-            for (const QChar& c : i->text) {
+            for (const QChar& c : qAsConst(i->text)) {
                   if (col == column) {
                         if (c.isSurrogate()) {
                               s = i->text.mid(idx, 2);
@@ -1424,7 +1437,7 @@ TextBlock TextBlock::split(int column, Ms::TextCursor* cursor)
       int col = 0;
       for (auto i = _fragments.begin(); i != _fragments.end(); ++i) {
             int idx = 0;
-            for (const QChar& c : i->text) {
+            for (const QChar& c : qAsConst(i->text)) {
                   if (col == column) {
                         if (idx) {
                               if (idx < i->text.size()) {
@@ -1465,10 +1478,10 @@ QString TextBlock::text(int col1, int len) const
       {
       QString s;
       int col = 0;
-      for (auto f : _fragments) {
+      for (const auto &f : _fragments) {
             if (f.text.isEmpty())
                   continue;
-            for (const QChar& c : f.text) {
+            for (const QChar& c : qAsConst(f.text)) {
                   if (col >= col1 && (len < 0 || ((col-col1) < len)))
                         s += XmlWriter::xmlString(c.unicode());
                   if (!c.isHighSurrogate())
@@ -1486,8 +1499,9 @@ TextBase::TextBase(Score* s, Tid tid, ElementFlags f)
    : Element(s, f | ElementFlag::MOVABLE)
       {
       _tid                    = tid;
-      _family                 = "FreeSerif";
+      _family                 = "Edwin";
       _size                   = 10.0;
+      _textLineSpacing        = 1.0;
       _fontStyle              = FontStyle::Normal;
       _bgColor                = QColor(255, 255, 255, 0);
       _frameColor             = QColor(0, 0, 0, 255);
@@ -1517,6 +1531,7 @@ TextBase::TextBase(const TextBase& st)
       _tid                         = st._tid;
       _family                      = st._family;
       _size                        = st._size;
+      _textLineSpacing             = st._textLineSpacing;
       _fontStyle                   = st._fontStyle;
       _bgColor                     = st._bgColor;
       _frameColor                  = st._frameColor;
@@ -1804,7 +1819,11 @@ void TextBase::layout1()
                         // consider inner margins of frame
                         Box* b = toBox(parent());
                         yoff = b->topMargin()  * DPMM;
-                        h  = b->height() - yoff - b->bottomMargin() * DPMM;
+
+                        if (b->height() < bb.bottom())
+                              h = b->height() / 2 + bb.height();
+                        else
+                              h  = b->height() - yoff - b->bottomMargin() * DPMM;
                         }
                   else if (parent()->isPage()) {
                         Page* p = toPage(parent());
@@ -1955,7 +1974,7 @@ class XmlNesting : public QStack<QString> {
                         break;
                   ps += s;
                   }
-            for (const QString& s : ps)
+            for (const QString& s : qAsConst(ps))
                   pushToken(s);
             }
       void popB() { popToken("b"); }
@@ -2134,6 +2153,7 @@ static constexpr std::array<Pid, 18> pids { {
       Pid::SUB_STYLE,
       Pid::FONT_FACE,
       Pid::FONT_SIZE,
+      Pid::TEXT_LINE_SPACING,
       Pid::FONT_STYLE,
       Pid::COLOR,
       Pid::FRAME_TYPE,
@@ -2474,7 +2494,7 @@ QString TextBase::convertToHtml(const QString& s, const TextStyle& /*st*/)
 QString TextBase::tagEscape(QString s)
       {
       QStringList tags = { "sym", "b", "i", "u", "sub", "sup" };
-      for (QString tag : tags) {
+      for (const QString &tag : tags) {
             QString openTag = "<" + tag + ">";
             QString openProxy = "!!" + tag + "!!";
             QString closeTag = "</" + tag + ">";
@@ -2483,7 +2503,7 @@ QString TextBase::tagEscape(QString s)
             s.replace(closeTag, closeProxy);
             }
       s = XmlWriter::xmlString(s);
-      for (QString tag : tags) {
+      for (const QString &tag : tags) {
             QString openTag = "<" + tag + ">";
             QString openProxy = "!!" + tag + "!!";
             QString closeTag = "</" + tag + ">";
@@ -2534,6 +2554,7 @@ QString TextBase::accessibleInfo() const
             case Tid::POET:
             case Tid::TRANSLATOR:
             case Tid::MEASURE_NUMBER:
+            case Tid::MMREST_RANGE:
                   rez = score() ? score()->getTextStyleUserName(tid()) : textStyleUserName(tid());
                   break;
             default:
@@ -2545,7 +2566,7 @@ QString TextBase::accessibleInfo() const
             s.truncate(20);
             s += "…";
             }
-      return  QString("%1: %2").arg(rez).arg(s);
+      return  QString("%1: %2").arg(rez, s);
       }
 
 //---------------------------------------------------------
@@ -2563,6 +2584,7 @@ QString TextBase::screenReaderInfo() const
             case Tid::POET:
             case Tid::TRANSLATOR:
             case Tid::MEASURE_NUMBER:
+            case Tid::MMREST_RANGE:
                   rez = score() ? score()->getTextStyleUserName(tid()) : textStyleUserName(tid());
                   break;
             default:
@@ -2570,7 +2592,7 @@ QString TextBase::screenReaderInfo() const
                   break;
             }
       QString s = plainText().simplified();
-      return  QString("%1: %2").arg(rez).arg(s);
+      return  QString("%1: %2").arg(rez, s);
       }
 
 //---------------------------------------------------------
@@ -2695,6 +2717,7 @@ QFont TextBase::font() const
       QFont f(_family, m, bold() ? QFont::Bold : QFont::Normal, italic());
       if (underline())
             f.setUnderline(underline());
+
       return f;
       }
 
@@ -2722,6 +2745,8 @@ QVariant TextBase::getProperty(Pid propertyId) const
                   return size();
             case Pid::FONT_STYLE:
                   return int(fontStyle());
+            case Pid::TEXT_LINE_SPACING:
+                return textLineSpacing();
             case Pid::FRAME_TYPE:
                   return int(frameType());
             case Pid::FRAME_WIDTH:
@@ -2764,6 +2789,9 @@ bool TextBase::setProperty(Pid pid, const QVariant& v)
                   break;
             case Pid::FONT_STYLE:
                   setFontStyle(FontStyle(v.toInt()));
+                  break;
+            case Pid::TEXT_LINE_SPACING:
+                  setTextLineSpacing(v.toReal());
                   break;
             case Pid::FRAME_TYPE:
                   setFrameType(FrameType(v.toInt()));
@@ -2880,6 +2908,8 @@ Sid TextBase::offsetSid() const
                   return above ? Sid::tempoPosAbove : Sid::tempoPosBelow;
             case Tid::MEASURE_NUMBER:
                   return above ? Sid::measureNumberPosAbove : Sid::measureNumberPosBelow;
+            case Tid::MMREST_RANGE:
+                  return above ? Sid::mmRestRangePosAbove : Sid::mmRestRangePosBelow;
             default:
                   break;
             }
@@ -3090,7 +3120,7 @@ void TextBase::drawEditMode(QPainter* p, EditData& ed)
             int c2 = _cursor->column();
             sort(r1, c1, r2, c2);
             int row = 0;
-            for (const TextBlock& t : _layout) {
+            for (const TextBlock& t : qAsConst(_layout)) {
                   t.draw(p, this);
                   if (row >= r1 && row <= r2) {
                         QRectF br;
@@ -3281,4 +3311,3 @@ void TextBase::undoChangeProperty(Pid id, const QVariant& v, PropertyFlags ps)
       }
 
 }
-

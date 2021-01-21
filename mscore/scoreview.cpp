@@ -420,7 +420,7 @@ void ScoreView::measurePopup(QContextMenuEvent* ev, Measure* obj)
       a->setText(tr("Staff"));
       a = popup->addAction(tr("Edit Drumset…"));
       a->setData("edit-drumset");
-      a->setEnabled(staff->part()->instrument()->drumset() != 0);
+      a->setEnabled(staff->part()->instrument(obj->tick())->drumset() != 0);
 
       a = popup->addAction(tr("Piano Roll Editor…"));
       a->setData("pianoroll");
@@ -480,10 +480,14 @@ void ScoreView::measurePopup(QContextMenuEvent* ev, Measure* obj)
                   }
             }
       else if (cmd == "edit-drumset") {
-            EditDrumset drumsetEdit(staff->part()->instrument()->drumset(), this);
+            EditDrumset drumsetEdit(staff->part()->instrument(obj->tick())->drumset(), this);
             if (drumsetEdit.exec()) {
-                  _score->undo(new ChangeDrumset(staff->part()->instrument(), drumsetEdit.drumset()));
+                  _score->undo(new ChangeDrumset(staff->part()->instrument(obj->tick()), drumsetEdit.drumset()));
                   mscore->updateDrumTools(drumsetEdit.drumset());
+                  if (_score->undoStack()->active()) {
+                        _score->setLayoutAll();
+                        _score->endCmd();
+                        }
                   }
             }
       else if (cmd == "drumroll") {
@@ -832,7 +836,7 @@ void ScoreView::moveCursor()
       int lines               = staffType->lines();
       int strg                = is.string();          // strg refers to an instrument physical string
       x                       -= _spatium;
-      int instrStrgs          = staff->part()->instrument()->stringData()->strings();
+      int instrStrgs          = staff->part()->instrument(is.tick())->stringData()->strings();
       // if on a TAB staff and InputState::_string makes sense,
       // draw cursor around single string
       if (staff->isTabStaff(is.tick()) && strg >= 0 && strg <= instrStrgs) {
@@ -1015,7 +1019,7 @@ void ScoreView::setShadowNote(const QPointF& p)
       shadowNote->setVisible(true);
       Staff* staff = score()->staff(pos.staffIdx);
       shadowNote->setMag(staff->mag(Fraction(0,1)));
-      const Instrument* instr       = staff->part()->instrument();
+      const Instrument* instr       = staff->part()->instrument(shadowNote->tick()); // or pos.segment->tick()
       NoteHead::Group noteheadGroup = NoteHead::Group::HEAD_NORMAL;
       int line                      = pos.line;
       NoteHead::Type noteHead       = is.duration().headType();
@@ -2306,6 +2310,10 @@ void ScoreView::cmd(const char* s)
               "prev-measure",
               "next-system",
               "prev-system",
+              "next-frame",
+              "prev-frame",
+              "next-section",
+              "prev-section",
               "empty-trailing-measure",
               "top-staff"}, [](ScoreView* cv, const QByteArray& cmd) {
 
@@ -2501,6 +2509,51 @@ void ScoreView::cmd(const char* s)
                         cv->cmdGotoElement(e);
                         }
                   }},
+            {{"playback-position"}, [](ScoreView* cv, const QByteArray&) {
+                  ChordRest* cr { nullptr };
+                  Element* el { nullptr };
+                  int currentTrack = cv->score()->getSelectedElement() ?
+                                     cv->score()->getSelectedElement()->track() : 0;
+                  currentTrack = (currentTrack >= 0) ? currentTrack : 0;
+                  auto considerAllTracks { true }; // True : Consider all tracks instead of only voice-1 of first instrument
+                  auto next { false };             // False: Get current (rather than next) segment of playback cursor
+                  auto cursorPosition = cv->score()->repeatList().tick2utick(cv->score()->playPos().ticks());
+                  Fraction frac { Fraction::fromTicks(cursorPosition) };
+                  Segment* seg = next ? cv->score()->tick2rightSegment(frac, false) : cv->score()->tick2leftSegment(frac, false);
+
+                  if (seg) {
+                        if (seg->isChordRestType()) {
+                              if ((cr = seg->cr(currentTrack)))
+                                    el = cr;
+                              else {
+                                    for (int t = 0; t < cv->score()->ntracks(); t++) {
+                                          if ((cr = seg->cr(t))) {
+                                                el = cr;
+                                                break;
+                                                }
+                                          }
+                                    }
+                              }
+                        else {
+                              // Cycle through tracks if no CR* found
+                              if (considerAllTracks) {
+                                    for (int t = 0; t < cv->score()->ntracks(); t++) {
+                                          if ((cr = seg->cr(t))) {
+                                                el = cr;
+                                                break;
+                                                }
+                                          }
+                                    }
+                              // If still nothing found, get next CR*
+                              else el = seg->nextChordRest(0, false);
+                              }
+                        }
+                  if (el) {
+                        if (el->isChord())
+                              el = toChord(el)->upNote();
+                        cv->cmdGotoElement(el);
+                        }
+                  }},
             {{"rest", "rest-TAB"}, [](ScoreView* cv, const QByteArray&) {
                   cv->cmdEnterRest();
                   }},
@@ -2684,7 +2737,7 @@ void ScoreView::cmd(const char* s)
       #ifdef OMR
             {{"show-omr"}, [](ScoreView* cv, const QByteArray&) {
                   if (cv->score()->masterScore()->omr())
-                        showOmr(!_score->masterScore()->showOmr());
+                        cv->showOmr(!cv->score()->masterScore()->showOmr());
                   }},
       #endif
             {{"split-measure"}, [](ScoreView* cv, const QByteArray&) {
@@ -2786,7 +2839,7 @@ void ScoreView::cmd(const char* s)
               "string-below"}, [](ScoreView* cv, const QByteArray& cmd) {
                   InputState& is          = cv->score()->inputState();
                   Staff*      staff       = cv->score()->staff(is.track() / VOICES);
-                  int         instrStrgs  = staff->part()->instrument()->stringData()->strings();
+                  int         instrStrgs  = staff->part()->instrument(is.tick())->stringData()->strings();
                   // assume "string-below": if tab is upside-down, 'below' means toward instrument top (-1)
                   // if not, 'below' means toward instrument bottom (+1)
                   int         delta       = (staff->staffType(is.tick())->upsideDown() ? -1 : +1);
@@ -3138,6 +3191,7 @@ void ScoreView::startNoteEntry()
       is.setRest(false);
       is.setNoteEntryMode(true);
       adjustCanvasPosition(el, false);
+      setEditElement(el);
 
       getAction("pad-rest")->setChecked(false);
       setMouseTracking(true);
@@ -3146,7 +3200,13 @@ void ScoreView::startNoteEntry()
       _score->update();
 
       Staff* staff = _score->staff(is.track() / VOICES);
-      switch (staff->staffType(is.tick())->group()) {
+
+      // if not tab, pitched/unpitched depends on instrument (override StaffGroup to allow pitched/unpitched changes)
+      StaffGroup staffGroup = staff->staffType(is.tick())->group();
+      if (staffGroup != StaffGroup::TAB)
+            staffGroup = staff->part()->instrument(is.tick())->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
+
+      switch (staffGroup) {
             case StaffGroup::STANDARD:
                   break;
             case StaffGroup::TAB: {
@@ -3517,10 +3577,46 @@ void ScoreView::screenPrev()
 
 void ScoreView::pageTop()
       {
-      if (score()->layoutMode() == LayoutMode::LINE)
-            setOffset(thinPadding, 0.0);
-      else
-            setOffset(thinPadding, thinPadding);
+      switch (score()->layoutMode()) {
+            case LayoutMode::PAGE:
+                  {
+                  qreal dx = thinPadding, dy = thinPadding;
+                  Page* firstPage = score()->pages().front();
+                  Page* lastPage  = score()->pages().back();
+                  if (firstPage && lastPage) {
+                        QPointF offsetPt(xoffset(), yoffset());
+                        QRectF firstPageRect(firstPage->pos().x() * physicalZoomLevel(),
+                                             firstPage->pos().y() * physicalZoomLevel(),
+                                             firstPage->width() * physicalZoomLevel(),
+                                             firstPage->height() * physicalZoomLevel());
+                        QRectF lastPageRect(lastPage->pos().x() * physicalZoomLevel(),
+                                            lastPage->pos().y() * physicalZoomLevel(),
+                                            lastPage->width() * physicalZoomLevel(),
+                                            lastPage->height() * physicalZoomLevel());
+                        QRectF pagesRect = firstPageRect.united(lastPageRect);
+                        dx = qMax(thinPadding, (width() - pagesRect.width()) / 2);
+                        dy = qMax(thinPadding, (height() - pagesRect.height()) / 2);
+                        }
+                  setOffset(dx, dy);
+                  break;
+                  }
+            case LayoutMode::LINE:
+                  setOffset(thinPadding, 0.0);
+                  break;
+            case LayoutMode::SYSTEM:
+                  {
+                  qreal dx = thinPadding, dy = thinPadding;
+                  Page* page = score()->pages().front();
+                  if (page) {
+                        dx = qMax(thinPadding, (width() - page->width() * physicalZoomLevel()) / 2);
+                        }
+                  setOffset(dx, dy);
+                  break;
+                  }
+            default:
+                  setOffset(thinPadding, thinPadding);
+                  break;
+      }
       update();
       }
 
@@ -3842,7 +3938,12 @@ ScoreState ScoreView::mscoreState() const
       if (state == ViewState::NOTE_ENTRY) {
             const InputState is = _score->inputState();
             Staff* staff = _score->staff(is.track() / VOICES);
-            switch( staff->staffType(is.tick())->group()) {
+
+            // pitched/unpitched depending on instrument (override StaffGroup)
+            StaffGroup staffGroup = staff->staffType(is.tick())->group();
+            if (staffGroup != StaffGroup::TAB)
+                  staffGroup = staff->part()->instrument(is.tick())->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
+            switch( staffGroup ) {
                   case StaffGroup::STANDARD:
                         return STATE_NOTE_ENTRY_STAFF_PITCHED;
                   case StaffGroup::TAB:
@@ -4107,11 +4208,11 @@ void ScoreView::cmdChangeEnharmonic(bool both)
       QList<Note*> notes = _score->selection().uniqueNotes();
       for (Note* n : notes) {
             Staff* staff = n->staff();
-            if (staff->part()->instrument()->useDrumset())
+            if (staff->part()->instrument(n->tick())->useDrumset())
                   continue;
             if (staff->isTabStaff(n->tick())) {
                   int string = n->line() + (both ? 1 : -1);
-                  int fret   = staff->part()->instrument()->stringData()->fret(n->pitch(), string, staff, n->chord()->tick());
+                  int fret   = staff->part()->instrument(n->tick())->stringData()->fret(n->pitch(), string, staff, n->chord()->tick());
                   if (fret != -1) {
                         n->undoChangeProperty(Pid::FRET, fret);
                         n->undoChangeProperty(Pid::STRING, string);
@@ -4715,7 +4816,7 @@ void ScoreView::appendMeasures(int n, ElementType type)
       if (_score->noStaves()) {
             QMessageBox::warning(0, "MuseScore",
                tr("No staves found:\n"
-                  "please use the instruments dialog to\n"
+                  "Please use the instruments dialog to\n"
                   "first create some staves"));
             return;
             }

@@ -36,7 +36,7 @@ struct TextSegment {
       qreal width() const;
       QRectF boundingRect() const;
       QRectF tightBoundingRect() const;
-      QPointF pos() const { return QPointF(x, y) + offset; };
+      QPointF pos() const { return QPointF(x, y) + offset; }
 
       TextSegment()                { select = false; x = y = 0.0; }
       TextSegment(const QFont& f, qreal _x, qreal _y) : font(f), x(_x), y(_y), select(false) {}
@@ -65,12 +65,6 @@ struct TextSegment {
 
 struct RenderAction;
 class HDegree;
-
-enum class HarmonyType {
-      STANDARD,
-      ROMAN,
-      NASHVILLE
-      };
 
 class Harmony final : public TextBase {
       int _rootTpc;                       // root note for chord
@@ -135,7 +129,7 @@ class Harmony final : public TextBase {
 
       Harmony* findNext() const;
       Harmony* findPrev() const;
-      Fraction ticksTilNext(bool stopAtMeasureEnd = false) const;
+      Fraction ticksTillNext(int utick, bool stopAtMeasureEnd = false) const;
       Segment* getParentSeg() const;
 
       const ChordDescription* descr() const;

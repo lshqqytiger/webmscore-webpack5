@@ -11,18 +11,20 @@
 //=============================================================================
 
 #include "harmony.h"
-#include "pitchspelling.h"
-#include "score.h"
-#include "system.h"
-#include "measure.h"
-#include "segment.h"
+
 #include "chordlist.h"
-#include "mscore.h"
 #include "fret.h"
-#include "staff.h"
+#include "measure.h"
+#include "mscore.h"
 #include "part.h"
-#include "utils.h"
+#include "pitchspelling.h"
+#include "repeatlist.h"
+#include "score.h"
+#include "segment.h"
+#include "staff.h"
 #include "sym.h"
+#include "system.h"
+#include "utils.h"
 #include "xml.h"
 
 namespace Ms {
@@ -218,7 +220,7 @@ Harmony::Harmony(const Harmony& h)
 
 Harmony::~Harmony()
       {
-      for (const TextSegment* ts : textList)
+      for (const TextSegment* ts : qAsConst(textList))
             delete ts;
       if (_parsedForm)
             delete _parsedForm;
@@ -530,7 +532,7 @@ static int convertNote(const QString& s, NoteSpellingType noteSpelling, NoteCase
             case NoteSpellingType::SOLFEGGIO:
             case NoteSpellingType::FRENCH:
                   useSolfeggio = true;
-                  if (s.toLower().startsWith("sol"))
+                  if (s.startsWith("sol", Qt::CaseInsensitive))
                         acci = 3;
                   else
                         acci = 2;
@@ -780,7 +782,7 @@ void Harmony::startEdit(EditData& ed)
             // convert chord symbol to plain text
             setPlainText(harmonyName());
             // clear rendering
-            for (const TextSegment* t : textList)
+            for (const TextSegment* t : qAsConst(textList))
                   delete t;
             textList.clear();
             }
@@ -925,7 +927,7 @@ void Harmony::setHarmony(const QString& s)
             }
       else {
             // unparseable chord, render as plain text
-            for (const TextSegment* ts : textList)
+            for (const TextSegment* ts : qAsConst(textList))
                   delete ts;
             textList.clear();
             setRootTpc(Tpc::TPC_INVALID);
@@ -1056,42 +1058,68 @@ Harmony* Harmony::findPrev() const
       }
 
 //---------------------------------------------------------
-//   ticksTilNext
+//   ticksTillNext
 ///   finds ticks until the next chord symbol or end of score
+///
+///   utick is our current playback position to start from
 ///
 ///   stopAtMeasureEnd being set to true will have the loop
 ///   stop at measure end.
 //---------------------------------------------------------
-Fraction Harmony::ticksTilNext(bool stopAtMeasureEnd) const
+Fraction Harmony::ticksTillNext(int utick, bool stopAtMeasureEnd) const
       {
       Segment* seg = getParentSeg();
       Fraction duration = seg->ticks();
-      Segment* cur = seg->next1();
-      while (cur) {
-            if (stopAtMeasureEnd && (cur->measure() != seg->measure()))
-                  break; //limit by measure end
+      Segment* cur = seg->next();
+      auto rsIt = score()->repeatList().findRepeatSegmentFromUTick(utick);
 
-            //find harmony on same track
-            Element* e = cur->findAnnotation(ElementType::HARMONY, track(), track());
-            // no harmony; look for fret diagram
-            if (!e) {
-                  e = cur->findAnnotation(ElementType::FRET_DIAGRAM, track(), track());
-                  if (e)
-                        e = toFretDiagram(e)->harmony();
+      Measure const * currentMeasure = seg->measure();
+      Measure const * endMeasure = (stopAtMeasureEnd)? currentMeasure : (*rsIt)->lastMeasure();
+      Harmony const * nextHarmony = nullptr;
+
+      do {
+            // Loop over segments of this measure
+            while (cur) {
+                  //find harmony on same track
+                  Element* e = cur->findAnnotation(ElementType::HARMONY, track(), track());
+                  if (e) {
+                        nextHarmony = toHarmony(e);
+                        }
+                  else {// no harmony; look for fret diagram
+                        e = cur->findAnnotation(ElementType::FRET_DIAGRAM, track(), track());
+                        if (e) {
+                              nextHarmony = toFretDiagram(e)->harmony();
+                              }
+                        }
+                  if (nextHarmony != nullptr) {
+                        //we have found the next chord symbol
+                        break;
+                        }
+                  //keep adding the duration of the current segment
+                  //in case we are not able to find a next
+                  //chord symbol
+                  duration += cur->ticks();
+                  cur = cur->next();
                   }
-            if (e) {
-                  //we have found the next chord symbol
-                  //set duration to the difference between
-                  //the two chord symbols
-                  duration = e->tick() - tick();
-                  break;
+            // Move segment reference to next measure
+            if (currentMeasure != endMeasure) {
+                  currentMeasure = currentMeasure->nextMeasure();
+                  cur = (currentMeasure)? currentMeasure->first() : nullptr;
                   }
-            //keep adding the duration of the current segment
-            //in case we are not able to find a next
-            //chord symbol
-            duration += cur->ticks();
-            cur = cur->next1();
-            }
+            else { // End of repeatSegment or search boundary reached
+                  if (stopAtMeasureEnd) {
+                        break;
+                        }
+                  else { // move to next RepeatSegment
+                        if (++rsIt != score()->repeatList().end()) {
+                              currentMeasure = (*rsIt)->firstMeasure();
+                              endMeasure     = (*rsIt)->lastMeasure();
+                              cur = currentMeasure->first();
+                              }
+                        }
+                  }
+            } while ((nextHarmony == nullptr) && (cur != nullptr));
+
       return duration;
       }
 
@@ -1372,7 +1400,7 @@ QPoint Harmony::calculateBoundingRect()
             }
       else {
             QRectF bb;
-            for (TextSegment* ts : textList)
+            for (TextSegment* ts : qAsConst(textList))
                   bb |= ts->tightBoundingRect().translated(ts->x, ts->y);
 
             qreal yy = -bb.y();  // Align::TOP
@@ -1403,7 +1431,7 @@ QPoint Harmony::calculateBoundingRect()
                   newy = ypos;
                   }
 
-            for (TextSegment* ts : textList)
+            for (TextSegment* ts : qAsConst(textList))
                   ts->offset = QPointF(xx, yy);
 
             setbbox(bb.translated(xx, yy));
@@ -1473,8 +1501,12 @@ void Harmony::draw(QPainter* painter) const
       for (const TextSegment* ts : textList) {
             QFont f(ts->font);
             f.setPointSizeF(f.pointSizeF() * MScore::pixelRatio);
+#ifndef Q_OS_MACOS
+            TextBase::drawTextWorkaround(painter, f, ts->pos(), ts->text);
+#else
             painter->setFont(f);
             painter->drawText(ts->pos(), ts->text);
+#endif
             }
       }
 
@@ -1628,7 +1660,7 @@ void Harmony::render(const QList<RenderAction>& renderList, qreal& x, qreal& y, 
                   }
             else if (a.type == RenderAction::RenderActionType::NOTE) {
                   QString c;
-                  int acc;
+                  AccidentalVal acc;
                   if (tpcIsValid(tpc))
                         tpc2name(tpc, noteSpelling, noteCase, c, acc);
                   else if (_function.size() > 0)
@@ -1693,7 +1725,7 @@ void Harmony::render()
       ChordList* chordList = score()->style().chordList();
 
       fontList.clear();
-      for (const ChordFont& cf : chordList->fonts) {
+      for (const ChordFont& cf : qAsConst(chordList->fonts)) {
             QFont ff(font());
             ff.setPointSizeF(ff.pointSizeF() * cf.mag);
             if (!(cf.family.isEmpty() || cf.family == "default"))
@@ -1703,7 +1735,7 @@ void Harmony::render()
       if (fontList.empty())
             fontList.append(font());
 
-      for (const TextSegment* s : textList)
+      for (const TextSegment* s : qAsConst(textList))
             delete s;
       textList.clear();
       qreal x = 0.0, y = 0.0;
@@ -1962,7 +1994,7 @@ QString Harmony::userName() const
 
 QString Harmony::accessibleInfo() const
       {
-      return QString("%1: %2").arg(userName()).arg(harmonyName());
+      return QString("%1: %2").arg(userName(), harmonyName());
       }
 
 //---------------------------------------------------------
@@ -1987,7 +2019,7 @@ QString Harmony::generateScreenReaderInfo() const
                   bool hasUpper = aux.contains('I') || aux.contains('V');
                   bool hasLower = aux.contains('i') || aux.contains('v');
                   if (hasLower && !hasUpper)
-                        rez = QString("%1 %2").arg(rez).arg(QObject::tr("lower case"));
+                        rez = QString("%1 %2").arg(rez, QObject::tr("lower case"));
                   aux = aux.toLower();
                   static std::vector<std::pair<QString, QString>> rnaReplacements {
                         { "vii", "7" },
@@ -2019,18 +2051,18 @@ QString Harmony::generateScreenReaderInfo() const
                         aux.replace(re, r.second);
                         }
                   // construct string one character at a time
-                  for (auto c : aux)
+                  for (auto c : qAsConst(aux))
                         rez = QString("%1 %2").arg(rez).arg(c);
                   }
                   return rez;
             case HarmonyType::NASHVILLE:
                   if (!_function.isEmpty())
-                        rez = QString("%1 %2").arg(rez).arg(_function);
+                        rez = QString("%1 %2").arg(rez, _function);
                   break;
             case HarmonyType::STANDARD:
             default:
                   if (_rootTpc != Tpc::TPC_INVALID)
-                        rez = QString("%1 %2").arg(rez).arg(tpc2name(_rootTpc, NoteSpellingType::STANDARD, NoteCaseType::AUTO, true));
+                        rez = QString("%1 %2").arg(rez, tpc2name(_rootTpc, NoteSpellingType::STANDARD, NoteCaseType::AUTO, true));
             }
 
       if (const_cast<Harmony*>(this)->parsedForm() && !hTextName().isEmpty()) {
@@ -2043,14 +2075,14 @@ QString Harmony::generateScreenReaderInfo() const
                         s.replace("b", QObject::tr("♭"));
                   extension += s + " ";
                   }
-            rez = QString("%1 %2").arg(rez).arg(extension);
+            rez = QString("%1 %2").arg(rez, extension);
             }
       else {
-            rez = QString("%1 %2").arg(rez).arg(hTextName());
+            rez = QString("%1 %2").arg(rez, hTextName());
             }
 
       if (_baseTpc != Tpc::TPC_INVALID)
-            rez = QString("%1 / %2").arg(rez).arg(tpc2name(_baseTpc, NoteSpellingType::STANDARD, NoteCaseType::AUTO, true));
+            rez = QString("%1 / %2").arg(rez, tpc2name(_baseTpc, NoteSpellingType::STANDARD, NoteCaseType::AUTO, true));
 
       return rez;
       }

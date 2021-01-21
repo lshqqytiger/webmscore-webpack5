@@ -628,6 +628,12 @@ PalettePanel* MuseScore::newAccidentalsPalettePanel(bool defaultPalettePanel)
       ik->setAction(QByteArray("add-parentheses"), action->icon());
       sp->append(ik, s->help());
 
+      ik = new Icon(gscore);
+      ik->setIconType(IconType::BRACES);
+      s = Shortcut::getShortcut("add-braces");
+      action = s->action();
+      ik->setAction(QByteArray("add-braces"), action->icon());
+      sp->append(ik, s->help());
       return sp;
       }
 
@@ -688,7 +694,7 @@ PalettePanel* MuseScore::newRepeatsPalettePanel()
       sp->append(rm, qApp->translate("symUserNames", Sym::symUserNames[int(SymId::repeat1Bar)]));
 
       for (int i = 0; i < markerTypeTableSize(); i++) {
-            if (markerTypeTable[i].type == Marker::Type::CODETTA) //not in smufl
+            if (markerTypeTable[i].type == Marker::Type::CODETTA) // not in SMuFL
                   continue;
 
             Marker* mk = new Marker(gscore);
@@ -983,10 +989,11 @@ PalettePanel* MuseScore::newOrnamentsPalettePanel()
       // do not include additional symbol-based fingerings (temporarily?) implemented as articulations
       static const std::vector<SymId> art {
             SymId::ornamentTurnInverted,
+            SymId::ornamentTurnSlash,
             SymId::ornamentTurn,
             SymId::ornamentTrill,
+            SymId::ornamentShortTrill,
             SymId::ornamentMordent,
-            SymId::ornamentMordentInverted,
             SymId::ornamentTremblement,
             SymId::ornamentPrallMordent,
             SymId::ornamentUpPrall,
@@ -1459,9 +1466,15 @@ PalettePanel* MuseScore::newLinesPalettePanel()
 
       TextLine* textLine = new TextLine(gscore);
       textLine->setLen(w);
-      textLine->setBeginText("VII");
+      textLine->setBeginText("Staff");
       textLine->setEndHookType(HookType::HOOK_90);
-      sp->append(textLine, QT_TRANSLATE_NOOP("Palette", "Text line"));
+      sp->append(textLine, QT_TRANSLATE_NOOP("Palette", "Staff Text line"));
+
+      TextLine* systemTextLine = new TextLine(gscore, true);
+      systemTextLine->setLen(w);
+      systemTextLine->setBeginText("System");
+      systemTextLine->setEndHookType(HookType::HOOK_90);
+      sp->append(systemTextLine, QT_TRANSLATE_NOOP("Palette", "System Text line"));
 
       TextLine* line = new TextLine(gscore);
       line->setLen(w);
@@ -1728,11 +1741,13 @@ PalettePanel* MuseScore::newTimePalettePanel()
             { 7,  8, TimeSigType::NORMAL, "7/8" },
             { 9,  8, TimeSigType::NORMAL, "9/8" },
             { 12, 8, TimeSigType::NORMAL, "12/8" },
-            { 4,  4, TimeSigType::FOUR_FOUR,  QT_TRANSLATE_NOOP("Palette", "4/4 common time") },
-            { 2,  2, TimeSigType::ALLA_BREVE, QT_TRANSLATE_NOOP("Palette", "2/2 alla breve") },
+            { 4,  4, TimeSigType::FOUR_FOUR, qApp->translate("symUserNames", "Common time") },
+            { 2,  2, TimeSigType::ALLA_BREVE, qApp->translate("symUserNames", "Cut time") },
             { 2,  2, TimeSigType::NORMAL, "2/2" },
             { 3,  2, TimeSigType::NORMAL, "3/2" },
             { 4,  2, TimeSigType::NORMAL, "4/2" },
+            { 2,  2, TimeSigType::CUT_BACH, qApp->translate("symUserNames", "Cut time (Bach)") },
+            { 9,  8, TimeSigType::CUT_TRIPLE, qApp->translate("symUserNames", "Cut triple time (9/8)") },
             };
 
       PalettePanel* sp = new PalettePanel(PalettePanel::Type::TimeSig);

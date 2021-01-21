@@ -35,6 +35,7 @@
 #include "mscore.h"
 #include "stafftype.h"
 #include "sym.h"
+#include "scoreOrder.h"
 
 #include "mscore/preferences.h"
 
@@ -91,7 +92,7 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
       QList<Part*> hiddenParts;
       bool unhide = false;
       if (styleB(Sid::createMultiMeasureRests)) {
-            for (Part* part : _parts) {
+            for (Part* part : qAsConst(_parts)) {
                   if (!part->show()) {
                         if (!unhide) {
                               startCmd();
@@ -158,7 +159,7 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
       xml.tag("Division", MScore::division);
       xml.setCurTrack(-1);
 
-      if (isTopScore())                   // only top score
+      if (isTopScore())                    // only top score
             style().save(xml, true);       // save only differences to buildin style
 
       xml.tag("showInvisible",   _showInvisible);
@@ -173,6 +174,13 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
             // do not output "platform" and "creationDate" in test and save template mode
             if ((!MScore::testMode && !MScore::saveTemplateMode) || (i.key() != "platform" && i.key() != "creationDate"))
                   xml.tag(QString("metaTag name=\"%1\"").arg(i.key().toHtmlEscaped()), i.value());
+            }
+
+      if (_scoreOrder && !_scoreOrder->isCustom()) {
+            ScoreOrder* order = _scoreOrder->clone();
+            order->updateInstruments(this);
+            order->write(xml);
+            delete order;
             }
 
       xml.setCurTrack(0);
@@ -208,7 +216,7 @@ void Score::writeMovement(XmlWriter& xml, bool selectionOnly)
 
       // Let's decide: write midi mapping to a file or not
       masterScore()->checkMidiMapping();
-      for (const Part* part : _parts) {
+      for (const Part* part : qAsConst(_parts)) {
             if (!selectionOnly || ((staffIdx(part) >= staffStart) && (staffEnd >= staffIdx(part) + part->nstaves())))
                   part->write(xml);
             }
@@ -264,6 +272,7 @@ void Score::write(XmlWriter& xml, bool selectionOnly)
       {
       if (isMaster()) {
             MasterScore* score = static_cast<MasterScore*>(this);
+
             while (score->prev())
                   score = score->prev();
             while (score) {
@@ -694,13 +703,13 @@ bool Score::saveFile(QFileInfo& info)
 //   loadStyle
 //---------------------------------------------------------
 
-bool Score::loadStyle(const QString& fn, bool ign)
+bool Score::loadStyle(const QString& fn, bool ign, const bool overlap)
       {
       QFile f(fn);
       if (f.open(QIODevice::ReadOnly)) {
             MStyle st = style();
             if (st.load(&f, ign)) {
-                  undo(new ChangeStyle(this, st));
+                  undo(new ChangeStyle(this, st, overlap));
                   return true;
                   }
              else {
@@ -753,13 +762,13 @@ bool Score::saveFile(QIODevice* f, bool msczFormat, bool onlySelection)
       XmlWriter xml(this, f);
       xml.setWriteOmr(msczFormat);
       xml.header();
+
+      xml.stag("museScore version=\"" MSC_VERSION "\"");
+
       if (!MScore::testMode) {
-            xml.stag("museScore version=\"" MSC_VERSION "\"");
             xml.tag("programVersion", VERSION);
             xml.tag("programRevision", revision);
             }
-      else
-            xml.stag("museScore version=\"3.01\"");
       write(xml, onlySelection);
       xml.etag();
       if (isMaster())
@@ -852,6 +861,7 @@ Score::FileError MasterScore::loadCompressedMsc(QIODevice* io, bool ignoreVersio
                         }
                   }
             }
+
       XmlReader e(dbuf);
       e.setDocName(masterScore()->fileInfo()->completeBaseName());
 
@@ -884,6 +894,41 @@ Score::FileError MasterScore::loadCompressedMsc(QIODevice* io, bool ignoreVersio
             audio()->setData(dbuf1);
             }
       return retval;
+      }
+
+int MasterScore::styleDefaultByMscVersion(const int mscVer) const
+      {
+      constexpr int LEGACY_MSC_VERSION_V3 = 301;
+      constexpr int LEGACY_MSC_VERSION_V2 = 206;
+      constexpr int LEGACY_MSC_VERSION_V1 = 114;
+
+      if (mscVer > LEGACY_MSC_VERSION_V2 && mscVer < MSCVERSION)
+            return LEGACY_MSC_VERSION_V3;
+
+      if (mscVer > LEGACY_MSC_VERSION_V1 && mscVer <= LEGACY_MSC_VERSION_V2)
+            return LEGACY_MSC_VERSION_V2;
+
+      if (mscVer <= LEGACY_MSC_VERSION_V1)
+            return LEGACY_MSC_VERSION_V1;
+
+      return MSCVERSION;
+      }
+
+int MasterScore::readStyleDefaultsVersion()
+      {
+      if (styleB(Sid::usePre_3_6_defaults))
+            return style().defaultStyleVersion();
+
+      XmlReader e(readToBuffer());
+      e.setDocName(masterScore()->fileInfo()->completeBaseName());
+
+      while (!e.atEnd()) {
+            e.readNext();
+            if (e.name() == "defaultsVersion")
+                  return e.readInt();
+            }
+
+      return styleDefaultByMscVersion(mscVersion());
       }
 
 //---------------------------------------------------------
@@ -980,7 +1025,6 @@ Score::FileError MasterScore::read1(XmlReader& e, bool ignoreVersionError)
                   setMscVersion(sl[0].toInt() * 100 + sl[1].toInt());
 
                   if (!ignoreVersionError) {
-                        QString message;
                         if (mscVersion() > MSCVERSION)
                               return FileError::FILE_TOO_NEW;
                         if (mscVersion() < 114)
@@ -988,13 +1032,19 @@ Score::FileError MasterScore::read1(XmlReader& e, bool ignoreVersionError)
                         if (mscVersion() == 300)
                               return FileError::FILE_OLD_300_FORMAT;
                         }
+
+                  int defaultsVersion = readStyleDefaultsVersion();
+
+                  setStyle(*MStyle::resolveStyleDefaults(defaultsVersion));
+                  style().setDefaultStyleVersion(defaultsVersion);
+
                   Score::FileError error;
                   if (mscVersion() <= 114)
                         error = read114(e);
                   else if (mscVersion() <= 207)
                         error = read206(e);
                   else
-                        error = read301(e);
+                        error = read302(e);
                   setExcerptsChanged(false);
                   return error;
                   }
@@ -1017,7 +1067,7 @@ void Score::print(QPainter* painter, int pageNo)
 
       QList<Element*> ell = page->items(fr);
       std::stable_sort(ell.begin(), ell.end(), elementLessThan);
-      for (const Element* e : ell) {
+      for (const Element* e : qAsConst(ell)) {
             if (!e->visible())
                   continue;
             painter->save();

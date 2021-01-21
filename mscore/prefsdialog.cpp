@@ -40,6 +40,10 @@
 #include "avsomr/avsomrlocal.h"
 #endif
 
+#ifdef Q_OS_MAC
+#include "macos/cocoabridge.h"
+#endif
+
 namespace Ms {
 
 //---------------------------------------------------------
@@ -69,7 +73,15 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       setupUi(this);
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
       setModal(true);
-      shortcutsChanged        = false;
+      shortcutsChanged = false;
+
+      styleName->clear();
+      styleName->addItem(tr("Light"));
+      styleName->addItem(tr("Dark"));
+#ifdef Q_OS_MAC // On Mac, we have a theme option to follow the system's Dark Mode
+      if (CocoaBridge::isSystemDarkModeSupported())
+            styleName->addItem(tr("System"));
+#endif
 
 #ifndef USE_JACK
       jackDriver->setVisible(false);
@@ -188,6 +200,8 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       connect(styleFileButton,        &QToolButton::clicked, this, &PreferenceDialog::styleFileButtonClicked);
       connect(instrumentList1Button,  &QToolButton::clicked, this, &PreferenceDialog::selectInstrumentList1);
       connect(instrumentList2Button,  &QToolButton::clicked, this, &PreferenceDialog::selectInstrumentList2);
+      connect(scoreOrderList1Button,  &QToolButton::clicked, this, &PreferenceDialog::selectScoreOrderList1);
+      connect(scoreOrderList2Button,  &QToolButton::clicked, this, &PreferenceDialog::selectScoreOrderList2);
       connect(startWithButton,        &QToolButton::clicked, this, &PreferenceDialog::selectStartWith);
 
       defaultStyleButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
@@ -195,6 +209,8 @@ PreferenceDialog::PreferenceDialog(QWidget* parent)
       styleFileButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       instrumentList1Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       instrumentList2Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
+      scoreOrderList1Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
+      scoreOrderList2Button->setIcon(*icons[int(Icons::fileOpen_ICON)]);
       startWithButton->setIcon(*icons[int(Icons::fileOpen_ICON)]);
 
       connect(shortcutList,   &QTreeWidget::itemActivated, this, &PreferenceDialog::defineShortcutClicked);
@@ -280,6 +296,8 @@ void PreferenceDialog::start()
                   new BoolPreferenceItem(PREF_APP_AUTOSAVE_USEAUTOSAVE, autoSave),
                   new StringPreferenceItem(PREF_APP_PATHS_INSTRUMENTLIST1, instrumentList1),
                   new StringPreferenceItem(PREF_APP_PATHS_INSTRUMENTLIST2, instrumentList2),
+                  new StringPreferenceItem(PREF_APP_PATHS_SCOREORDERLIST1, scoreOrderList1),
+                  new StringPreferenceItem(PREF_APP_PATHS_SCOREORDERLIST2, scoreOrderList2),
                   new StringPreferenceItem(PREF_APP_PATHS_MYIMAGES, myImages),
                   new StringPreferenceItem(PREF_APP_PATHS_MYPLUGINS, myPlugins),
                   new StringPreferenceItem(PREF_APP_PATHS_MYSCORES, myScores),
@@ -293,6 +311,12 @@ void PreferenceDialog::start()
                   new BoolPreferenceItem(PREF_EXPORT_PNG_USETRANSPARENCY, pngTransparent),
                   new BoolPreferenceItem(PREF_IMPORT_MUSICXML_IMPORTBREAKS, importBreaks),
                   new BoolPreferenceItem(PREF_IMPORT_MUSICXML_IMPORTLAYOUT, importLayout),
+                  new BoolPreferenceItem(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES, applyDefaultTypeFaceToImportedScores,
+                                      [this]() { preferences.setPreference(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES, applyDefaultTypeFaceToImportedScores->isChecked()); }, // apply function
+                                      [this]() {
+                                            bool value = preferences.getBool(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML) && preferences.getBool(PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES);
+                                            applyDefaultTypeFaceToImportedScores->setChecked(value);
+                                            }), // update function
             #ifdef AVSOMR
                   new BoolPreferenceItem(PREF_IMPORT_AVSOMR_USELOCAL, useLocalAvsOmr, [&](){ updateUseLocalAvsOmr(); }),
             #endif
@@ -354,33 +378,10 @@ void PreferenceDialog::start()
                   new IntPreferenceItem(PREF_IO_MIDI_SHORTESTNOTE, shortestNote,
                                           [this]() { applyShortestNote();  },  // apply function
                                           [this]() { updateShortestNote(); }), // update function
-                  new StringPreferenceItem(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, resetElementPositionsAlwaysAsk,
-                                          [this]() { // apply function
-                                                if (resetElementPositionsAlwaysAsk->isChecked())
-                                                      preferences.setPreference(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, "Ask");
-                                                },
-                                          [this]() { // update function
-                                                QString resPref = preferences.getString(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS);
-                                                resetElementPositionsAlwaysAsk->setChecked(resPref != "Yes" && resPref != "No");
-                                                }),
-                  new StringPreferenceItem(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, resetElementPositionsYes,
-                                          [this]() { // apply function
-                                                if (resetElementPositionsYes->isChecked())
-                                                      preferences.setPreference(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, "Yes");
-                                                },
-                                          [this]() { // update function
-                                                QString resPref = preferences.getString(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS);
-                                                resetElementPositionsYes->setChecked(resPref == "Yes");
-                                                }),
-                  new StringPreferenceItem(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, resetElementPositionsNo,
-                                          [this]() { // apply function
-                                                if (resetElementPositionsNo->isChecked())
-                                                      preferences.setPreference(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS, "No");
-                                                },
-                                          [this]() { // update function
-                                                QString resPref = preferences.getString(PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS);
-                                                resetElementPositionsNo->setChecked(resPref == "No");
-                                                }),
+                  new BoolPreferenceItem(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN, scoreMigrationEnabled,
+                                          [this]() { preferences.setPreference(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN, !scoreMigrationEnabled->isChecked()); }, // apply function
+                                          [this]() { scoreMigrationEnabled->setChecked(!preferences.getBool(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN)); }), // update function
+                  new BoolPreferenceItem(PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML),
                   new StringPreferenceItem(PREF_UI_APP_LANGUAGE, language, [&](){ languageApply(); }, [&](){ languageUpdate(); }),
                   new CustomPreferenceItem(PREF_APP_STARTUP_SESSIONSTART, lastSession,
                                           [this]() { // apply function
@@ -485,13 +486,13 @@ void PreferenceDialog::start()
                                                       fontFamily->addItem(currFontFamily);
                                                 fontFamily->setCurrentIndex(fontFamily->findText(currFontFamily));
                                                 }),
-                  new IntPreferenceItem(PREF_UI_THEME_FONTSIZE, fontSize),
+                  new DoublePreferenceItem(PREF_UI_THEME_FONTSIZE, fontSize),
                   new CustomPreferenceItem(PREF_UI_APP_GLOBALSTYLE, styleName,
                                           [&]() { // apply function
-                                                preferences.setCustomPreference<MuseScoreStyleType>(PREF_UI_APP_GLOBALSTYLE, MuseScoreStyleType(styleName->currentIndex()));
+                                                preferences.setCustomPreference<MuseScorePreferredStyleType>(PREF_UI_APP_GLOBALSTYLE, MuseScorePreferredStyleType(styleName->currentIndex()));
                                                 },
                                           [&]() { // update function
-                                                styleName->setCurrentIndex(int(preferences.globalStyle()));
+                                                styleName->setCurrentIndex(int(preferences.preferredGlobalStyle()));
                                                 }),
       };
 
@@ -557,6 +558,16 @@ PreferenceDialog::~PreferenceDialog()
       audioRelatedWidgets.clear();
 
       qDeleteAll(localShortcuts);
+      }
+
+//---------------------------------------------------------
+//   retranslate
+//---------------------------------------------------------
+
+void PreferenceDialog::retranslate()
+      {
+      retranslateUi(this);
+      updateValues();
       }
 
 //---------------------------------------------------------
@@ -635,6 +646,14 @@ void PreferenceDialog::updateValues(bool useDefaultValues, bool setup)
       {
       if (useDefaultValues)
             preferences.setReturnDefaultValuesMode(true);
+
+      styleName->clear();
+      styleName->addItem(tr("Light"));
+      styleName->addItem(tr("Dark"));
+#ifdef Q_OS_MAC // On Mac, we have a theme option to follow the system's Dark Mode
+      if (CocoaBridge::isSystemDarkModeSupported())
+            styleName->addItem(tr("System"));
+#endif
 
       advancedWidget->updatePreferences();
 
@@ -983,6 +1002,42 @@ void PreferenceDialog::selectInstrumentList2()
       }
 
 //---------------------------------------------------------
+//   selectScoreOrderList1
+//---------------------------------------------------------
+
+void PreferenceDialog::selectScoreOrderList1()
+      {
+      QString s = QFileDialog::getOpenFileName(
+         this,
+         tr("Choose Score Order List"),
+         scoreOrderList1->text(),
+         tr("Score Order List") + " (*.xml)",
+         0,
+         preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS) ? QFileDialog::Options() : QFileDialog::DontUseNativeDialog
+         );
+      if (!s.isNull())
+            scoreOrderList1->setText(s);
+      }
+
+//---------------------------------------------------------
+//   selectScoreOrderList2
+//---------------------------------------------------------
+
+void PreferenceDialog::selectScoreOrderList2()
+      {
+      QString s = QFileDialog::getOpenFileName(
+         this,
+         tr("Choose Score Order List"),
+         scoreOrderList2->text(),
+         tr("Score Order List") + " (*.xml)",
+         0,
+         preferences.getBool(PREF_UI_APP_USENATIVEDIALOGS) ? QFileDialog::Options() : QFileDialog::DontUseNativeDialog
+         );
+      if (!s.isNull())
+            scoreOrderList2->setText(s);
+      }
+
+//---------------------------------------------------------
 //   zoomDefaultTypeChanged
 //---------------------------------------------------------
 
@@ -1166,9 +1221,7 @@ void PreferenceDialog::applyPageVertical()
                   ss->doLayout();
             }
       if (cv)
-            cv->setOffset(0.0, 0.0);
-      if (mscore->currentScoreView())
-            mscore->currentScoreView()->setOffset(0.0, 0.0);
+            cv->pageTop();
       mscore->scorePageLayoutChanged();
       mscore->update();
       }
@@ -1650,7 +1703,7 @@ void PreferenceDialog::selectExtensionsDirectory()
 
 void PreferenceDialog::updateTranslationClicked()
       {
-      ResourceManager r(0);
+      ResourceManager r(this);
       r.selectLanguagesTab();
       r.exec();
       }

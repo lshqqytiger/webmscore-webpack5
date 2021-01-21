@@ -354,7 +354,7 @@ bool saveAudio(Score* score, QIODevice *device, std::function<bool(float, float)
                         playTime  += n;
                         frames    -= n;
                         const NPlayEvent& e = playPos->second;
-                        if (e.isChannelEvent()) {
+                        if (!(!e.velo() && e.discard()) && e.isChannelEvent()) {
                               int channelIdx = e.channel();
                               const Channel* c = score->masterScore()->midiMapping(channelIdx)->articulation();
                               if (!c->mute()) {

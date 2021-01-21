@@ -660,6 +660,7 @@ Note::Note(const Note& n, bool link)
       if (n._tieFor) {
             _tieFor = new Tie(*n._tieFor);
             _tieFor->setStartNote(this);
+            _tieFor->setTick(_tieFor->startNote()->tick());
             _tieFor->setEndNote(0);
             }
       else
@@ -822,17 +823,27 @@ QString Note::tpcUserName(const int tpc, const int pitch, const bool explicitAcc
 
 QString Note::tpcUserName(const bool explicitAccidental) const
       {
-      const auto playbackPitch = ppitch();
-      const auto tpc1Str = tpcUserName(tpc1(), playbackPitch, explicitAccidental);
+      QString pitchName = tpcUserName(tpc(), epitch() + ottaveCapoFret(), explicitAccidental);
 
-      if ((epitch() == ppitch()) || concertPitch()) {
-            return tpc1Str;
+      if (fixed() && headGroup() == NoteHead::Group::HEAD_SLASH)
+            // see Note::accessibleInfo(), but we return what we have
+            return pitchName;
+      if (staff()->isDrumStaff(tick()) && part()->instrument()->drumset())
+            // see Note::accessibleInfo(), but we return what we have
+            return pitchName;
+      if (staff()->isTabStaff(tick()))
+            // no further translation
+            return pitchName;
+
+      QString pitchOffset;
+      if (tuning() != 0)
+            pitchOffset = QString::asprintf("%+.3f", tuning());
+
+      if (!concertPitch() && transposition()) {
+            QString soundingPitch = tpcUserName(tpc1(), ppitch(), explicitAccidental);
+            return QObject::tr("%1 (sounding as %2%3)").arg(pitchName, soundingPitch, pitchOffset);
             }
-      else {
-            // Return both the written pitch and the playback pitch since they currently differ.
-            const auto tpc2Str = tpcUserName(tpc2(), playbackPitch - transposition(), explicitAccidental);
-            return QObject::tr("%1 (%2 concert)").arg(tpc2Str).arg(tpc1Str);
-            }
+      return pitchName + pitchOffset;
       }
 
 //---------------------------------------------------------
@@ -1111,6 +1122,7 @@ void Note::add(Element* e)
             case ElementType::TIE: {
                   Tie* tie = toTie(e);
                   tie->setStartNote(this);
+                  tie->setTick(tie->startNote()->tick());
                   tie->setTrack(track());
                   setTieFor(tie);
                   if (tie->endNote())
@@ -1256,7 +1268,7 @@ void Note::draw(QPainter* painter) const
                   if (i < in->minPitchP() || i > in->maxPitchP())
                         painter->setPen(selected() ? Qt::darkRed : Qt::red);
                   else if (i < in->minPitchA() || i > in->maxPitchA())
-                        painter->setPen(selected() ? QColor("#565600") : Qt::darkYellow);
+                        painter->setPen(selected() ? QColor(0x565600) : Qt::darkYellow);
                   }
             // draw blank notehead to avoid staff and ledger lines
             if (_cachedSymNull != SymId::noSym) {
@@ -1672,6 +1684,7 @@ bool Note::acceptDrop(EditData& data) const
          || (type == ElementType::ICON && toIcon(e)->iconType() == IconType::BEAM64)
          || (type == ElementType::ICON && toIcon(e)->iconType() == IconType::AUTOBEAM)
          || (type == ElementType::ICON && toIcon(e)->iconType() == IconType::PARENTHESES)
+         || (type == ElementType::ICON && toIcon(e)->iconType() == IconType::BRACES)
          || (type == ElementType::SYMBOL)
          || (type == ElementType::CLEF)
          || (type == ElementType::KEYSIG)
@@ -1849,7 +1862,7 @@ Element* Note::drop(EditData& data)
 
             case ElementType::GLISSANDO:
                   {
-                  for (auto ee : _spannerFor) {
+                  for (auto ee : qAsConst(_spannerFor)) {
                         if (ee->type() == ElementType::GLISSANDO) {
                               qDebug("there is already a glissando");
                               delete e;
@@ -1998,7 +2011,7 @@ void Note::setDotY(Direction pos)
             for (int i = 0; i < -n; ++i)
                   score()->undoRemoveElement(_dots.back());
             }
-      for (NoteDot* dot : _dots) {
+      for (NoteDot* dot : qAsConst(_dots)) {
             dot->layout();
             dot->rypos() = y;
             }
@@ -2079,7 +2092,7 @@ void Note::layout2()
                   }
             // apply to dots
             qreal xx = x + d;
-            for (NoteDot* dot : _dots) {
+            for (NoteDot* dot : qAsConst(_dots)) {
                   dot->rxpos() = xx;
                   xx += dd;
                   }
@@ -2089,8 +2102,8 @@ void Note::layout2()
       for (Element* e : _el) {
             if (!score()->tagIsValid(e->tag()))
                   continue;
-            e->setMag(mag());
             if (e->isSymbol()) {
+                  e->setMag(mag());
                   qreal w = headWidth();
                   Symbol* sym = toSymbol(e);
                   e->layout();
@@ -2107,6 +2120,7 @@ void Note::layout2()
                         }
                   }
             else if (e->isFingering()) {
+                  // don't set mag; fingerings should not scale with note
                   Fingering* f = toFingering(e);
                   if (f->propertyFlags(Pid::PLACEMENT) == PropertyFlags::STYLED)
                         f->setPlacement(f->calculatePlacement());
@@ -2116,6 +2130,7 @@ void Note::layout2()
                         f->layout();
                   }
             else {
+                  e->setMag(mag());
                   e->layout();
                   }
             }
@@ -2155,7 +2170,7 @@ void Note::updateAccidental(AccidentalState* as)
             int eRelLine = absStep(tpc(), epitch()+ottaveCapoFret());
             AccidentalVal relLineAccVal = as->accidentalVal(eRelLine, error);
             if (error) {
-                  qDebug("error accidetalVal");
+                  qDebug("error accidentalVal()");
                   return;
                   }
             if ((accVal != relLineAccVal) || hidden() || as->tieContext(eRelLine)) {
@@ -2262,12 +2277,12 @@ void Note::scanElements(void* data, void (*func)(void*, Element*), bool all)
             if (score()->tagIsValid(e->tag()))
                   e->scanElements(data, func, all);
             }
-      for (Spanner* sp : _spannerFor)
+      for (Spanner* sp : qAsConst(_spannerFor))
             sp->scanElements(data, func, all);
 
       if (!dragMode && _accidental)
             func(data, _accidental);
-      for (NoteDot* dot : _dots)
+      for (NoteDot* dot : qAsConst(_dots))
             func(data, dot);
       // see above - tie segments are still collected from System!
       //if (_tieFor && !_tieFor->spannerSegments().empty())
@@ -2288,10 +2303,10 @@ void Note::setTrack(int val)
             for (SpannerSegment* seg : _tieFor->spannerSegments())
                   seg->setTrack(val);
             }
-      for (Spanner* s : _spannerFor) {
+      for (Spanner* s : qAsConst(_spannerFor)) {
             s->setTrack(val);
             }
-      for (Spanner* s : _spannerBack) {
+      for (Spanner* s : qAsConst(_spannerBack)) {
             s->setTrack2(val);
             }
       for (Element* e : _el)
@@ -2300,7 +2315,7 @@ void Note::setTrack(int val)
             _accidental->setTrack(val);
       if (!chord())     // if note is dragged with shift+ctrl
             return;
-      for (NoteDot* dot : _dots)
+      for (NoteDot* dot : qAsConst(_dots))
             dot->setTrack(val);
       }
 
@@ -2499,7 +2514,7 @@ void Note::endDrag(EditData& ed)
             return;
             }
       for (Note* nn : tiedNotes()) {
-            for (const PropertyData& pd : ned->propertyData) {
+            for (const PropertyData& pd : qAsConst(ned->propertyData)) {
                   setPropertyFlags(pd.id, pd.f); // reset initial property flags state
                   score()->undoPropertyChanged(nn, pd.id, pd.data);
                   }
@@ -2540,8 +2555,9 @@ void Note::verticalDrag(EditData &ed)
       Fraction _tick      = chord()->tick();
       const Staff* stf    = staff();
       const StaffType* st = stf->staffType(_tick);
+      const Instrument* instr = part()->instrument(_tick);
 
-      if (st->isDrumStaff())
+      if (instr->useDrumset())
             return;
 
       NoteEditData* ned   = static_cast<NoteEditData*>(ed.getData(this));
@@ -2552,7 +2568,7 @@ void Note::verticalDrag(EditData &ed)
       int lineOffset      = lrint(ed.moveDelta.y() / step);
 
       if (tab) {
-            const StringData* strData = staff()->part()->instrument()->stringData();
+            const StringData* strData = staff()->part()->instrument(_tick)->stringData();
             int nString = ned->string + (st->upsideDown() ? -lineOffset : lineOffset);
             int nFret   = strData->fret(_pitch, nString, staff(), _tick);
 
@@ -2891,7 +2907,7 @@ bool Note::setProperty(Pid propertyId, const QVariant& v)
 
 void Note::undoChangeDotsVisible(bool v)
       {
-      for (NoteDot* dot : _dots)
+      for (NoteDot* dot : qAsConst(_dots))
             dot->undoChangeProperty(Pid::VISIBLE, QVariant(v));
       }
 
@@ -3002,7 +3018,7 @@ void Note::setScore(Score* s)
             _tieFor->setScore(s);
       if (_accidental)
             _accidental->setScore(s);
-      for (NoteDot* dot : _dots)
+      for (NoteDot* dot : qAsConst(_dots))
             dot->setScore(s);
       for (Element* el : _el)
             el->setScore(s);
@@ -3017,16 +3033,23 @@ QString Note::accessibleInfo() const
       QString duration = chord()->durationUserName();
       QString voice = QObject::tr("Voice: %1").arg(QString::number(track() % VOICES + 1));
       QString pitchName;
-      const Drumset* drumset = part()->instrument()->drumset();
+      QString onofftime;
+      if (!_playEvents.empty()) {
+            int on = _playEvents[0].ontime();
+            int off = _playEvents[0].offtime();
+            if (on != 0 || off != NoteEvent::NOTE_LENGTH)
+                  onofftime = QObject::tr(" (on %1‰ off %2‰)").arg(on).arg(off);
+            }
+      const Drumset* drumset = part()->instrument(chord()->tick())->drumset();
       if (fixed() && headGroup() == NoteHead::Group::HEAD_SLASH)
             pitchName = chord()->noStem() ? QObject::tr("Beat slash") : QObject::tr("Rhythm slash");
       else if (staff()->isDrumStaff(tick()) && drumset)
             pitchName = qApp->translate("drumset", drumset->name(pitch()).toUtf8().constData());
       else if (staff()->isTabStaff(tick()))
-            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(false)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
+            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(false), QString::number(string() + 1), QString::number(fret()));
       else
             pitchName = tpcUserName(false);
-      return QObject::tr("%1; Pitch: %2; Duration: %3%4").arg(noteTypeUserName()).arg(pitchName).arg(duration).arg((chord()->isGrace() ? "" : QString("; %1").arg(voice)));
+      return QObject::tr("%1; Pitch: %2; Duration: %3%4%5").arg(noteTypeUserName(), pitchName, duration, onofftime, (chord()->isGrace() ? "" : QString("; %1").arg(voice)));
       }
 
 //---------------------------------------------------------
@@ -3040,16 +3063,16 @@ QString Note::screenReaderInfo() const
       bool voices = m ? m->hasVoices(staffIdx()) : false;
       QString voice = voices ? QObject::tr("Voice: %1").arg(QString::number(track() % VOICES + 1)) : "";
       QString pitchName;
-      const Drumset* drumset = part()->instrument()->drumset();
+      const Drumset* drumset = part()->instrument(chord()->tick())->drumset();
       if (fixed() && headGroup() == NoteHead::Group::HEAD_SLASH)
             pitchName = chord()->noStem() ? QObject::tr("Beat Slash") : QObject::tr("Rhythm Slash");
       else if (staff()->isDrumStaff(tick()) && drumset)
             pitchName = qApp->translate("drumset", drumset->name(pitch()).toUtf8().constData());
       else if (staff()->isTabStaff(tick()))
-            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(true)).arg(QString::number(string() + 1)).arg(QString::number(fret()));
+            pitchName = QObject::tr("%1; String: %2; Fret: %3").arg(tpcUserName(true), QString::number(string() + 1), QString::number(fret()));
       else
             pitchName = tpcUserName(true);
-      return QString("%1 %2 %3%4").arg(noteTypeUserName()).arg(pitchName).arg(duration).arg((chord()->isGrace() ? "" : QString("; %1").arg(voice)));
+      return QString("%1 %2 %3%4").arg(noteTypeUserName(), pitchName, duration, (chord()->isGrace() ? "" : QString("; %1").arg(voice)));
       }
 
 //---------------------------------------------------------
@@ -3060,39 +3083,39 @@ QString Note::accessibleExtraInfo() const
       {
       QString rez = "";
       if (accidental()) {
-            rez = QString("%1 %2").arg(rez).arg(accidental()->screenReaderInfo());
+            rez = QString("%1 %2").arg(rez, accidental()->screenReaderInfo());
             }
       if (!el().empty()) {
             for (Element* e : el()) {
                   if (!score()->selectionFilter().canSelect(e)) continue;
-                  rez = QString("%1 %2").arg(rez).arg(e->screenReaderInfo());
+                  rez = QString("%1 %2").arg(rez, e->screenReaderInfo());
                   }
             }
       if (tieFor())
-            rez = QObject::tr("%1 Start of %2").arg(rez).arg(tieFor()->screenReaderInfo());
+            rez = QObject::tr("%1 Start of %2").arg(rez, tieFor()->screenReaderInfo());
 
       if (tieBack())
-            rez = QObject::tr("%1 End of %2").arg(rez).arg(tieBack()->screenReaderInfo());
+            rez = QObject::tr("%1 End of %2").arg(rez, tieBack()->screenReaderInfo());
 
       if (!spannerFor().empty()) {
             for (Spanner* s : spannerFor()) {
                   if (!score()->selectionFilter().canSelect(s))
                         continue;
-                  rez = QObject::tr("%1 Start of %2").arg(rez).arg(s->screenReaderInfo());
+                  rez = QObject::tr("%1 Start of %2").arg(rez, s->screenReaderInfo());
                   }
             }
       if (!spannerBack().empty()) {
             for (Spanner* s : spannerBack()) {
                   if (!score()->selectionFilter().canSelect(s))
                         continue;
-                  rez = QObject::tr("%1 End of %2").arg(rez).arg(s->screenReaderInfo());
+                  rez = QObject::tr("%1 End of %2").arg(rez, s->screenReaderInfo());
                   }
             }
 
       // only read extra information for top note of chord
       // (it is reached directly on next/previous element)
       if (this == chord()->upNote())
-            rez = QString("%1 %2").arg(rez).arg(chord()->accessibleExtraInfo());
+            rez = QString("%1 %2").arg(rez, chord()->accessibleExtraInfo());
 
       return rez;
       }
@@ -3176,6 +3199,8 @@ Element* Note::nextElement()
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty() )
             e = score()->selection().elements().first();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::SYMBOL:
             case ElementType::IMAGE:
@@ -3188,17 +3213,17 @@ Element* Note::nextElement()
                   else if (tieValid(_tieFor))
                         return _tieFor->frontSegment();
                   else if (!_spannerFor.empty()) {
-                        for (auto i : _spannerFor) {
+                        for (auto i : qAsConst(_spannerFor)) {
                               if (i->type() == ElementType::GLISSANDO)
                                     return i->spannerSegments().front();
                               }
                         }
-                  return 0;
+                  return nullptr;
                   }
 
             case ElementType::TIE_SEGMENT:
                   if (!_spannerFor.empty()) {
-                      for (auto i : _spannerFor) {
+                      for (auto i : qAsConst(_spannerFor)) {
                             if (i->type() == ElementType::GLISSANDO)
                                   return i->spannerSegments().front();
                                   }
@@ -3214,12 +3239,12 @@ Element* Note::nextElement()
                   if (tieValid(_tieFor))
                         return _tieFor->frontSegment();
                   if (!_spannerFor.empty()) {
-                        for (auto i : _spannerFor) {
+                        for (auto i : qAsConst(_spannerFor)) {
                               if (i->isGlissando())
                                     return i->spannerSegments().front();
                               }
                         }
-                  return 0;
+                  return nullptr;
 
             case ElementType::NOTE:
                   if (!_el.empty())
@@ -3227,15 +3252,15 @@ Element* Note::nextElement()
                   if (tieValid(_tieFor))
                         return _tieFor->frontSegment();
                   if (!_spannerFor.empty()) {
-                        for (auto i : _spannerFor) {
+                        for (auto i : qAsConst(_spannerFor)) {
                               if (i->isGlissando())
                                     return i->spannerSegments().front();
                               }
                         }
-                  return 0;
+                  return nullptr;
 
             default:
-                  return 0;
+                  return nullptr;
             }
       }
 
@@ -3248,6 +3273,8 @@ Element* Note::prevElement()
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty() )
             e = score()->selection().elements().last();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::SYMBOL:
             case ElementType::IMAGE:
@@ -3272,7 +3299,7 @@ Element* Note::prevElement()
             case ElementType::ACCIDENTAL:
                   return this;
             default:
-                  return 0;
+                  return nullptr;
             }
       }
 
@@ -3283,7 +3310,7 @@ Element* Note::prevElement()
 Element* Note::lastElementBeforeSegment()
       {
       if (!_spannerFor.empty()) {
-            for (auto i : _spannerFor) {
+            for (auto i : qAsConst(_spannerFor)) {
                   if (i->type() == ElementType::GLISSANDO)
                         return i->spannerSegments().front();
                   }

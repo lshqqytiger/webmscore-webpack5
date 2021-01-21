@@ -79,6 +79,7 @@
 #include "bracket.h"
 #include "fret.h"
 #include "textedit.h"
+#include "textline.h"
 
 namespace Ms {
 
@@ -133,7 +134,7 @@ UndoCommand::~UndoCommand()
 
 void UndoCommand::cleanup(bool undo)
       {
-      for (auto c : childList)
+      for (auto c : qAsConst(childList))
             c->cleanup(undo);
       }
 
@@ -218,7 +219,7 @@ bool UndoCommand::hasUnfilteredChildren(const std::vector<UndoCommand::Filter>& 
 void UndoCommand::filterChildren(UndoCommand::Filter f, Element* target)
       {
       QList<UndoCommand*> acceptedList;
-      for (UndoCommand* cmd : childList) {
+      for (UndoCommand* cmd : qAsConst(childList)) {
             if (cmd->isFiltered(f, target))
                   delete cmd;
             else
@@ -261,7 +262,7 @@ UndoStack::UndoStack()
 UndoStack::~UndoStack()
       {
       int idx = 0;
-      for (auto c : list)
+      for (auto c : qAsConst(list))
             c->cleanup(idx++ < curIdx);
       qDeleteAll(list);
       }
@@ -1091,6 +1092,37 @@ void SortStaves::undo(EditData*)
       }
 
 //---------------------------------------------------------
+//   MapExcerptTracks
+//---------------------------------------------------------
+
+MapExcerptTracks::MapExcerptTracks(Score* s, QList<int> l)
+      {
+      score = s;
+
+      /*
+       *    In list l [x] represents the previous index of the staffIdx x.
+       *    If the a staff x is a newly added staff, l[x] = -1.
+       *    For the "undo" all staves which value -1 are *not* remapped since
+       *    it is assumed this staves are removed later.
+       */
+      for (int i = 0; i < l.size(); ++i) {
+            if (l[i] >= 0)
+                  rlist.insert(l[i], i);
+            }
+      list = l;
+      }
+
+void MapExcerptTracks::redo(EditData*)
+      {
+      score->mapExcerptTracks(list);
+      }
+
+void MapExcerptTracks::undo(EditData*)
+      {
+      score->mapExcerptTracks(rlist);
+      }
+
+//---------------------------------------------------------
 //   ChangePitch
 //---------------------------------------------------------
 
@@ -1541,9 +1573,9 @@ ChangeStaff::ChangeStaff(Staff* _staff,  bool _invisible, ClefTypeList _clefType
 
 void ChangeStaff::flip(EditData*)
       {
-      bool invisibleChanged = staff->invisible() != invisible;
+      bool invisibleChanged = staff->invisible(Fraction(0,1)) != invisible;
       ClefTypeList oldClefType = staff->defaultClefType();
-      bool oldInvisible   = staff->invisible();
+      bool oldInvisible   = staff->invisible(Fraction(0,1));
       qreal oldUserDist   = staff->userDist();
       Staff::HideMode oldHideMode    = staff->hideWhenEmpty();
       bool oldShowIfEmpty = staff->showIfEmpty();
@@ -1551,7 +1583,7 @@ void ChangeStaff::flip(EditData*)
       bool oldHideSystemBarLine  = staff->hideSystemBarLine();
       bool oldMergeMatchingRests = staff->mergeMatchingRests();
 
-      staff->setInvisible(invisible);
+      staff->setInvisible(Fraction(0,1),invisible);
       staff->setDefaultClefType(clefType);
       staff->setUserDist(userDist);
       staff->setHideWhenEmpty(hideMode);
@@ -1573,7 +1605,7 @@ void ChangeStaff::flip(EditData*)
       if (invisibleChanged) {
             int staffIdx = staff->idx();
             for (Measure* m = score->firstMeasure(); m; m = m->nextMeasure())
-                  m->staffLines(staffIdx)->setVisible(!staff->invisible());
+                  m->staffLines(staffIdx)->setVisible(!staff->invisible(Fraction(0,1)));
             }
       staff->triggerLayout();
       staff->masterScore()->rebuildMidiMapping();
@@ -1612,7 +1644,7 @@ ChangePart::ChangePart(Part* _part, Instrument* i, const QString& s)
 
 void ChangePart::flip(EditData*)
       {
-      Instrument* oi = part->instrument();
+      Instrument* oi = part->instrument();  //tick?
       QString s      = part->partName();
       part->setInstrument(instrument);
       part->setPartName(partName);
@@ -1637,8 +1669,8 @@ void ChangePart::flip(EditData*)
 //   ChangeStyle
 //---------------------------------------------------------
 
-ChangeStyle::ChangeStyle(Score* s, const MStyle& st)
-   : score(s), style(st)
+ChangeStyle::ChangeStyle(Score* s, const MStyle& st, const bool overlapOnly)
+   : score(s), style(st), overlap(overlapOnly)
       {
       }
 
@@ -1655,9 +1687,16 @@ void ChangeStyle::flip(EditData*)
       if (score->styleV(Sid::MusicalSymbolFont) != style.value(Sid::MusicalSymbolFont)) {
             score->setScoreFont(ScoreFont::fontFactory(style.value(Sid::MusicalSymbolFont).toString()));
             }
-      score->setStyle(style);
+
+      score->setStyle(style, overlap);
       score->styleChanged();
       style = tmp;
+      }
+
+void ChangeStyle::undo(EditData* ed)
+      {
+      overlap = false;
+      UndoCommand::undo(ed);
       }
 
 //---------------------------------------------------------
@@ -2221,6 +2260,17 @@ void ChangeBracketProperty::flip(EditData* ed)
       }
 
 //---------------------------------------------------------
+//   ChangeTextLineProperty::flip
+//---------------------------------------------------------
+
+void ChangeTextLineProperty::flip(EditData* ed)
+      {
+      ChangeProperty::flip(ed);
+      if (element->isTextLine())
+            toTextLine(element)->initStyle();
+      }
+
+//---------------------------------------------------------
 //   ChangeMetaText::flip
 //---------------------------------------------------------
 
@@ -2636,6 +2686,17 @@ void MoveTremolo::undo(EditData*)
       oldC2->setTremolo(trem);
       trem->setChords(oldC1, oldC2);
       trem->setParent(oldC1);
+      }
+
+//---------------------------------------------------------
+//   ChangeScoreOrder
+//---------------------------------------------------------
+
+void ChangeScoreOrder::flip(EditData*)
+      {
+      ScoreOrder* s = score->scoreOrder();
+      score->setScoreOrder(order);
+      order = s;
       }
 
 }

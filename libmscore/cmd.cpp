@@ -308,7 +308,7 @@ void Score::update(bool resetCmdState)
             CmdState& cs = ms->cmdState();
             if (updateAll || cs.updateAll()) {
                   for (Score* s : scoreList()) {
-                        for (MuseScoreView* v : s->viewer) {
+                        for (MuseScoreView* v : qAsConst(s->viewer)) {
                               v->updateAll();
                               }
                         }
@@ -317,7 +317,7 @@ void Score::update(bool resetCmdState)
                   // updateRange updates only current score
                   qreal d = spatium() * .5;
                   _updateState.refresh.adjust(-d, -d, 2 * d, 2 * d);
-                  for (MuseScoreView* v : viewer)
+                  for (MuseScoreView* v : qAsConst(viewer))
                         v->dataChanged(_updateState.refresh);
                   _updateState.refresh = QRectF();
                   }
@@ -343,7 +343,7 @@ void Score::update(bool resetCmdState)
 
 void Score::deletePostponed()
       {
-      for (ScoreElement* e : _updateState._deleteList) {
+      for (ScoreElement* e : qAsConst(_updateState._deleteList)) {
             if (e->isSystem()) {
                   System* s = toSystem(e);
                   for (SpannerSegment* ss : s->spannerSegments()) {
@@ -690,6 +690,8 @@ void Score::createCRSequence(const Fraction& f, ChordRest* cr, const Fraction& t
                         Tie* tie = new Tie(this);
                         tie->setStartNote(on);
                         tie->setEndNote(nn);
+                        tie->setTick(tie->startNote()->tick());
+                        tie->setTick2(tie->endNote()->tick());
                         tie->setTrack(cr->track());
                         on->setTieFor(tie);
                         nn->setTieBack(tie);
@@ -756,6 +758,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
 
                         if (tie) {
                               tie->setEndNote(note);
+                              tie->setTick2(tie->endNote()->tick());
                               note->setTieBack(tie);
                               addTie = tie;
                               }
@@ -779,6 +782,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
                         if (i+1 < n) {
                               tie = new Tie(this);
                               tie->setStartNote(note);
+                              tie->setTick(tie->startNote()->tick());
                               tie->setTrack(track);
                               note->setTieFor(tie);
                               }
@@ -819,6 +823,7 @@ Segment* Score::setNoteRest(Segment* segment, int track, NoteVal nval, Fraction 
             if (!isRest) {
                   tie = new Tie(this);
                   tie->setStartNote((Note*)nr);
+                  tie->setTick(tie->startNote()->tick());
                   tie->setTrack(nr->track());
                   ((Note*)nr)->setTieFor(tie);
                   }
@@ -1317,7 +1322,7 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
       Chord* oc      = 0;
 
       bool first = true;
-      for (Fraction f2 : flist) {
+      for (Fraction f2 : qAsConst(flist)) {
             f  -= f2;
             makeGap(cr1->segment(), cr1->track(), f2, tuplet, first);
 
@@ -1350,15 +1355,12 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
 
                   if (((tick - etick).ticks() % dList[0].ticks().ticks()) == 0) {
                         for (TDuration du : dList) {
-                              bool genTie;
                               Chord* cc;
                               if (oc) {
-                                    genTie = true;
                                     cc = oc;
-                                    oc = addChord(tick, du, cc, genTie, tuplet);
+                                    oc = addChord(tick, du, cc, true, tuplet);
                                     }
                               else {
-                                    genTie = false;
                                     cc = toChord(cr);
                                     undoChangeChordRestLen(cr, du);
                                     oc = cc;
@@ -1376,15 +1378,12 @@ void Score::changeCRlen(ChordRest* cr, const Fraction& dstF, bool fillWithRest)
                         }
                   else {
                         for (size_t i = dList.size(); i > 0; --i) { // loop probably needs to be in this reverse order
-                              bool genTie;
                               Chord* cc;
                               if (oc) {
-                                    genTie = true;
                                     cc = oc;
-                                    oc = addChord(tick, dList[i-1], cc, genTie, tuplet);
+                                    oc = addChord(tick, dList[i-1], cc, true, tuplet);
                                     }
                               else {
-                                    genTie = false;
                                     cc = toChord(cr);
                                     undoChangeChordRestLen(cr, dList[i-1]);
                                     oc = cc;
@@ -1477,7 +1476,7 @@ void Score::upDown(bool up, UpDownMode mode)
       {
       QList<Note*> el = selection().uniqueNotes();
 
-      for (Note* oNote : el) {
+      for (Note* oNote : qAsConst(el)) {
             Fraction tick     = oNote->chord()->tick();
             Staff* staff = oNote->staff();
             Part* part   = staff->part();
@@ -1491,10 +1490,15 @@ void Score::upDown(bool up, UpDownMode mode)
             int string   = oNote->string();
             int fret     = oNote->fret();
 
-            switch (staff->staffType(oNote->chord()->tick())->group()) {
+            StaffGroup staffGroup = staff->staffType(oNote->chord()->tick())->group();
+            // if not tab, check for instrument instead of staffType (for pitched to unpitched instrument changes) 
+            if ( staffGroup != StaffGroup::TAB)
+                  staffGroup = staff->part()->instrument(oNote->tick())->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
+
+            switch (staffGroup) {
                   case StaffGroup::PERCUSSION:
                         {
-                        const Drumset* ds = part->instrument()->drumset();
+                        const Drumset* ds = part->instrument(tick)->drumset();
                         if (ds) {
                               newPitch = up ? ds->nextPitch(pitch) : ds->prevPitch(pitch);
                               newTpc1 = pitch2tpc(newPitch, Key::C, Prefer::NEAREST);
@@ -1504,7 +1508,7 @@ void Score::upDown(bool up, UpDownMode mode)
                         break;
                   case StaffGroup::TAB:
                         {
-                        const StringData* stringData = part->instrument()->stringData();
+                        const StringData* stringData = part->instrument(tick)->stringData();
                         switch (mode) {
                               case UpDownMode::OCTAVE:          // move same note to next string, if possible
                                     {
@@ -1616,7 +1620,7 @@ void Score::upDown(bool up, UpDownMode mode)
                   // because they're now harder to be re-entered due to the revised note-input workflow
                   if (mode != UpDownMode::OCTAVE) {
                         auto l = oNote->linkList();
-                        for (ScoreElement* e : l) {
+                        for (ScoreElement* e : qAsConst(l)) {
                               Note* ln = toNote(e);
                               if (ln->accidental())
                                     undo(new RemoveElement(ln->accidental()));
@@ -1638,7 +1642,7 @@ void Score::upDown(bool up, UpDownMode mode)
                         refret = true;
                         }
                   if (refret) {
-                        const StringData* stringData = part->instrument()->stringData();
+                        const StringData* stringData = part->instrument(tick)->stringData();
                         stringData->fretChords(oNote->chord());
                         }
                   }
@@ -1765,7 +1769,7 @@ static void changeAccidental2(Note* n, int pitch, int tpc)
                   // as pitch has changed, calculate new
                   // string & fret
                   //
-                  const StringData* stringData = n->part()->instrument()->stringData();
+                  const StringData* stringData = n->part()->instrument(n->tick())->stringData();
                   if (stringData)
                         stringData->convertPitch(pitch, st, chord->tick(), &string, &fret);
                   }
@@ -2056,10 +2060,42 @@ void Score::cmdResetBeamMode()
 //   cmdResetStyle
 //---------------------------------------------------------
 
-void Score::cmdResetStyle()
+void Score::cmdResetAllStyle()
       {
-      style().reset(this);
+      style().resetAllStyles(this);
       }
+
+void Score::cmdResetTextStyleOverrides()
+{
+    static const std::vector<Pid> propertiesToReset {
+        Pid::FONT_FACE,
+        Pid::FONT_SIZE,
+        Pid::FONT_STYLE,
+        Pid::SIZE_SPATIUM_DEPENDENT,
+        Pid::FRAME_TYPE,
+        Pid::TEXT_LINE_SPACING,
+        Pid::FRAME_FG_COLOR,
+        Pid::FRAME_BG_COLOR,
+        Pid::FRAME_WIDTH,
+        Pid::FRAME_PADDING,
+        Pid::FRAME_ROUND,
+        Pid::ALIGN
+    };
+
+    for (Page* page : pages()) {
+        auto elements = page->elements();
+
+        for (Element* element : elements) {
+            if (!element || !element->isTextBase()) {
+                continue;
+            }
+
+            for (Pid propertyId : propertiesToReset) {
+                element->resetProperty(propertyId);
+            }
+        }
+    }
+}
 
 //---------------------------------------------------------
 //   cmdResetNoteAndRestGroupings
@@ -2117,11 +2153,18 @@ static void resetElementPosition(void*, Element* e)
 //   cmdResetAllPositions
 //---------------------------------------------------------
 
-void Score::cmdResetAllPositions()
+void Score::cmdResetAllPositions(bool undoable)
       {
-      startCmd();
+      if (undoable)
+            startCmd();
+      resetAllPositions();
+      if (undoable)
+            endCmd();
+      }
+
+void Score::resetAllPositions()
+      {
       scanElements(nullptr, resetElementPosition);
-      endCmd();
       }
 
 //---------------------------------------------------------
@@ -2162,7 +2205,7 @@ bool Score::processMidiInput()
                               ev.pitch += p->instrument(selection().tickStart())->transpose().chromatic;
                               }
                         MScore::seq->startNote(
-                                          p->instrument()->channel(0)->channel(),
+                                          p->instrument(selection().tickStart())->channel(0)->channel(),   // tick that way?
                                           ev.pitch,
                                           ev.velocity,
                                           0.0);
@@ -2216,7 +2259,7 @@ bool Score::processMidiInput()
             //after relayout
             Element* e = inputState().cr();
             if (e) {
-                  for(MuseScoreView* v : viewer)
+                  for(MuseScoreView* v : qAsConst(viewer))
                         v->adjustCanvasPosition(e, false);
                   }
             return true;
@@ -2231,7 +2274,8 @@ bool Score::processMidiInput()
 
 Element* Score::move(const QString& cmd)
       {
-      ChordRest* cr;
+      ChordRest* cr { nullptr };
+      Box* box { nullptr };
       if (noteEntryMode()) {
             // if selection exists and is grace note, use it
             // otherwise use chord/rest at input position
@@ -2262,7 +2306,8 @@ Element* Score::move(const QString& cmd)
             // trg is the element to select on "next-chord" cmd
             // cr is the ChordRest to move from on other cmd's
             int track = el->track();            // keep note of element track
-            el = el->parent();
+            if (!el->isBox())
+                  el = el->parent();
             // element with no parent (eg, a newly-added line) - no way to find context
             if (!el)
                   return 0;
@@ -2301,6 +2346,11 @@ Element* Score::move(const QString& cmd)
                                     }
                         break;
                         }
+                  case ElementType::HBOX: // fallthrough
+                  case ElementType::VBOX: // fallthrough
+                  case ElementType::TBOX:
+                        box = toBox(el);
+                        break;
                   default:                      // on anything else, return failure
                         return 0;
                   }
@@ -2314,8 +2364,8 @@ Element* Score::move(const QString& cmd)
                   select(trg, SelectType::SINGLE, 0);
                   return trg;
                   }
-            // if no chordrest found, do nothing
-            if (!cr)
+            // if no chordrest and no box (frame) found, do nothing
+            if (!cr && !box)
                   return 0;
             // if some chordrest found, continue with default processing
             }
@@ -2324,7 +2374,7 @@ Element* Score::move(const QString& cmd)
       Segment* ois = noteEntryMode() ? _is.segment() : nullptr;
       Measure* oim = ois ? ois->measure() : nullptr;
 
-      if (cmd == "next-chord") {
+      if (cmd == "next-chord" && cr) {
             // note input cursor
             if (noteEntryMode())
                   _is.moveToNextInputPos();
@@ -2350,7 +2400,7 @@ Element* Score::move(const QString& cmd)
             else if (!el)
                   el = cr;
             }
-      else if (cmd == "prev-chord") {
+      else if (cmd == "prev-chord" && cr) {
             // note input cursor
             if (noteEntryMode() && _is.segment()) {
                   Measure* m = _is.segment()->measure();
@@ -2391,31 +2441,55 @@ Element* Score::move(const QString& cmd)
 
             }
       else if (cmd == "next-measure") {
-            el = nextMeasure(cr);
-            if (noteEntryMode())
+            if (box && box->nextMeasure() && box->nextMeasure()->first())
+                  el = box->nextMeasure()->first()->nextChordRest(0, false);
+            if (cr)
+                  el = nextMeasure(cr);
+            if (el && noteEntryMode())
                   _is.moveInputPos(el);
             }
       else if (cmd == "prev-measure") {
-            el = prevMeasure(cr);
-            if (noteEntryMode())
+            if (box && box->prevMeasure() && box->prevMeasure()->first())
+                  el = box->prevMeasure()->first()->nextChordRest(0, false);
+            if (cr)
+                  el = prevMeasure(cr);
+            if (el && noteEntryMode())
                   _is.moveInputPos(el);
             }
-      else if (cmd == "next-system") {
+      else if (cmd == "next-system" && cr) {
             el = cmdNextPrevSystem(cr, true);
             if (noteEntryMode())
                   _is.moveInputPos(el);
             }
-      else if (cmd == "prev-system") {
+      else if (cmd == "prev-system" && cr) {
             el = cmdNextPrevSystem(cr, false);
             if (noteEntryMode())
                   _is.moveInputPos(el);
             }
-      else if (cmd == "next-track") {
+      else if (cmd == "next-frame") {
+            auto measureBase = cr ? cr->measure()->findMeasureBase() : box->findMeasureBase();
+            el = measureBase ? cmdNextPrevFrame(measureBase, true) : nullptr;
+            }
+      else if (cmd == "prev-frame") {
+            auto measureBase = cr ? cr->measure()->findMeasureBase() : box->findMeasureBase();
+            el = measureBase ? cmdNextPrevFrame(measureBase, false) : nullptr;
+            }
+      else if (cmd == "next-section") {
+            if (!(el = box))
+                  el = cr;
+            el = cmdNextPrevSection(el, true);
+            }
+      else if (cmd == "prev-section") {
+            if (!(el = box))
+                  el = cr;
+            el = cmdNextPrevSection(el, false);
+            }
+      else if (cmd == "next-track" && cr) {
             el = nextTrack(cr);
             if (noteEntryMode())
                   _is.moveInputPos(el);
             }
-      else if (cmd == "prev-track") {
+      else if (cmd == "prev-track" && cr) {
             el = prevTrack(cr);
             if (noteEntryMode())
                   _is.moveInputPos(el);
@@ -2452,7 +2526,7 @@ Element* Score::move(const QString& cmd)
                         select(el, SelectType::SINGLE, 0);
                   else
                         setPlayNote(false);
-                  for (MuseScoreView* view : viewer)
+                  for (MuseScoreView* view : qAsConst(viewer))
                         view->moveCursor();
                   }
             else {
@@ -2643,6 +2717,19 @@ void Score::cmdAddParentheses()
             }
       }
 
+//---------------------------------------------------------
+//   cmdAddBraces
+//---------------------------------------------------------
+
+void Score::cmdAddBraces()
+      {
+      for (Element* el : selection().elements()) {
+            if (el->type() == ElementType::ACCIDENTAL) {
+                  Accidental* acc = toAccidental(el);
+                  acc->undoChangeProperty(Pid::ACCIDENTAL_BRACKET, int(AccidentalBracket::BRACE));
+                  }
+            }
+      }
 
 //---------------------------------------------------------
 //   cmdMoveRest
@@ -2921,6 +3008,8 @@ void Score::cmdImplode()
                                                             Tie* tie = new Tie(this);
                                                             tie->setStartNote(tn);
                                                             tie->setEndNote(nn);
+                                                            tie->setTick(tie->startNote()->tick());
+                                                            tie->setTick2(tie->endNote()->tick());
                                                             tie->setTrack(tn->track());
                                                             undoAddElement(tie);
                                                             }
@@ -3170,8 +3259,8 @@ void Score::cmdRealizeChordSymbols(bool literal, Voicing voicing, HDuration dura
                   continue;
             RealizedHarmony r = h->getRealizedHarmony();
             Segment* seg = h->parent()->isSegment() ? toSegment(h->parent()) : toSegment(h->parent()->parent());
-            Fraction duration = r.getActualDuration(durationType);
             Fraction tick = seg->tick();
+            Fraction duration = r.getActualDuration(tick.ticks(), durationType);
             bool concertPitch = styleB(Sid::concertPitch);
 
             Chord* chord = new Chord(this); //chord template
@@ -3302,6 +3391,7 @@ Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Frac
                         for (size_t j = 0; j < notes.size(); ++j) {
                               tie[j] = new Tie(this);
                               tie[j]->setStartNote(notes[j]);
+                              tie[j]->setTick(tie[j]->startNote()->tick());
                               tie[j]->setTrack(track);
                               notes[j]->setTieFor(tie[j]);
                               addTie = true;
@@ -3346,6 +3436,7 @@ Segment* Score::setChord(Segment* segment, int track, Chord* chordTemplate, Frac
             for (size_t i = 0; i < notes.size(); ++i) {
                   tie[i] = new Tie(this);
                   tie[i]->setStartNote(notes[i]);
+                  tie[i]->setTick(tie[i]->startNote()->tick());
                   tie[i]->setTrack(notes[i]->track());
                   notes[i]->setTieFor(tie[i]);
                   }
@@ -3833,12 +3924,8 @@ void Score::cmdAddPitch(const EditData& ed, int note, bool addFlag, bool insert)
             if (addFlag && el && el->isNote()) {
                   Chord* chord = toNote(el)->chord();
                   Note* n      = chord->upNote();
-                  octave = n->epitch() / 12;
                   int tpc = n->tpc();
-                  if (tpc == Tpc::TPC_C_BB || tpc == Tpc::TPC_C_B)
-                        ++octave;
-                  else if (tpc == Tpc::TPC_B_S || tpc == Tpc::TPC_B_SS)
-                        --octave;
+                  octave = (n->epitch() - int(tpc2alter(tpc))) / PITCH_DELTA_OCTAVE;
                   if (note <= tpc2step(tpc))
                         octave++;
                   }
@@ -4113,7 +4200,8 @@ void Score::cmd(const QAction* a, EditData& ed)
             { "pad-note-512-TAB",           [](Score* cs, EditData& ed){ cs->padToggle(Pad::NOTE512, ed);                             }},
             { "pad-note-1024",              [](Score* cs, EditData& ed){ cs->padToggle(Pad::NOTE1024, ed);                            }},
             { "pad-note-1024-TAB",          [](Score* cs, EditData& ed){ cs->padToggle(Pad::NOTE1024, ed);                            }},
-            { "reset-style",                [](Score* cs, EditData&){ cs->cmdResetStyle();                                            }},
+            { "reset-style",                [](Score* cs, EditData&){ cs->cmdResetAllStyle();                                         }},
+            { "reset-text-style-overrides", [](Score* cs, EditData&){ cs->cmdResetTextStyleOverrides();                               }},
             { "reset-beammode",             [](Score* cs, EditData&){ cs->cmdResetBeamMode();                                         }},
             { "reset-groupings",            [](Score* cs, EditData&){ cs->cmdResetNoteAndRestGroupings();                             }},
             { "clef-violin",                [](Score* cs, EditData&){ cs->cmdInsertClef(ClefType::G);                                 }},
@@ -4140,6 +4228,11 @@ void Score::cmd(const QAction* a, EditData& ed)
             { "nat",                        [](Score* cs, EditData& ed){ cs->toggleAccidental(AccidentalType::NATURAL, ed);           }},
             { "flat",                       [](Score* cs, EditData& ed){ cs->toggleAccidental(AccidentalType::FLAT, ed);              }},
             { "flat2",                      [](Score* cs, EditData& ed){ cs->toggleAccidental(AccidentalType::FLAT2, ed);             }},
+            { "sharp2-post",                [](Score* cs, EditData&){ cs->changeAccidental(AccidentalType::SHARP2);                   }},
+            { "sharp-post",                 [](Score* cs, EditData&){ cs->changeAccidental(AccidentalType::SHARP);                    }},
+            { "nat-post",                   [](Score* cs, EditData&){ cs->changeAccidental(AccidentalType::NATURAL);                  }},
+            { "flat-post",                  [](Score* cs, EditData&){ cs->changeAccidental(AccidentalType::FLAT);                     }},
+            { "flat2-post",                 [](Score* cs, EditData&){ cs->changeAccidental(AccidentalType::FLAT2);                    }},
             { "flip",                       [](Score* cs, EditData&){ cs->cmdFlip();                                                  }},
             { "stretch+",                   [](Score* cs, EditData&){ cs->cmdAddStretch(0.1);                                         }},
             { "stretch-",                   [](Score* cs, EditData&){ cs->cmdAddStretch(-0.1);                                        }},
@@ -4148,6 +4241,7 @@ void Score::cmd(const QAction* a, EditData& ed)
             { "select-section",             [](Score* cs, EditData&){ cs->cmdSelectSection();                                         }},
             { "add-brackets",               [](Score* cs, EditData&){ cs->cmdAddBracket();                                            }},
             { "add-parentheses",            [](Score* cs, EditData&){ cs->cmdAddParentheses();                                        }},
+            { "add-braces",                 [](Score* cs, EditData&){ cs->cmdAddBraces();                                        }},
             { "acciaccatura",               [](Score* cs, EditData&){ cs->cmdAddGrace(NoteType::ACCIACCATURA, MScore::division / 2);  }},
             { "appoggiatura",               [](Score* cs, EditData&){ cs->cmdAddGrace(NoteType::APPOGGIATURA, MScore::division / 2);  }},
             { "grace4",                     [](Score* cs, EditData&){ cs->cmdAddGrace(NoteType::GRACE4, MScore::division);            }},

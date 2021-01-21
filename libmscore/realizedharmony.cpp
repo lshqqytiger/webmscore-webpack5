@@ -231,12 +231,15 @@ void RealizedHarmony::update(int rootTpc, int bassTpc, int transposeOffset /*= 0
 ///    which returns the HDuration, which is the duration
 ///    setting.
 ///
-///    Specifying a parameter finds a duration based on the
-///    passed duration type while not specifying a parameter
-///    uses the setting set by the user for the specific
-///    harmony object.
+///    As the duration may depend on playback order the
+///    utick is required as a reference point
+///
+///    Specifying the durationType will overwrite the
+///    setting set by the user for the specific harmony object.
+///    Don't specify it (or as HDuration::INVALID) to honor
+///    the user setting.
 //--------------------------------------------------
-Fraction RealizedHarmony::getActualDuration(HDuration durationType) const
+Fraction RealizedHarmony::getActualDuration(int utick, HDuration durationType) const
       {
       HDuration dur;
       if (durationType != HDuration::INVALID)
@@ -246,10 +249,10 @@ Fraction RealizedHarmony::getActualDuration(HDuration durationType) const
       switch (dur)
             {
             case HDuration::UNTIL_NEXT_CHORD_SYMBOL:
-                  return _harmony->ticksTilNext(false);
+                  return _harmony->ticksTillNext(utick, false);
                   break;
             case HDuration::STOP_AT_MEASURE_END:
-                  return _harmony->ticksTilNext(true);
+                  return _harmony->ticksTillNext(utick, true);
                   break;
             case HDuration::SEGMENT_DURATION: {
                   Segment* s = _harmony->getParentSeg();
@@ -319,7 +322,7 @@ RealizedHarmony::PitchMap RealizedHarmony::getIntervals(int rootTpc, bool litera
                   if (s[c].isDigit()) {
                         int alter = 0;
                         int cutoff = c;
-                        int deg = s.right(s.length() - c).toInt();
+                        int deg = s.rightRef(s.length() - c).toInt();
                         //account for if the flat/sharp is stuck to the end of add
                         if (c) {
                               if (s[c-1] == '#') {

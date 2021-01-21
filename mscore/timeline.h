@@ -43,6 +43,7 @@ class TDockWidget : public QDockWidget {
       QSplitter* _grid;
 
       virtual void closeEvent(QCloseEvent* event);
+      virtual void changeEvent(QEvent*);
 
    signals:
       void closed(bool);
@@ -124,6 +125,17 @@ struct TimelineTheme {
 class Timeline : public QGraphicsView {
       Q_OBJECT
 
+   public:
+      enum class ItemType {
+            TYPE_UNKNOWN = 0,
+            TYPE_MEASURE,
+            TYPE_META,
+            };
+      Q_ENUM(ItemType);
+
+   private:
+      static constexpr int keyItemType = 15;
+
       int _gridWidth = 20;
       int _gridHeight = 20;
       int _maxZoom = 50;
@@ -143,6 +155,13 @@ class Timeline : public QGraphicsView {
 
       Score* _score { nullptr };
       ScoreView* _cv { nullptr };
+
+      int gridRows = 0;
+      int gridCols = 0;
+
+      QGraphicsPathItem* nonVisiblePathItem = nullptr;
+      QGraphicsPathItem* visiblePathItem = nullptr;
+      QGraphicsPathItem* selectionItem = nullptr;
 
       QGraphicsRectItem* _selectionBox { nullptr };
       std::vector<std::pair<QGraphicsItem*, int>> _metaRows;
@@ -179,11 +198,18 @@ class Timeline : public QGraphicsView {
       virtual void mouseReleaseEvent(QMouseEvent*);
       virtual void wheelEvent(QWheelEvent *event);
       virtual void leaveEvent(QEvent*);
+      void showEvent(QShowEvent*) override;
+      virtual void changeEvent(QEvent*);
 
       unsigned correctMetaRow(unsigned row);
       int correctStave(int stave);
 
       QList<Part*> getParts();
+
+      QRectF getMeasureRect(int measureIndex, int row, int numMetas) { return QRectF(measureIndex * _gridWidth, _gridHeight * (row + numMetas) + 3, _gridWidth, _gridHeight); }
+      void clearScene();
+
+      void updateGrid(int startMeasure = -1, int endMeasure = -1);
 
    private slots:
       void handleScroll(int value);
@@ -207,7 +233,7 @@ class Timeline : public QGraphicsView {
       int correctPart(int stave);
 
       void drawSelection();
-      void drawGrid(int globalRows, int globalCols);
+      void drawGrid(int globalRows, int globalCols, int startMeasure = 0, int endMeasure = -1);
 
       void setScore(Score* s);
       void setScoreView(ScoreView* sv);
@@ -218,7 +244,9 @@ class Timeline : public QGraphicsView {
       int getHeight() const;
       const TimelineTheme& activeTheme() const;
 
-      void updateGrid();
+      void updateGridFull() { updateGrid(0, -1); }
+      void updateGridView() { updateGrid(-1, -1); }
+      void updateGridFromCmdState();
 
       QColor colorBox(QGraphicsRectItem* item);
 

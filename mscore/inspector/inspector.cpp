@@ -320,14 +320,19 @@ void Inspector::update(Score* s)
                         case ElementType::LAYOUT_BREAK:
                               if (toLayoutBreak(element())->layoutBreakType() == LayoutBreak::Type::SECTION)
                                     ie = new InspectorSectionBreak(this);
+#if 0 // currently empty and such not needed
                               else
                                     ie = new InspectorBreak(this);
+#endif
                               break;
                         case ElementType::BEND:
                               ie = new InspectorBend(this);
                               break;
                         case ElementType::TREMOLO:
-                              ie = new InspectorTremolo(this);
+                              if (toTremolo(element())->customStyleApplicable())
+                                    ie = new InspectorTremolo(this);
+                              else
+                                    ie = new InspectorElement(this);
                               break;
                         case ElementType::TREMOLOBAR:
                               ie = new InspectorTremoloBar(this);
@@ -350,6 +355,7 @@ void Inspector::update(Score* s)
                               ie = new InspectorInstrumentChange(this);
                               break;
                         case ElementType::MEASURE_NUMBER:
+                        case ElementType::MMREST_RANGE:
                               ie = new InspectorMeasureNumber(this);
                               break;
                         case ElementType::STAFFTYPE_CHANGE:
@@ -479,9 +485,10 @@ InspectorSectionBreak::InspectorSectionBreak(QWidget* parent)
       scb.setupUi(addWidget());
 
       iList = {
-            { Pid::PAUSE,                   0, scb.pause,               scb.resetPause               },
-            { Pid::START_WITH_LONG_NAMES,   0, scb.startWithLongNames,  scb.resetStartWithLongNames  },
-            { Pid::START_WITH_MEASURE_ONE,  0, scb.startWithMeasureOne, scb.resetStartWithMeasureOne }
+            { Pid::PAUSE,                    0, scb.pause,                  scb.resetPause                  },
+            { Pid::START_WITH_LONG_NAMES,    0, scb.startWithLongNames,     scb.resetStartWithLongNames     },
+            { Pid::START_WITH_MEASURE_ONE,   0, scb.startWithMeasureOne,    scb.resetStartWithMeasureOne    },
+            { Pid::FIRST_SYSTEM_INDENTATION, 0, scb.firstSystemIndentation, scb.resetFirstSystemIndentation }
             };
       pList = { { scb.title, scb.panel } };
       mapSignals();
@@ -510,6 +517,8 @@ InspectorStaffTypeChange::InspectorStaffTypeChange(QWidget* parent)
             { Pid::STAFF_GEN_CLEF,         0, sl.genClefs,        sl.resetGenClefs        },
             { Pid::STAFF_GEN_TIMESIG,      0, sl.genTimesig,      sl.resetGenTimesig      },
             { Pid::STAFF_GEN_KEYSIG,       0, sl.genKeysig,       sl.resetGenKeysig       },
+            { Pid::STAFF_INVISIBLE,        0, sl.invisible,       sl.resetInvisible       },
+            { Pid::STAFF_COLOR,            0, sl.color,           sl.resetColor           },
             };
       pList = { { sl.title, sl.panel } };
 
@@ -569,7 +578,8 @@ InspectorVBox::InspectorVBox(QWidget* parent)
             { Pid::RIGHT_MARGIN,  0, vb.rightMargin,  vb.resetRightMargin  },
             { Pid::TOP_MARGIN,    0, vb.topMargin,    vb.resetTopMargin    },
             { Pid::BOTTOM_MARGIN, 0, vb.bottomMargin, vb.resetBottomMargin },
-            { Pid::BOX_HEIGHT,    0, vb.height,       0                    }
+            { Pid::BOX_HEIGHT,    0, vb.height,       0                    },
+            { Pid::BOX_AUTOSIZE,  0, vb.enableAutoSize, vb.resetAutoSize   }
             };
       pList = { { vb.title, vb.panel } };
       mapSignals();
@@ -1034,6 +1044,7 @@ InspectorAccidental::InspectorAccidental(QWidget* parent)
       a.bracket->addItem(tr("None", "no accidental bracket type"), int(AccidentalBracket::NONE));
       a.bracket->addItem(tr("Parenthesis"), int(AccidentalBracket::PARENTHESIS));
       a.bracket->addItem(tr("Bracket"), int(AccidentalBracket::BRACKET));
+      a.bracket->addItem(tr("Brace"), int(AccidentalBracket::BRACE));
 
       const std::vector<InspectorPanel> ppList = { { a.title, a.panel } };
       mapSignals(iiList, ppList);
@@ -1049,14 +1060,14 @@ InspectorTremolo::InspectorTremolo(QWidget* parent)
       g.setupUi(addWidget());
 
       const std::vector<InspectorItem> iiList = {
-            { Pid::TREMOLO_PLACEMENT,    0, g.tremoloPlacement, g.resetTremoloPlacement },
-            { Pid::TREMOLO_STROKE_STYLE, 0, g.strokeStyle,      g.resetStrokeStyle      }
+            { Pid::TREMOLO_STYLE, 0, g.style, g.resetStyle }
             };
       const std::vector<InspectorPanel> ppList = { { g.title, g.panel } };
 
       mapSignals(iiList, ppList);
       }
 
+#if 0 // not needed currently
 //---------------------------------------------------------
 //   setElement
 //---------------------------------------------------------
@@ -1064,20 +1075,16 @@ InspectorTremolo::InspectorTremolo(QWidget* parent)
 void InspectorTremolo::setElement()
       {
       InspectorElementBase::setElement();
-      bool hasCustomStrokeStyleNonApplicable = false;
       for (Element* ee : *(inspector->el())) {
-            if (!(toTremolo(ee)->customStrokeStyleApplicable())) {
-                  hasCustomStrokeStyleNonApplicable = true;
+            if (!(toTremolo(ee)->customStyleApplicable())) {
+                  g.labelStyle->setVisible(false);
+                  g.style->setVisible(false);
+                  g.resetStyle->setVisible(false);
                   break;
                   }
             }
-      // beam style setting is only appliable to minim two-note tremolo in non-TAB staves
-      if (hasCustomStrokeStyleNonApplicable) {
-            g.labelStrokeStyle->setVisible(false);
-            g.strokeStyle->setVisible(false);
-            g.resetStrokeStyle->setVisible(false);
-            }
       }
+#endif
 
 //---------------------------------------------------------
 //   InspectorClef
@@ -1357,4 +1364,3 @@ InspectorIname::InspectorIname(QWidget* parent)
       }
 
 }
-

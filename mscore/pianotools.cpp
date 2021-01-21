@@ -186,7 +186,7 @@ void HPiano::releasePitch(int pitch)
 
 void HPiano::changeSelection(const Selection& selection)
       {
-      for (PianoKeyItem* key : keys) {
+      for (PianoKeyItem* key : qAsConst(keys)) {
             key->setHighlighted(false);
             key->setSelected(false);
             }
@@ -197,14 +197,14 @@ void HPiano::changeSelection(const Selection& selection)
                   if (other->epitch() >= _firstKey && other->epitch() <= _lastKey)
                         keys[other->epitch() - _firstKey]->setHighlighted(true);
             }
-      for (PianoKeyItem* key : keys)
+      for (PianoKeyItem* key : qAsConst(keys))
             key->update();
       }
 
 // used when currentScore() is NULL; same as above except the for loop
 void HPiano::clearSelection()
       {
-      for (PianoKeyItem* key : keys) {
+      for (PianoKeyItem* key : qAsConst(keys)) {
             key->setHighlighted(false);
             key->setSelected(false);
             key->update();
@@ -217,7 +217,7 @@ void HPiano::clearSelection()
 
 void HPiano::updateAllKeys()
       {
-      for (PianoKeyItem* key : keys) {
+      for (PianoKeyItem* key : qAsConst(keys)) {
             key->setPressed(_pressedPitches.contains(key->pitch())
                             || _pressedPlaybackPitches.contains(key->pitch()));
             key->update();
@@ -399,8 +399,8 @@ void PianoKeyItem::paint(QPainter* p, const QStyleOptionGraphicsItem* /*o*/, QWi
       else
             p->setBrush(type >= 7 ? Qt::black : Qt::white);
       p->drawPath(path());
-      if (_pitch % 12 == 0) {
-            QFont f("FreeSerif", 6);
+      if (preferences.getBool(PREF_UI_PIANO_SHOWPITCHHELP) && _pitch % 12 == 0) {
+            QFont f("Edwin", 6);
             p->setFont(f);
             QString text = "C" + QString::number((_pitch / 12) - 1);
             p->drawText(QRectF(KEY_WIDTH / 2, KEY_HEIGHT - 8, 0, 0),

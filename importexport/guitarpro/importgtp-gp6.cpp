@@ -403,7 +403,7 @@ void GuitarPro6::readChord(QDomNode* diagram, int track)
 
       // get the identifier to set as the domain in the map
       int id    = diagram->attributes().namedItem("id").toAttr().value().toInt();
-      auto name = diagram->attributes().namedItem("name").toAttr().value();
+//TODO-ws      auto name = diagram->attributes().namedItem("name").toAttr().value();
 
 //TODO-ws      fretDiagram->setChordName(name);
       QDomNode diagramNode = diagram->firstChild();
@@ -1123,10 +1123,6 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                       if (!currentProperty.firstChild().nodeName().compare("Enable"))
                                                             addPalmMute(note);
                                                       }
-                                                else if (argument == "Tapped") {
-                                                      if (!currentProperty.firstChild().nodeName().compare("Enable"))
-                                                            addTap(note);
-                                                      }
                                                 else if (!argument.compare("HarmonicType")) {
                                                       QString type;
                                                       auto inner = currentProperty.firstChildElement("HType");
@@ -1313,13 +1309,13 @@ Fraction GuitarPro6::readBeats(QString beats, GPPartInfo* partInfo, Measure* mea
                                                       }
                                                 else if (!value.compare("LowerMordent")) {
                                                       Articulation* art = new Articulation(note->score());
-                                                      art->setSymId(SymId::ornamentMordentInverted);
+                                                      art->setSymId(SymId::ornamentMordent);
                                                       if (!note->score()->addArticulation(note, art))
                                                             delete art;
                                                       }
                                                 else if (!value.compare("UpperMordent")) {
                                                       Articulation* art = new Articulation(note->score());
-                                                      art->setSymId(SymId::ornamentMordent);
+                                                      art->setSymId(SymId::ornamentShortTrill);
                                                       if (!note->score()->addArticulation(note, art))
                                                             delete art;
                                                       }
@@ -1935,7 +1931,7 @@ void GuitarPro6::readBars(QDomNode* barList, Measure* measure, ClefType oldClefI
                         auto voices          = voicesString.split(" ");
                         bool contentAdded    = false;
                         int voiceNum         = -1;
-                        for (auto currentVoice : voices) {
+                        for (const auto &currentVoice : qAsConst(voices)) {
                               // if the voice is not -1 then we set voice
                               if (currentVoice.compare("-1"))
                                     voice = getNode(currentVoice, partInfo->voices);
@@ -2367,7 +2363,6 @@ void GuitarPro6::readMasterBars(GPPartInfo* partInfo)
                                     volta->setTick(measure->tick());
                                     volta->setTick2(measure->tick() + measure->ticks());
 
-                                    QList<int> endings;
                                     const char* c = endNumbers.toUtf8().constData();
                                     while (c && *c)
                                           {

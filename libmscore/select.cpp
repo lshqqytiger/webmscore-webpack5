@@ -257,13 +257,15 @@ ChordRest* Selection::lastChordRest(int track) const
       {
       if (_el.size() == 1) {
             Element* el = _el[0];
-            if (el && el->isNote())
-                  return toChordRest(el->parent());
-            else if (el->isChord() || el->isRest() || el->isRepeatMeasure())
-                  return toChordRest(el);
-            return 0;
+            if (el) {
+                  if (el->isNote())
+                        return toChordRest(el->parent());
+                  else if (el->isChord() || el->isRest() || el->isRepeatMeasure())
+                        return toChordRest(el);
+                  }
+            return nullptr;
             }
-      ChordRest* cr = 0;
+      ChordRest* cr = nullptr;
       for (auto el : _el) {
             if (el->isNote())
                   el = toNote(el)->chord();
@@ -331,7 +333,7 @@ void Selection::clear()
             return;
             }
 
-      for (Element* e : _el) {
+      for (Element* e : qAsConst(_el)) {
             if (e->isSpanner()) {   // TODO: only visible elements should be selectable?
                   Spanner* sp = toSpanner(e);
                   for (auto s : sp->spannerSegments())
@@ -544,7 +546,7 @@ void Selection::updateSelectedElements()
             _plannedTick2 = Fraction(-1,1);
             }
 
-      for (Element* e : _el)
+      for (Element* e : qAsConst(_el))
             e->setSelected(false);
       _el.clear();
 
@@ -670,7 +672,7 @@ void Selection::setRangeTicks(const Fraction& tick1, const Fraction& tick2, int 
 
 void Selection::update()
       {
-      for (Element* e : _el)
+      for (Element* e : qAsConst(_el))
             e->setSelected(true);
       updateState();
       }

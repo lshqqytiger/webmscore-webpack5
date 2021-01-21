@@ -46,7 +46,12 @@ NoteVal Score::noteValForPosition(Position pos, AccidentalType at, bool &error)
       NoteVal nval;
       const StringData* stringData = 0;
 
-      switch (st->staffType(tick)->group()) {
+      // pitched/unpitched note entry depends on instrument (override StaffGroup)
+      StaffGroup staffGroup = st->staffType(tick)->group();
+      if (staffGroup != StaffGroup::TAB) 
+            staffGroup = instr->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
+
+      switch (staffGroup) {
             case StaffGroup::PERCUSSION: {
                   if (_is.rest())
                         break;
@@ -229,6 +234,8 @@ Note* Score::addPitch(NoteVal& nval, bool addFlag, InputState* externalInputStat
                   Tie* tie = new Tie(this);
                   tie->setStartNote(note);
                   tie->setEndNote(firstTiedNote);
+                  tie->setTick(tie->startNote()->tick());
+                  tie->setTick2(tie->endNote()->tick());
                   tie->setTrack(note->track());
                   undoAddElement(tie);
                   }
@@ -296,6 +303,14 @@ void Score::putNote(const QPointF& pos, bool replace, bool insert)
       Score* score = p.segment->score();
       // it is not safe to call Score::repitchNote() if p is on a TAB staff
       bool isTablature = staff(p.staffIdx)->isTabStaff(p.segment->tick());
+
+      //  calculate actual clicked line from staffType offset and stepOffset
+      Staff* ss = score->staff(p.staffIdx);
+      int stepOffset = ss->staffType(p.segment->tick())->stepOffset();
+      qreal stYOffset = ss->staffType(p.segment->tick())->yoffset().val();
+      qreal lineDist = ss->staffType(p.segment->tick())->lineDistance().val();
+      p.line -= stepOffset + 2 * stYOffset / lineDist;
+
       if (score->inputState().usingNoteEntryMethod(NoteEntryMethod::REPITCH) && !isTablature)
             score->repitchNote(p, replace);
       else {
@@ -325,7 +340,13 @@ void Score::putNote(const Position& p, bool replace)
             return;
 
       const StringData* stringData = 0;
-      switch (st->staffType(s->tick())->group()) {
+
+      // pitched/unpitched note entry depends on instrument (override StaffGroup)
+      StaffGroup staffGroup = st->staffType(s->tick())->group();
+      if (staffGroup != StaffGroup::TAB)
+            staffGroup = st->part()->instrument(s->tick())->useDrumset() ? StaffGroup::PERCUSSION : StaffGroup::STANDARD;
+
+      switch (staffGroup) {
             case StaffGroup::PERCUSSION: {
                   const Drumset* ds = st->part()->instrument(s->tick())->drumset();
                   stemDirection     = ds->stemDirection(nval.pitch);
@@ -535,6 +556,8 @@ void Score::repitchNote(const Position& p, bool replace)
             Tie* tie = new Tie(this);
             tie->setStartNote(note);
             tie->setEndNote(firstTiedNote);
+            tie->setTick(tie->startNote()->tick());
+            tie->setTick2(tie->endNote()->tick());
             tie->setTrack(note->track());
             undoAddElement(tie);
             }

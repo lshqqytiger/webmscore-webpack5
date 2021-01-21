@@ -114,6 +114,7 @@ FluidGui::FluidGui(Synthesizer* s)
       connect(soundFontTop,    SIGNAL(clicked()), SLOT(soundFontTopClicked()));
       connect(soundFontUp,     SIGNAL(clicked()), SLOT(soundFontUpClicked()));
       connect(soundFontDown,   SIGNAL(clicked()), SLOT(soundFontDownClicked()));
+      connect(soundFontBottom, SIGNAL(clicked()), SLOT(soundFontBottomClicked()));
       connect(soundFontAdd,    SIGNAL(clicked()), SLOT(soundFontAddClicked()));
       connect(soundFontDelete, SIGNAL(clicked()), SLOT(soundFontDeleteClicked()));
       connect(soundFonts,      SIGNAL(itemSelectionChanged ()),  SLOT(updateUpDownButtons()));
@@ -124,16 +125,17 @@ FluidGui::FluidGui(Synthesizer* s)
       _progressTimer = new QTimer(this);
       connect(_progressTimer, SIGNAL(timeout()), this, SLOT(updateProgress()));
       connect(soundFonts, SIGNAL(itemSelectionChanged()), this, SLOT(updateUpDownButtons()));
-      
+
+      soundFontTop->setIcon(*icons[int(Ms::Icons::arrowsMoveToTop_ICON)]);
       soundFontUp->setIcon(*icons[int(Icons::arrowUp_ICON)]);
       soundFontDown->setIcon(*icons[int(Icons::arrowDown_ICON)]);
-      soundFontTop->setIcon(*icons[int(Ms::Icons::arrowsMoveToTop_ICON)]);
-      
+      soundFontBottom->setIcon(*icons[int(Ms::Icons::arrowsMoveToBottom_ICON)]);
+
       //update sfs
       QStringList sfonts = fluid()->soundFonts();
       soundFonts->clear();
       soundFonts->addItems(sfonts);
-      
+
       updateUpDownButtons();
       }
 
@@ -159,24 +161,31 @@ void FluidGui::moveSoundfontInTheList(int currentIdx, int targetIdx)
       QStringList sfonts = fluid()->soundFonts();
       for (auto sfName : sfonts)
             fluid()->removeSoundFont(sfName);
-      
+
       sfonts.move(currentIdx, targetIdx);
-      fluid()->loadSoundFonts(sfonts);
-      sfonts = fluid()->soundFonts();
-      soundFonts->clear();
-      soundFonts->addItems(sfonts);
+      loadSoundFontsAsync(sfonts);
       soundFonts->setCurrentRow(targetIdx);
       emit sfChanged();
       }
 
 void FluidGui::soundFontTopClicked()
-       {
-       int row = soundFonts->currentRow();
-       if (row <= 0)
-             return;
-       
-       moveSoundfontInTheList(row, 0);
-       }
+      {
+      int row = soundFonts->currentRow();
+      if (row <= 0)
+            return;
+
+      moveSoundfontInTheList(row, 0);
+      }
+
+void FluidGui::soundFontBottomClicked()
+      {
+      int rows = soundFonts->count();
+      int row = soundFonts->currentRow();
+      if (row + 1 >= rows)
+            return;
+
+      moveSoundfontInTheList(row, rows - 1);
+      }
 
 //---------------------------------------------------------
 //   soundFontUpClicked
@@ -187,7 +196,7 @@ void FluidGui::soundFontUpClicked()
       int row = soundFonts->currentRow();
       if (row <= 0)
             return;
-      
+
       moveSoundfontInTheList(row, row - 1);
       }
 
@@ -203,6 +212,20 @@ void FluidGui::soundFontDownClicked()
             return;
 
       moveSoundfontInTheList(row, row + 1);
+      }
+
+//---------------------------------------------------------
+//   loadSoundFontsAsync
+//---------------------------------------------------------
+
+void FluidGui::loadSoundFontsAsync(QStringList sfonts)
+      {
+      QFuture<bool> future = QtConcurrent::run(fluid(), &FluidS::Fluid::loadSoundFonts, sfonts);
+      _futureWatcher.setFuture(future);
+      _progressTimer->start(1000);
+      _progressDialog->exec();
+
+      synthesizerChanged();
       }
 
 //---------------------------------------------------------
@@ -230,9 +253,10 @@ void FluidGui::updateUpDownButtons()
       {
       int rows = soundFonts->count();
       int row = soundFonts->currentRow();
-      soundFontUp->setEnabled(row > 0);
       soundFontTop->setEnabled(row > 0);
-      soundFontDown->setEnabled((row != -1) && (row < (rows-1)));
+      soundFontUp->setEnabled(row > 0);
+      soundFontDown->setEnabled((row != -1) && (row < (rows - 1)));
+      soundFontBottom->setEnabled((row != -1) && (row < (rows - 1)));
       soundFontDelete->setEnabled(row != -1);
       }
 
@@ -245,7 +269,7 @@ void FluidGui::soundFontAddClicked()
       QFileInfoList l = FluidS::Fluid::sfFiles();
 
       SfListDialog ld(this);
-      foreach (const QFileInfo& fi, l)
+      for (const QFileInfo& fi : l)
             ld.add(fi.fileName(), fi.absoluteFilePath());
       if (!ld.exec())
             return;
@@ -303,7 +327,6 @@ void FluidGui::loadSf()
                                  tr("SoundFont %1 already loaded").arg(sfPath));
             }
       else {
-
             _loadedSfName = sfName;
             _loadedSfPath = sfPath;
             QFuture<bool> future = QtConcurrent::run(fluid(), &FluidS::Fluid::addSoundFont, sfPath);

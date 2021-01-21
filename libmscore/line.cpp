@@ -153,6 +153,9 @@ QVector<QLineF> LineSegment::gripAnchorLines(Grip grip) const
             y = system()->staffYpage(stIdx);
             if (line()->placement() == Placement::BELOW)
                   y += system()->staff(stIdx)->bbox().height();
+            // adjust Y to staffType offset
+            if (staffType())
+                  y += staffType()->yoffset().val() * spatium();
             }
 
       const Page* p = system()->page();
@@ -490,12 +493,25 @@ LineSegment* LineSegment::rebaseAnchor(Grip grip, Segment* newSeg)
                   startTick = newSeg->tick();
             }
 
-      if (l->tick() != startTick)
+      bool anchorChanged = false;
+
+      if (l->tick() != startTick) {
             l->undoChangeProperty(Pid::SPANNER_TICK, startTick);
+            anchorChanged = true;
+            }
 
-      l->undoChangeProperty(Pid::SPANNER_TICKS, endTick - startTick);
+      const Fraction ticksLength = endTick - startTick;
 
-      if (newSeg->system() == oldSystem) {
+      if (ticksLength != l->ticks()) {
+            l->undoChangeProperty(Pid::SPANNER_TICKS, ticksLength);
+            anchorChanged = true;
+            }
+
+      if (newSeg->system() != oldSystem) {
+            l->layout();
+            return left ? l->frontSegment() : l->backSegment();
+            }
+      else if (anchorChanged) {
             const QPointF delta = left ? deltaRebaseLeft(oldSeg, newSeg) : deltaRebaseRight(oldSeg, newSeg, track2staff(l->effectiveTrack2()));
             if (left) {
                   setOffset(offset() + delta);
@@ -505,10 +521,6 @@ LineSegment* LineSegment::rebaseAnchor(Grip grip, Segment* newSeg)
             else {
                   _offset2 += delta;
                   }
-            }
-      else {
-            l->layout();
-            return left ? l->frontSegment() : l->backSegment();
             }
 
       return nullptr;
@@ -521,6 +533,10 @@ LineSegment* LineSegment::rebaseAnchor(Grip grip, Segment* newSeg)
 void LineSegment::rebaseAnchors(EditData& ed, Grip grip)
       {
       if (line()->anchor() != Spanner::Anchor::SEGMENT)
+            return;
+      // don't change anchors on keyboard adjustment or if Ctrl is pressed
+      // (Ctrl+Left/Right is handled elsewhere!)
+      if (ed.key == Qt::Key_Left || ed.key == Qt::Key_Right || ed.modifiers & Qt::ControlModifier)
             return;
 
       switch (grip) {
@@ -1060,10 +1076,8 @@ SpannerSegment* SLine::layoutSystem(System* system)
                   }
                   break;
             case SpannerSegmentType::MIDDLE: {
-                  Measure* firstMeasure = system->firstMeasure();
-                  Segment* firstCRSeg   = firstMeasure->first(SegmentType::ChordRest);
-                  qreal x1              = (firstCRSeg ? firstCRSeg->pos().x() : 0) + firstMeasure->pos().x();
-                  qreal x2              = system->bbox().right();
+                  qreal x1 = system->firstNoteRestSegmentX(true);
+                  qreal x2 = system->bbox().right();
                   System* s;
                   QPointF p1 = linePos(Grip::START, &s);
                   lineSegm->setPos(QPointF(x1, p1.y()));
@@ -1071,19 +1085,9 @@ SpannerSegment* SLine::layoutSystem(System* system)
                   }
                   break;
             case SpannerSegmentType::END: {
-                  qreal offset = 0.0;
                   System* s;
                   QPointF p2 = linePos(Grip::END,   &s);
-                  Measure* firstMeas  = system->firstMeasure();
-                  Segment* firstCRSeg = firstMeas->first(SegmentType::ChordRest);
-                  if (anchor() == Anchor::SEGMENT || anchor() == Anchor::MEASURE) {
-                        // start line just after previous element (eg, key signature)
-                        firstCRSeg = firstCRSeg->prev();
-                        Element* e = firstCRSeg ? firstCRSeg->element(staffIdx() * VOICES) : nullptr;
-                        if (e)
-                              offset = e->width();
-                        }
-                  qreal x1  = (firstCRSeg ? firstCRSeg->pos().x() : 0) + firstMeas->pos().x() + offset;
+                  qreal x1 = system->firstNoteRestSegmentX(true);
                   qreal len = p2.x() - x1;
                   lineSegm->setPos(QPointF(p2.x() - len, p2.y()));
                   lineSegm->setPos2(QPointF(len, 0.0));
@@ -1165,9 +1169,6 @@ void SLine::layout()
             lineSegm->setTrack(track());       // DEBUG
             lineSegm->setSystem(system);
 
-            Measure* firstMeas = system->firstMeasure();
-            Segment* firstCRSeg = firstMeas->first(SegmentType::ChordRest);
-
             if (sysIdx1 == sysIdx2) {
                   // single segment
                   lineSegm->setSpannerSegmentType(SpannerSegmentType::SINGLE);
@@ -1189,27 +1190,15 @@ void SLine::layout()
             else if (i > 0 && i != sysIdx2) {
                   // middle segment
                   lineSegm->setSpannerSegmentType(SpannerSegmentType::MIDDLE);
-                  qreal x1 = (firstCRSeg ? firstCRSeg->pos().x() : 0) + firstMeas->pos().x();
+                  qreal x1 = system->firstNoteRestSegmentX(true);
                   qreal x2 = system->bbox().right();
                   lineSegm->setPos(QPointF(x1, p1.y()));
                   lineSegm->setPos2(QPointF(x2 - x1, 0.0));
                   }
             else if (i == sysIdx2) {
                   // end segment
-                  qreal offset = 0.0;
                   qreal minLen = 0.0;
-                  if (anchor() == Anchor::SEGMENT || anchor() == Anchor::MEASURE) {
-                        // start line just after previous element (eg, key signature)
-                        firstCRSeg = firstCRSeg->prev();
-                        Element* e = firstCRSeg ? firstCRSeg->element(staffIdx() * VOICES) : nullptr;
-                        if (e)
-                              offset = e->width();
-                        // enforcing a minimum length would be possible but inadvisable
-                        // the line length calculations are tuned well enough that this should not be needed
-                        //if (type() != ElementType::PEDAL)
-                        //      minLen = 1.0 * spatium();
-                        }
-                  qreal x1 = (firstCRSeg ? firstCRSeg->pos().x() : 0) + firstMeas->pos().x() + offset;
+                  qreal x1 = system->firstNoteRestSegmentX(true);
                   qreal len = qMax(minLen, p2.x() - x1);
                   lineSegm->setSpannerSegmentType(SpannerSegmentType::END);
                   lineSegm->setPos(QPointF(p2.x() - len, p2.y()));

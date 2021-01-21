@@ -337,7 +337,7 @@ void Ambitus::layout()
             if (_topTpc - int(key) >= 13 && _topTpc - int(key) <= 19)
                   accidType = AccidentalType::NONE;
             else {
-                  AccidentalVal accidVal = AccidentalVal( (_topTpc - Tpc::TPC_MIN) / TPC_DELTA_SEMITONE - 2 );
+                  AccidentalVal accidVal = tpc2alter(_topTpc);
                   accidType = Accidental::value2subtype(accidVal);
                   if (accidType == AccidentalType::NONE)
                         accidType = AccidentalType::NATURAL;
@@ -362,7 +362,7 @@ void Ambitus::layout()
             if (_bottomTpc - int(key) >= 13 && _bottomTpc - int(key) <= 19)
                   accidType = AccidentalType::NONE;
             else {
-                  AccidentalVal accidVal = AccidentalVal( (_bottomTpc - Tpc::TPC_MIN) / TPC_DELTA_SEMITONE - 2 );
+                  AccidentalVal accidVal = tpc2alter(_bottomTpc);
                   accidType = Accidental::value2subtype(accidVal);
                   if (accidType == AccidentalType::NONE)
                         accidType = AccidentalType::NATURAL;
@@ -454,7 +454,7 @@ void Ambitus::draw(QPainter* p) const
       {
       qreal _spatium = spatium();
       qreal lw = lineWidth().val() * _spatium;
-      p->setPen(QPen(curColor(), lw, Qt::SolidLine, Qt::RoundCap));
+      p->setPen(QPen(curColor(), lw, Qt::SolidLine, Qt::FlatCap));
       drawSymbol(noteHead(), p, _topPos);
       drawSymbol(noteHead(), p, _bottomPos);
       if (_hasLine)
@@ -468,9 +468,9 @@ void Ambitus::draw(QPainter* p) const
             int numOfLines    = stf->lines(tick);
             qreal step        = lineDist * _spatium;
             qreal stepTolerance = step * 0.1;
-            qreal ledgerOffset = score()->styleS(Sid::ledgerLineLength).val() * 0.5 * _spatium;
+            qreal ledgerOffset = score()->styleS(Sid::ledgerLineLength).val() * _spatium;
             p->setPen(QPen(curColor(), score()->styleS(Sid::ledgerLineWidth).val() * _spatium,
-                        Qt::SolidLine, Qt::RoundCap) );
+                        Qt::SolidLine, Qt::FlatCap) );
             if (_topPos.y()-stepTolerance <= -step) {
                   qreal xMin = _topPos.x() - ledgerOffset;
                   qreal xMax = _topPos.x() + headWidth() + ledgerOffset;
@@ -764,11 +764,11 @@ Element* Ambitus::prevSegmentElement()
 
 QString Ambitus::accessibleInfo() const
       {
-      return QObject::tr("%1; Top pitch: %2%3; Bottom pitch: %4%5").arg(Element::accessibleInfo())
-                                                          .arg(tpc2name(topTpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO, false))
-                                                          .arg(QString::number(topOctave()))
-                                                          .arg(tpc2name(bottomTpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO, false))
-                                                          .arg(QString::number(bottomOctave()));
+      return QObject::tr("%1; Top pitch: %2%3; Bottom pitch: %4%5").arg(Element::accessibleInfo(),
+                                                               tpc2name(topTpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO, false),
+                                                               QString::number(topOctave()),
+                                                               tpc2name(bottomTpc(), NoteSpellingType::STANDARD, NoteCaseType::AUTO, false),
+                                                               QString::number(bottomOctave()));
       }
 }
 

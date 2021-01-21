@@ -62,6 +62,7 @@
 #include "layoutbreak.h"
 #include "harmony.h"
 #include "mscore.h"
+#include "scoreOrder.h"
 #ifdef OMR
 #include "omr/omr.h"
 #endif
@@ -254,12 +255,13 @@ Score::Score()
       _layer.append(l);
       _layerTags[0]   = "default";
 
-      _scoreFont = ScoreFont::fontFactory("emmentaler");
+      _scoreFont = ScoreFont::fontFactory("Leland");
 
       _fileDivision           = MScore::division;
       _style  = MScore::defaultStyle();
 //      accInfo = tr("No selection");     // ??
       accInfo = "No selection";
+      _scoreOrder = nullptr;
       }
 
 Score::Score(MasterScore* parent, bool forcePartStyle /* = true */)
@@ -386,7 +388,7 @@ void Score::onElementDestruction(Element* e)
             }
       score->selection().remove(e);
       score->cmdState().unsetElement(e);
-      for (MuseScoreView* v : score->viewer)
+      for (MuseScoreView* v : qAsConst(score->viewer))
             v->onElementDestruction(e);
       }
 
@@ -422,7 +424,7 @@ void Score::fixTicks()
       if (fm == 0)
             return;
 
-      for (Staff* staff : _staves)
+      for (Staff* staff : qAsConst(_staves))
             staff->clearTimeSig();
 
       if (isMaster()) {
@@ -610,7 +612,7 @@ void Score::dragPosition(const QPointF& p, int* rst, Segment** seg, qreal spacin
       {
       const System* preferredSystem = (*seg) ? (*seg)->system() : nullptr;
       Measure* m = searchMeasure(p, preferredSystem, spacingFactor);
-      if (m == 0)
+      if (m == 0 || m->isMMRest())
             return;
 
       System* s = m->system();
@@ -967,7 +969,7 @@ QList<System*> Score::searchSystem(const QPointF& pos, const System* preferredSy
 Measure* Score::searchMeasure(const QPointF& p, const System* preferredSystem, qreal spacingFactor, qreal preferredSpacingFactor) const
       {
       QList<System*> systems = searchSystem(p, preferredSystem, spacingFactor, preferredSpacingFactor);
-      for (System* system : systems) {
+      for (System* system : qAsConst(systems)) {
             qreal x = p.x() - system->canvasPos().x();
             for (MeasureBase* mb : system->measures()) {
                   if (mb->isMeasure() && (x < (mb->x() + mb->bbox().width())))
@@ -1243,7 +1245,7 @@ void Score::spatiumChanged(qreal oldValue, qreal newValue)
       data[0] = oldValue;
       data[1] = newValue;
       scanElements(data, spatiumHasChanged, true);
-      for (Staff* staff : _staves)
+      for (Staff* staff : qAsConst(_staves))
             staff->spatiumChanged(oldValue, newValue);
       _noteHeadWidth = _scoreFont->width(SymId::noteheadBlack, newValue / SPATIUM20);
       }
@@ -1423,9 +1425,8 @@ void Score::addElement(Element* element)
             case ElementType::ARTICULATION:
             case ElementType::ARPEGGIO:
                   {
-                  Element* cr = parent;
-                  if (cr->isChord())
-                        createPlayEvents(toChord(cr));
+                  if (parent && parent->isChord())
+                        createPlayEvents(toChord(parent));
                   }
                   break;
             case ElementType::HARMONY:
@@ -2651,6 +2652,8 @@ void Score::sortStaves(QList<int>& dst)
       _parts.clear();
       Part* curPart = 0;
       QList<Staff*> dl;
+      QMap<int, int> trackMap;
+      int track = 0;
       foreach (int idx, dst) {
             Staff* staff = _staves[idx];
             if (staff->part() != curPart) {
@@ -2660,6 +2663,8 @@ void Score::sortStaves(QList<int>& dst)
                   }
             curPart->staves()->push_back(staff);
             dl.push_back(staff);
+            for (int itrack = 0; itrack < VOICES; ++itrack)
+                  trackMap.insert(idx * VOICES + itrack, track++);
             }
       _staves = dl;
 
@@ -2685,6 +2690,25 @@ void Score::sortStaves(QList<int>& dst)
       }
 
 //---------------------------------------------------------
+//   mapExcerptTracks
+//---------------------------------------------------------
+
+void Score::mapExcerptTracks(QList<int> &dst)
+      {
+      for (Excerpt* e : excerpts()) {
+            QMultiMap<int, int> tr = e->tracks();
+            QMultiMap<int, int> tracks;
+            for (QMap<int, int>::iterator it = tr.begin(); it != tr.end(); ++it) {
+                  int prvStaffIdx = it.key() / VOICES;
+                  int curStaffIdx = dst.indexOf(prvStaffIdx);
+                  int offset = (curStaffIdx - prvStaffIdx) * VOICES;
+                  tracks.insert(it.key() + offset, it.value());
+                  }
+            e->tracks() = tracks;
+            }
+      }
+
+//---------------------------------------------------------
 //   cmdConcertPitchChanged
 //---------------------------------------------------------
 
@@ -2692,11 +2716,11 @@ void Score::cmdConcertPitchChanged(bool flag, bool /*useDoubleSharpsFlats*/)
       {
       undoChangeStyleVal(Sid::concertPitch, flag);       // change style flag
 
-      for (Staff* staff : _staves) {
+      for (Staff* staff : qAsConst(_staves)) {
             if (staff->staffType(Fraction(0,1))->group() == StaffGroup::PERCUSSION)       // TODO
                   continue;
             // if this staff has no transposition, and no instrument changes, we can skip it
-            Interval interval = staff->part()->instrument()->transpose();
+            Interval interval = staff->part()->instrument()->transpose(); //tick?
             if (interval.isZero() && staff->part()->instruments()->size() == 1)
                   continue;
             if (!flag)
@@ -3393,7 +3417,7 @@ void Score::selectSimilar(Element* e, bool sameStaff)
       score->scanElements(&pattern, collectMatch);
 
       score->select(0, SelectType::SINGLE, 0);
-      for (Element* ee : pattern.el)
+      for (Element* ee : qAsConst(pattern.el))
             score->select(ee, SelectType::ADD, 0);
       }
 
@@ -3426,8 +3450,38 @@ void Score::selectSimilarInRange(Element* e)
       score->scanElementsInRange(&pattern, collectMatch);
 
       score->select(0, SelectType::SINGLE, 0);
-      for (Element* ee : pattern.el)
+      for (Element* ee : qAsConst(pattern.el))
             score->select(ee, SelectType::ADD, 0);
+      }
+
+//---------------------------------------------------------
+//   enableVerticalSpread
+//---------------------------------------------------------
+
+bool Score::enableVerticalSpread() const
+      {
+      return styleB(Sid::enableVerticalSpread) && (layoutMode() != LayoutMode::SYSTEM);
+      }
+
+//---------------------------------------------------------
+//   setEnableVerticalSpread
+//---------------------------------------------------------
+
+void Score::setEnableVerticalSpread(bool val)
+      {
+      setStyleValue(Sid::enableVerticalSpread, val);
+      }
+
+//---------------------------------------------------------
+//   maxSystemDistance
+//---------------------------------------------------------
+
+qreal Score::maxSystemDistance() const
+      {
+      if (enableVerticalSpread())
+            return styleP(Sid::maxSystemSpread);
+      else
+            return styleP(Sid::maxSystemDistance);
       }
 
 //---------------------------------------------------------
@@ -3908,7 +3962,7 @@ ChordRest* Score::findCR(Fraction tick, int track) const
             tick = m->tick();
       Segment* s = m->first(SegmentType::ChordRest);
       for (Segment* ns = s; ; ns = ns->next(SegmentType::ChordRest)) {
-            if (ns == 0 || ns->tick() > tick)
+            if (!ns || ns->tick() > tick)
                   break;
             Element* el = ns->element(track);
             if (el && el->isRest() && toRest(el)->isGap())
@@ -4029,6 +4083,134 @@ ChordRest* Score::cmdNextPrevSystem(ChordRest* cr, bool next)
       }
 
 //---------------------------------------------------------
+//   cmdNextPrevFrame
+//   Return next/previous [Vertical/Horizontal/Text] frame
+//   to be used as a navigation command
+//---------------------------------------------------------
+
+Box* Score::cmdNextPrevFrame(MeasureBase* currentMeasureBase, bool next) const
+      {
+      Box* selectedBox { nullptr };
+      while (!selectedBox && (currentMeasureBase = (next ? currentMeasureBase->next() : currentMeasureBase->prev()))) {
+            if (currentMeasureBase->isBox())
+                  selectedBox = toBox(currentMeasureBase);
+            }
+      return selectedBox;
+      }
+
+//---------------------------------------------------------
+//   cmdNextPrevSection
+//    Return [Box* or ChordRest*] of next/previous section
+//---------------------------------------------------------
+
+Element* Score::cmdNextPrevSection(Element* el, bool dir) const
+      {
+      auto currentMeasureBase = el->findMeasureBase();
+      auto destination = currentMeasureBase;
+      if (currentMeasureBase) {
+            // -----------------------
+            // Next Section of Score
+            // -----------------------
+            if (dir) {
+                  if ((destination = getNextPrevSectionBreak(currentMeasureBase, true))) {
+                        el = getScoreElementOfMeasureBase(destination->next());
+                        }
+                  }
+            // -------------------------
+            // Previous Section of Score
+            // -------------------------
+            else {
+                  auto currentSegment = el->isChordRest() ? toChordRest(el)->segment() : nullptr;
+                  if ((destination = getNextPrevSectionBreak(currentMeasureBase, false))) {
+                        if (currentSegment) {
+                              if ((el = getScoreElementOfMeasureBase((score()->first() == destination) ? destination : destination->next()))) {
+                                    if (el->isChordRest() && (toChordRest(el)->segment() == currentSegment)) {
+                                          if ((destination = getNextPrevSectionBreak(destination, false))) {
+                                                el = !(destination->sectionBreak()) ? destination : getScoreElementOfMeasureBase(destination->next());
+                                                }
+                                          }
+                                    }
+                              }
+                        else if ((score()->first() != currentMeasureBase) && (el = getScoreElementOfMeasureBase(destination->next()))) {
+                              if (el->findMeasureBase() == currentMeasureBase) {
+                                    if ((destination = getNextPrevSectionBreak(destination, false))) {
+                                          el = !(destination->sectionBreak()) ? el : getScoreElementOfMeasureBase(destination->next());
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            }
+      return el;
+      }
+
+//---------------------------------------------------------
+//   getNextPrevSectionBreak
+//    Condition: MeasureBase* must be valid before call
+//    If no previous section break exists selects first
+//    MeasureBase within score
+//---------------------------------------------------------
+
+MeasureBase* Score::getNextPrevSectionBreak(MeasureBase* mb, bool dir) const
+      {
+      auto destination = mb;
+      if (destination) {
+            if (dir) {
+                  // Find next section break
+                  auto endOfSection { false };
+                  while (!endOfSection) {
+                        if ((destination = destination->next()))
+                              endOfSection = destination->sectionBreak();
+                        else break;
+                        }
+                  }
+            else {
+                  // Find previous section break
+                  auto inCurrentSection { true };
+                  while (inCurrentSection && destination) {
+                        if (destination->index()) {
+                              // Safety: SegFaults if invoking prev() when index=0
+                              //         even when MeasureBase* is valid!
+                              destination = destination->prev();
+                              inCurrentSection = !(destination->sectionBreak());
+                              }
+                        else destination = nullptr;
+                        }
+                  if (inCurrentSection || !destination)
+                        destination = score()->first();
+                  }
+            }
+      return destination;
+      }
+
+
+//---------------------------------------------------------
+//   getScoreElementOfMeasureBase
+//    Helper function
+//    Get an Element* as Box or ChordRest depending on
+//    MeasureBase
+//---------------------------------------------------------
+
+Element* Score::getScoreElementOfMeasureBase(MeasureBase* mb) const
+      {
+      Element* el { nullptr };
+      ChordRest* cr { nullptr };
+      const Measure* currentMeasure { nullptr };
+      if (mb) {
+            if (mb->isBox())
+                  el = toBox(mb);
+            else if ((currentMeasure = mb->findMeasure())) {
+                  // Accommodate for MMRest
+                  if (score()->styleB(Sid::createMultiMeasureRests) && currentMeasure->hasMMRest())
+                        currentMeasure = currentMeasure->mmRest1();
+                  if ((cr = currentMeasure->first()->nextChordRest(0, false)))
+                        el = cr;
+                  }
+            }
+      return el;
+      }
+
+//---------------------------------------------------------
 //   setSoloMute
 //   called once at opening file, adds soloMute marks
 //---------------------------------------------------------
@@ -4118,6 +4300,9 @@ ChordRest* Score::cmdTopStaff(ChordRest* cr)
 
 bool Score::hasLyrics()
       {
+      if (!firstMeasure())
+            return false;
+
       SegmentType st = SegmentType::ChordRest;
       for (Segment* seg = firstMeasure()->first(st); seg; seg = seg->next1(st)) {
             for (int i = 0; i < ntracks(); ++i) {
@@ -4135,6 +4320,9 @@ bool Score::hasLyrics()
 
 bool Score::hasHarmonies()
       {
+      if (!firstMeasure())
+            return false;
+
       SegmentType st = SegmentType::ChordRest;
       for (Segment* seg = firstMeasure()->first(st); seg; seg = seg->next1(st)) {
             for (Element* e : seg->annotations()) {
@@ -4273,7 +4461,7 @@ int Score::keysig()
             if (st->staffType(t)->group() == StaffGroup::PERCUSSION || st->keySigEvent(t).custom() || st->keySigEvent(t).isAtonal())       // ignore percussion and custom / atonal key
                   continue;
             result = key;
-            int diff = st->part()->instrument()->transpose().chromatic;
+            int diff = st->part()->instrument()->transpose().chromatic; //TODO keySigs and pitched to unpitched instr changes
             if (!styleB(Sid::concertPitch) && diff)
                   result = transposeKey(key, diff, st->part()->preferSharpFlat());
             break;
@@ -4633,9 +4821,21 @@ QVariant Score::propertyDefault(Pid /*id*/) const
 //   setStyle
 //---------------------------------------------------------
 
-void Score::setStyle(const MStyle& s)
+void Score::setStyle(const MStyle& s, const bool overlap)
       {
-      style() = s;
+      if (!overlap) {
+            style() = s;
+            return;
+            }
+
+      MStyle styleCopy = s;
+
+      for (int i = static_cast<int>(Sid::NOSTYLE) + 1; i < static_cast<int>(Sid::STYLES); i++) {
+          Sid sid = static_cast<Sid>(i);
+
+          if (!styleCopy.isDefault(sid))
+                style().set(sid, styleCopy.value(sid));
+          }
       }
 
 //---------------------------------------------------------
@@ -4921,7 +5121,7 @@ void MasterScore::updateExpressive(Synthesizer* synth)
       SynthesizerGroup g = s.group("master");
 
       int method = 1;
-      for (IdValue idVal : g) {
+      for (const IdValue &idVal : g) {
             if (idVal.id == 4) {
                   method = idVal.data.toInt();
                   break;
@@ -4941,7 +5141,7 @@ void MasterScore::updateExpressive(Synthesizer* synth, bool expressive, bool for
             SynthesizerState s = synthesizerState();
             SynthesizerGroup g = s.group("master");
 
-            for (IdValue idVal : g) {
+            for (const IdValue &idVal : g) {
                   if (idVal.id == 4) {
                         int method = idVal.data.toInt();
                         if (expressive == (method == 0))

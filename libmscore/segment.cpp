@@ -421,6 +421,16 @@ ChordRest* Segment::nextChordRest(int track, bool backwards) const
       return 0;
       }
 
+Element* Segment::element(int track) const
+{
+    int elementsCount = static_cast<int>(_elist.size());
+    if (track < 0 || track >= elementsCount) {
+        return nullptr;
+    }
+
+    return _elist[track];
+}
+
 //---------------------------------------------------------
 //   insertStaff
 //---------------------------------------------------------
@@ -938,7 +948,7 @@ qreal Segment::widthInStaff(int staffIdx, SegmentType t) const
       if (nextSeg)
             nextSegX = nextSeg->x();
       else {
-            Segment* lastSeg = measure()->last();
+            Segment* lastSeg = measure()->lastEnabled();
             if (lastSeg->segmentType() & t)
                   nextSegX = lastSeg->x() + lastSeg->width();
             else
@@ -1053,6 +1063,24 @@ bool Segment::hasElements(int minTrack, int maxTrack) const
       }
 
 //---------------------------------------------------------
+//   allElementsInvisible
+///  return true if all elements in the segment are invisible
+//---------------------------------------------------------
+
+bool Segment::allElementsInvisible() const
+      {
+      if (isType(SegmentType::BarLineType | SegmentType::ChordRest | SegmentType::Breath))
+            return false;
+
+      for (Element* e : _elist) {
+            if (e && e->visible() && !qFuzzyCompare(e->width(), 0.0))
+                  return false;
+            }
+
+      return true;
+      }
+
+//---------------------------------------------------------
 //   hasAnnotationOrElement
 ///  return true if an annotation of type type or and element is found in the track range
 //---------------------------------------------------------
@@ -1137,13 +1165,29 @@ void Segment::scanElements(void* data, void (*func)(void*, Element*), bool all)
       {
       for (int track = 0; track < score()->nstaves() * VOICES; ++track) {
             int staffIdx = track/VOICES;
-            if (!all && !(measure()->visible(staffIdx) && score()->staff(staffIdx)->show())) {
+            if (!all && !(score()->staff(staffIdx)->show())) {
                   track += VOICES - 1;
                   continue;
                   }
             Element* e = element(track);
             if (e == 0)
                   continue;
+            // if measure is not visible, handle visible End Bar Lines and Courtesy Clefs in certain conditions (for ossias and cutaway):
+            if (!measure()->visible(staffIdx)) {
+                  if (isEndBarLineType()) {
+                        if (!measure()->nextMeasure())
+                              continue;  // skip EndBarLines if next measure == NULL
+                        else if (!measure()->isCutawayClef(staffIdx) &&
+                                 !(measure()->nextMeasure()->visible(staffIdx) && measure()->nextMeasure()->system() == measure()->system()))
+                              continue;  // skip if not on courtesy clef measures and if next measure in system is not visible
+                        }
+                  else if (isClefType()) {
+                        if (!measure()->isCutawayClef(staffIdx))
+                              continue;  // skip clefs except for courtesy clefs at the end of invisible measures
+                        }
+                  else
+                        continue;
+                  }
             e->scanElements(data, func, all);
             }
       for (Element* e : annotations()) {
@@ -1374,7 +1418,7 @@ Element* Segment::nextElementOfSegment(Segment* s, Element* e, int activeStaff)
                         (!next || next->staffIdx() != activeStaff)) {
                        next = s->element(++track);
                        }
-                 if (!next)
+                 if (!next || next->staffIdx() != activeStaff)
                        return nullptr;
                  if (next->isChord())
                        return toChord(next)->notes().back();
@@ -1592,6 +1636,8 @@ Element* Segment::nextElement(int activeStaff)
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty() )
             e = score()->selection().elements().first();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::DYNAMIC:
             case ElementType::HARMONY:
@@ -1719,6 +1765,8 @@ Element* Segment::prevElement(int activeStaff)
       Element* e = score()->selection().element();
       if (!e && !score()->selection().elements().isEmpty() )
             e = score()->selection().elements().last();
+      if (!e)
+            return nullptr;
       switch (e->type()) {
             case ElementType::DYNAMIC:
             case ElementType::HARMONY:

@@ -93,6 +93,17 @@ void TDockWidget::closeEvent(QCloseEvent* event)
       }
 
 //---------------------------------------------------------
+//   changeEvent
+//---------------------------------------------------------
+
+void TDockWidget::changeEvent(QEvent* event)
+      {
+      QDockWidget::changeEvent(event);
+      if (event->type() == QEvent::LanguageChange)
+            setWindowTitle(tr("Timeline"));
+      }
+
+//---------------------------------------------------------
 //   TRowLabels
 //---------------------------------------------------------
 
@@ -486,7 +497,7 @@ void TRowLabels::mousePressEvent(QMouseEvent* event)
             mouseOver(mapToScene(mapFromGlobal(QCursor::pos())));
 
             parent->setCollapsed(!parent->collapsed());
-            parent->updateGrid();
+            parent->updateGridView();
             }
       else {
             // Check if pixmap was selected
@@ -878,44 +889,150 @@ Timeline::Timeline(TDockWidget* dockWidget, QWidget* parent)
                   "..#.#.."
                   };
 
+      static const char* reverseEndBarline[] = {
+                  "7 14 2 1",
+                  "# c #000000",
+                  ". c None",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#...",
+                  "##.#..."
+                  };
+
+      static const char* heavyBarline[] = {
+                  "6 14 2 1",
+                  "# c #000000",
+                  ". c None",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##..",
+                  "..##.."
+                  };
+
+      static const char* doubleHeavyBarline[] = {
+                  "7 14 2 1",
+                  "# c #000000",
+                  ". c None",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##.",
+                  ".##.##."
+                  };
+
       QPixmap* startRepeatPixmap = new QPixmap(startRepeat);
       QPixmap* endRepeatPixmap = new QPixmap(endRepeat);
       QPixmap* endBarlinePixmap = new QPixmap(endBarline);
       QPixmap* doubleBarlinePixmap = new QPixmap(doubleBarline);
+      QPixmap* reverseEndBarlinePixmap = new QPixmap(reverseEndBarline);
+      QPixmap* heavyBarlinePixmap = new QPixmap(heavyBarline);
+      QPixmap* doubleHeavyBarlinePixmap = new QPixmap(doubleHeavyBarline);
 
       _barlines[BarLineType::START_REPEAT] = startRepeatPixmap;
       _barlines[BarLineType::END_REPEAT] = endRepeatPixmap;
       _barlines[BarLineType::END] = endBarlinePixmap;
       _barlines[BarLineType::DOUBLE] = doubleBarlinePixmap;
-
+      _barlines[BarLineType::REVERSE_END] = reverseEndBarlinePixmap;
+      _barlines[BarLineType::HEAVY] = heavyBarlinePixmap;
+      _barlines[BarLineType::DOUBLE_HEAVY] = doubleHeavyBarlinePixmap;
       }
 
 //---------------------------------------------------------
 //   Timeline::drawGrid
 //---------------------------------------------------------
 
-void Timeline::drawGrid(int globalRows, int globalCols)
+void Timeline::drawGrid(int globalRows, int globalCols, int startMeasure, int endMeasure)
       {
-      scene()->clear();
+      if (endMeasure < 0)
+            endMeasure = globalCols;
+      if (startMeasure < 0)
+            endMeasure = startMeasure;
+
+      const bool rebuildAll = (
+         gridRows != globalRows || gridCols != globalCols
+         || (startMeasure == 0 && 2 * (endMeasure - startMeasure) > globalCols) // rebuild all if more than half of score has changed
+         );
+      const bool rebuildPartial = !rebuildAll && (startMeasure >= 0);
+
+      const unsigned numMetas = nmetas();
+
+      if (rebuildAll) {
+            clearScene();
+            startMeasure = 0;
+            endMeasure = globalCols;
+            }
+      else {
+            if (rebuildPartial) {
+                  const QRectF replacedRect = getMeasureRect(startMeasure, 0, numMetas) | getMeasureRect(endMeasure - 1, globalRows - 1, numMetas);
+                  const QList<QGraphicsItem*> replacedItems = scene()->items(replacedRect, Qt::ContainsItemShape);
+                  for (QGraphicsItem* item : replacedItems) {
+                        if (item->data(keyItemType).value<ItemType>() != ItemType::TYPE_MEASURE)
+                              continue;
+                        scene()->removeItem(item);
+                        delete item;
+                        }
+                  }
+
+            // Meta rows are still rebuilt from scratch, remove old meta rows manually
+            const QList<QGraphicsItem*> items = scene()->items();
+            for (QGraphicsItem* item : items) {
+                  if (item->data(keyItemType).value<ItemType>() != ItemType::TYPE_META)
+                        continue;
+                  scene()->removeItem(item);
+                  delete item;
+                  }
+            }
+
       _metaRows.clear();
 
       if (globalRows == 0 || globalCols == 0)
             return;
+
       int stagger = 0;
-      unsigned numMetas = nmetas();
       setMinimumHeight(_gridHeight * (numMetas + 1) + 5 + horizontalScrollBar()->height());
       setMinimumWidth(_gridWidth * 3);
       _globalZValue = 1;
 
       // Draw grid
       Measure* currMeasure = _score->firstMeasure();
+      for (int i = 0; i < startMeasure; ++i)
+            currMeasure = currMeasure->nextMeasure();
+
       QList<Part*> partList = getParts();
-      for (int col = 0; col < globalCols; col++) {
+
+      for (int col = startMeasure; col < endMeasure; col++) {
             for (int row = 0; row < globalRows; row++) {
-                  QGraphicsRectItem* graphicsRectItem = new QGraphicsRectItem(col * _gridWidth,
-                                                                              _gridHeight * (row + numMetas) + 3,
-                                                                              _gridWidth,
-                                                                              _gridHeight);
+                  QGraphicsRectItem* graphicsRectItem = new QGraphicsRectItem(getMeasureRect(col, row, numMetas));
+                  graphicsRectItem->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_MEASURE));
 
                   setMetaData(graphicsRectItem, row, ElementType::INVALID, currMeasure, false, 0);
 
@@ -941,15 +1058,16 @@ void Timeline::drawGrid(int globalRows, int globalCols)
             }
       setSceneRect(0, 0, getWidth(), getHeight());
 
-      //Draw meta rows and separator
+      // Draw meta rows and separator
       QGraphicsLineItem* graphicsLineItemSeparator = new QGraphicsLineItem(0,
                                                                            _gridHeight * numMetas + verticalScrollBar()->value() + 1,
                                                                            getWidth() - 1,
                                                                            _gridHeight * numMetas + verticalScrollBar()->value() + 1);
+      graphicsLineItemSeparator->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_META));
       graphicsLineItemSeparator->setPen(QPen(activeTheme().gridColor1, 4));
       graphicsLineItemSeparator->setZValue(-2);
       scene()->addItem(graphicsLineItemSeparator);
-      std::pair<QGraphicsItem*, int> pairGraphicsIntSeparator = std::make_pair(graphicsLineItemSeparator, numMetas);
+      std::pair<QGraphicsItem*, int> pairGraphicsIntSeparator(graphicsLineItemSeparator, numMetas);
       _metaRows.push_back(pairGraphicsIntSeparator);
 
       for (unsigned row = 0; row < numMetas; row++) {
@@ -957,13 +1075,14 @@ void Timeline::drawGrid(int globalRows, int globalCols)
                                                                _gridHeight * row + verticalScrollBar()->value(),
                                                                getWidth(),
                                                                _gridHeight);
+            metaRow->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_META));
             metaRow->setBrush(QBrush(activeTheme().gridColor2));
             metaRow->setPen(QPen(activeTheme().gridColor1));
             metaRow->setData(0, QVariant::fromValue<int>(-1));
 
             scene()->addItem(metaRow);
 
-            std::pair<QGraphicsItem*, int> pairGraphicsIntMeta = std::make_pair(metaRow, row);
+            std::pair<QGraphicsItem*, int> pairGraphicsIntMeta(metaRow, row);
             _metaRows.push_back(pairGraphicsIntMeta);
             }
 
@@ -1042,7 +1161,9 @@ void Timeline::drawGrid(int globalRows, int globalCols)
             xPos += _gridWidth;
             std::get<4>(_repeatInfo) = false;
             }
-      drawSelection();
+
+      gridRows = globalRows;
+      gridCols = globalCols;
       }
 
 //---------------------------------------------------------
@@ -1257,8 +1378,11 @@ void Timeline::barlineMeta(Segment* seg, int* stagger, int pos)
             switch (barline->barLineType()) {
                   case BarLineType::START_REPEAT:
                   case BarLineType::END_REPEAT:
-                  case BarLineType::DOUBLE:
                   case BarLineType::END:
+                  case BarLineType::DOUBLE:
+                  case BarLineType::REVERSE_END:
+                  case BarLineType::HEAVY:
+                  case BarLineType::DOUBLE_HEAVY:
                         repeatText = BarLine::userTypeName(barline->barLineType());
                         break;
                   case BarLineType::END_START_REPEAT:
@@ -1321,7 +1445,9 @@ void Timeline::jumpMarkerMeta(Segment* seg, int* stagger, int pos)
             for (TextFragment tf : tf_list)
                   text.push_back(tf.text);
             measure = marker->measure();
-            if (marker->markerType() == Marker::Type::FINE || marker->markerType() == Marker::Type::TOCODA) {
+            if (marker->markerType() == Marker::Type::FINE ||
+                marker->markerType() == Marker::Type::TOCODA ||
+                marker->markerType() == Marker::Type::TOCODASYM) {
                   elementType = ElementType::MARKER;
                   std::get<2>(_repeatInfo) = std::get<3>(_repeatInfo);
                   std::get<3>(_repeatInfo) = nullptr;
@@ -1381,6 +1507,7 @@ void Timeline::measureMeta(Segment* , int* , int pos)
       // Add measure number
       QString measureNumber = (currMeasure->irregular())? "( )" : QString::number(currMeasure->no() + 1);
       QGraphicsTextItem* graphicsTextItem = new QGraphicsTextItem(measureNumber);
+      graphicsTextItem->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_META));
       graphicsTextItem->setDefaultTextColor(activeTheme().measureMetaColor);
       graphicsTextItem->setX(pos);
       graphicsTextItem->setY(_gridHeight * row + verticalScrollBar()->value());
@@ -1447,6 +1574,9 @@ bool Timeline::addMetaValue(int x, int pos, QString metaText, int row, ElementTy
           { BarLine::userTypeName(BarLineType::END_REPEAT), BarLineType::END_REPEAT },
           { BarLine::userTypeName(BarLineType::END), BarLineType::END },
           { BarLine::userTypeName(BarLineType::DOUBLE), BarLineType::DOUBLE },
+          { BarLine::userTypeName(BarLineType::REVERSE_END), BarLineType::REVERSE_END },
+          { BarLine::userTypeName(BarLineType::HEAVY), BarLineType::HEAVY },
+          { BarLine::userTypeName(BarLineType::DOUBLE_HEAVY), BarLineType::DOUBLE_HEAVY },
       };
 
       BarLineType barLineType = barLineTypes[metaText];
@@ -1470,6 +1600,9 @@ bool Timeline::addMetaValue(int x, int pos, QString metaText, int row, ElementTy
       if ((barLineType == BarLineType::END_REPEAT ||
            barLineType == BarLineType::END ||
            barLineType == BarLineType::DOUBLE ||
+           barLineType == BarLineType::REVERSE_END ||
+           barLineType == BarLineType::HEAVY ||
+           barLineType == BarLineType::DOUBLE_HEAVY ||
            std::get<2>(_repeatInfo))
           && !_collapsedMeta) {
             if (std::get<0>(_repeatInfo) > 0)
@@ -1547,6 +1680,9 @@ bool Timeline::addMetaValue(int x, int pos, QString metaText, int row, ElementTy
 
       setMetaData(graphicsRectItem, -1, elementType, measure, true, element, itemToAdd, seg);
       setMetaData(itemToAdd, -1, elementType, measure, true, element, graphicsRectItem, seg);
+
+      graphicsRectItem->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_META));
+      itemToAdd->setData(keyItemType, QVariant::fromValue(ItemType::TYPE_META));
 
       graphicsRectItem->setZValue(_globalZValue);
       itemToAdd->setZValue(_globalZValue);
@@ -1659,6 +1795,20 @@ QList<Part*> Timeline::getParts()
             }
 
       return partList;
+      }
+
+//---------------------------------------------------------
+//   clearScene
+//---------------------------------------------------------
+
+void Timeline::clearScene()
+      {
+      scene()->clear();
+
+      // clear pointers to scene items, they have been deleted by clear()
+      nonVisiblePathItem = nullptr;
+      visiblePathItem = nullptr;
+      selectionItem = nullptr;
       }
 
 //---------------------------------------------------------
@@ -1813,8 +1963,11 @@ void Timeline::drawSelection()
                   BarLine* barline = toBarLine(element);
                   if (barline &&
                       (barline->barLineType() == BarLineType::END_REPEAT ||
+                       barline->barLineType() == BarLineType::END ||
                        barline->barLineType() == BarLineType::DOUBLE ||
-                       barline->barLineType() == BarLineType::END) &&
+                       barline->barLineType() == BarLineType::REVERSE_END ||
+                       barline->barLineType() == BarLineType::HEAVY ||
+                       barline->barLineType() == BarLineType::DOUBLE_HEAVY) &&
                       measure != _score->lastMeasure()) {
                         if (measure->prevMeasure())
                               measure = measure->prevMeasure();
@@ -1843,7 +1996,7 @@ void Timeline::drawSelection()
                   }
             }
 
-      QList<QGraphicsItem*> graphicsItemList = scene()->items();
+      const QList<QGraphicsItem*> graphicsItemList = scene()->items();
       for (QGraphicsItem* graphicsItem : graphicsItemList) {
             int stave = graphicsItem->data(0).value<int>();
             ElementType elementType = graphicsItem->data(1).value<ElementType>();
@@ -1894,17 +2047,29 @@ void Timeline::drawSelection()
                                                              255)));
                   _selectionPath.addRect(graphicsRectItem->rect());
                   }
+            else {
+                  // Ensure unselected measures are not marked selected
+                  QGraphicsRectItem* graphicsRectItem = qgraphicsitem_cast<QGraphicsRectItem*>(graphicsItem);
+                  if (graphicsRectItem && graphicsRectItem->data(keyItemType).value<ItemType>() == ItemType::TYPE_MEASURE)
+                        graphicsRectItem->setBrush(QBrush(colorBox(graphicsRectItem)));
+                  }
             }
 
-      QGraphicsPathItem* graphicsPathItem = new QGraphicsPathItem(_selectionPath.simplified());
-      if (selection.isRange())
-            graphicsPathItem->setPen(QPen(QColor(0, 0, 255), 3));
-      else
-            graphicsPathItem->setPen(QPen(QColor(0, 0, 0), 1));
+      if (selectionItem) {
+            scene()->removeItem(selectionItem);
+            delete selectionItem;
+            selectionItem = nullptr;
+            }
 
-      graphicsPathItem->setBrush(Qt::NoBrush);
-      graphicsPathItem->setZValue(-1);
-      scene()->addItem(graphicsPathItem);
+      selectionItem = new QGraphicsPathItem(_selectionPath.simplified());
+      if (selection.isRange())
+            selectionItem->setPen(QPen(QColor(0, 0, 255), 3));
+      else
+            selectionItem->setPen(QPen(QColor(0, 0, 0), 1));
+
+      selectionItem->setBrush(Qt::NoBrush);
+      selectionItem->setZValue(-1);
+      scene()->addItem(selectionItem);
 
       if (std::get<0>(_oldHoverInfo)) {
             std::get<0>(_oldHoverInfo) = nullptr;
@@ -2242,11 +2407,11 @@ void Timeline::wheelEvent(QWheelEvent* event)
 
             if (event->angleDelta().y() > 0 && _gridWidth < _maxZoom) {
                   _gridWidth++;
-                  updateGrid();
+                  updateGridFull();
                   }
             else if (event->angleDelta().y() < 0 && _gridWidth > _minZoom) {
                   _gridWidth--;
-                  updateGrid();
+                  updateGridFull();
                   }
 
             // Attempt to keep mouse in original spot
@@ -2263,16 +2428,55 @@ void Timeline::wheelEvent(QWheelEvent* event)
       }
 
 //---------------------------------------------------------
+//   showEvent
+//---------------------------------------------------------
+
+void Timeline::showEvent(QShowEvent* evt)
+      {
+      QGraphicsView::showEvent(evt);
+      if (!evt->spontaneous())
+            setScore(_score);
+      }
+
+//---------------------------------------------------------
+//   changeEvent
+//---------------------------------------------------------
+
+void Timeline::changeEvent(QEvent* event)
+      {
+      QGraphicsView::changeEvent(event);
+      if (event->type() == QEvent::LanguageChange) {
+            _metas.clear();
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t1(tr("Tempo"), &Ms::Timeline::tempoMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t2(tr("Time Signature"), &Ms::Timeline::timeMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t3(tr("Rehearsal Mark"), &Ms::Timeline::rehearsalMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t4(tr("Key Signature"), &Ms::Timeline::keyMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t5(tr("Barlines"), &Ms::Timeline::barlineMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t6(tr("Jumps and Markers"), &Ms::Timeline::jumpMarkerMeta, true);
+            std::tuple<QString, void (Timeline::*)(Segment*, int*, int), bool> t7(tr("Measures"), &Ms::Timeline::measureMeta, true);
+            _metas.push_back(t1);
+            _metas.push_back(t2);
+            _metas.push_back(t3);
+            _metas.push_back(t4);
+            _metas.push_back(t5);
+            _metas.push_back(t6);
+            _metas.push_back(t7);
+
+            updateGridFull();
+            }
+      }
+
+//---------------------------------------------------------
 //   Timeline::updateGrid
 //---------------------------------------------------------
 
-void Timeline::updateGrid()
+void Timeline::updateGrid(int startMeasure, int endMeasure)
       {
       if (!isVisible())
             return;
 
       if (_score && _score->firstMeasure()) {
-            drawGrid(nstaves(), _score->nmeasures());
+            drawGrid(nstaves(), _score->nmeasures(), startMeasure, endMeasure);
             updateView();
             drawSelection();
             mouseOver(mapToScene(mapFromGlobal(QCursor::pos())));
@@ -2282,17 +2486,54 @@ void Timeline::updateGrid()
       }
 
 //---------------------------------------------------------
+//   updateGridFromCmdState
+//---------------------------------------------------------
+
+void Timeline::updateGridFromCmdState()
+      {
+      if (!isVisible())
+            return;
+
+      if (!_score) {
+            updateGridFull();
+            return;
+            }
+
+      const CmdState& cState = _score->cmdState();
+
+      const bool layoutChanged = cState.layoutRange();
+
+      if (!layoutChanged) {
+            updateGridView();
+            return;
+            }
+
+      const bool layoutAll = layoutChanged && (cState.startTick() < Fraction(0, 1) || cState.endTick() < Fraction(0, 1));
+
+      const int startMeasure = layoutAll ? 0 : _score->tick2measure(cState.startTick())->measureIndex();
+      const int endMeasure = layoutAll ? _score->nmeasures() : (_score->tick2measure(cState.endTick())->measureIndex() + 1);
+
+      updateGrid(startMeasure, endMeasure);
+      }
+
+//---------------------------------------------------------
 //   Timeline::setScore
 //---------------------------------------------------------
 
 void Timeline::setScore(Score* s)
       {
       _score = s;
-      scene()->clear();
+      clearScene();
+
+      if (_score)
+            connect(_score, &QObject::destroyed, this, &Timeline::objectDestroyed, Qt::UniqueConnection);
+
+      if (!isVisible())
+            return;
 
       if (_score) {
-            connect(_score, &QObject::destroyed, this, &Timeline::objectDestroyed, Qt::UniqueConnection);
             drawGrid(nstaves(), _score->nmeasures());
+            drawSelection();
             changeSelection(SelState::NONE);
             _rowNames->updateLabels(getLabels(), _gridHeight);
             }
@@ -2350,21 +2591,28 @@ void Timeline::updateView()
       if (_cv && _score) {
             QRectF canvas = QRectF(_cv->matrix().inverted().mapRect(_cv->geometry()));
 
-            std::set<std::pair<Measure*, int>> visibleItemsSet;
+            // Find visible elements in timeline
+            QPainterPath visiblePainterPath = QPainterPath();
+            visiblePainterPath.setFillRule(Qt::WindingFill);
 
             // Find visible measures of score
-            for (Measure* currMeasure = _score->firstMeasure(); currMeasure; currMeasure = currMeasure->nextMeasure()) {
+            int measureIndex = 0;
+            const int numMetas = nmetas();
+
+            for (Measure* currMeasure = _score->firstMeasure(); currMeasure; currMeasure = currMeasure->nextMeasure(), ++measureIndex) {
                   System* system = currMeasure->system();
 
                   if (currMeasure->mmRest() && _score->styleB(Sid::createMultiMeasureRests)) {
                         // Handle mmRests
                         Measure* mmrestMeasure = currMeasure->mmRest();
                         system = mmrestMeasure->system();
-                        if (!system)
+                        if (!system) {
+                              measureIndex += currMeasure->mmRestCount();
                               continue;
+                              }
 
                         // Add all measures within mmRest to visibleItemsSet if mmRest_visible
-                        for (; currMeasure != mmrestMeasure->mmRestLast(); currMeasure = currMeasure->nextMeasure()) {
+                        for (; currMeasure != mmrestMeasure->mmRestLast(); currMeasure = currMeasure->nextMeasure(), ++measureIndex) {
                               for (int staff = 0; staff < _score->staves().length(); staff++) {
                                     if (!_score->staff(staff)->show())
                                           continue;
@@ -2375,8 +2623,7 @@ void Timeline::updateView()
                                     QRectF showRect = mmrestMeasure->canvasBoundingRect().intersected(staveRect);
 
                                     if (canvas.intersects(showRect)) {
-                                          std::pair<Measure*, int> p = std::make_pair(currMeasure, staff);
-                                          visibleItemsSet.insert(p);
+                                          visiblePainterPath.addRect(getMeasureRect(measureIndex, staff, numMetas));
                                           }
                                     }
                               }
@@ -2392,8 +2639,7 @@ void Timeline::updateView()
                               QRectF showRect = mmrestMeasure->canvasBoundingRect().intersected(staveRect);
 
                               if (canvas.intersects(showRect)) {
-                                    std::pair<Measure*, int> p = std::make_pair(currMeasure, staff);
-                                    visibleItemsSet.insert(p);
+                                    visiblePainterPath.addRect(getMeasureRect(measureIndex, staff, numMetas));
                                     }
                               }
                         continue;
@@ -2412,26 +2658,20 @@ void Timeline::updateView()
                         QRectF showRect = currMeasure->canvasBoundingRect().intersected(staveRect);
 
                         if (canvas.intersects(showRect)) {
-                              std::pair<Measure*, int> p = std::make_pair(currMeasure, staff);
-                              visibleItemsSet.insert(p);
+                              visiblePainterPath.addRect(getMeasureRect(measureIndex, staff, numMetas));
                               }
                         }
                   }
 
-            // Find respective visible elements in timeline
-            QPainterPath visiblePainterPath = QPainterPath();
-            visiblePainterPath.setFillRule(Qt::WindingFill);
-            for (QGraphicsItem* graphicsItem : scene()->items()) {
-                  int stave = graphicsItem->data(0).value<int>();
-                  Measure* measure = static_cast<Measure*>(graphicsItem->data(2).value<void*>());
-                  if (numToStaff(stave) && !numToStaff(stave)->show())
-                        continue;
-
-                  std::pair<Measure*, int> tmp = std::make_pair(measure, stave);
-                  std::set<std::pair<Measure*, int>>::iterator it;
-                  it = visibleItemsSet.find(tmp);
-                  if (it != visibleItemsSet.end())
-                        visiblePainterPath.addRect(graphicsItem->boundingRect());
+            if (nonVisiblePathItem) {
+                  scene()->removeItem(nonVisiblePathItem);
+                  delete nonVisiblePathItem;
+                  nonVisiblePathItem = nullptr;
+                  }
+            if (visiblePathItem) {
+                  scene()->removeItem(visiblePathItem);
+                  delete visiblePathItem;
+                  visiblePathItem = nullptr;
                   }
 
             QPainterPath nonVisiblePainterPath = QPainterPath();
@@ -2442,7 +2682,7 @@ void Timeline::updateView()
 
             nonVisiblePainterPath = nonVisiblePainterPath.subtracted(visiblePainterPath);
 
-            QGraphicsPathItem* nonVisiblePathItem = new QGraphicsPathItem(nonVisiblePainterPath.simplified());
+            nonVisiblePathItem = new QGraphicsPathItem(nonVisiblePainterPath.simplified());
 
             QPen nonVisiblePen = QPen(activeTheme().nonVisiblePenColor);
             QBrush nonVisibleBrush = QBrush(activeTheme().nonVisibleBrushColor);
@@ -2450,24 +2690,13 @@ void Timeline::updateView()
             nonVisiblePathItem->setBrush(nonVisibleBrush);
             nonVisiblePathItem->setZValue(-3);
 
-            QGraphicsPathItem* visible = new QGraphicsPathItem(visiblePainterPath.simplified());
-            visible->setPen(nonVisiblePen);
-            visible->setBrush(Qt::NoBrush);
-            visible->setZValue(-2);
-
-            // Find old path, remove it
-            for (QGraphicsItem* graphicsItem : scene()->items()) {
-                  if (graphicsItem->type() == QGraphicsPathItem().type()) {
-                        QGraphicsPathItem* oldPathItem = static_cast<QGraphicsPathItem*>(graphicsItem);
-                        QBrush oldBrush = oldPathItem->brush();
-                        QPen oldPen = oldPathItem->pen();
-                        if (oldBrush == nonVisibleBrush || oldPen == nonVisiblePen)
-                              scene()->removeItem(oldPathItem);
-                        }
-                  }
+            visiblePathItem = new QGraphicsPathItem(visiblePainterPath.simplified());
+            visiblePathItem->setPen(nonVisiblePen);
+            visiblePathItem->setBrush(Qt::NoBrush);
+            visiblePathItem->setZValue(-2);
 
             scene()->addItem(nonVisiblePathItem);
-            scene()->addItem(visible);
+            scene()->addItem(visiblePathItem);
             }
       }
 
@@ -2667,12 +2896,12 @@ void Timeline::mouseOver(QPointF pos)
       QGraphicsRectItem* graphicsRectItem2 = qgraphicsitem_cast<QGraphicsRectItem*>(pairItem);
       if (graphicsRectItem1) {
             std::get<2>(_oldHoverInfo) = graphicsRectItem1->brush().color();
-            if (std::get<2>(_oldHoverInfo) != QColor(173,216,230))
+            if (std::get<2>(_oldHoverInfo) != activeTheme().selectionColor)
                   graphicsRectItem1->setBrush(QBrush(activeTheme().backgroundColor));
             }
       if (graphicsRectItem2) {
             std::get<2>(_oldHoverInfo) = graphicsRectItem2->brush().color();
-            if (std::get<2>(_oldHoverInfo) != QColor(173,216,230))
+            if (std::get<2>(_oldHoverInfo) != activeTheme().selectionColor)
                   graphicsRectItem2->setBrush(QBrush(activeTheme().backgroundColor));
             }
       }
@@ -2865,7 +3094,8 @@ QString Timeline::cursorIsOn()
                   for (QGraphicsItem* currGraphicsItem : graphicsItemList) {
                         Measure* currMeasure = static_cast<Measure*>(currGraphicsItem->data(2).value<void*>());
                         int stave = currGraphicsItem->data(0).value<int>();
-                        if (currMeasure && !numToStaff(stave)->show())
+                        const Staff* st = numToStaff(stave);
+                        if (currMeasure && !(st && st->show()))
                               return "invalid";
                         }
                   return "instrument";

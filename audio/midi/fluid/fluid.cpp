@@ -39,6 +39,11 @@ namespace FluidS {
 
 bool Fluid::initialized = false;
 
+/* better than a macro to determine inappropriate values for notes*/
+bool validNote(const int input) {
+      return (input < 255 && input > -1);
+      }
+
 /* default modulators
  * SF2.01 page 52 ff:
  *
@@ -98,6 +103,9 @@ void Fluid::init(float sampleRate)
             _tuning[i] = i * 100.0;
       _masterTuning = 440.0;
 
+      fromkey_portamento = Channel::INVALID_NOTE;
+      lastNote = Channel::INVALID_NOTE;
+
       for (int i = 0; i < 512; i++)
             freeVoices.append(new Voice(this));
       }
@@ -152,7 +160,7 @@ void Fluid::play(const PlayEvent& event)
                   //
                   // process note off
                   //
-                  for (Voice* v : activeVoices) {
+                  for (Voice* v : qAsConst(activeVoices)) {
                         if (v->ON() && (v->chan == ch) && (v->key == key))
                               v->noteoff();
                         }
@@ -172,7 +180,7 @@ void Fluid::play(const PlayEvent& event)
                    * several voice processes, for example a stereo sample.  Don't
                    * release those...
                    */
-                  for(Voice* v : activeVoices) {
+                  for(Voice* v : qAsConst(activeVoices)) {
                         if (v->isPlaying() && (v->chan == ch) && (v->key == key) && (v->get_id() != noteid))
                               v->noteoff();
                         }
@@ -224,7 +232,7 @@ void Fluid::play(const PlayEvent& event)
 
 void Fluid::damp_voices(int chan)
       {
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if ((v->chan == chan) && v->SUSTAINED())
                   v->noteoff();
             }
@@ -236,7 +244,7 @@ void Fluid::damp_voices(int chan)
 
 void Fluid::allNotesOff(int chan)
       {
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if (chan == -1 || v->chan == chan)
                   v->noteoff();
             }
@@ -250,7 +258,7 @@ void Fluid::allNotesOff(int chan)
 
 void Fluid::allSoundsOff(int chan)
       {
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if (chan == -1 || v->chan == chan)
                   v->off();
             }
@@ -265,9 +273,9 @@ void Fluid::allSoundsOff(int chan)
 
 void Fluid::system_reset()
       {
-      for(Voice* v : activeVoices)
+      for(Voice* v : qAsConst(activeVoices))
             v->off();
-      for(Channel* c : channel)
+      for(Channel* c : qAsConst(channel))
             c->reset();
       }
 
@@ -279,7 +287,7 @@ void Fluid::system_reset()
  */
 void Fluid::modulate_voices(int chan, bool is_cc, int ctrl)
       {
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if (v->chan == chan)
                   v->modulate(is_cc, ctrl);
             }
@@ -294,7 +302,7 @@ void Fluid::modulate_voices(int chan, bool is_cc, int ctrl)
  */
 void Fluid::modulate_voices_all(int chan)
       {
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if (v->chan == chan)
                   v->modulate_all();
             }
@@ -318,6 +326,37 @@ void Fluid::pitch_wheel_sens(int chan, int val)
       }
 
 /*
+ * setFromKeyPortamento
+ * requires an input for a default value, usually the TPC
+ */
+void Fluid::setFromKeyPortamento(int chan, int defaultValue) {
+      int ptc = get_cc(chan, PORTAMENTO_CTRL);
+      if (validNote(ptc)) {
+            resetPortamento(chan);
+            fromkey_portamento = ptc; 
+            /*
+            // Assumedly this fixed some sort of bug in FluidSynth2
+            if (!validNote(defaultValue))
+                  defaultValue = ptc;*/
+            }
+      else {
+
+            /* determines and returns fromkey portamento */
+            fromkey_portamento = Channel::INVALID_NOTE;
+
+            if (portamentoTime(chan)) {
+                  /* Portamento when Portamento pedal is On */
+                  /* 'fromkey portamento'is determined from the portamento mode
+                   and the most recent note played (prev_note)*/
+                  if (validNote(defaultValue)) 
+                        fromkey_portamento = ptc;
+                  else 
+                        fromkey_portamento = lastNote;
+                  }
+            }
+      }
+
+/*
  * fluid_synth_get_preset
  */
 Preset* Fluid::get_preset(unsigned int sfontnum, unsigned banknum, unsigned prognum)
@@ -337,7 +376,7 @@ Preset* Fluid::get_preset(unsigned int sfontnum, unsigned banknum, unsigned prog
 
 Preset* Fluid::find_preset(unsigned banknum, unsigned prognum)
       {
-      for (SFont* sf : sfonts) {
+      for (SFont* sf : qAsConst(sfonts)) {
             Preset* preset = sf->get_preset(banknum, prognum);
             if (preset)
                   return preset;
@@ -407,7 +446,7 @@ bool Fluid::program_select(int chan, unsigned sfont_idl, unsigned bank_num, unsi
 
 void Fluid::update_presets()
       {
-      for (Channel* c : channel)
+      for (Channel* c : qAsConst(channel))
             c->setPreset(get_preset(c->getSfontnum(), c->getBanknum(), c->getPrognum()));
       }
 
@@ -439,7 +478,7 @@ void Fluid::free_voice_by_kill()
       float this_voice_prio;
       Voice* best_voice = 0;
 
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             /* Determine, how 'important' a voice is.
              * Start with an arbitrary number */
             this_voice_prio = 10000.;
@@ -555,7 +594,7 @@ void Fluid::start_voice(Voice* voice)
 
             /* Kill all notes on the same channel with the same exclusive class */
 
-            for(Voice* existing_voice : activeVoices) {
+            for(Voice* existing_voice : qAsConst(activeVoices)) {
                   /* Existing voice does not play? Leave it alone. */
                   if (!existing_voice->isPlaying())
                         continue;
@@ -590,7 +629,7 @@ void Fluid::updatePatchList()
 
       int bankOffset = 0;
       int sfid = 0;
-      for (SFont* sf : sfonts) {
+      for (SFont* sf : qAsConst(sfonts)) {
             sf->setBankOffset(bankOffset);
             int banks = 0;
             for (Preset* p : sf->getPresets()) {
@@ -653,11 +692,11 @@ bool Fluid::loadSoundFonts(const QStringList& sl)
             return true;
             }
       QMutexLocker locker(&mutex);
-      for(Voice* v : activeVoices)
+      for(Voice* v : qAsConst(activeVoices))
             v->off();
-      for(Channel* c : channel)
+      for(Channel* c : qAsConst(channel))
             c->reset();
-      for (SFont* sf : sfonts)
+      for (SFont* sf : qAsConst(sfonts))
             sfunload(sf->id());
       locker.unlock();
       bool ok = true;
@@ -671,7 +710,7 @@ bool Fluid::loadSoundFonts(const QStringList& sl)
             QString path;
             QFileInfo fis(s);
             QString fileName = fis.fileName();
-            for (const QFileInfo& fi : l) {
+            for (const QFileInfo& fi : qAsConst(l)) {
                   if (fi.fileName() == fileName) {
                         path = fi.absoluteFilePath();
                         break;
@@ -713,7 +752,7 @@ bool Fluid::addSoundFont(const QString& s)
 bool Fluid::removeSoundFont(const QString& s)
       {
       QMutexLocker locker(&mutex);
-      for(Voice* v : activeVoices)
+      for(Voice* v : qAsConst(activeVoices))
             v->off();
       SFont* sf = get_sfont_by_name(s);
       if (!sf)
@@ -783,7 +822,7 @@ bool Fluid::sfunload(int id)
 
 SFont* Fluid::get_sfont_by_id(int id)
       {
-      for(SFont* sf : sfonts) {
+      for(SFont* sf : qAsConst(sfonts)) {
             if (sf->id() == id)
                   return sf;
             }
@@ -796,7 +835,7 @@ SFont* Fluid::get_sfont_by_id(int id)
 
 SFont* Fluid::get_sfont_by_name(const QString& name)
       {
-      for(SFont* sf : sfonts) {
+      for(SFont* sf : qAsConst(sfonts)) {
             if (QFileInfo(sf->get_name()).fileName() == name)
                   return sf;
             }
@@ -811,7 +850,7 @@ SFont* Fluid::get_sfont_by_name(const QString& name)
 
 void Fluid::set_interp_method(int chan, int interp_method)
       {
-      for(Channel* c : channel) {
+      for(Channel* c : qAsConst(channel)) {
             if (chan < 0 || c->getNum() == chan)
                   c->setInterpMethod(interp_method);
             }
@@ -824,7 +863,7 @@ void Fluid::set_interp_method(int chan, int interp_method)
 void Fluid::set_gen(int chan, int param, float value)
       {
       channel[chan]->setGen(param, value, 0);
-      for(Voice* v : activeVoices) {
+      for(Voice* v : qAsConst(activeVoices)) {
             if (v->chan == chan)
                   v->set_param(param, value, 0);
             }
@@ -858,7 +897,7 @@ void Fluid::set_gen2(int chan, int param, float value, int absolute, int normali
       float v = (normalized)? fluid_gen_scale(param, value) : value;
       channel[chan]->setGen(param, v, absolute);
 
-      for(Voice* vo : activeVoices) {
+      for(Voice* vo : qAsConst(activeVoices)) {
             if (vo->chan == chan)
                   vo->set_param(param, v, absolute);
             }
@@ -883,7 +922,7 @@ SynthesizerGroup Fluid::state() const
       g.setName(name());
 
       QStringList sfl = soundFonts();
-      for (QString sf : sfl)
+      for (const QString &sf : qAsConst(sfl))
             g.push_back(IdValue(0, sf));
 
       return g;
@@ -939,7 +978,7 @@ QFileInfoList Fluid::sfFiles()
 
 #if 0
       QStringList pl = preferences.getString(PREF_APP_PATHS_MYSOUNDFONTS).split(";");
-      pl.prepend(QFileInfo(QString("%1%2").arg(mscoreGlobalShare).arg("sound")).absoluteFilePath());
+      pl.prepend(QFileInfo(QString("%1%2").arg(mscoreGlobalShare, "sound")).absoluteFilePath());
 
       // append extensions directory
       QStringList extensionsDir = Ms::Extension::getDirectoriesByType(Ms::Extension::soundfontsDir);

@@ -303,13 +303,13 @@ void MScore::init()
             _globalShare = QString( INSTPREFIX "/share/" INSTALL_NAME);
 #endif
 
-      selectColor[0].setNamedColor("#0065BF");   //blue
-      selectColor[1].setNamedColor("#007F00");   //green
-      selectColor[2].setNamedColor("#C53F00");   //orange
-      selectColor[3].setNamedColor("#C31989");   //purple
+      selectColor[0].setNamedColor("0065BF");   //blue
+      selectColor[1].setNamedColor("007F00");   //green
+      selectColor[2].setNamedColor("C53F00");   //orange
+      selectColor[3].setNamedColor("C31989");   //purple
 
       defaultColor           = Qt::black;
-      dropColor              = QColor("#1778db");
+      dropColor              = QColor(0x1778db);
       defaultPlayDuration    = 300;      // ms
       warnPitchRange         = true;
       pedalEventsMinTicks    = 1;
@@ -319,9 +319,9 @@ void MScore::init()
 
       lastError           = "";
 
-      layoutBreakColor    = QColor("#A0A0A4");
-      frameMarginColor    = QColor("#A0A0A4");
-      bgColor.setNamedColor("#dddddd");
+      layoutBreakColor    = QColor(0xA0A0A4);
+      frameMarginColor    = QColor(0xA0A0A4);
+      bgColor.setNamedColor("dddddd");
 
       //
       //  initialize styles
@@ -362,6 +362,10 @@ void MScore::init()
       static const char* fonts[] = {
             "/fonts/musejazz/MuseJazzText.woff2",
             "/fonts/campania/Campania.woff2",
+            "/fonts/edwin/Edwin-Roman.woff2",
+            "/fonts/edwin/Edwin-Bold.woff2",
+            "/fonts/edwin/Edwin-Italic.woff2",
+            "/fonts/edwin/Edwin-BdIta.woff2",
             "/fonts/FreeSans.woff2",
             "/fonts/FreeSerif.woff2",
             "/fonts/FreeSerifBold.woff2",
@@ -369,9 +373,12 @@ void MScore::init()
             "/fonts/FreeSerifBoldItalic.woff2",
             "/fonts/mscoreTab.woff2",
             "/fonts/mscore-BC.woff2",
+            "/fonts/leland/LelandText.woff2",
             "/fonts/bravura/BravuraText.woff2",
             "/fonts/gootville/GootvilleText.woff2",
             "/fonts/mscore/MScoreText.woff2",
+            "/fonts/petaluma/PetalumaText.woff2",
+            "/fonts/petaluma/PetalumaScript.woff2",
             };
 
       for (unsigned i = 0; i < sizeof(fonts)/sizeof(*fonts); ++i) {

@@ -164,7 +164,7 @@ void StringData::fretChords(Chord * chord) const
       int   count = 0;
       // store staff pitch offset at this tick, to speed up actual note pitch calculations
       // (ottavas not implemented yet)
-      int transp = chord->staff() ? chord->part()->instrument()->transpose().chromatic : 0;     // TODO: tick?
+      int transp = chord->staff() ? chord->part()->instrument(chord->tick())->transpose().chromatic : 0;     // TODO: tick?
       int pitchOffset = /*chord->staff()->pitchOffset(chord->segment()->tick())*/ - transp;
       // if chord parent is not a segment, the chord is special (usually a grace chord):
       // fret it by itself, ignoring the segment
@@ -244,8 +244,8 @@ void StringData::fretChords(Chord * chord) const
             }
 
       // check for any remaining fret conflict
-      foreach(Note * note, sortedNotes)
-            if (bUsed[note->string()] > 1)
+      for (Note* note : sortedNotes)
+            if (note->string() == -1 || bUsed[note->string()] > 1)
                   note->setFretConflict(true);
 
       bFretting = false;

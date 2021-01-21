@@ -41,11 +41,11 @@ static const ElementStyle fermataStyle {
 Fermata::Fermata(Score* s)
    : Element(s, ElementFlag::MOVABLE | ElementFlag::ON_STAFF)
       {
-      initElementStyle(&fermataStyle);
       setPlacement(Placement::ABOVE);
       _symId         = SymId::noSym;
       _timeStretch   = 1.0;
       setPlay(true);
+      initElementStyle(&fermataStyle);
       }
 
 Fermata::Fermata(SymId id, Score* s)
@@ -385,7 +385,7 @@ qreal Fermata::mag() const
 
 QString Fermata::accessibleInfo() const
       {
-      return QString("%1: %2").arg(Element::accessibleInfo()).arg(userName());
+      return QString("%1: %2").arg(Element::accessibleInfo(), userName());
       }
 
 }

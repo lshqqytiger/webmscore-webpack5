@@ -106,6 +106,7 @@ class MeasureBase : public Element {
       System* system() const                 { return (System*)parent(); }
       void setSystem(System* s)              { setParent((Element*)s);   }
 
+      const MeasureBase* findPotentialSectionBreak() const;
       LayoutBreak* sectionBreakElement() const;
 
       void undoSetBreak(bool v, LayoutBreak::Type type);
@@ -172,7 +173,7 @@ class MeasureBase : public Element {
       bool hasCourtesyKeySig() const   { return flag(ElementFlag::KEYSIG);        }
       void setHasCourtesyKeySig(int v) { setFlag(ElementFlag::KEYSIG, v);         }
 
-      virtual void computeMinWidth() { };
+      virtual void computeMinWidth() { }
 
       int index() const;
       int measureIndex() const;

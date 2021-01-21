@@ -90,6 +90,7 @@ class UndoStack;
 class Volta;
 class XmlWriter;
 class Channel;
+class ScoreOrder;
 struct Interval;
 struct TEvent;
 struct LayoutContext;
@@ -473,6 +474,7 @@ class Score : public QObject, public ScoreElement {
                                                 ///< saves will not overwrite the backup file.
       bool _defaultsRead        { false };      ///< defaults were read at MusicXML import, allow export of defaults in convertermode
       bool _isPalette           { false };
+      ScoreOrder* _scoreOrder   { nullptr };    ///< used for score ordering
 
       int _mscVersion { MSCVERSION };   ///< version of current loading *.msc file
 
@@ -494,7 +496,8 @@ class Score : public QObject, public ScoreElement {
       ChordRest* nextMeasure(ChordRest* element, bool selectBehavior = false, bool mmRest = false);
       ChordRest* prevMeasure(ChordRest* element, bool mmRest = false);
       void cmdSetBeamMode(Beam::Mode);
-      void cmdResetStyle();
+      void cmdResetAllStyle();
+      void cmdResetTextStyleOverrides();
       void cmdFlip();
       Note* getSelectedNote();
       ChordRest* upStaff(ChordRest* cr);
@@ -516,6 +519,7 @@ class Score : public QObject, public ScoreElement {
       void cmdIncDecDuration(int nSteps, bool stepDotted = false);
       void cmdAddBracket();
       void cmdAddParentheses();
+      void cmdAddBraces();
       void resetUserStretch();
 
       void createMMRest(Measure*, Measure*, const Fraction&);
@@ -607,6 +611,7 @@ class Score : public QObject, public ScoreElement {
       void addMeasure(MeasureBase*, MeasureBase*);
       void readStaff(XmlReader&);
       bool read(XmlReader&);
+      void linkMeasures(Score* score);
 
       Excerpt* excerpt()            { return _excerpt; }
       void setExcerpt(Excerpt* e)   { _excerpt = e;     }
@@ -615,6 +620,8 @@ class Score : public QObject, public ScoreElement {
       void layoutSystemElements(System* system, LayoutContext& lc);
       void getNextMeasure(LayoutContext&);      // get next measure for layout
 
+      void resetAllPositions();
+
       void cmdRemovePart(Part*);
       void cmdAddTie(bool addToChord = false);
       void cmdToggleTie();
@@ -622,7 +629,7 @@ class Score : public QObject, public ScoreElement {
       void cmdAddOttava(OttavaType);
       void cmdAddStretch(qreal);
       void cmdResetNoteAndRestGroupings();
-      void cmdResetAllPositions();
+      void cmdResetAllPositions(bool undoable = true);
       void cmdDoubleDuration()      { cmdIncDecDuration(-1, false); }
       void cmdHalfDuration()        { cmdIncDecDuration( 1, false); }
       void cmdIncDurationDotted()   { cmdIncDecDuration(-1, true); }
@@ -678,7 +685,7 @@ class Score : public QObject, public ScoreElement {
       void undoPropertyChanged(ScoreElement*, Pid, const QVariant& v, PropertyFlags ps = PropertyFlags::NOSTYLE);
       inline virtual UndoStack* undoStack() const;
       void undo(UndoCommand*, EditData* = 0) const;
-      void undoRemoveMeasures(Measure*, Measure*);
+      void undoRemoveMeasures(Measure*, Measure*, bool preserveTies = false);
       void undoAddBracket(Staff* staff, int level, BracketType type, int span);
       void undoRemoveBracket(Bracket*);
       void undoInsertTime(const Fraction& tick, const Fraction& len);
@@ -729,7 +736,7 @@ class Score : public QObject, public ScoreElement {
       NoteVal noteValForPosition(Position pos, AccidentalType at, bool &error);
 
       void deleteItem(Element*);
-      void deleteMeasures(MeasureBase* firstMeasure, MeasureBase* lastMeasure);
+      void deleteMeasures(MeasureBase* firstMeasure, MeasureBase* lastMeasure, bool preserveTies = false);
       void cmdDeleteSelection();
       void cmdFullMeasureRest();
 
@@ -785,6 +792,7 @@ class Score : public QObject, public ScoreElement {
       void appendPart(const InstrumentTemplate*);
       void updateStaffIndex();
       void sortStaves(QList<int>& dst);
+      void mapExcerptTracks(QList<int>& l);
 
       bool showInvisible() const       { return _showInvisible; }
       bool showUnprintable() const     { return _showUnprintable; }
@@ -843,6 +851,10 @@ class Score : public QObject, public ScoreElement {
       Element* nextElement();
       Element* prevElement();
       ChordRest* cmdNextPrevSystem(ChordRest*, bool);
+      Box* cmdNextPrevFrame(MeasureBase*, bool) const;
+      Element* cmdNextPrevSection(Element*, bool) const;
+      MeasureBase* getNextPrevSectionBreak(MeasureBase*, bool) const;
+      Element* getScoreElementOfMeasureBase(MeasureBase*) const;
 
       // void cmd(const QAction*, EditData&);
       int fileDivision(int t) const { return ((qint64)t * MScore::division + _fileDivision/2) / _fileDivision; }
@@ -876,8 +888,8 @@ class Score : public QObject, public ScoreElement {
       virtual MStyle& style()              { return _style;                  }
       virtual const MStyle& style() const  { return _style;                  }
 
-      void setStyle(const MStyle& s);
-      bool loadStyle(const QString&, bool ign = false);
+      void setStyle(const MStyle& s, const bool overlap = false);
+      bool loadStyle(const QString&, bool ign = false, const bool overlap = false);
       bool saveStyle(const QString&);
 
       QVariant styleV(Sid idx) const  { return style().value(idx);   }
@@ -960,6 +972,12 @@ class Score : public QObject, public ScoreElement {
 
       bool isPalette() const { return _isPalette; }
       void setPaletteMode(bool palette) { _isPalette = palette; }
+
+      bool enableVerticalSpread() const;
+      void setEnableVerticalSpread(bool val);
+      qreal maxSystemDistance() const;
+      ScoreOrder* scoreOrder() const        { return _scoreOrder;  }
+      void setScoreOrder(ScoreOrder* order) { _scoreOrder = order; }
 
       void lassoSelect(const QRectF&);
       void lassoSelectEnd();
@@ -1362,9 +1380,11 @@ class MasterScore : public Score {
       FileError loadMsc(QString name, QIODevice*, bool ignoreVersionError);
       FileError read114(XmlReader&);
       FileError read206(XmlReader&);
-      FileError read301(XmlReader&);
+      FileError read302(XmlReader&);
       QByteArray readToBuffer();
       QByteArray readCompressedToBuffer();
+      int readStyleDefaultsVersion();
+      int styleDefaultByMscVersion(const int mscVer) const;
 
       Omr* omr() const                         { return _omr;     }
       void setOmr(Omr* o)                      { _omr = o;        }
@@ -1467,6 +1487,10 @@ inline Fraction Score::pos(POS pos) const              { return _masterScore->po
 inline void Score::setPos(POS pos, Fraction tick)      { _masterScore->setPos(pos, tick);        }
 
 extern MasterScore* gscore;
+
+extern MStyle* styleDefaults114();
+extern MStyle* styleDefaults206();
+extern MStyle* styleDefaults301();
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(LayoutFlags);
 

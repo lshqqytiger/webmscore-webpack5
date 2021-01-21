@@ -532,21 +532,31 @@ int Rest::computeLineOffset(int lines)
                   }
             }
 
+      if (offsetVoices) {
+            // if the staff contains slash notation then don't offset voices
+            int baseTrack = staffIdx() * VOICES;
+            for (int v = 0; v < VOICES; ++v) {
+                  Element* e = s->element(baseTrack + v);
+                  if (e && e->isChord() && toChord(e)->slash()) {
+                        offsetVoices = false;
+                        break;
+                        }
+                  }
+            }
+
       if (offsetVoices && staff()->mergeMatchingRests()) {
-            // automatically merge matching rests in voices 1 & 2 if nothing in any other voice
+            // automatically merge matching rests if nothing in any other voice
             // this is not always the right thing to do do, but is useful in choral music
-            // and perhaps could be made enabled via a staff property
-            // so choral staves can be treated differently than others
+            // and can be enabled via a staff property
             bool matchFound = false;
-            bool nothingElse = true;
             int baseTrack = staffIdx() * VOICES;
             for (int v = 0; v < VOICES; ++v) {
                   if (v == voice())
                         continue;
                   Element* e = s->element(baseTrack + v);
-                  if (v <= 1) {
-                        // try to find match in other voice (1 or 2)
-                        if (e && e->type() == ElementType::REST) {
+                  // try to find match in any other voice
+                  if (e) {
+                        if (e->type() == ElementType::REST) {
                               Rest* r = toRest(e);
                               if (r->globalTicks() == globalTicks()) {
                                     matchFound = true;
@@ -554,17 +564,11 @@ int Rest::computeLineOffset(int lines)
                                     }
                               }
                         // no match found; no sense looking for anything else
+                        matchFound = false;
                         break;
                         }
-                  else {
-                        // if anything in another voice, do not merge
-                        if (e) {
-                              nothingElse = false;
-                              break;
-                              }
-                        }
                   }
-            if (matchFound && nothingElse)
+            if (matchFound)
                   offsetVoices = false;
             }
 
@@ -584,7 +588,7 @@ int Rest::computeLineOffset(int lines)
             int line = up ? 10 : -10;
 
             // For compatibility reasons apply automatic collision avoidance only if y-offset is unchanged 
-            if (qFuzzyIsNull(offset().y())) {
+            if (qFuzzyIsNull(offset().y()) && autoplace()) {
                   int firstTrack = staffIdx() * 4;
                   int extraOffsetForFewLines = lines < 5 ? 2 : 0;
                   bool isMeasureRest = durationType().type() == TDuration::DurationType::V_MEASURE;
@@ -895,7 +899,7 @@ void Rest::setAccent(bool flag)
 QString Rest::accessibleInfo() const
       {
       QString voice = QObject::tr("Voice: %1").arg(QString::number(track() % VOICES + 1));
-      return QObject::tr("%1; Duration: %2; %3").arg(Element::accessibleInfo()).arg(durationUserName()).arg(voice);
+      return QObject::tr("%1; Duration: %2; %3").arg(Element::accessibleInfo(), durationUserName(), voice);
       }
 
 //---------------------------------------------------------
@@ -907,7 +911,7 @@ QString Rest::screenReaderInfo() const
       Measure* m = measure();
       bool voices = m ? m->hasVoices(staffIdx()) : false;
       QString voice = voices ? QObject::tr("Voice: %1").arg(QString::number(track() % VOICES + 1)) : "";
-      return QString("%1 %2 %3").arg(Element::accessibleInfo()).arg(durationUserName()).arg(voice);
+      return QString("%1 %2 %3").arg(Element::accessibleInfo(), durationUserName(), voice);
       }
 
 //---------------------------------------------------------

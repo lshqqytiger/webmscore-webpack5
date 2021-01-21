@@ -42,13 +42,13 @@ static const ElementStyle articulationStyle {
 Articulation::Articulation(Score* s)
    : Element(s, ElementFlag::MOVABLE)
       {
-      initElementStyle(&articulationStyle);
       _symId         = SymId::noSym;
       _anchor        = ArticulationAnchor::TOP_STAFF;
       _direction     = Direction::AUTO;
       _up            = true;
       _ornamentStyle = MScore::OrnamentStyle::DEFAULT;
       setPlayArticulation(true);
+      initElementStyle(&articulationStyle);
       }
 
 Articulation::Articulation(SymId id, Score* s)
@@ -134,6 +134,14 @@ bool Articulation::readProperties(XmlReader& e)
             SymId id = Sym::name2id(s);
             if (id == SymId::noSym)
                   id = oldArticulationNames2SymId(s);       // compatibility hack for "old" 3.0 scores
+            if (id == SymId::noSym || s == "ornamentMordentInverted") // SMuFL < 1.30
+                  id = SymId::ornamentMordent;
+
+            QString programVersion = masterScore()->mscoreVersion();
+            if (!programVersion.isEmpty() && programVersion < "3.6") {
+                  if (id == SymId::noSym || s == "ornamentMordent") // SMuFL < 1.30 and MuseScore < 3.6
+                        id = SymId::ornamentShortTrill;
+                  }
             setSymId(id);
             }
       else if (tag == "channel") {
@@ -488,8 +496,8 @@ const char* Articulation::symId2ArticulationName(SymId symId)
             case SymId::stringsHarmonic:
                   return "harmonic";
 
-            case SymId::ornamentMordentInverted:
-                  return "mordent-inverted";
+            case SymId::ornamentMordent:
+                  return "mordent";
 
             default:
                   return "---";
@@ -625,10 +633,11 @@ bool Articulation::isOrnament() const
       {
       return _symId == SymId::ornamentTurn
           || _symId == SymId::ornamentTurnInverted
+          || _symId == SymId::ornamentTurnSlash
           || _symId == SymId::ornamentTrill
           || _symId == SymId::brassMuteClosed
-          || _symId == SymId::ornamentMordentInverted
           || _symId == SymId::ornamentMordent
+          || _symId == SymId::ornamentShortTrill
           || _symId == SymId::ornamentTremblement
           || _symId == SymId::ornamentPrallMordent
           || _symId == SymId::ornamentLinePrall
@@ -647,7 +656,7 @@ bool Articulation::isOrnament() const
 
 QString Articulation::accessibleInfo() const
       {
-      return QString("%1: %2").arg(Element::accessibleInfo()).arg(userName());
+      return QString("%1: %2").arg(Element::accessibleInfo(), userName());
       }
 
 //---------------------------------------------------------

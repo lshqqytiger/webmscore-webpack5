@@ -29,13 +29,11 @@ class Navigator;
 class PageSettings : public AbstractDialog, private Ui::PageSettingsBase {
       Q_OBJECT
 
-      Navigator* preview;
-      bool mmUnit;
-      bool _changeFlag;
-      Score* cs;
-      Score* clonedScore;
-
-//      std::unique_ptr<Score> clonedScoreForNavigator;
+      Navigator* preview = nullptr;
+      bool mmUnit = false;
+      bool _changeFlag = false;
+      Score* cs = nullptr;
+      Score* clonedScore = nullptr;
 
       virtual void hideEvent(QHideEvent*);
       void updateValues();
@@ -43,16 +41,15 @@ class PageSettings : public AbstractDialog, private Ui::PageSettingsBase {
       void blockSignals(bool);
       void applyToScore(Score*);
       void setMarginsMax(double);
+      void apply();
 
    private slots:
       void mmClicked();
       void inchClicked();
       void pageFormatSelected(int);
 
-      void apply();
       void applyToAllParts();
-      void ok();
-      void done(int val);
+      void buttonBoxClicked(QAbstractButton*);
 
       void twosidedToggled(bool);
       void otmChanged(double val);
@@ -68,6 +65,7 @@ class PageSettings : public AbstractDialog, private Ui::PageSettingsBase {
       void pageWidthChanged(double);
       void pageOffsetChanged(int val);
       void orientationClicked();
+      void on_resetPageStyleButton_clicked();
 
    protected:
       virtual void retranslate() { retranslateUi(this); }

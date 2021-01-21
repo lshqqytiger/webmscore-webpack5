@@ -473,8 +473,6 @@ void FretDiagram::layout()
       if (_fretOffset > 0) {
             QFont scaledFont(font);
             scaledFont.setPointSize(font.pointSize() * _userMag);
-            QFontMetricsF fm(scaledFont, MScore::paintDevice());
-
             qreal fretNumMag = score()->styleD(Sid::fretNumMag);
             scaledFont.setPointSizeF(scaledFont.pointSizeF() * fretNumMag);
             QFontMetricsF fm2(scaledFont, MScore::paintDevice());
@@ -899,23 +897,21 @@ void FretDiagram::setDot(int string, int fret, bool add /*= false*/, FretDotType
                   _dots[string].clear();
 
             _dots[string].push_back(FretItem::Dot(fret, dtype));
-            setMarker(string, FretMarkerType::NONE);
+            if (!add)
+                  setMarker(string, FretMarkerType::NONE);
             }
       }
 
 //---------------------------------------------------------
 //   setMarker
-//    Remove any dots and barres if the marker is being set to anything other than none.
+//    Removal of dots and barres if "Multiple dots" is inactive
+//    is handled in FretCanvas::mousePressEvent()
 //---------------------------------------------------------
 
 void FretDiagram::setMarker(int string, FretMarkerType mtype)
       {
       if (string >= 0 && string < _strings) {
             _markers[string] = FretItem::Marker(mtype);
-            if (mtype != FretMarkerType::NONE) {
-                  removeDot(string);
-                  removeBarres(string);
-                  }
             }
       }
 
@@ -1270,9 +1266,6 @@ void FretDiagram::writeMusicXML(XmlWriter& xml) const
       xml.stag("frame");
       xml.tag("frame-strings", _strings);
       xml.tag("frame-frets", frets());
-      QString strDots = "'";
-      QString strMarker = "'";
-      QString strFingering = "'";
 
       for (int i = 0; i < _strings; ++i) {
             int mxmlString = _strings - i;
@@ -1442,7 +1435,7 @@ void FretDiagram::endEditDrag(EditData& editData)
 QString FretDiagram::accessibleInfo() const
       {
       QString chordName = _harmony ? QObject::tr("with chord symbol %1").arg(_harmony->harmonyName()) : QObject::tr("without chord symbol");
-      return QString("%1 %2").arg(userName()).arg(chordName);
+      return QString("%1 %2").arg(userName(), chordName);
       }
 
 //---------------------------------------------------------
@@ -1502,7 +1495,7 @@ QString FretDiagram::screenReaderInfo() const
             //: Omit the "%n " for the singular translation (and the "(s)" too)
             QString dotsInfo = QObject::tr("%n dot(s) on fret(s) %1", "", dotsCount).arg(fretInfo);
 
-            detailedInfo = QString("%1 %2 %3 %4").arg(detailedInfo).arg(stringIdent).arg(markerName).arg(dotsInfo);
+            detailedInfo = QString("%1 %2 %3 %4").arg(detailedInfo, stringIdent, markerName, dotsInfo);
             }
 
       QString barreInfo;
@@ -1523,23 +1516,23 @@ QString FretDiagram::screenReaderInfo() const
                   if (b.endString != -1)
                         endPart = QObject::tr("and ending string %1").arg(b.endString + 1);
 
-                  newBarreInfo = QObject::tr("partial barré %1 %2 %3").arg(fretInfo).arg(startPart).arg(endPart);
+                  newBarreInfo = QObject::tr("partial barré %1 %2 %3").arg(fretInfo, startPart, endPart);
                   }
 
-            barreInfo = QString("%1 %2").arg(barreInfo).arg(newBarreInfo);
+            barreInfo = QString("%1 %2").arg(barreInfo, newBarreInfo);
             }
 
-      detailedInfo = QString("%1 %2").arg(detailedInfo).arg(barreInfo);
+      detailedInfo = QString("%1 %2").arg(detailedInfo, barreInfo);
 
       if (detailedInfo.trimmed().length() == 0)
             detailedInfo = QObject::tr("no content");
 
       QString chordName = _harmony ? QObject::tr("with chord symbol %1").arg(_harmony->generateScreenReaderInfo()) : QObject::tr("without chord symbol");
-      QString basicInfo = QString("%1 %2").arg(userName()).arg(chordName);
+      QString basicInfo = QString("%1 %2").arg(userName(), chordName);
 
       QString generalInfo = QObject::tr("%n string(s) total", "", _strings);
 
-      QString res = QString("%1 %2 %3").arg(basicInfo).arg(generalInfo).arg(detailedInfo);
+      QString res = QString("%1 %2 %3").arg(basicInfo, generalInfo, detailedInfo);
 
       return res;
       }

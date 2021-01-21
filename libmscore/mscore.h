@@ -1,4 +1,4 @@
-//=============================================================================
+﻿//=============================================================================
 //  MuseScore
 //  Music Composition & Notation
 //
@@ -18,8 +18,8 @@
 
 namespace Ms {
 
-#define MSC_VERSION     "3.01"
-static constexpr int MSCVERSION = 301;
+#define MSC_VERSION     "3.02"
+static constexpr int MSCVERSION = 302;
 
 // History:
 //    1.3   added staff->_barLineSpan
@@ -61,6 +61,8 @@ static constexpr int MSCVERSION = 301;
 //    2.07  irregular, breakMMrest, more style options, system divider, bass string for tab (3.0)
 
 //    3.00  (Version 3.0 alpha)
+//    3.01  -
+//    3.02  Engraving improvements for 3.6
 
 
 class MStyle;
@@ -148,11 +150,15 @@ enum class SelectType : char {
 //---------------------------------------------------------
 
 enum class AccidentalVal : signed char {
+      SHARP3  = 3,
       SHARP2  = 2,
       SHARP   = 1,
       NATURAL = 0,
       FLAT    = -1,
-      FLAT2   = -2
+      FLAT2   = -2,
+      FLAT3   = -3,
+      MIN     = FLAT3,
+      MAX     = SHARP3
       };
 
 //---------------------------------------------------------
@@ -188,13 +194,23 @@ const int STAFF_GROUP_MAX = int(StaffGroup::TAB) + 1;      // out of enum to avo
 
 enum class BarLineType {
       NORMAL           = 1,
+      SINGLE           = BarLineType::NORMAL,
       DOUBLE           = 2,
       START_REPEAT     = 4,
+      LEFT_REPEAT      = BarLineType::START_REPEAT,
       END_REPEAT       = 8,
+      RIGHT_REPEAT     = BarLineType::END_REPEAT,
       BROKEN           = 0x10,
+      DASHED           = BarLineType::BROKEN,
       END              = 0x20,
+      FINAL            = BarLineType::END,
       END_START_REPEAT = 0x40,
-      DOTTED           = 0x80
+      LEFT_RIGHT_REPEAT= BarLineType::END_START_REPEAT,
+      DOTTED           = 0x80,
+      REVERSE_END      = 0x100,
+      REVERSE_FINALE   = BarLineType::REVERSE_END,
+      HEAVY            = 0x200,
+      DOUBLE_HEAVY     = 0x400,
       };
 
 constexpr BarLineType operator| (BarLineType t1, BarLineType t2) {
@@ -213,7 +229,7 @@ enum class IconType : signed char {
       SBEAM, MBEAM, NBEAM, BEAM32, BEAM64, AUTOBEAM,
       FBEAM1, FBEAM2,
       VFRAME, HFRAME, TFRAME, FFRAME, MEASURE,
-      BRACKETS, PARENTHESES
+      BRACKETS, PARENTHESES, BRACES,
       };
 
 //---------------------------------------------------------
@@ -294,7 +310,8 @@ class MScore {
 
       static void init();
 
-      static const MStyle& baseStyle()             { return _baseStyle;            }
+      static MStyle& baseStyle()                   { return _baseStyle;            }
+      static void setBaseStyle(const MStyle& style) { _baseStyle = style;          }
       static MStyle& defaultStyle()                { return _defaultStyle;         }
       static const MStyle* defaultStyleForParts()  { return _defaultStyleForParts; }
 

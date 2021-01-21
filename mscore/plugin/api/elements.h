@@ -16,6 +16,7 @@
 #include "scoreelement.h"
 #include "libmscore/element.h"
 #include "libmscore/chord.h"
+#include "libmscore/hook.h"
 #include "libmscore/lyrics.h"
 #include "libmscore/measure.h"
 #include "libmscore/note.h"
@@ -23,6 +24,8 @@
 #include "libmscore/page.h"
 #include "libmscore/segment.h"
 #include "libmscore/staff.h"
+#include "libmscore/stem.h"
+#include "libmscore/stemslash.h"
 #include "libmscore/tuplet.h"
 #include "libmscore/accidental.h"
 #include "libmscore/musescoreCore.h"
@@ -255,9 +258,16 @@ class Element : public Ms::PluginAPI::ScoreElement {
       API_PROPERTY( arpUserLen1,             ARP_USER_LEN1             )
       API_PROPERTY( arpUserLen2,             ARP_USER_LEN2             )
       API_PROPERTY( measureNumberMode,       MEASURE_NUMBER_MODE       )
+      /** \since MuseScore 3.6 */
+      API_PROPERTY( mmRestRangeBracketType,  MMREST_RANGE_BRACKET_TYPE )
       API_PROPERTY( glissType,               GLISS_TYPE                )
       API_PROPERTY( glissText,               GLISS_TEXT                )
       API_PROPERTY( glissShowText,           GLISS_SHOW_TEXT           )
+      API_PROPERTY( glissandoStyle,          GLISS_STYLE               )
+      /** \since MuseScore 3.6 */
+      API_PROPERTY( glissEaseIn,             GLISS_EASEIN              )
+      /** \since MuseScore 3.6 */
+      API_PROPERTY( glissEaseOut,            GLISS_EASEOUT             )
       API_PROPERTY( diagonal,                DIAGONAL                  )
       API_PROPERTY( groups,                  GROUPS                    )
       API_PROPERTY( lineStyle,               LINE_STYLE                )
@@ -296,7 +306,6 @@ class Element : public Ms::PluginAPI::ScoreElement {
       API_PROPERTY( durationType,            DURATION_TYPE             )
       API_PROPERTY( role,                    ROLE                      )
       API_PROPERTY_T( int, track,            TRACK                     )
-      API_PROPERTY( glissandoStyle,          GLISSANDO_STYLE           )
       API_PROPERTY( fretStrings,             FRET_STRINGS              )
       API_PROPERTY( fretFrets,               FRET_FRETS                )
       /*API_PROPERTY( fretBarre,               FRET_BARRE                )*/
@@ -370,6 +379,12 @@ class Element : public Ms::PluginAPI::ScoreElement {
       API_PROPERTY( posAbove,                POS_ABOVE                 )
       API_PROPERTY_T( int, voice,            VOICE                     )
       API_PROPERTY_READ_ONLY( position,      POSITION                  ) // TODO: needed?
+      /**
+       * For chord symbols, chord symbol type, one of
+       * PluginAPI::PluginAPI::HarmonyType values.
+       * \since MuseScore 3.6
+       */
+      API_PROPERTY( harmonyType,             HARMONY_TYPE              )
 
       qreal offsetX() const { return element()->offset().x() / element()->spatium(); }
       qreal offsetY() const { return element()->offset().y() / element()->spatium(); }
@@ -610,19 +625,53 @@ class Tuplet : public DurationElement {
       };
 
 //---------------------------------------------------------
+//   ChordRest
+//    ChordRest wrapper
+//---------------------------------------------------------
+
+class ChordRest : public DurationElement {
+      Q_OBJECT
+      /**
+       * Lyrics corresponding to this chord or rest, if any.
+       * Before 3.6 version this property was only available for \ref Chord objects.
+       */
+      Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  lyrics     READ lyrics  )
+      /**
+       * Beam which covers this chord/rest, if such exists.
+       * \since MuseScore 3.6
+       */
+      Q_PROPERTY(Ms::PluginAPI::Element*                   beam       READ beam    )
+
+   public:
+      /// \cond MS_INTERNAL
+      ChordRest(Ms::ChordRest* c = nullptr, Ownership own = Ownership::PLUGIN)
+         : DurationElement(c, own) {}
+
+      Ms::ChordRest* chordRest() { return toChordRest(e); }
+
+      QQmlListProperty<Element> lyrics() { return wrapContainerProperty<Element>(this, chordRest()->lyrics()); } // TODO: special type for Lyrics?
+      Element* beam() { return wrap(chordRest()->beam()); }
+      /// \endcond
+      };
+
+//---------------------------------------------------------
 //   Chord
 //    Chord wrapper
 //---------------------------------------------------------
 
-class Chord : public DurationElement {
+class Chord : public ChordRest {
       Q_OBJECT
+      /// List of grace notes (grace chords) belonging to this chord.
       Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Chord>    graceNotes READ graceNotes)
+      /// List of notes belonging to this chord.
       Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Note>     notes      READ notes     )
-      Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  lyrics     READ lyrics    ) // TODO: move to ChordRest
-      //Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  stem       READ stem      )
-      //Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  stemSlash  READ stemSlash )
-      //Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  beam       READ beam      )
-      //Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Element>  hook       READ hook      )
+      /// Stem of this chord, if exists. \since MuseScore 3.6
+      Q_PROPERTY(Ms::PluginAPI::Element*                   stem       READ stem      )
+      /// Stem slash of this chord, if exists. Stem slashes are present in grace notes of type acciaccatura.
+      /// \since MuseScore 3.6
+      Q_PROPERTY(Ms::PluginAPI::Element*                   stemSlash  READ stemSlash )
+      /// Hook on a stem of this chord, if exists. \since MuseScore 3.6
+      Q_PROPERTY(Ms::PluginAPI::Element*                   hook       READ hook      )
       /// The NoteType of the chord.
       /// \since MuseScore 3.2.1
       Q_PROPERTY(Ms::NoteType                              noteType   READ noteType)
@@ -633,18 +682,16 @@ class Chord : public DurationElement {
    public:
       /// \cond MS_INTERNAL
       Chord(Ms::Chord* c = nullptr, Ownership own = Ownership::PLUGIN)
-         : DurationElement(c, own) {}
+         : ChordRest(c, own) {}
 
       Ms::Chord* chord() { return toChord(e); }
       const Ms::Chord* chord() const { return toChord(e); }
 
       QQmlListProperty<Chord> graceNotes()     { return wrapContainerProperty<Chord>(this, chord()->graceNotes()); }
       QQmlListProperty<Note> notes()           { return wrapContainerProperty<Note>(this, chord()->notes());       }
-      QQmlListProperty<Element> lyrics()       { return wrapContainerProperty<Element>(this, chord()->lyrics());   } // TODO: move to ChordRest // TODO: special type for Lyrics?
-      //QQmlListProperty<Element> stem()         { return wrapContainerProperty<Element>(this, chord()->stem());      }
-      //QQmlListProperty<Element> stemSlash()    { return wrapContainerProperty<Element>(this, chord()->stemSlash()); }
-      //QQmlListProperty<Element> beam()         { return wrapContainerProperty<Element>(this, chord()->beam());      }
-      //QQmlListProperty<Element> hook()         { return wrapContainerProperty<Element>(this, chord()->hook());      }
+      Element* stem()                          { return wrap(chord()->stem());      }
+      Element* stemSlash()                     { return wrap(chord()->stemSlash()); }
+      Element* hook()                          { return wrap(chord()->hook());      }
       Ms::NoteType noteType()                  { return chord()->noteType(); }
       Ms::PlayEventType playEventType()        { return chord()->playEventType(); }
       void setPlayEventType(Ms::PlayEventType v);
@@ -740,11 +787,26 @@ class Measure : public Element {
 
       // TODO: to MeasureBase?
 //       Q_PROPERTY(bool         lineBreak         READ lineBreak   WRITE undoSetLineBreak)
+      /// Next measure.
       Q_PROPERTY(Ms::PluginAPI::Measure* nextMeasure       READ nextMeasure)
-//       Q_PROPERTY(Ms::Measure* nextMeasureMM     READ nextMeasureMM)
+      /// Next measure, accounting for multimeasure rests.
+      /// This property may differ from \ref nextMeasure if multimeasure rests
+      /// are enabled. If next measure is a multimeasure rest, this property
+      /// points to the multimeasure rest measure while \ref nextMeasure in the
+      /// same case will point to the first underlying empty measure. Therefore
+      /// if visual properties of a measure are needed (as opposed to logical
+      /// score structure) this property should be preferred.
+      /// \see \ref Score.firstMeasureMM
+      /// \since MuseScore 3.6
+      Q_PROPERTY(Ms::PluginAPI::Measure* nextMeasureMM     READ nextMeasureMM)
 //       Q_PROPERTY(bool         pageBreak         READ pageBreak   WRITE undoSetPageBreak)
+      /// Previous measure.
       Q_PROPERTY(Ms::PluginAPI::Measure* prevMeasure       READ prevMeasure)
-//       Q_PROPERTY(Ms::Measure* prevMeasureMM     READ prevMeasureMM)
+      /// Previous measure, accounting for multimeasure rests.
+      /// See \ref nextMeasureMM for a reference on multimeasure rests.
+      /// \see \ref Score.lastMeasureMM
+      /// \since MuseScore 3.6
+      Q_PROPERTY(Ms::PluginAPI::Measure* prevMeasureMM     READ prevMeasureMM)
 
       /// List of measure-related elements: layout breaks, jump/repeat markings etc.
       /// \since MuseScore 3.3
@@ -763,6 +825,9 @@ class Measure : public Element {
 
       Measure* prevMeasure() { return wrap<Measure>(measure()->prevMeasure(), Ownership::SCORE); }
       Measure* nextMeasure() { return wrap<Measure>(measure()->nextMeasure(), Ownership::SCORE); }
+
+      Measure* prevMeasureMM() { return wrap<Measure>(measure()->prevMeasureMM(), Ownership::SCORE); }
+      Measure* nextMeasureMM() { return wrap<Measure>(measure()->nextMeasureMM(), Ownership::SCORE); }
 
       QQmlListProperty<Element> elements() { return wrapContainerProperty<Element>(this, measure()->el()); }
       /// \endcond
@@ -839,7 +904,7 @@ class Staff : public ScoreElement {
       API_PROPERTY_T( qreal, staffUserdist,  STAFF_USERDIST            )
 
       /** Part which this staff belongs to. */
-      Q_PROPERTY(Ms::PluginAPI::Part* part READ part);
+      Q_PROPERTY(Ms::PluginAPI::Part* part READ part)
 
    public:
       /// \cond MS_INTERNAL

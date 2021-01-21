@@ -188,7 +188,7 @@ AccidentalVal AccidentalState::accidentalVal(int line, bool &error) const
             error = true;
             return AccidentalVal::NATURAL;
             }
-      return AccidentalVal((state[line] & 0x0f) - 2);
+      return AccidentalVal((state[line] & 0x0f) + int(AccidentalVal::MIN));
       }
 
 //---------------------------------------------------------
@@ -196,28 +196,35 @@ AccidentalVal AccidentalState::accidentalVal(int line, bool &error) const
 //    preset lines list with accidentals for given key
 //---------------------------------------------------------
 
+static const int ACC_STATE_NATURAL = int(AccidentalVal::NATURAL) - int(AccidentalVal::MIN);
+static const int ACC_STATE_FLAT = int(AccidentalVal::FLAT) - int(AccidentalVal::MIN);
+static const int ACC_STATE_SHARP = int(AccidentalVal::SHARP) - int(AccidentalVal::MIN);
+
 void AccidentalState::init(Key key)
       {
-      memset(state, 2, MAX_ACC_STATE);
+      memset(state, ACC_STATE_NATURAL, MAX_ACC_STATE);
+      // The numerical value of key tells us the number of sharps (or flats, if negative) in the key signature
       if (key > 0) {
             for (int i = 0; i < int(key); ++i) {
-                  int idx = tpc2step(20 + i);
+                  // First F#, then C#, then G#, etc.
+                  int idx = tpc2step(Tpc::TPC_F_S + i);
                   for (int octave = 0; octave < (11 * 7); octave += 7) {
                         int j = idx + octave;
                         if (j >= MAX_ACC_STATE)
                               break;
-                        state[j] = 1 + 2;
+                        state[j] = ACC_STATE_SHARP;
                         }
                   }
             }
       else {
             for (int i = 0; i > int(key); --i) {
-                  int idx = tpc2step(12 + i);
+                  // First Bb, then Eb, then Ab, etc.
+                  int idx = tpc2step(Tpc::TPC_B_B + i);
                   for (int octave = 0; octave < (11 * 7); octave += 7) {
-                        int j = idx + octave ;
+                        int j = idx + octave;
                         if (j >= MAX_ACC_STATE)
                               break;
-                        state[j] = -1 + 2;
+                        state[j] = ACC_STATE_FLAT;
                         }
                   }
             }
@@ -230,7 +237,7 @@ void AccidentalState::init(Key key)
 void AccidentalState::init(const KeySigEvent& keySig, ClefType clef)
       {
       if (keySig.custom()) {
-            memset(state, 2, MAX_ACC_STATE);
+            memset(state, ACC_STATE_NATURAL, MAX_ACC_STATE);
             for (const KeySym& s : keySig.keySymbols()) {
                   AccidentalVal a = sym2accidentalVal(s.sym);
                   int line = int(s.spos.y() * 2);
@@ -239,7 +246,7 @@ void AccidentalState::init(const KeySigEvent& keySig, ClefType clef)
                         int i = idx + octave ;
                         if (i >= MAX_ACC_STATE)
                               break;
-                        state[i] = int(a) + 2;
+                        state[i] = int(a) - int(AccidentalVal::MIN);
                         }
                   }
             }
@@ -255,7 +262,7 @@ void AccidentalState::init(const KeySigEvent& keySig, ClefType clef)
 AccidentalVal AccidentalState::accidentalVal(int line) const
       {
       Q_ASSERT(line >= MIN_ACC_STATE && line < MAX_ACC_STATE);
-      return AccidentalVal((state[line] & 0x0f) - 2);
+      return AccidentalVal((state[line] & 0x0f) + int(AccidentalVal::MIN));
       }
 
 //---------------------------------------------------------
@@ -276,8 +283,8 @@ void AccidentalState::setAccidentalVal(int line, AccidentalVal val, bool tieCont
       {
       Q_ASSERT(line >= MIN_ACC_STATE && line < MAX_ACC_STATE);
       // casts needed to work around a bug in Xcode 4.2 on Mac, see #25910
-      Q_ASSERT(int(val) >= int(AccidentalVal::FLAT2) && int(val) <= int(AccidentalVal::SHARP2));
-      state[line] = (int(val) + 2) | (tieContext ? TIE_CONTEXT : 0);
+      Q_ASSERT(int(val) >= int(AccidentalVal::MIN) && int(val) <= int(AccidentalVal::MAX));
+      state[line] = (int(val) - int(AccidentalVal::MIN)) | (tieContext ? TIE_CONTEXT : 0);
       }
 }
 

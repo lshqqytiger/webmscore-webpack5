@@ -105,7 +105,7 @@ void SpannerSegment::setSystem(System* s)
 void SpannerSegment::spatiumChanged(qreal ov, qreal nv) 
       {
       Element::spatiumChanged(ov, nv);
-      if (sizeIsSpatiumDependent())
+      if (offsetIsSpatiumDependent())
             _offset2 *= (nv / ov);
       }
 
@@ -790,7 +790,7 @@ Chord* Spanner::endChord()
       if (!_endElement && type() == ElementType::SLUR) {
             Segment* s = score()->tick2segmentMM(tick2(), false, SegmentType::ChordRest);
             _endElement = s ? toChordRest(s->element(track2())) : nullptr;
-            if (!_endElement->isChord())
+            if (_endElement && !_endElement->isChord())
                   _endElement = nullptr;
             }
       return toChord(_endElement);

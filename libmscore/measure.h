@@ -30,6 +30,7 @@ class Tuplet;
 class Staff;
 class Chord;
 class MeasureNumber;
+class MMRestRange;
 class ChordRest;
 class Score;
 class MuseScoreView;
@@ -130,6 +131,8 @@ class Measure final : public MeasureBase {
       void setCorrupted(int staffIdx, bool val);
       void setNoText(int staffIdx, MeasureNumber*);
       MeasureNumber* noText(int staffIdx) const;
+      void setMMRangeText(int staffIdx, MMRestRange *);
+      MMRestRange *mmRangeText(int staffIdx) const;
 
       void createStaves(int);
 
@@ -148,6 +151,7 @@ class Measure final : public MeasureBase {
       Segment* firstEnabled() const        { return _segments.first(ElementFlag::ENABLED); }
 
       Ms::Segment* last() const            { return _segments.last(); }
+      Segment* lastEnabled() const         { return _segments.last(ElementFlag::ENABLED); }
       SegmentList& segments()              { return _segments; }
       const SegmentList& segments() const  { return _segments; }
 
@@ -161,6 +165,7 @@ class Measure final : public MeasureBase {
       bool showsMeasureNumber();
       bool showsMeasureNumberInAutoMode();
       void layoutMeasureNumber();
+      void layoutMMRestRange();
 
       Chord* findChord(Fraction tick, int track);
       ChordRest* findChordRest(Fraction tick, int track);
@@ -219,6 +224,7 @@ class Measure final : public MeasureBase {
       void checkMultiVoices(int staffIdx);
       bool hasVoice(int track) const;
       bool isEmpty(int staffIdx) const;
+      bool isCutawayClef(int staffIdx) const;
       bool isFullMeasureRest() const;
       bool isRepeatMeasure(const Staff* staff) const;
       bool visible(int staffIdx) const;
@@ -277,4 +283,3 @@ class Measure final : public MeasureBase {
 
 }     // namespace Ms
 #endif
-

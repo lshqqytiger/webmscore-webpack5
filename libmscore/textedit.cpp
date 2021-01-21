@@ -223,6 +223,7 @@ bool TextBase::edit(EditData& ed)
       QString s         = ed.s;
       bool ctrlPressed  = ed.modifiers & Qt::ControlModifier;
       bool shiftPressed = ed.modifiers & Qt::ShiftModifier;
+      bool altPressed   = ed.modifiers & Qt::AltModifier;
 
       QTextCursor::MoveMode mm = shiftPressed ? QTextCursor::KeepAnchor : QTextCursor::MoveAnchor;
 
@@ -419,13 +420,17 @@ bool TextBase::edit(EditData& ed)
                         case Qt::Key_B:
                               s = "\u266d"; // Unicode flat
                               break;
-                        case Qt::Key_NumberSign:
+                        case Qt::Key_NumberSign: // e.g. QWERTY (US)
+                        case Qt::Key_AsciiTilde: // e.g. QWERTY (GB)
+                        case Qt::Key_Apostrophe: // e.g. QWERTZ (DE)
+                        case Qt::Key_periodcentered: // e.g. QWERTY (ES)
+                        case Qt::Key_3: // e.g. AZERTY (FR, BE)
                               s = "\u266f"; // Unicode sharp
                               break;
                         case Qt::Key_H:
                               s = "\u266e"; // Unicode natural
                               break;
-                         case Qt::Key_Space:
+                        case Qt::Key_Space:
                               insertSym(ed, SymId::space);
                               return true;
                         case Qt::Key_F:
@@ -452,6 +457,12 @@ bool TextBase::edit(EditData& ed)
                               // so Shift+Ctrl+Z works
                               insertSym(ed, SymId::dynamicZ);
                               return true;
+                        }
+                  }
+            if (ctrlPressed && altPressed) {
+                  if (ed.key == Qt::Key_Minus) {
+                        insertSym(ed, SymId::lyricsElision);
+                        return true;
                         }
                   }
             }
@@ -776,7 +787,7 @@ void TextBase::endHexState(EditData& ed)
                   TextBlock& t = _layout[_cursor->row()];
                   QString ss   = t.remove(c1, hexState + 1, _cursor);
                   bool ok;
-                  int code     = ss.mid(1).toInt(&ok, 16);
+                  int code     = ss.midRef(1).toInt(&ok, 16);
                   _cursor->setColumn(c1);
                   _cursor->clearSelection();
                   if (ok)

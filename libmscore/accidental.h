@@ -47,7 +47,8 @@ enum class AccidentalRole : char {
 enum class AccidentalBracket : char {
       NONE,
       PARENTHESIS,
-      BRACKET
+      BRACKET,
+      BRACE,
       };
 
 //---------------------------------------------------------
@@ -57,7 +58,8 @@ enum class AccidentalBracket : char {
 struct SymElement {
       SymId sym;
       qreal x;
-      SymElement(SymId _sym, qreal _x) : sym(_sym), x(_x) {}
+      qreal y;
+      SymElement(SymId _sym, qreal _x, qreal _y) : sym(_sym), x(_x), y(_y) {}
       };
 
 //---------------------------------------------------------
@@ -92,6 +94,8 @@ class Accidental final : public Element {
       bool acceptDrop(EditData&) const override;
       Element* drop(EditData&) override;
       void layout() override;
+      void layoutMultiGlyphAccidental();
+      void layoutSingleGlyphAccidental();
       void draw(QPainter*) const override;
       bool isEditable() const override               { return true; }
       void startEdit(EditData&) override { setGenerated(false); }
@@ -123,7 +127,7 @@ class Accidental final : public Element {
       static const char* subtype2name(AccidentalType);
       static AccidentalType value2subtype(AccidentalVal);
       static AccidentalType name2subtype(const QString&);
-      static bool isMicrotonal(AccidentalType t)  { return t > AccidentalType::FLAT2; }
+      static bool isMicrotonal(AccidentalType t)  { return t > AccidentalType::FLAT3; }
 
       QString accessibleInfo() const override;
       };
@@ -136,4 +140,3 @@ Q_DECLARE_METATYPE(Ms::AccidentalRole);
 
 
 #endif
-

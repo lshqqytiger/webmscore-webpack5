@@ -132,6 +132,7 @@ class VibratoSegment;
 class PalmMute;
 class PalmMuteSegment;
 class MeasureNumber;
+class MMRestRange;
 
 class StaffTextBase;
 
@@ -202,6 +203,7 @@ class ScoreElement {
       virtual void resetProperty(Pid id);
       QVariant propertyDefault(Pid pid, Tid tid) const;
       virtual bool sizeIsSpatiumDependent() const { return true; }
+      virtual bool offsetIsSpatiumDependent() const { return true; }
 
       virtual void reset();                     // reset all properties & position to default
 
@@ -344,6 +346,7 @@ class ScoreElement {
       CONVERT(Page,          PAGE)
       CONVERT(Text,          TEXT)
       CONVERT(MeasureNumber, MEASURE_NUMBER)
+      CONVERT(MMRestRange,   MMREST_RANGE)
       CONVERT(StaffText,     STAFF_TEXT)
       CONVERT(SystemText,    SYSTEM_TEXT)
       CONVERT(BracketItem,   BRACKET_ITEM)
@@ -555,6 +558,7 @@ static inline const a* to##a(const ScoreElement* e) { Q_ASSERT(e == 0 || e->is##
       CONVERT(StaffTypeChange)
       CONVERT(Text)
       CONVERT(MeasureNumber)
+      CONVERT(MMRestRange)
       CONVERT(Hairpin)
       CONVERT(HairpinSegment)
       CONVERT(Bend)
@@ -607,4 +611,3 @@ static inline const a* to##a(const ScoreElement* e) { Q_ASSERT(e == 0 || e->is##
 }
 
 #endif
-

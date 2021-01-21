@@ -136,6 +136,7 @@ void TestMidi::events_data()
 //      QTest::newRow("testPedal") <<  "testPedal";
       // multi note tremolo
       QTest::newRow("testMultiNoteTremolo") << "testMultiNoteTremolo";
+      QTest::newRow("testMultiNoteTremoloTuplet") << "testMultiNoteTremoloTuplet";
       // Test Pauses
       QTest::newRow("testPauses") <<  "testPauses";
       QTest::newRow("testPausesRepeats") <<  "testPausesRepeats";
@@ -248,7 +249,7 @@ bool compareScores(Score* score1, Score* score2)
                   }
             s1 = s1->next1();
             s2 = s2->next1();
-            if ((s1 && !s2) || (s2 && !s2)) {
+            if ((s1 && !s2) || (s2 && !s1)) {
                   printf("   segment count different\n");
                   return false;
                   }

@@ -63,7 +63,8 @@ QJsonObject savePositions(Score* score, bool segments)
       
       QJsonArray jsonElementsArray;
       if (segments) {
-            for (Segment* s = score->firstMeasureMM()->first(SegmentType::ChordRest);
+            Measure* m = score->firstMeasureMM();
+            for (Segment* s = (m ? m->first(SegmentType::ChordRest) : nullptr);
                s; s = s->next1MM(SegmentType::ChordRest)) {
                   qreal sx   = 0;
                   int tracks = score->nstaves() * VOICES;

@@ -111,15 +111,15 @@ void Preferences::init(bool storeInMemoryOnly)
 #endif
 
 #if defined(Q_OS_MAC) && !defined(TESTROOT)
-      const MuseScoreStyleType defaultAppGlobalStyle = CocoaBridge::isSystemDarkTheme() ? MuseScoreStyleType::DARK_FUSION : MuseScoreStyleType::LIGHT_FUSION;
+      const MuseScorePreferredStyleType defaultAppGlobalStyle = CocoaBridge::isSystemDarkModeSupported() ? MuseScorePreferredStyleType::FOLLOW_SYSTEM : MuseScorePreferredStyleType::LIGHT_FUSION;
 #else
-      const MuseScoreStyleType defaultAppGlobalStyle = MuseScoreStyleType::LIGHT_FUSION;
+      const MuseScorePreferredStyleType defaultAppGlobalStyle = MuseScorePreferredStyleType::LIGHT_FUSION;
 #endif
 
 #if defined(WIN_PORTABLE)
-      QString wd = QString(QDir::cleanPath(QString("%1/../../../Data/%2").arg(QCoreApplication::applicationDirPath()).arg(QCoreApplication::applicationName())));
+      QString wd = QString(QDir::cleanPath(QString("%1/../../../Data/%2").arg(QCoreApplication::applicationDirPath(), QCoreApplication::applicationName())));
 #else
-      QString wd = QString("%1/%2").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).arg(QCoreApplication::applicationName());
+      QString wd = QString("%1/%2").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation), QCoreApplication::applicationName());
 #endif
 
       _allPreferences = prefs_map_t(
@@ -129,14 +129,16 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_KEYBOARDLAYOUT,                              new StringPreference("US - International")},
             {PREF_APP_PATHS_INSTRUMENTLIST1,                       new StringPreference(":/data/instruments.xml", false)},
             {PREF_APP_PATHS_INSTRUMENTLIST2,                       new StringPreference("", false)},
-            {PREF_APP_PATHS_MYIMAGES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("images_directory", "Images"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYPLUGINS,                             new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("plugins_directory", "Plugins"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYSCORES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("scores_directory", "Scores"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYSOUNDFONTS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("soundfonts_directory", "SoundFonts"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYSHORTCUTS,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("shortcuts_directory", "Shortcuts"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYSTYLES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("styles_directory", "Styles"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYTEMPLATES,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("templates_directory", "Templates"))).absoluteFilePath(), false)},
-            {PREF_APP_PATHS_MYEXTENSIONS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd).arg(QCoreApplication::translate("extensions_directory", "Extensions"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_SCOREORDERLIST1,                       new StringPreference(":/data/orders.xml", false)},
+            {PREF_APP_PATHS_SCOREORDERLIST2,                       new StringPreference("", false)},
+            {PREF_APP_PATHS_MYIMAGES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("images_directory", "Images"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYPLUGINS,                             new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("plugins_directory", "Plugins"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYSCORES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("scores_directory", "Scores"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYSOUNDFONTS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("soundfonts_directory", "SoundFonts"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYSHORTCUTS,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("shortcuts_directory", "Shortcuts"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYSTYLES,                              new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("styles_directory", "Styles"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYTEMPLATES,                           new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("templates_directory", "Templates"))).absoluteFilePath(), false)},
+            {PREF_APP_PATHS_MYEXTENSIONS,                          new StringPreference(QFileInfo(QString("%1/%2").arg(wd, QCoreApplication::translate("extensions_directory", "Extensions"))).absoluteFilePath(), false)},
             {PREF_APP_PLAYBACK_FOLLOWSONG,                         new BoolPreference(true)},
             {PREF_APP_PLAYBACK_PANPLAYBACK,                        new BoolPreference(true, false)},
             {PREF_APP_PLAYBACK_PLAYREPEATS,                        new BoolPreference(true, false)},
@@ -150,6 +152,12 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_APP_WORKSPACE,                                   new StringPreference("Basic", false)},
             {PREF_APP_TELEMETRY_ALLOWED,                           new BoolPreference(false, false)},
             {PREF_APP_STARTUP_TELEMETRY_ACCESS_REQUESTED,          new StringPreference("", false)},
+            {PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN,                   new BoolPreference(false, false)},
+            {PREF_MIGRATION_APPLY_LELAND_STYLE,                    new BoolPreference(false, false)},
+            {PREF_MIGRATION_APPLY_EDWIN_STYLE,                     new BoolPreference(false, false)},
+            {PREF_MIGRATION_RESET_ELEMENT_POSITIONS,               new BoolPreference(false, false)},
+            {PREF_MIGRATION_APPLY_EDWIN_FOR_XML_FILES,             new BoolPreference(false, false)},
+            {PREF_MIGRATION_DO_NOT_ASK_ME_AGAIN_XML,               new BoolPreference(false, false)},
             {PREF_APP_BACKUP_GENERATE_BACKUP,                      new BoolPreference(true)},
             {PREF_APP_BACKUP_SUBFOLDER,                            new StringPreference(".mscbackup")},
             {PREF_EXPORT_AUDIO_NORMALIZE,                          new BoolPreference(true)},
@@ -166,7 +174,6 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_IMPORT_MUSICXML_IMPORTLAYOUT,                    new BoolPreference(true, false)},
             {PREF_IMPORT_OVERTURE_CHARSET,                         new StringPreference("GBK", false)},
             {PREF_IMPORT_STYLE_STYLEFILE,                          new StringPreference("", false)},
-            {PREF_IMPORT_COMPATIBILITY_RESET_ELEMENT_POSITIONS,    new StringPreference("", false)},
             {PREF_IO_ALSA_DEVICE,                                  new StringPreference("default", false)},
             {PREF_IO_ALSA_FRAGMENTS,                               new IntPreference(3, false)},
             {PREF_IO_ALSA_PERIODSIZE,                              new IntPreference(1024, false)},
@@ -208,10 +215,10 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_CANVAS_BG_USECOLOR,                           new BoolPreference(true, false)},
             {PREF_UI_CANVAS_FG_USECOLOR,                           new BoolPreference(true, false)},
             {PREF_UI_CANVAS_FG_USECOLOR_IN_PALETTES,               new BoolPreference(false, false)},
-            {PREF_UI_CANVAS_BG_COLOR,                              new ColorPreference(QColor("#142433"), false)},
-            {PREF_UI_CANVAS_FG_COLOR,                              new ColorPreference(QColor("#f9f9f9"), false)},
-            {PREF_UI_CANVAS_BG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath()).arg("wallpaper/background1.png")).absoluteFilePath(), false)},
-            {PREF_UI_CANVAS_FG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath()).arg("wallpaper/paper5.png")).absoluteFilePath(), false)},
+            {PREF_UI_CANVAS_BG_COLOR,                              new ColorPreference(QColor(0x385F94), false)},
+            {PREF_UI_CANVAS_FG_COLOR,                              new ColorPreference(QColor(0xf9f9f9), false)},
+            {PREF_UI_CANVAS_BG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath(), "wallpaper/background1.png")).absoluteFilePath(), false)},
+            {PREF_UI_CANVAS_FG_WALLPAPER,                          new StringPreference(QFileInfo(QString("%1%2").arg(sharePath(), "wallpaper/paper5.png")).absoluteFilePath(), false)},
             {PREF_UI_CANVAS_ZOOM_DEFAULT_TYPE,                     new IntPreference(0, false)},
             {PREF_UI_CANVAS_ZOOM_DEFAULT_LEVEL,                    new IntPreference(100, false)},
             {PREF_UI_CANVAS_ZOOM_PRECISION_KEYBOARD,               new IntPreference(2, false)},
@@ -233,51 +240,52 @@ void Preferences::init(bool storeInMemoryOnly)
             {PREF_UI_APP_RASTER_VERTICAL,                          new IntPreference(2)},
             {PREF_UI_APP_SHOWSTATUSBAR,                            new BoolPreference(true)},
             {PREF_UI_APP_USENATIVEDIALOGS,                         new BoolPreference(true)},
-            {PREF_UI_PIANO_HIGHLIGHTCOLOR,                         new ColorPreference(QColor("#0065BF"))},
-            {PREF_UI_SCORE_NOTE_DROPCOLOR,                         new ColorPreference(QColor("#0065BF"))},
-            {PREF_UI_SCORE_DEFAULTCOLOR,                           new ColorPreference(QColor("#000000"))},
-            {PREF_UI_SCORE_FRAMEMARGINCOLOR,                       new ColorPreference(QColor("#A0A0A4"))},
-            {PREF_UI_SCORE_LAYOUTBREAKCOLOR,                       new ColorPreference(QColor("#A0A0A4"))},
-            {PREF_UI_SCORE_VOICE1_COLOR,                           new ColorPreference(QColor("#0065BF"))},
-            {PREF_UI_SCORE_VOICE2_COLOR,                           new ColorPreference(QColor("#007F00"))},
-            {PREF_UI_SCORE_VOICE3_COLOR,                           new ColorPreference(QColor("#C53F00"))},
-            {PREF_UI_SCORE_VOICE4_COLOR,                           new ColorPreference(QColor("#C31989"))},
+            {PREF_UI_PIANO_HIGHLIGHTCOLOR,                         new ColorPreference(QColor(0x0065BF))},
+            {PREF_UI_PIANO_SHOWPITCHHELP,                          new BoolPreference(true)},
+            {PREF_UI_SCORE_NOTE_DROPCOLOR,                         new ColorPreference(QColor(0x0065BF))},
+            {PREF_UI_SCORE_DEFAULTCOLOR,                           new ColorPreference(QColor(Qt::black))}, //"#000000"
+            {PREF_UI_SCORE_FRAMEMARGINCOLOR,                       new ColorPreference(QColor(0xA0A0A4))},
+            {PREF_UI_SCORE_LAYOUTBREAKCOLOR,                       new ColorPreference(QColor(0xA0A0A4))},
+            {PREF_UI_SCORE_VOICE1_COLOR,                           new ColorPreference(QColor(0x0065BF))},
+            {PREF_UI_SCORE_VOICE2_COLOR,                           new ColorPreference(QColor(0x007F00))},
+            {PREF_UI_SCORE_VOICE3_COLOR,                           new ColorPreference(QColor(0xC53F00))},
+            {PREF_UI_SCORE_VOICE4_COLOR,                           new ColorPreference(QColor(0xC31989))},
             {PREF_UI_THEME_ICONWIDTH,                              new IntPreference(28, false)},
             {PREF_UI_THEME_ICONHEIGHT,                             new IntPreference(24, false)},
             {PREF_UI_THEME_FONTFAMILY,                             new StringPreference(QApplication::font().family(), false) },
-            {PREF_UI_THEME_FONTSIZE,                               new IntPreference(QApplication::font().pointSize(), false) },
-            {PREF_UI_PIANOROLL_DARK_SELECTION_BOX_COLOR,           new ColorPreference(QColor("#0cebff"))},
-            {PREF_UI_PIANOROLL_DARK_NOTE_UNSEL_COLOR,              new ColorPreference(QColor("#1dcca0"))},
-            {PREF_UI_PIANOROLL_DARK_NOTE_SEL_COLOR,                new ColorPreference(QColor("#ffff00"))},
-            {PREF_UI_PIANOROLL_DARK_NOTE_DRAG_COLOR,               new ColorPreference(QColor("#ffbb33"))},
-            {PREF_UI_PIANOROLL_DARK_BG_BASE_COLOR,                 new ColorPreference(QColor("#3a3a3a"))},
-            {PREF_UI_PIANOROLL_DARK_BG_KEY_HIGHLIGHT_COLOR,        new ColorPreference(QColor("#555577"))},
-            {PREF_UI_PIANOROLL_DARK_BG_KEY_WHITE_COLOR,            new ColorPreference(QColor("#3a3a3a"))},
-            {PREF_UI_PIANOROLL_DARK_BG_KEY_BLACK_COLOR,            new ColorPreference(QColor("#262626"))},
-            {PREF_UI_PIANOROLL_DARK_BG_GRIDLINE_COLOR,             new ColorPreference(QColor("#111111"))},
-            {PREF_UI_PIANOROLL_DARK_BG_TEXT_COLOR,                 new ColorPreference(QColor("#999999"))},
-            {PREF_UI_PIANOROLL_DARK_BG_TIE_COLOR,                  new ColorPreference(QColor("#ff0000"))},
-            {PREF_UI_PIANOROLL_LIGHT_SELECTION_BOX_COLOR,          new ColorPreference(QColor("#2085c3"))},
-            {PREF_UI_PIANOROLL_LIGHT_NOTE_UNSEL_COLOR,             new ColorPreference(QColor("#1dcca0"))},
-            {PREF_UI_PIANOROLL_LIGHT_NOTE_SEL_COLOR,               new ColorPreference(QColor("#ffff00"))},
-            {PREF_UI_PIANOROLL_LIGHT_NOTE_DRAG_COLOR,              new ColorPreference(QColor("#ffbb33"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_BASE_COLOR,                new ColorPreference(QColor("#e0e0e7"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_HIGHLIGHT_COLOR,       new ColorPreference(QColor("#aaaaff"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_WHITE_COLOR,           new ColorPreference(QColor("#ffffff"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_BLACK_COLOR,           new ColorPreference(QColor("#e6e6e6"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_GRIDLINE_COLOR,            new ColorPreference(QColor("#a2a2a6"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_TEXT_COLOR,                new ColorPreference(QColor("#111111"))},
-            {PREF_UI_PIANOROLL_LIGHT_BG_TIE_COLOR,                 new ColorPreference(QColor("#ff0000"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_ON,      new ColorPreference(QColor("#7F7F7F"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_OFF,     new ColorPreference(QColor("#a0a0a0"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_LIGHT_ON,     new ColorPreference(QColor("#7F7F7F"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_LIGHT_OFF,    new ColorPreference(QColor("#a0a0a0"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_DARK_ON,       new ColorPreference(QColor("#36B2FF"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_DARK_OFF,      new ColorPreference(QColor("#eff0f1"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_ON,      new ColorPreference(QColor("#0065BF"))},
-            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_OFF,     new ColorPreference(QColor("#3b3f45"))},
-            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_LIGHT,            new ColorPreference(QColor("#0066BF"))},
-            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_DARK,             new ColorPreference(QColor("#36B2FF"))},
+            {PREF_UI_THEME_FONTSIZE,                               new DoublePreference(QApplication::font().pointSizeF(), false) },
+            {PREF_UI_PIANOROLL_DARK_SELECTION_BOX_COLOR,           new ColorPreference(QColor(0x0cebff))},
+            {PREF_UI_PIANOROLL_DARK_NOTE_UNSEL_COLOR,              new ColorPreference(QColor(0x1dcca0))},
+            {PREF_UI_PIANOROLL_DARK_NOTE_SEL_COLOR,                new ColorPreference(QColor(0xffff00))},
+            {PREF_UI_PIANOROLL_DARK_NOTE_DRAG_COLOR,               new ColorPreference(QColor(0xffbb33))},
+            {PREF_UI_PIANOROLL_DARK_BG_BASE_COLOR,                 new ColorPreference(QColor(0x3a3a3a))},
+            {PREF_UI_PIANOROLL_DARK_BG_KEY_HIGHLIGHT_COLOR,        new ColorPreference(QColor(0x555577))},
+            {PREF_UI_PIANOROLL_DARK_BG_KEY_WHITE_COLOR,            new ColorPreference(QColor(0x3a3a3a))},
+            {PREF_UI_PIANOROLL_DARK_BG_KEY_BLACK_COLOR,            new ColorPreference(QColor(0x262626))},
+            {PREF_UI_PIANOROLL_DARK_BG_GRIDLINE_COLOR,             new ColorPreference(QColor(0x111111))},
+            {PREF_UI_PIANOROLL_DARK_BG_TEXT_COLOR,                 new ColorPreference(QColor(0x999999))},
+            {PREF_UI_PIANOROLL_DARK_BG_TIE_COLOR,                  new ColorPreference(QColor(0xff0000))},
+            {PREF_UI_PIANOROLL_LIGHT_SELECTION_BOX_COLOR,          new ColorPreference(QColor(0x2085c3))},
+            {PREF_UI_PIANOROLL_LIGHT_NOTE_UNSEL_COLOR,             new ColorPreference(QColor(0x1dcca0))},
+            {PREF_UI_PIANOROLL_LIGHT_NOTE_SEL_COLOR,               new ColorPreference(QColor(0xffff00))},
+            {PREF_UI_PIANOROLL_LIGHT_NOTE_DRAG_COLOR,              new ColorPreference(QColor(0xffbb33))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_BASE_COLOR,                new ColorPreference(QColor(0xe0e0e7))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_HIGHLIGHT_COLOR,       new ColorPreference(QColor(0xaaaaff))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_WHITE_COLOR,           new ColorPreference(QColor(0xffffff))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_KEY_BLACK_COLOR,           new ColorPreference(QColor(0xe6e6e6))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_GRIDLINE_COLOR,            new ColorPreference(QColor(0xa2a2a6))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_TEXT_COLOR,                new ColorPreference(QColor(0x111111))},
+            {PREF_UI_PIANOROLL_LIGHT_BG_TIE_COLOR,                 new ColorPreference(QColor(0xff0000))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_ON,      new ColorPreference(QColor(0x7F7F7F))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_DARK_OFF,     new ColorPreference(QColor(0xa0a0a0))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_LIGHT_ON,     new ColorPreference(QColor(0x7F7F7F))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_DISABLED_LIGHT_OFF,    new ColorPreference(QColor(0xa0a0a0))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_DARK_ON,       new ColorPreference(QColor(0x36B2FF))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_DARK_OFF,      new ColorPreference(QColor(0xeff0f1))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_ON,      new ColorPreference(QColor(0x0065BF))},
+            {PREF_UI_BUTTON_HIGHLIGHT_COLOR_ENABLED_LIGHT_OFF,     new ColorPreference(QColor(0x3b3f45))},
+            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_LIGHT,            new ColorPreference(QColor(0x0066BF))},
+            {PREF_UI_INSPECTOR_STYLED_TEXT_COLOR_DARK,             new ColorPreference(QColor(0x36B2FF))},
             {PREF_PAN_MODIFIER_BASE,                               new DoublePreference(1, true)},
             {PREF_PAN_MODIFIER_STEP,                               new DoublePreference(0.01, true)},
             {PREF_PAN_MODIFIER_MIN,                                new DoublePreference(0.2, true)},
@@ -490,14 +498,26 @@ MusicxmlExportBreaks Preferences::musicxmlExportBreaks() const
       return preference(PREF_EXPORT_MUSICXML_EXPORTBREAKS).value<MusicxmlExportBreaks>();
       }
 
-MuseScoreStyleType Preferences::globalStyle() const
+// The "theme" the user chooses in Preferences
+MuseScorePreferredStyleType Preferences::preferredGlobalStyle() const
       {
-      return preference(PREF_UI_APP_GLOBALSTYLE).value<MuseScoreStyleType>();
+      return preference(PREF_UI_APP_GLOBALSTYLE).value<MuseScorePreferredStyleType>();
+      }
+
+// The actual "theme", resulting from the user's choice
+MuseScoreEffectiveStyleType Preferences::effectiveGlobalStyle() const
+      {
+      MuseScorePreferredStyleType s = preferredGlobalStyle();
+#ifdef Q_OS_MAC // On Mac, follow system theme if desired
+      if (s == MuseScorePreferredStyleType::FOLLOW_SYSTEM)
+            return CocoaBridge::isSystemDarkTheme() ? MuseScoreEffectiveStyleType::DARK_FUSION : MuseScoreEffectiveStyleType::LIGHT_FUSION;
+#endif
+      return MuseScoreEffectiveStyleType(s);
       }
 
 bool Preferences::isThemeDark() const
       {
-      return globalStyle() == MuseScoreStyleType::DARK_FUSION;
+      return effectiveGlobalStyle() == MuseScoreEffectiveStyleType::DARK_FUSION;
       }
 
 void Preferences::setToDefaultValue(const QString key)
@@ -510,7 +530,7 @@ void Preferences::setPreference(const QString key, QVariant value)
       {
       checkIfKeyExists(key);
       set(key, value);
-      for (const OnSetListener& l : _onSetListeners)
+      for (const OnSetListener& l : qAsConst(_onSetListeners))
           l(key, value);
       }
 
@@ -567,7 +587,7 @@ QMap<QString, QVariant> Preferences::getDefaultLocalPreferences() {
       bool tmp = useLocalPrefs;
       useLocalPrefs = false;
       QMap<QString, QVariant> defaultLocalPreferences;
-      for (QString s : {PREF_UI_CANVAS_BG_USECOLOR,
+      for (const QString &s : {PREF_UI_CANVAS_BG_USECOLOR,
                         PREF_UI_CANVAS_FG_USECOLOR,
                         PREF_UI_CANVAS_FG_USECOLOR_IN_PALETTES,
                         PREF_UI_CANVAS_BG_COLOR,
@@ -585,6 +605,7 @@ QMap<QString, QVariant> Preferences::getDefaultLocalPreferences() {
                         PREF_UI_APP_SHOWSTATUSBAR,
                         PREF_UI_APP_USENATIVEDIALOGS,
                         PREF_UI_PIANO_HIGHLIGHTCOLOR,
+                        PREF_UI_PIANO_SHOWPITCHHELP,
                         PREF_UI_SCORE_NOTE_DROPCOLOR,
                         PREF_UI_SCORE_DEFAULTCOLOR,
                         PREF_UI_SCORE_FRAMEMARGINCOLOR,
@@ -668,9 +689,6 @@ EnumPreference::EnumPreference(QVariant defaultValue, bool showInAdvancedList)
       {}
 
 void EnumPreference::accept(QString, PreferenceVisitor&)
-      {
-      }
-
-
+      {}
 
 } // namespace Ms

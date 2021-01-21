@@ -186,7 +186,7 @@ int transposeTpcDiatonicByKey(int tpc, int steps, Key key, bool keepAlteredDegre
 
       // get step for tpc with alteration for key
       int alter;
-      int step = tpc2stepByKey(tpc, key, &alter);
+      int step = tpc2stepByKey(tpc, key, alter);
 
       // transpose step and get tpc for step/key
       step += steps;
@@ -624,6 +624,7 @@ void Score::transposeSemitone(int step)
             qDebug("Score::transposeSemitone: failed");
             // TODO: set error message
             }
+      else setSelectionChanged(true);
       }
 
 //---------------------------------------------------------
@@ -636,7 +637,7 @@ void Note::transposeDiatonic(int interval, bool keepAlterations, bool useDoubleA
       int alter;
       Fraction tick = chord()->segment()->tick();
       Key key       = staff() ? staff()->key(tick) : Key::C;
-      int absStep   = pitch2absStepByKey(epitch(), tpc(), key, &alter);
+      int absStep   = pitch2absStepByKey(epitch(), tpc(), key, alter);
 
       // get pitch and tcp corresponding to unaltered degree for this key
       int newPitch = absStep2pitchByKey(absStep + interval, key);
@@ -701,8 +702,11 @@ void Score::transposeDiatonicAlterations(TransposeDirection direction)
       {
       // Transpose current selection diatonically (up/down) while keeping degree alterations
       // Note: Score::transpose() absolutely requires valid selection before invocation.
-      if (!selection().isNone())
+      if (!selection().isNone()) {
             transpose(TransposeMode::DIATONICALLY, direction, Key::C, 1, true, true, true);
+            setPlayNote(true); // For when selection is a single note, also playback that note
+            setSelectionChanged(true); // This will update the on-screen keyboard
+            }
       }
 
 //---------------------------------------------------------

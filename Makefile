@@ -76,7 +76,7 @@ clean:
 	-rm web-public/webmscore.*
 
 revision:
-	@git rev-parse --short=7 HEAD > mscore/revision.h
+	@git rev-parse --short=7 HEAD | tr -d '\n' > local_build_revision.env
 
 version:
 	@echo ${VERSION}

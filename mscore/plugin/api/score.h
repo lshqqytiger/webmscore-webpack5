@@ -48,7 +48,11 @@ class Score : public Ms::PluginAPI::ScoreElement {
       Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Excerpt>  excerpts   READ excerpts)
       /** First measure of the score (read only) */
       Q_PROPERTY(Ms::PluginAPI::Measure*        firstMeasure      READ firstMeasure)
-      /** First multimeasure rest measure of the score (read only).\n \since MuseScore 3.2 */
+      /**
+       * First multimeasure rest measure of the score (read only).
+       * \see \ref Measure.nextMeasureMM
+       * \since MuseScore 3.2
+       */
       Q_PROPERTY(Ms::PluginAPI::Measure*        firstMeasureMM    READ firstMeasureMM)
       /** Number of harmony items (chord symbols) in the score (read only).\n \since MuseScore 3.2 */
       Q_PROPERTY(int                            harmonyCount      READ harmonyCount)
@@ -61,7 +65,11 @@ class Score : public Ms::PluginAPI::ScoreElement {
       Q_PROPERTY(int                            keysig            READ keysig)
       /** Last measure of the score (read only) */
       Q_PROPERTY(Ms::PluginAPI::Measure*        lastMeasure       READ lastMeasure)
-      /** Last multimeasure rest measure of the score (read only).\n \since MuseScore 3.2 */
+      /**
+       * Last multimeasure rest measure of the score (read only).
+       * \see \ref Measure.prevMeasureMM
+       * \since MuseScore 3.2
+       */
       Q_PROPERTY(Ms::PluginAPI::Measure*        lastMeasureMM     READ lastMeasureMM)
       /** Last score segment (read only) */
       Q_PROPERTY(Ms::PluginAPI::Segment*        lastSegment       READ lastSegment) // TODO: make it function? Was property in 2.X, but firstSegment is a function...
@@ -109,6 +117,14 @@ class Score : public Ms::PluginAPI::ScoreElement {
        */
       Q_PROPERTY(QQmlListProperty<Ms::PluginAPI::Staff> staves    READ staves)
 
+      /**
+       * Returns the path to the file from which the score was imported, or empty.
+       * \warning If the score hasn't been saved yet, this will return an empty string.
+       * \since MuseScore 3.6
+       */
+      Q_PROPERTY(QString path READ path)
+
+
    public:
       /// \cond MS_INTERNAL
       Score(Ms::Score* s = nullptr, Ownership o = Ownership::SCORE)
@@ -128,6 +144,7 @@ class Score : public Ms::PluginAPI::ScoreElement {
       QString title() { return score()->metaTag("workTitle"); }
       Ms::PluginAPI::Selection* selection() { return selectionWrap(&score()->selection()); }
       MStyle* style() { return wrap(&score()->style(), score()); }
+      QString path() { return score()->importedFilePath(); }
 
       int pageNumberOffset() const { return score()->pageNumberOffset(); }
       void setPageNumberOffset(int offset) { score()->undoChangePageNumberOffset(offset); }

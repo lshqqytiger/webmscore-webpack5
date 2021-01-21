@@ -144,12 +144,12 @@ int Dynamic::findInString(const QString& s, int& length, QString& type)
 Dynamic::Dynamic(Score* s)
    : TextBase(s, Tid::DYNAMICS, ElementFlag::MOVABLE | ElementFlag::ON_STAFF)
       {
-      initElementStyle(&dynamicsStyle);
       _velocity    = -1;
       _dynRange    = Range::PART;
       _dynamicType = Type::OTHER;
       _changeInVelocity = 128;
       _velChangeSpeed = Speed::NORMAL;
+      initElementStyle(&dynamicsStyle);
       }
 
 Dynamic::Dynamic(const Dynamic& d)
@@ -590,7 +590,7 @@ QString Dynamic::accessibleInfo() const
       else {
             s = dynamicTypeName();
             }
-      return QString("%1: %2").arg(Element::accessibleInfo()).arg(s);
+      return QString("%1: %2").arg(Element::accessibleInfo(), s);
       }
 
 //---------------------------------------------------------
@@ -606,7 +606,7 @@ QString Dynamic::screenReaderInfo() const
       else {
             s = dynamicTypeName();
             }
-      return QString("%1: %2").arg(Element::accessibleInfo()).arg(s);
+      return QString("%1: %2").arg(Element::accessibleInfo(), s);
       }
 }
 

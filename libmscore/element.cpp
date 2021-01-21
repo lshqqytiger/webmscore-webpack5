@@ -79,6 +79,7 @@
 #include "textframe.h"
 #include "text.h"
 #include "measurenumber.h"
+#include "mmrestrange.h"
 #include "textline.h"
 #include "tie.h"
 #include "timesig.h"
@@ -109,7 +110,7 @@ namespace Ms {
 
 void Element::spatiumChanged(qreal oldValue, qreal newValue)
       {
-      if (sizeIsSpatiumDependent())
+      if (offsetIsSpatiumDependent())
             _offset *= (newValue / oldValue);
       }
 
@@ -120,7 +121,7 @@ void Element::spatiumChanged(qreal oldValue, qreal newValue)
 
 void Element::localSpatiumChanged(qreal oldValue, qreal newValue)
       {
-      if (sizeIsSpatiumDependent())
+      if (offsetIsSpatiumDependent())
             _offset *= (newValue / oldValue);
       }
 
@@ -137,6 +138,15 @@ qreal Element::spatium() const
             Staff* s = staff();
             return s ? s->spatium(this) : score()->spatium();
             }
+      }
+
+//---------------------------------------------------------
+//   offsetIsSpatiumDependent
+//---------------------------------------------------------
+
+bool Element::offsetIsSpatiumDependent() const
+      {
+      return sizeIsSpatiumDependent() || (parent() && !parent()->isBox());
       }
 
 //---------------------------------------------------------
@@ -351,12 +361,15 @@ Fraction Element::playTick() const
 
 Fraction Element::beat() const
       {
+      // Returns an appropriate fraction of ticks for use as a "Beat" reference
+      // in the Select All Similar filter.
       int bar, beat, ticks;
       TimeSigMap* tsm = score()->sigmap();
       tsm->tickValues(tick().ticks(), &bar, &beat, &ticks);
       int ticksB = ticks_beat(tsm->timesig(tick().ticks()).timesig().denominator());
 
-      return Fraction((beat + 1 + ticks), ticksB);
+      Fraction complexFraction((++beat * ticksB) + ticks, ticksB);
+      return complexFraction.reduced();
       }
 
 //---------------------------------------------------------
@@ -1069,6 +1082,7 @@ Element* Element::create(ElementType type, Score* score)
             case ElementType::DYNAMIC:           return new Dynamic(score);
             case ElementType::TEXT:              return new Text(score);
             case ElementType::MEASURE_NUMBER:    return new MeasureNumber(score);
+            case ElementType::MMREST_RANGE:      return new MMRestRange(score);
             case ElementType::INSTRUMENT_NAME:   return new InstrumentName(score);
             case ElementType::STAFF_TEXT:        return new StaffText(score);
             case ElementType::SYSTEM_TEXT:       return new SystemText(score);
@@ -1603,6 +1617,24 @@ QPointF Element::symStemUpSE(SymId id) const
       }
 
 //---------------------------------------------------------
+//   symStemDownSW
+//---------------------------------------------------------
+
+QPointF Element::symStemDownSW(SymId id) const
+      {
+      return score()->scoreFont()->stemDownSW(id, magS());
+      }
+
+//---------------------------------------------------------
+//   symStemUpNW
+//---------------------------------------------------------
+
+QPointF Element::symStemUpNW(SymId id) const
+      {
+      return score()->scoreFont()->stemUpNW(id, magS());
+      }
+
+//---------------------------------------------------------
 //   symCutOutNE / symCutOutNW / symCutOutSE / symCutOutNW
 //---------------------------------------------------------
 
@@ -2053,7 +2085,7 @@ void Element::endDrag(EditData& ed)
       ElementEditData* eed = ed.getData(this);
       if (!eed)
             return;
-      for (PropertyData pd : eed->propertyData) {
+      for (const PropertyData &pd : qAsConst(eed->propertyData)) {
             setPropertyFlags(pd.id, pd.f); // reset initial property flags state
             PropertyFlags f = pd.f;
             if (f == PropertyFlags::STYLED)
@@ -2076,9 +2108,12 @@ QVector<QLineF> Element::genericDragAnchorLines() const
       if (parent()->isSegment()) {
             System* system = toSegment(parent())->measure()->system();
             const int stIdx = staffIdx();
-            yp = system->staffCanvasYpage(stIdx);
+            yp = system ? system->staffCanvasYpage(stIdx) : 0.0;
             if (placement() == Placement::BELOW)
-                  yp += system->staff(stIdx)->bbox().height();
+                  yp += system ? system->staff(stIdx)->bbox().height() : 0.0;
+            //adjust anchor Y positions to staffType offset
+            if (staff())
+                yp += staff()->staffTypeForElement(this)->yoffset().val()* spatium();
             }
       else
             yp = parent()->canvasPos().y();
@@ -2163,9 +2198,12 @@ void Element::endEditDrag(EditData& ed)
       ElementEditData* eed = ed.getData(this);
       bool changed = false;
       if (eed) {
-            for (PropertyData pd : eed->propertyData) {
+            for (const PropertyData &pd : qAsConst(eed->propertyData)) {
                   setPropertyFlags(pd.id, pd.f); // reset initial property flags state
-                  if (score()->undoPropertyChanged(this, pd.id, pd.data))
+                  PropertyFlags f = pd.f;
+                  if (f == PropertyFlags::STYLED)
+                        f = PropertyFlags::UNSTYLED;
+                  if (score()->undoPropertyChanged(this, pd.id, pd.data, f))
                         changed = true;
                   }
             eed->propertyData.clear();
@@ -2468,6 +2506,12 @@ void Element::autoplaceSegmentElement(bool above, bool add)
             SysStaff* ss = m->system()->staff(si);
             QRectF r = bbox().translated(m->pos() + s->pos() + pos());
 
+            // Adjust bbox Y pos for staffType offset 
+            if (staffType()) {
+                  qreal stYOffset = staffType()->yoffset().val() * sp;
+                  r.translate(0.0, stYOffset);
+                  }
+            
             SkylineLine sk(!above);
             qreal d;
             if (above) {

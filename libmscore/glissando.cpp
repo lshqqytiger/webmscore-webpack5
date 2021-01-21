@@ -144,7 +144,9 @@ Element* GlissandoSegment::propertyDelegate(Pid pid)
             case Pid::GLISS_TYPE:
             case Pid::GLISS_TEXT:
             case Pid::GLISS_SHOW_TEXT:
-            case Pid::GLISSANDO_STYLE:
+            case Pid::GLISS_STYLE:
+            case Pid::GLISS_EASEIN:
+            case Pid::GLISS_EASEOUT:
             case Pid::PLAY:
             case Pid::FONT_FACE:
             case Pid::FONT_SIZE:
@@ -161,7 +163,7 @@ Element* GlissandoSegment::propertyDelegate(Pid pid)
 //=========================================================
 
 Glissando::Glissando(Score* s)
-  : SLine(s, ElementFlag::MOVABLE)
+   : SLine(s, ElementFlag::MOVABLE)
       {
       setAnchor(Spanner::Anchor::NOTE);
       setDiagonal(true);
@@ -170,9 +172,11 @@ Glissando::Glissando(Score* s)
 
       resetProperty(Pid::GLISS_SHOW_TEXT);
       resetProperty(Pid::PLAY);
-      resetProperty(Pid::GLISSANDO_STYLE);
+      resetProperty(Pid::GLISS_STYLE);
       resetProperty(Pid::GLISS_TYPE);
       resetProperty(Pid::GLISS_TEXT);
+      resetProperty(Pid::GLISS_EASEIN);
+      resetProperty(Pid::GLISS_EASEOUT);
       }
 
 Glissando::Glissando(const Glissando& g)
@@ -183,6 +187,8 @@ Glissando::Glissando(const Glissando& g)
       _fontSize       = g._fontSize;
       _glissandoType  = g._glissandoType;
       _glissandoStyle = g._glissandoStyle;
+      _easeIn         = g._easeIn;
+      _easeOut        = g._easeOut;
       _showText       = g._showText;
       _playGlissando  = g._playGlissando;
       _fontStyle      = g._fontStyle;
@@ -253,7 +259,8 @@ void Glissando::layout()
 
       // assume gliss. line goes from centre of initial note centre to centre of ending note:
       // move first segment origin and last segment ending point from notehead origin to notehead centre
-      QPointF offs1 = QPointF(anchor1->headWidth() * 0.5, 0.0);
+      // For TAB: begin at the right-edge of initial note rather than centre
+      QPointF offs1 = (cr1->staff()->isTabStaff(cr1->tick())) ? QPointF(anchor1->bbox().right(), 0.0) : QPointF(anchor1->headWidth() * 0.5, 0.0);
       QPointF offs2 = QPointF(anchor2->headWidth() * 0.5, 0.0);
 
       // AVOID HORIZONTAL LINES
@@ -288,10 +295,13 @@ void Glissando::layout()
          && !(cr2->noteType() == NoteType::GRACE8_AFTER
             || cr2->noteType() == NoteType::GRACE16_AFTER || cr2->noteType() == NoteType::GRACE32_AFTER)
          // also ignore if cr1 is a child of cr2, which means cr1 is a grace-before of cr2
-         && !(cr1->parent() == cr2))
-            {
-            segm2->rxpos() -= GLISS_STARTOFSYSTEM_WIDTH * _spatium;
-            segm2->rxpos2()+= GLISS_STARTOFSYSTEM_WIDTH * _spatium;
+         && !(cr1->parent() == cr2)) {
+            // in theory we should be reserving space for the gliss prior to the first note of a system
+            // but in practice we are not (and would be difficult to get right in current layout algorithms)
+            // so, a compromise is to at least use the available space to the left -
+            // the default layout for lines left a margin after the header
+            segm2->rxpos() -= _spatium;
+            segm2->rxpos2()+= _spatium;
             }
 
       // INTERPOLATION OF INTERMEDIATE POINTS
@@ -325,10 +335,14 @@ void Glissando::layout()
       offs1 *= -1.0;          // discount changes already applied
       int dots = anchor1->dots().size();
       LedgerLine * ledLin = cr1->ledgerLines();
+
+      // If TAB: completely zero first offset since it was already applied as right edge of first note
+      if (cr1->staff()->isTabStaff(cr1->tick()))
+            offs1.rx() = 0.0;
       // if dots, start at right of last dot
       // if no dots, from right of ledger line, if any; from right of notehead, if no ledger line
-      offs1.rx() += (dots && anchor1->dot(dots-1) ? anchor1->dot(dots-1)->pos().x() + anchor1->dot(dots-1)->width()
-                  : (ledLin ? ledLin->pos().x() + ledLin->width() : anchor1->headWidth()) );
+      else offs1.rx() += (dots && anchor1->dot(dots-1) ? anchor1->dot(dots-1)->pos().x() + anchor1->dot(dots-1)->width()
+                       : (ledLin ? ledLin->pos().x() + ledLin->width() : anchor1->headWidth()) );
 
       // final note arpeggio / accidental / ledger line / accidental / arpeggio (i.e. from outermost to innermost)
       offs2 *= -1.0;          // discount changes already applied
@@ -382,8 +396,10 @@ void Glissando::write(XmlWriter& xml) const
       if (_showText && !_text.isEmpty())
             xml.tag("text", _text);
 
-      for (auto id : { Pid::GLISS_TYPE, Pid::PLAY, Pid::GLISSANDO_STYLE } )
+      for (auto id : { Pid::GLISS_TYPE, Pid::PLAY, Pid::GLISS_STYLE, Pid::GLISS_EASEIN, Pid::GLISS_EASEOUT })
             writeProperty(xml, id);
+      for (const StyledProperty& spp : *styledProperties())
+            writeProperty(xml, spp.pid);
 
       SLine::writeProperties(xml);
       xml.etag();
@@ -410,7 +426,11 @@ void Glissando::read(XmlReader& e)
             else if (tag == "subtype")
                   _glissandoType = GlissandoType(e.readInt());
             else if (tag == "glissandoStyle")
-                  readProperty(e, Pid::GLISSANDO_STYLE);
+                  readProperty(e, Pid::GLISS_STYLE);
+            else if (tag == "easeInSpin")
+                  _easeIn = e.readInt();
+            else if (tag == "easeOutSpin")
+                  _easeOut = e.readInt();
             else if (tag == "play")
                   setPlayGlissando(e.readBool());
             else if (readStyledProperty(e, tag))
@@ -619,8 +639,12 @@ QVariant Glissando::getProperty(Pid propertyId) const
                   return text();
             case Pid::GLISS_SHOW_TEXT:
                   return showText();
-            case Pid::GLISSANDO_STYLE:
+            case Pid::GLISS_STYLE:
                   return int(glissandoStyle());
+            case Pid::GLISS_EASEIN:
+                  return easeIn();
+            case Pid::GLISS_EASEOUT:
+                  return easeOut();
             case Pid::PLAY:
                   return bool(playGlissando());
             case Pid::FONT_FACE:
@@ -651,8 +675,14 @@ bool Glissando::setProperty(Pid propertyId, const QVariant& v)
             case Pid::GLISS_SHOW_TEXT:
                   setShowText(v.toBool());
                   break;
-            case Pid::GLISSANDO_STYLE:
+            case Pid::GLISS_STYLE:
                   setGlissandoStyle(GlissandoStyle(v.toInt()));
+                  break;
+            case Pid::GLISS_EASEIN:
+                  setEaseIn(v.toInt());
+                  break;
+            case Pid::GLISS_EASEOUT:
+                  setEaseOut(v.toInt());
                   break;
             case Pid::PLAY:
                   setPlayGlissando(v.toBool());
@@ -686,8 +716,11 @@ QVariant Glissando::propertyDefault(Pid propertyId) const
                   return int(GlissandoType::STRAIGHT);
             case Pid::GLISS_SHOW_TEXT:
                   return true;
-            case Pid::GLISSANDO_STYLE:
+            case Pid::GLISS_STYLE:
                   return int(GlissandoStyle::CHROMATIC);
+            case Pid::GLISS_EASEIN:
+            case Pid::GLISS_EASEOUT:
+                  return 0;
             case Pid::PLAY:
                   return true;
             default:

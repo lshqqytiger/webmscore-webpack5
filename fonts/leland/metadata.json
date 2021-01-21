@@ -1,0 +1,955 @@
+{
+    "engravingDefaults": {
+        "arrowShaftThickness": 0.1,
+        "barlineSeparation": 0.55,
+        "beamSpacing": 0.25,
+        "beamThickness": 0.5,
+        "bracketThickness": 0.44,
+        "dashedBarlineDashLength": 0.6,
+        "dashedBarlineGapLength": 0.4,
+        "dashedBarlineThickness": 0.11,
+        "hairpinThickness": 0.12,
+        "legerLineExtension": 0.35,
+        "legerLineThickness": 0.16,
+        "lyricLineThickness": 0.1,
+        "octaveLineThickness": 0.11,
+        "pedalLineThickness": 0.11,
+        "repeatBarlineDotSeparation": 0.7,
+        "repeatEndingLineThickness": 0.11,
+        "slurEndpointThickness": 0.07,
+        "slurMidpointThickness": 0.21,
+        "staffLineThickness": 0.11,
+        "stemThickness": 0.11,
+        "subBracketThickness": 0.11,
+        "textEnclosureThickness": 0.11,
+        "thickBarlineThickness": 0.55,
+        "thinBarlineThickness": 0.18,
+        "tieEndpointThickness": 0.07,
+        "tieMidpointThickness": 0.21,
+        "tupletBracketThickness": 0.1
+    },
+    "fontName": "Leland",
+    "fontVersion": "0.5",
+    "glyphsWithAlternates": {
+        "brace": {
+            "alternates": [
+                {
+                    "codepoint": "U+F400",
+                    "name": "braceSmall"
+                },
+                {
+                    "codepoint": "U+F401",
+                    "name": "braceLarge"
+                },
+                {
+                    "codepoint": "U+F402",
+                    "name": "braceLarger"
+                },
+                {
+                    "codepoint": "U+F403",
+                    "name": "braceFlat"
+                }
+            ]
+        }
+    },
+    "glyphsWithAnchors": {
+        "accidentalArrowDown": {
+            "cutOutSE": [
+                0.58,
+                -0.12
+            ],
+            "cutOutSW": [
+                0.2,
+                -0.12
+            ]
+        },
+        "accidentalArrowUp": {
+            "cutOutNE": [
+                0.584,
+                1.12
+            ],
+            "cutOutNW": [
+                0.196,
+                1.12
+            ]
+        },
+        "accidentalBakiyeFlat": {
+            "cutOutNE": [
+                0.952,
+                0.644
+            ],
+            "cutOutNW": [
+                0.284,
+                1.08
+            ],
+            "cutOutSE": [
+                0.836,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.284,
+                0.688
+            ]
+        },
+        "accidentalBuyukMucennebFlat": {
+            "cutOutNE": [
+                0.952,
+                0.644
+            ],
+            "cutOutNW": [
+                0.28,
+                1.464
+            ],
+            "cutOutSE": [
+                0.836,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.284,
+                0.6
+            ]
+        },
+        "accidentalBuyukMucennebSharp": {
+            "cutOutNE": [
+                1.004,
+                0.816
+            ],
+            "cutOutNW": [
+                0.392,
+                0.62
+            ],
+            "cutOutSE": [
+                1.004,
+                -0.616
+            ],
+            "cutOutSW": [
+                0.392,
+                -0.804
+            ]
+        },
+        "accidentalDoubleFlat": {
+            "cutOutNE": [
+                0.84,
+                0.64
+            ],
+            "cutOutSE": [
+                1.208,
+                -0.42
+            ]
+        },
+        "accidentalFiveQuarterTonesFlatArrowDown": {
+            "cutOutNE": [
+                1.152,
+                0.64
+            ],
+            "cutOutNW": [
+                0.304,
+                -1.2
+            ],
+            "cutOutSE": [
+                0.796,
+                -0.72
+            ],
+            "cutOutSW": [
+                0.18,
+                -1.6
+            ]
+        },
+        "accidentalFiveQuarterTonesSharpArrowUp": {
+            "cutOutNE": [
+                1.132,
+                1.12
+            ],
+            "cutOutNW": [
+                0.528,
+                0.572
+            ],
+            "cutOutSE": [
+                1.12,
+                0.704
+            ]
+        },
+        "accidentalFlat": {
+            "cutOutNE": [
+                0.18,
+                0.64
+            ],
+            "cutOutSE": [
+                0.544,
+                -0.42
+            ]
+        },
+        "accidentalKucukMucennebSharp": {
+            "cutOutNE": [
+                0.768,
+                0.812
+            ],
+            "cutOutNW": [
+                0.624,
+                0.684
+            ],
+            "cutOutSE": [
+                0.764,
+                -0.676
+            ],
+            "cutOutSW": [
+                0.624,
+                -0.804
+            ]
+        },
+        "accidentalNarrowReversedFlat": {
+            "cutOutNW": [
+                0.488,
+                0.624
+            ],
+            "cutOutSW": [
+                0.24,
+                -0.42
+            ]
+        },
+        "accidentalNarrowReversedFlatAndFlat": {
+            "cutOutNE": [
+                0.94,
+                0.624
+            ],
+            "cutOutNW": [
+                0.484,
+                0.624
+            ],
+            "cutOutSE": [
+                1.372,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.24,
+                -0.42
+            ]
+        },
+        "accidentalNatural": {
+            "cutOutNE": [
+                0.132,
+                0.764
+            ],
+            "cutOutSW": [
+                0.556,
+                -0.752
+            ]
+        },
+        "accidentalNaturalFlat": {
+            "cutOutNE": [
+                1.116,
+                0.64
+            ],
+            "cutOutSE": [
+                1.488,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.556,
+                -0.752
+            ]
+        },
+        "accidentalNaturalSharp": {
+            "cutOutNE": [
+                1.736,
+                0.796
+            ],
+            "cutOutSE": [
+                1.736,
+                -0.628
+            ],
+            "cutOutSW": [
+                0.556,
+                -0.752
+            ]
+        },
+        "accidentalQuarterToneFlatArrowUp": {
+            "cutOutNE": [
+                0.796,
+                0.684
+            ],
+            "cutOutSE": [
+                0.804,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.292,
+                1.216
+            ]
+        },
+        "accidentalQuarterToneFlatNaturalArrowDown": {
+            "cutOutNE": [
+                0.704,
+                -1.192
+            ],
+            "cutOutSW": [
+                0.22,
+                -0.752
+            ]
+        },
+        "accidentalQuarterToneFlatStein": {
+            "cutOutNE": [
+                0.18,
+                0.64
+            ],
+            "cutOutNW": [
+                0.62,
+                0.624
+            ],
+            "cutOutSE": [
+                0.544,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.272,
+                -0.42
+            ]
+        },
+        "accidentalQuarterToneSharpArrowDown": {
+            "cutOutNE": [
+                0.932,
+                0.784
+            ],
+            "cutOutNW": [
+                0.312,
+                0.636
+            ],
+            "cutOutSE": [
+                0.796,
+                -1.228
+            ],
+            "cutOutSW": [
+                0.176,
+                -2.08
+            ]
+        },
+        "accidentalQuarterToneSharpNaturalArrowUp": {
+            "cutOutNE": [
+                0.796,
+                0.764
+            ],
+            "cutOutSW": [
+                0.312,
+                1.2
+            ]
+        },
+        "accidentalQuarterToneSharpStein": {
+            "cutOutNE": [
+                0.436,
+                0.768
+            ],
+            "cutOutNW": [
+                0.284,
+                0.692
+            ],
+            "cutOutSE": [
+                0.436,
+                -0.68
+            ],
+            "cutOutSW": [
+                0.284,
+                -0.752
+            ]
+        },
+        "accidentalSharp": {
+            "cutOutNE": [
+                0.8,
+                0.792
+            ],
+            "cutOutNW": [
+                0.18,
+                0.644
+            ],
+            "cutOutSE": [
+                0.8,
+                -0.632
+            ],
+            "cutOutSW": [
+                0.18,
+                -0.78
+            ]
+        },
+        "accidentalSharpSharp": {
+            "cutOutNE": [
+                1.964,
+                0.78
+            ],
+            "cutOutNW": [
+                0.18,
+                0.644
+            ],
+            "cutOutSE": [
+                1.964,
+                -0.644
+            ],
+            "cutOutSW": [
+                0.18,
+                -0.78
+            ]
+        },
+        "accidentalThreeQuarterTonesFlatArrowDown": {
+            "cutOutNE": [
+                0.48,
+                0.684
+            ],
+            "cutOutNW": [
+                0.312,
+                -1.192
+            ],
+            "cutOutSE": [
+                0.804,
+                -0.42
+            ]
+        },
+        "accidentalThreeQuarterTonesFlatArrowUp": {
+            "cutOutNE": [
+                1.164,
+                0.64
+            ],
+            "cutOutSE": [
+                1.212,
+                -0.42
+            ]
+        },
+        "accidentalThreeQuarterTonesFlatZimmermann": {
+            "cutOutNE": [
+                1.068,
+                0.624
+            ],
+            "cutOutNW": [
+                0.62,
+                0.624
+            ],
+            "cutOutSE": [
+                1.416,
+                -0.42
+            ],
+            "cutOutSW": [
+                0.272,
+                -0.42
+            ]
+        },
+        "accidentalThreeQuarterTonesSharpArrowDown": {
+            "cutOutNW": [
+                0.208,
+                -0.7
+            ],
+            "cutOutSE": [
+                0.8,
+                -0.568
+            ],
+            "cutOutSW": [
+                0.168,
+                -1.08
+            ]
+        },
+        "accidentalThreeQuarterTonesSharpArrowUp": {
+            "cutOutNE": [
+                0.924,
+                2.12
+            ],
+            "cutOutNW": [
+                0.18,
+                0.644
+            ],
+            "cutOutSE": [
+                0.8,
+                -0.64
+            ],
+            "cutOutSW": [
+                0.18,
+                -0.78
+            ]
+        },
+        "accidentalThreeQuarterTonesSharpStein": {
+            "cutOutNE": [
+                0.988,
+                0.812
+            ],
+            "cutOutNW": [
+                0.172,
+                0.624
+            ],
+            "cutOutSE": [
+                0.988,
+                -0.612
+            ],
+            "cutOutSW": [
+                0.172,
+                -0.796
+            ]
+        },
+        "accidentalTripleFlat": {
+            "cutOutNE": [
+                1.512,
+                0.64
+            ],
+            "cutOutSE": [
+                1.884,
+                -0.42
+            ]
+        },
+        "accidentalTripleSharp": {
+            "cutOutNE": [
+                0.996,
+                0.56
+            ],
+            "cutOutNW": [
+                0.18,
+                0.644
+            ],
+            "cutOutSE": [
+                0.996,
+                -0.56
+            ],
+            "cutOutSW": [
+                0.18,
+                -0.78
+            ]
+        },
+        "dynamicFF": {
+            "opticalCenter": [
+                1.176,
+                0.0
+            ]
+        },
+        "dynamicFFF": {
+            "opticalCenter": [
+                1.676,
+                0.0
+            ]
+        },
+        "dynamicFFFF": {
+            "opticalCenter": [
+                2.176,
+                0.0
+            ]
+        },
+        "dynamicFFFFF": {
+            "opticalCenter": [
+                2.676,
+                0.0
+            ]
+        },
+        "dynamicFFFFFF": {
+            "opticalCenter": [
+                3.176,
+                0.0
+            ]
+        },
+        "dynamicForte": {
+            "opticalCenter": [
+                0.668,
+                0.0
+            ]
+        },
+        "dynamicFortePiano": {
+            "opticalCenter": [
+                1.16,
+                0.0
+            ]
+        },
+        "dynamicForzando": {
+            "opticalCenter": [
+                0.924,
+                0.0
+            ]
+        },
+        "dynamicMF": {
+            "opticalCenter": [
+                1.54,
+                0.0
+            ]
+        },
+        "dynamicMP": {
+            "opticalCenter": [
+                1.512,
+                0.0
+            ]
+        },
+        "dynamicMezzo": {
+            "opticalCenter": [
+                0.804,
+                0.0
+            ]
+        },
+        "dynamicNiente": {
+            "opticalCenter": [
+                0.552,
+                0.0
+            ]
+        },
+        "dynamicPF": {
+            "opticalCenter": [
+                1.552,
+                0.0
+            ]
+        },
+        "dynamicPP": {
+            "opticalCenter": [
+                1.456,
+                0.0
+            ]
+        },
+        "dynamicPPP": {
+            "opticalCenter": [
+                2.104,
+                0.0
+            ]
+        },
+        "dynamicPPPP": {
+            "opticalCenter": [
+                2.752,
+                0.0
+            ]
+        },
+        "dynamicPPPPP": {
+            "opticalCenter": [
+                3.4,
+                0.0
+            ]
+        },
+        "dynamicPPPPPP": {
+            "opticalCenter": [
+                4.048,
+                0.0
+            ]
+        },
+        "dynamicPiano": {
+            "opticalCenter": [
+                0.808,
+                0.0
+            ]
+        },
+        "dynamicRinforzando": {
+            "opticalCenter": [
+                0.568,
+                0.0
+            ]
+        },
+        "dynamicRinforzando1": {
+            "opticalCenter": [
+                1.28,
+                0.0
+            ]
+        },
+        "dynamicRinforzando2": {
+            "opticalCenter": [
+                1.536,
+                0.0
+            ]
+        },
+        "dynamicSforzando": {
+            "opticalCenter": [
+                0.484,
+                0.0
+            ]
+        },
+        "dynamicSforzando1": {
+            "opticalCenter": [
+                1.2,
+                0.0
+            ]
+        },
+        "dynamicSforzandoPianissimo": {
+            "opticalCenter": [
+                1.2,
+                0.0
+            ]
+        },
+        "dynamicSforzandoPiano": {
+            "opticalCenter": [
+                1.2,
+                0.0
+            ]
+        },
+        "dynamicSforzato": {
+            "opticalCenter": [
+                1.456,
+                0.0
+            ]
+        },
+        "dynamicSforzatoFF": {
+            "opticalCenter": [
+                1.96,
+                0.0
+            ]
+        },
+        "dynamicSforzatoPiano": {
+            "opticalCenter": [
+                1.456,
+                0.0
+            ]
+        },
+        "dynamicZ": {
+            "opticalCenter": [
+                0.596,
+                0.0
+            ]
+        },
+        "flag1024thDown": {
+            "stemDownSW": [
+                0.0,
+                -4.308
+            ]
+        },
+        "flag1024thUp": {
+            "stemUpNW": [
+                0.0,
+                4.304
+            ]
+        },
+        "flag128thDown": {
+            "stemDownSW": [
+                0.0,
+                -2.016
+            ]
+        },
+        "flag128thUp": {
+            "stemUpNW": [
+                0.0,
+                2.008
+            ]
+        },
+        "flag16thDown": {
+            "stemDownSW": [
+                0.0,
+                0.004
+            ]
+        },
+        "flag16thUp": {
+            "stemUpNW": [
+                0.0,
+                0.0
+            ]
+        },
+        "flag256thDown": {
+            "stemDownSW": [
+                0.0,
+                -2.816
+            ]
+        },
+        "flag256thUp": {
+            "stemUpNW": [
+                0.0,
+                2.812
+            ]
+        },
+        "flag32ndDown": {
+            "stemDownSW": [
+                0.0,
+                -0.552
+            ]
+        },
+        "flag32ndUp": {
+            "stemUpNW": [
+                0.0,
+                0.548
+            ]
+        },
+        "flag512thDown": {
+            "stemDownSW": [
+                0.0,
+                -3.548
+            ]
+        },
+        "flag512thUp": {
+            "stemUpNW": [
+                0.0,
+                3.548
+            ]
+        },
+        "flag64thDown": {
+            "stemDownSW": [
+                0.0,
+                -1.272
+            ]
+        },
+        "flag64thUp": {
+            "stemUpNW": [
+                0.0,
+                1.268
+            ]
+        },
+        "flag8thDown": {
+            "stemDownSW": [
+                0.0,
+                0.004
+            ]
+        },
+        "flag8thUp": {
+            "stemUpNW": [
+                0.0,
+                -0.004
+            ]
+        },
+        "mensuralNoteheadMinimaWhite": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.372,
+                0.0
+            ]
+        },
+        "mensuralNoteheadSemiminimaWhite": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.372,
+                0.0
+            ]
+        },
+        "noteheadBlack": {
+            "cutOutNE": [
+                1.184,
+                0.42
+            ],
+            "cutOutNW": [
+                0.276,
+                0.308
+            ],
+            "cutOutSE": [
+                1.064,
+                -0.276
+            ],
+            "cutOutSW": [
+                0.152,
+                -0.456
+            ],
+            "stemDownNW": [
+                0.0,
+                -0.176
+            ],
+            "stemUpSE": [
+                1.3,
+                0.168
+            ]
+        },
+        "noteheadCircleX": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.3,
+                0.0
+            ]
+        },
+        "noteheadCircledXLarge": {
+            "stemDownNW": [
+                0.272,
+                -0.424
+            ],
+            "stemUpSE": [
+                1.572,
+                0.424
+            ]
+        },
+        "noteheadDiamondBlack": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.3,
+                0.0
+            ]
+        },
+        "noteheadDiamondHalf": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.3,
+                0.0
+            ]
+        },
+        "noteheadHalf": {
+            "cutOutNE": [
+                1.184,
+                0.42
+            ],
+            "cutOutNW": [
+                0.276,
+                0.308
+            ],
+            "cutOutSE": [
+                1.068,
+                -0.276
+            ],
+            "cutOutSW": [
+                0.156,
+                -0.456
+            ],
+            "stemDownNW": [
+                0.0,
+                -0.172
+            ],
+            "stemUpSE": [
+                1.3,
+                0.172
+            ]
+        },
+        "noteheadPlusBlack": {
+            "stemDownNW": [
+                0.0,
+                0.0
+            ],
+            "stemUpSE": [
+                1.3,
+                0.0
+            ]
+        },
+        "noteheadWhole": {
+            "cutOutNE": [
+                1.296,
+                0.4
+            ],
+            "cutOutNW": [
+                0.2,
+                0.4
+            ],
+            "cutOutSW": [
+                0.212,
+                -0.4
+            ],
+            "stemUpSE": [
+                1.284,
+                -0.4
+            ]
+        },
+        "noteheadXBlack": {
+            "stemDownNW": [
+                0.0,
+                -0.424
+            ],
+            "stemUpSE": [
+                1.3,
+                0.424
+            ]
+        },
+        "wiggleArpeggiatoDown": {
+            "repeatOffset": [
+                0.88,
+                0.0
+            ]
+        },
+        "wiggleArpeggiatoUp": {
+            "repeatOffset": [
+                0.88,
+                0.0
+            ]
+        },
+        "wiggleTrill": {
+            "repeatOffset": [
+                0.88,
+                0.0
+            ]
+        }
+    }
+}

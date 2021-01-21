@@ -428,22 +428,8 @@ void ScoreView::elementPropertyAction(const QString& cmd, Element* e)
             Note* note = toNote(e);
             mscore->editInPianoroll(note->staff());
             }
-      else if (cmd == "style") {
-            if (!mscore->styleDlg())
-                  mscore->setStyleDlg(new EditStyle { _score, mscore });
-            else
-                  mscore->styleDlg()->setScore(mscore->currentScore());
-            mscore->styleDlg()->gotoElement(e);
-            mscore->styleDlg()->exec();
-            }
-      else if (cmd == "style-header-footer") { // used to go to the header/footer dialog by double-clicking on a header/footer
-            if (!mscore->styleDlg())
-                  mscore->setStyleDlg(new EditStyle { _score, mscore });
-            else
-                  mscore->styleDlg()->setScore(mscore->currentScore());
-            mscore->styleDlg()->gotoHeaderFooterPage();
-            mscore->styleDlg()->exec();
-            }
+      else if (cmd == "style")
+            mscore->showStyleDialog(e);
       else if (cmd == "ch-instr")
             selectInstrument(toInstrumentChange(e));
       else if (cmd == "staff-props") {
@@ -497,10 +483,10 @@ void ScoreView::editTimeSigProperties(TimeSig* ts)
       TimeSigProperties tsp(r);
 
       if (tsp.exec()) {
+            ts->undoChangeProperty(Pid::TIMESIG_TYPE, int(r->timeSigType()));
             ts->undoChangeProperty(Pid::SHOW_COURTESY, r->showCourtesySig());
             ts->undoChangeProperty(Pid::NUMERATOR_STRING, r->numeratorString());
             ts->undoChangeProperty(Pid::DENOMINATOR_STRING, r->denominatorString());
-            ts->undoChangeProperty(Pid::TIMESIG_TYPE, int(r->timeSigType()));
             ts->undoChangeProperty(Pid::GROUPS, QVariant::fromValue<Groups>(r->groups()));
 
             if (r->sig() != ts->sig()) {

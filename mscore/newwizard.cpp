@@ -57,6 +57,7 @@ TimesigWizard::TimesigWizard(QWidget* parent)
       connect(tsCutTime,    SIGNAL(toggled(bool)), SLOT(cutTimeToggled(bool)));
       connect(tsFraction,   SIGNAL(toggled(bool)), SLOT(fractionToggled(bool)));
       pickupMeasure->setChecked(false); // checked in the UI file to enable screen reader on pickup duration controls
+      tempoGroup->setChecked(false);
 
       tsCommonTime->setIcon(*icons[int(Icons::timesig_common_ICON)]);
       tsCutTime->setIcon(*icons[int(Icons::timesig_allabreve_ICON)]);
@@ -255,6 +256,7 @@ bool NewWizardInstrumentsPage::isComplete() const
 void NewWizardInstrumentsPage::createInstruments(Score* s)
       {
       instrumentsWidget->createInstruments(s);
+      s->setScoreOrder(instrumentsWidget->getScoreOrder());
       }
 
 //---------------------------------------------------------
@@ -320,7 +322,7 @@ void NewWizardTemplatePage::buildTemplatesList()
       QDir dir(mscoreGlobalShare + "/templates");
       QFileInfoList fil = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Readable | QDir::Dirs | QDir::Files, QDir::Name);
       if(fil.isEmpty()){
-          fil.append(QFileInfo(QFile(":data/Empty_Score.mscz")));
+          fil.append(QFileInfo(QFile(":data/Empty_Score.mscx")));
           }
 
       QDir myTemplatesDir(preferences.getString(PREF_APP_PATHS_MYTEMPLATES));

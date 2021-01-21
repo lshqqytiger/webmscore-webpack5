@@ -163,9 +163,11 @@ void MixerDetails::updateFromTrack()
       Channel* chan = _mti->focusedChan();
 
       //Check if drumkit
-      const bool drum = midiMap->part()->instrument()->useDrumset();
+      const bool isHarmonyChannel = chan->isHarmonyChannel();
+      const bool drum = midiMap->part()->instrument()->useDrumset() && !isHarmonyChannel;
       drumkitCheck->blockSignals(true);
       drumkitCheck->setChecked(drum);
+      drumkitCheck->setEnabled(!isHarmonyChannel);
       drumkitCheck->blockSignals(false);
 
       //Populate patch combo
@@ -276,7 +278,7 @@ void MixerDetails::updateFromTrack()
                   tb->setText(QString("%1").arg(voice + 1));
                   tb->setCheckable(true);
                   tb->setChecked(!staff->playbackVoice(voice));
-                  tb->setToolTip(QString(tr("Staff %1")).arg(staffIdx + 1));
+                  tb->setToolTip(QString(tr("Staff %1:")).arg(staffIdx + 1));
 
                   mutePerVoiceGrid->addWidget(tb, staffIdx, voice);
                   MixerDetailsVoiceButtonHandler* handler =

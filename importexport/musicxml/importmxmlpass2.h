@@ -51,6 +51,14 @@ enum class MxmlStartStop : char {
  */
 
 //---------------------------------------------------------
+//   MusicXmlSlash
+//---------------------------------------------------------
+
+enum class MusicXmlSlash : char {
+      NONE, RHYTHM, SLASH
+      };
+
+//---------------------------------------------------------
 //   MusicXmlTupletDesc
 //---------------------------------------------------------
 
@@ -258,7 +266,7 @@ private:
       void clef(const QString& partId, Measure* measure, const Fraction& tick);
       void time(const QString& partId, Measure* measure, const Fraction& tick);
       void divisions();
-      void transpose(const QString& partId);
+      void transpose(const QString& partId, const Fraction& tick);
       Note* note(const QString& partId, Measure* measure, const Fraction sTime, const Fraction prevTime,
                  Fraction& missingPrev, Fraction& dura, Fraction& missingCurr, QString& currentVoice, GraceChordList& gcl, int& gac,
                  Beam*& beam, FiguredBassList& fbl, int& alt, MxmlTupletStates& tupletStates, Tuplets& tuplets);
@@ -320,6 +328,8 @@ private:
       FiguredBass* _figBass;                      ///< Current figured bass element (to attach to next note)
       int _multiMeasureRestCount;
       MusicXmlLyricsExtend _extendedLyrics;       ///< Lyrics with "extend" requiring fixup
+
+      MusicXmlSlash _measureStyleSlash;           ///< Are we inside a measure to be displayed as slashes?
       };
 
 //---------------------------------------------------------

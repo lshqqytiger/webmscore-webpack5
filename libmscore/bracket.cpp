@@ -116,8 +116,11 @@ void Bracket::setStaffSpan(int a, int b)
          score()->styleSt(Sid::MusicalSymbolFont) != "Emmentaler" && score()->styleSt(Sid::MusicalSymbolFont) != "Gonville")
             {
             int v = _lastStaff - _firstStaff + 1;
+            if (score()->styleSt(Sid::MusicalSymbolFont) == "Leland")
+                  v = qMin(4, v);
             // total default height of a system of n staves / height of a 5 line staff
-            _magx = v + ((v - 1) * score()->styleS(Sid::akkoladeDistance).val() / 4.0);
+            qreal dist = score()->enableVerticalSpread() ? score()->styleS(Sid::maxAkkoladeDistance).val() : score()->styleS(Sid::akkoladeDistance).val();
+            _magx = v + ((v - 1) * dist / 4.0);
             if (v == 1)
                   _braceSymbol = SymId::braceSmall;
             else if (v <= 2)
@@ -188,7 +191,7 @@ void Bracket::layout()
                   qreal w = score()->styleP(Sid::bracketWidth) * .5;
                   qreal x = -w;
 
-                  qreal bd   = _spatium * .25;
+                  qreal bd   = (score()->styleSt(Sid::MusicalSymbolFont) == "Leland") ? _spatium * .5 : _spatium * .25;
                   _shape.add(QRectF(x, -bd, w * 2, 2 * (h2+bd)));
                   _shape.add(symBbox(SymId::bracketTop).translated(QPointF(-w, -bd)));
                   _shape.add(symBbox(SymId::bracketBottom).translated(QPointF(-w, bd + 2*h2)));
@@ -255,7 +258,7 @@ void Bracket::draw(QPainter* painter) const
                   qreal h        = 2 * h2;
                   qreal _spatium = spatium();
                   qreal w        = score()->styleP(Sid::bracketWidth);
-                  qreal bd       = _spatium * .25;
+                  qreal bd       = (score()->styleSt(Sid::MusicalSymbolFont) == "Leland") ? _spatium * .5 : _spatium * .25;
                   QPen pen(curColor(), w, Qt::SolidLine, Qt::FlatCap);
                   painter->setPen(pen);
                   painter->drawLine(QLineF(0.0, -bd - w * .5, 0.0, h + bd + w * .5));
@@ -279,11 +282,10 @@ void Bracket::draw(QPainter* painter) const
                   break;
             case BracketType::LINE: {
                   qreal h = 2 * h2;
-                  qreal _spatium = spatium();
                   qreal w = 0.67 * score()->styleP(Sid::bracketWidth);
                   QPen pen(curColor(), w, Qt::SolidLine, Qt::FlatCap);
                   painter->setPen(pen);
-                  qreal bd = _spatium * .25;
+                  qreal bd = score()->styleP(Sid::staffLineWidth) * 0.5;
                   painter->drawLine(QLineF(0.0, -bd, 0.0, h + bd));
                   }
                   break;

@@ -81,6 +81,7 @@ class InstrumentChange;
 class Box;
 class Spanner;
 class BarLine;
+class ScoreOrder;
 enum class ClefType : signed char;
 enum class PlayEventType : char;
 class Excerpt;
@@ -351,6 +352,22 @@ class SortStaves : public UndoCommand {
       virtual void undo(EditData*) override;
       virtual void redo(EditData*) override;
       UNDO_NAME("SortStaves")
+      };
+
+//---------------------------------------------------------
+//   MapExcerptTracks
+//---------------------------------------------------------
+
+class MapExcerptTracks : public UndoCommand {
+      Score* score;
+      QList<int> list;
+      QList<int> rlist;
+
+   public:
+      MapExcerptTracks(Score*, QList<int>);
+      virtual void undo(EditData*) override;
+      virtual void redo(EditData*) override;
+      UNDO_NAME("MapExcerptTracks")
       };
 
 //---------------------------------------------------------
@@ -676,10 +693,12 @@ class ChangePart : public UndoCommand {
 class ChangeStyle : public UndoCommand {
       Score* score;
       MStyle style;
+      bool overlap = false;
       void flip(EditData*) override;
+      void undo(EditData*) override;
 
    public:
-      ChangeStyle(Score*, const MStyle&);
+      ChangeStyle(Score*, const MStyle&, const bool overlapOnly = false);
       UNDO_NAME("ChangeStyle")
       };
 
@@ -1051,6 +1070,20 @@ class ChangeBracketProperty : public ChangeProperty {
       };
 
 //---------------------------------------------------------
+//   ChangeTextLineProperty
+//---------------------------------------------------------
+
+class ChangeTextLineProperty : public ChangeProperty {
+
+      void flip(EditData*) override;
+
+   public:
+      ChangeTextLineProperty(ScoreElement* e, QVariant v)
+         : ChangeProperty(e, Pid::SYSTEM_FLAG, v, PropertyFlags::NOSTYLE) {}
+      UNDO_NAME("ChangeTextLineProperty")
+      };
+
+//---------------------------------------------------------
 //   ChangeMetaText
 //---------------------------------------------------------
 
@@ -1403,6 +1436,20 @@ class MoveTremolo : public UndoCommand {
    public:
       MoveTremolo(Score* s, Fraction c1, Fraction c2, Tremolo* tr, int t) : score(s), chord1Tick(c1), chord2Tick(c2), trem(tr), track(t) {}
       UNDO_NAME("MoveTremolo")
+      };
+
+//---------------------------------------------------------
+//   ChangeScoreOrder
+//---------------------------------------------------------
+
+class ChangeScoreOrder : public UndoCommand {
+      Score* score;
+      ScoreOrder* order;
+      void flip(EditData*) override;
+
+   public:
+      ChangeScoreOrder(Score* sc, ScoreOrder* so) : score(sc), order(so) {};
+      UNDO_NAME("ChangeScoreOrder")
       };
 
 }     // namespace Ms

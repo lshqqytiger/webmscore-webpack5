@@ -41,6 +41,7 @@ class Box : public MeasureBase {
       qreal _rightMargin            { 0.0   };       // inner margins in metric mm
       qreal _topMargin              { 0.0   };
       qreal _bottomMargin           { 0.0   };
+      bool _isAutoSizeEnabled       { true  };
       bool editMode                 { false };
 
    public:
@@ -64,6 +65,7 @@ class Box : public MeasureBase {
       virtual Element* drop(EditData&) override;
       virtual void add(Element* e) override;
 
+      QRectF contentRect() const;
       Spatium boxWidth() const        { return _boxWidth;     }
       void setBoxWidth(Spatium val)   { _boxWidth = val;      }
       Spatium boxHeight() const       { return _boxHeight;    }
@@ -80,6 +82,8 @@ class Box : public MeasureBase {
       void setTopGap(qreal val)       { _topGap = val;        }
       qreal bottomGap() const         { return _bottomGap;    }
       void setBottomGap(qreal val)    { _bottomGap = val;     }
+      bool isAutoSizeEnabled() const  { return _isAutoSizeEnabled; }
+      void setAutoSizeEnabled(const bool val) { _isAutoSizeEnabled = val; }
       void copyValues(Box* origin);
 
       virtual QVariant getProperty(Pid propertyId) const override;
@@ -143,6 +147,10 @@ class VBox : public Box {
       VBox* clone() const override      { return new VBox(*this); }
       ElementType type() const override { return ElementType::VBOX; }
 
+      qreal minHeight() const;
+      qreal maxHeight() const;
+
+      QVariant getProperty(Pid propertyId) const override;
       void layout() override;
 
       std::vector<QPointF> gripsPositions(const EditData&) const override;

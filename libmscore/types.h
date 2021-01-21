@@ -41,6 +41,7 @@ enum class ElementType {
       SYMBOL,
       TEXT,
       MEASURE_NUMBER,
+      MMREST_RANGE,
       INSTRUMENT_NAME,
       SLUR_SEGMENT,
       TIE_SEGMENT,
@@ -147,9 +148,9 @@ enum class ElementType {
 //---------------------------------------------------------
 //   AccidentalType
 //---------------------------------------------------------
-// NOTE: keep this in sync with with accList array
+// NOTE: keep this in sync with with accList array in accidentals.cpp
 
-enum class AccidentalType : char {
+enum class AccidentalType : unsigned char {
       ///.\{
       NONE,
       FLAT,
@@ -157,8 +158,8 @@ enum class AccidentalType : char {
       SHARP,
       SHARP2,
       FLAT2,
-      //SHARP3,
-      //FLAT3,
+      SHARP3,
+      FLAT3,
       NATURAL_FLAT,
       NATURAL_SHARP,
       SHARP_SHARP,
@@ -174,6 +175,8 @@ enum class AccidentalType : char {
       SHARP2_ARROW_DOWN,
       FLAT2_ARROW_UP,
       FLAT2_ARROW_DOWN,
+      ARROW_DOWN,
+      ARROW_UP,
 
       // Stein-Zimmermann
       MIRRORED_FLAT,
@@ -241,6 +244,20 @@ enum class AccidentalType : char {
       QUARTER_FLAT_EQUAL_TEMPERED,
       QUARTER_SHARP_EQUAL_TEMPERED,
 
+      FLAT_17,
+      SHARP_17,
+      FLAT_19,
+      SHARP_19,
+      FLAT_23,
+      SHARP_23,
+      FLAT_31,
+      SHARP_31,
+      FLAT_53,
+      SHARP_53,
+      //EQUALS_ALMOST,
+      //EQUALS,
+      //TILDE,
+
       // Persian
       SORI,
       KORON,
@@ -268,6 +285,34 @@ enum class AccidentalType : char {
       EIGHT_TWELFTH_SHARP,
       NINE_TWELFTH_FLAT,
       NINE_TWELFTH_SHARP,
+
+      // (Spartan) Sagittal
+      SAGITTAL_5V7KD,
+      SAGITTAL_5V7KU,
+      SAGITTAL_5CD,
+      SAGITTAL_5CU,
+      SAGITTAL_7CD,
+      SAGITTAL_7CU,
+      SAGITTAL_25SDD,
+      SAGITTAL_25SDU,
+      SAGITTAL_35MDD,
+      SAGITTAL_35MDU,
+      SAGITTAL_11MDD,
+      SAGITTAL_11MDU,
+      SAGITTAL_11LDD,
+      SAGITTAL_11LDU,
+      SAGITTAL_35LDD,
+      SAGITTAL_35LDU,
+      SAGITTAL_FLAT25SU,
+      SAGITTAL_SHARP25SD,
+      SAGITTAL_FLAT7CU,
+      SAGITTAL_SHARP7CD,
+      SAGITTAL_SHARP5CD,
+      SAGITTAL_SHARP5V7KD,
+      SAGITTAL_FLAT5CU,
+      SAGITTAL_FLAT5V7KU,
+      SAGITTAL_FLAT,
+      SAGITTAL_SHARP,
 
       END
       ///\}
@@ -326,7 +371,19 @@ enum class GlissandoType {
 
 enum class GlissandoStyle {
       ///.\{
-      CHROMATIC, WHITE_KEYS, BLACK_KEYS, DIATONIC
+      CHROMATIC, WHITE_KEYS, BLACK_KEYS, DIATONIC, PORTAMENTO
+      ///\}
+      };
+
+//---------------------------------------------------------
+//   HarmonyType
+//---------------------------------------------------------
+
+enum class HarmonyType {
+      ///.\{
+      STANDARD,
+      ROMAN,
+      NASHVILLE
       ///\}
       };
 
@@ -349,6 +406,17 @@ enum class HPlacement {
       LEFT, CENTER, RIGHT
       ///\}
       };
+
+//---------------------------------------------------------
+//   MMRestRangeBracketType
+//---------------------------------------------------------
+
+enum class MMRestRangeBracketType {
+      ///.\{
+      BRACKETS, PARENTHESES, NONE
+      ///\}
+      };
+
 
 //---------------------------------------------------------
 //   OffsetType
@@ -410,45 +478,46 @@ enum class Tid {
       SUBTITLE,
       COMPOSER,
       POET,
-      LYRICS_ODD,
-      LYRICS_EVEN,
-      FINGERING,
-      LH_GUITAR_FINGERING,
-      RH_GUITAR_FINGERING,
-      STRING_NUMBER,
+      TRANSLATOR,
+      FRAME,
+      INSTRUMENT_EXCERPT,
       INSTRUMENT_LONG,
       INSTRUMENT_SHORT,
-      INSTRUMENT_EXCERPT,
-      DYNAMICS,
-      EXPRESSION,
+      INSTRUMENT_CHANGE,
+      HEADER,
+      FOOTER,
+      MEASURE_NUMBER,
+      MMREST_RANGE,
       TEMPO,
       METRONOME,
-      MEASURE_NUMBER,
-      TRANSLATOR,
-      TUPLET,
+      REPEAT_LEFT,       // align to start of measure
+      REPEAT_RIGHT,      // align to end of measure
+      REHEARSAL_MARK,
       SYSTEM,
       STAFF,
+      EXPRESSION,
+      DYNAMICS,
+      HAIRPIN,
+      LYRICS_ODD,
+      LYRICS_EVEN,
       HARMONY_A,
       HARMONY_B,
       HARMONY_ROMAN,
       HARMONY_NASHVILLE,
-      REHEARSAL_MARK,
-      REPEAT_LEFT,       // align to start of measure
-      REPEAT_RIGHT,      // align to end of measure
-      FRAME,
+      TUPLET,
+      STICKING,
+      FINGERING,
+      LH_GUITAR_FINGERING,
+      RH_GUITAR_FINGERING,
+      STRING_NUMBER,
       TEXTLINE,
-      GLISSANDO,
-      OTTAVA,
       VOLTA,
+      OTTAVA,
+      GLISSANDO,
       PEDAL,
+      BEND,
       LET_RING,
       PALM_MUTE,
-      HAIRPIN,
-      BEND,
-      HEADER,
-      FOOTER,
-      INSTRUMENT_CHANGE,
-      STICKING,
       USER1,
       USER2,
       USER3,
@@ -555,6 +624,7 @@ Q_ENUM_NS(Align);
 Q_ENUM_NS(NoteType);
 Q_ENUM_NS(PlayEventType);
 Q_ENUM_NS(AccidentalType);
+Q_ENUM_NS(HarmonyType);
 #endif
 
 //hack: to force the build system to run moc on this file

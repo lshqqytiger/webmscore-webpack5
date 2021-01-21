@@ -185,12 +185,11 @@ Fraction XmlReader::readFraction()
       if (!s.isEmpty()) {
             int i = s.indexOf('/');
             if (i == -1) {
-                  qDebug("reading ticks <%s>", qPrintable(s));
                   return Fraction::fromTicks(s.toInt());
                   }
             else {
-                  z = s.left(i).toInt();
-                  n = s.mid(i+1).toInt();
+                  z = s.leftRef(i).toInt();
+                  n = s.midRef(i+1).toInt();
                   }
             }
       return Fraction(z, n);
@@ -354,7 +353,7 @@ void XmlReader::htmlToString(int level, QString* s)
       {
       *s += QString("<%1").arg(name().toString());
       for (const QXmlStreamAttribute& a : attributes())
-            *s += QString(" %1=\"%2\"").arg(a.name().toString()).arg(a.value().toString());
+            *s += QString(" %1=\"%2\"").arg(a.name().toString(), a.value().toString());
       *s += ">";
       ++level;
       for (;;) {
@@ -458,7 +457,7 @@ void XmlReader::addSpanner(int id, Spanner* s)
 
 void XmlReader::removeSpanner(const Spanner* s)
       {
-      for (auto i : _spanner) {
+      for (auto i : qAsConst(_spanner)) {
             if (i.second == s) {
                   _spanner.removeOne(i);
                   return;
@@ -472,7 +471,7 @@ void XmlReader::removeSpanner(const Spanner* s)
 
 Spanner* XmlReader::findSpanner(int id)
       {
-      for (auto i : _spanner) {
+      for (auto i : qAsConst(_spanner)) {
             if (i.first == id)
                   return i.second;
             }
@@ -485,7 +484,7 @@ Spanner* XmlReader::findSpanner(int id)
 
 int XmlReader::spannerId(const Spanner* s)
       {
-      for (auto i : _spanner) {
+      for (auto i : qAsConst(_spanner)) {
             if (i.second == s)
                   return i.first;
             }

@@ -66,6 +66,7 @@
 #include "system.h"
 #include "tempotext.h"
 #include "measurenumber.h"
+#include "mmrestrange.h"
 #include "tie.h"
 #include "tiemap.h"
 #include "timesig.h"
@@ -91,6 +92,7 @@ namespace Ms {
 
 class MStaff {
       MeasureNumber* _noText { 0 };         ///< Measure number text object
+      MMRestRange* _mmRangeText { 0 };      ///< Multi measure rest range text object
       StaffLines*  _lines    { 0 };
       Spacer* _vspacerUp     { 0 };
       Spacer* _vspacerDown   { 0 };
@@ -112,6 +114,9 @@ class MStaff {
 
       MeasureNumber* noText() const   { return _noText;     }
       void setNoText(MeasureNumber* t) { _noText = t;        }
+
+      MMRestRange *mmRangeText() const { return _mmRangeText; }
+      void setMMRangeText(MMRestRange *r) { _mmRangeText = r; }
 
       StaffLines* lines() const      { return _lines; }
       void setLines(StaffLines* l)   { _lines = l;    }
@@ -139,6 +144,7 @@ class MStaff {
 MStaff::~MStaff()
       {
       delete _noText;
+      delete _mmRangeText;
       delete _lines;
       delete _vspacerUp;
       delete _vspacerDown;
@@ -147,6 +153,7 @@ MStaff::~MStaff()
 MStaff::MStaff(const MStaff& m)
       {
       _noText      = 0;
+      _mmRangeText = 0;
       _lines       = new StaffLines(*m._lines);
       _hasVoices   = m._hasVoices;
       _vspacerUp   = 0;
@@ -172,6 +179,8 @@ void MStaff::setScore(Score* score)
             _vspacerDown->setScore(score);
       if (_noText)
             _noText->setScore(score);
+      if (_mmRangeText)
+            _mmRangeText->setScore(score);
       }
 
 //---------------------------------------------------------
@@ -188,6 +197,8 @@ void MStaff::setTrack(int track)
             _vspacerDown->setTrack(track);
       if (_noText)
             _noText->setTrack(track);
+      if(_mmRangeText)
+            _mmRangeText->setTrack(track);
       }
 
 //---------------------------------------------------------
@@ -208,7 +219,7 @@ Measure::Measure(Score* s)
             ms->setLines(new StaffLines(score()));
             ms->lines()->setTrack(staffIdx * VOICES);
             ms->lines()->setParent(this);
-            ms->lines()->setVisible(!staff->invisible());
+            ms->lines()->setVisible(!staff->invisible(tick()));
             _mstaves.push_back(ms);
             }
       setIrregular(false);
@@ -250,8 +261,16 @@ Measure::Measure(const Measure& m)
 
 void Measure::layoutStaffLines()
       {
-      for (MStaff* ms : _mstaves)
-            ms->lines()->layout();
+      int staffIdx = 0;
+      for (MStaff* ms : _mstaves) { 
+            if (isCutawayClef(staffIdx) && (score()->staff(staffIdx)->cutaway() || !visible(staffIdx)))
+                  // draw short staff lines for a courtesy clef on a hidden measure
+                  ms->lines()->layoutPartialWidth(width(), 4.0, true);
+            else
+                  // normal staff lines
+                  ms->lines()->layout();                           
+            staffIdx += 1;
+            }
       }
 
 //---------------------------------------------------------
@@ -266,7 +285,7 @@ void Measure::createStaves(int staffIdx)
             s->setLines(new StaffLines(score()));
             s->lines()->setParent(this);
             s->lines()->setTrack(n * VOICES);
-            s->lines()->setVisible(!staff->invisible());
+            s->lines()->setVisible(!staff->invisible(tick()));
             _mstaves.push_back(s);
             }
       }
@@ -297,6 +316,9 @@ void Measure::setCorrupted(int staffIdx, bool val)              { _mstaves[staff
 
 void Measure::setNoText(int staffIdx, MeasureNumber* t)         { _mstaves[staffIdx]->setNoText(t); }
 MeasureNumber* Measure::noText(int staffIdx) const              { return _mstaves[staffIdx]->noText(); }
+
+void Measure::setMMRangeText(int staffIdx, MMRestRange* t)      { _mstaves[staffIdx]->setMMRangeText(t); }
+MMRestRange* Measure::mmRangeText(int staffIdx) const           { return _mstaves[staffIdx]->mmRangeText(); }
 
 //---------------------------------------------------------
 //   Measure
@@ -433,7 +455,7 @@ AccidentalVal Measure::findAccidental(Segment* s, int staffIdx, int line, bool &
 
 //---------------------------------------------------------
 //   tick2pos
-//    return x position for tick relative to System
+///    return x position for tick relative to System
 //---------------------------------------------------------
 
 qreal Measure::tick2pos(Fraction tck) const
@@ -538,16 +560,14 @@ void Measure::layoutMeasureNumber()
       QString s;
       if (smn)
             s = QString("%1").arg(no() + 1);
+
       unsigned nn = 1;
       bool nas = score()->styleB(Sid::measureNumberAllStaves);
 
       if (!nas) {
             //find first non invisible staff
             for (unsigned staffIdx = 0; staffIdx < _mstaves.size(); ++staffIdx) {
-                  MStaff* ms = _mstaves[staffIdx];
-                  SysStaff* ss  = system()->staff(staffIdx);
-                  Staff* staff = score()->staff(staffIdx);
-                  if (ms->visible() && staff->show() && ss->show()) {
+                  if (visible(staffIdx)) {
                         nn = staffIdx;
                         break;
                         }
@@ -577,6 +597,52 @@ void Measure::layoutMeasureNumber()
                               score()->undo(new RemoveElement(t));
                         }
                   }
+            }
+      }
+
+void Measure::layoutMMRestRange()
+      {
+      if (!isMMRest() || !score()->styleB(Sid::mmRestShowMeasureNumberRange)) {
+            // Remove existing
+            for (unsigned staffIdx = 0; staffIdx < _mstaves.size(); ++staffIdx) {
+                  MStaff *ms = _mstaves[staffIdx];
+                  MMRestRange *rr = ms->mmRangeText();
+                  if (rr) {
+                        if (rr->generated())
+                              score()->removeElement(rr);
+                        else
+                              score()->undo(new RemoveElement(rr));
+                        }
+                  }
+
+            return;
+            }
+
+
+      QString s;
+      if (mmRestCount() > 1) {
+            // middle char is an en dash (not em)
+            s = QString("%1–%2").arg(no() + 1).arg(no() + mmRestCount());
+            }
+      else {
+            // If the minimum range to create a mmrest is set to 1,
+            // then simply show the measure number as there is no range
+            s = QString("%1").arg(no() + 1);
+            }
+
+      for (unsigned staffIdx = 0; staffIdx < _mstaves.size(); ++staffIdx) {
+            MStaff *ms = _mstaves[staffIdx];
+            MMRestRange *rr = ms->mmRangeText();
+            if (!rr) {
+                  rr = new MMRestRange(score());
+                  rr->setTrack(staffIdx * VOICES);
+                  rr->setGenerated(true);
+                  rr->setParent(this);
+                  add(rr);
+                  }
+            // setXmlText is reimplemented to take care of brackets
+            rr->setXmlText(s);
+            rr->layout();
             }
       }
 
@@ -819,6 +885,14 @@ void Measure::add(Element* e)
                         }
                   break;
 
+            case ElementType::MMREST_RANGE:
+                  if (e->staffIdx() < int(_mstaves.size())) {
+                        if (e->isStyled(Pid::OFFSET))
+                              e->setOffset(e->propertyDefault(Pid::OFFSET).toPointF());
+                        _mstaves[e->staffIdx()]->setMMRangeText(toMMRestRange(e));
+                        }
+                  break;
+
             case ElementType::SPACER:
                   {
                   Spacer* sp = toSpacer(e);
@@ -913,6 +987,10 @@ void Measure::remove(Element* e)
 
             case ElementType::MEASURE_NUMBER:
                   _mstaves[e->staffIdx()]->setNoText(nullptr);
+                  break;
+
+            case ElementType::MMREST_RANGE:
+                  _mstaves[e->staffIdx()]->setMMRangeText(nullptr);
                   break;
 
             case ElementType::SPACER:
@@ -1027,8 +1105,10 @@ void Measure::moveTicks(const Fraction& diff)
                         if (e) {
                               ChordRest* cr = toChordRest(e);
                               Tuplet* tuplet = cr->tuplet();
-                              if (tuplet && tuplets.count(tuplet) == 0)
+                              if (tuplet && tuplets.count(tuplet) == 0) {
+                                    tuplet->setTick(tuplet->tick() + diff);
                                     tuplets.insert(tuplet);
+                                    }
                               }
                         }
                   }
@@ -1144,7 +1224,7 @@ void Measure::cmdAddStaves(int sStaff, int eStaff, bool createRest)
             ms->setLines(new StaffLines(score()));
             ms->lines()->setTrack(i * VOICES);
             ms->lines()->setParent(this);
-            ms->lines()->setVisible(!staff->invisible());
+            ms->lines()->setVisible(!staff->invisible(tick()));
             score()->undo(new InsertMStaff(this, ms, i));
             }
 
@@ -1260,7 +1340,7 @@ void Measure::insertStaff(Staff* staff, int staffIdx)
       ms->setLines(new StaffLines(score()));
       ms->lines()->setParent(this);
       ms->lines()->setTrack(staffIdx * VOICES);
-      ms->lines()->setVisible(!staff->invisible());
+      ms->lines()->setVisible(!staff->invisible(tick()));
       insertMStaff(ms, staffIdx);
       }
 
@@ -1724,7 +1804,7 @@ void Measure::adjustToLen(Fraction nf, bool appendRestsIfNecessary)
       Measure* m    = s->tick2measure(tick());
       QList<int> sl = s->uniqueStaves();
 
-      for (int staffIdx : sl) {
+      for (int staffIdx : qAsConst(sl)) {
             int rests  = 0;
             int chords = 0;
             Rest* rest = 0;
@@ -1876,6 +1956,9 @@ void Measure::write(XmlWriter& xml, int staff, bool writeSystemElements, bool fo
       if (mstaff->noText() && !mstaff->noText()->generated())
             mstaff->noText()->write(xml);
 
+      if (mstaff->mmRangeText() && !mstaff->mmRangeText()->generated())
+            mstaff->mmRangeText()->write(xml);
+
       if (mstaff->vspacerUp())
             xml.tag("vspacerUp", mstaff->vspacerUp()->gap() / _spatium);
       if (mstaff->vspacerDown()) {
@@ -1922,7 +2005,7 @@ void Measure::read(XmlReader& e, int staffIdx)
             s->setLines(new StaffLines(score()));
             s->lines()->setParent(this);
             s->lines()->setTrack(n * VOICES);
-            s->lines()->setVisible(!staff->invisible());
+            s->lines()->setVisible(!staff->invisible(tick()));
             _mstaves.push_back(s);
             }
 
@@ -2027,6 +2110,12 @@ void Measure::read(XmlReader& e, int staffIdx)
                   noText->read(e);
                   noText->setTrack(e.track());
                   add(noText);
+                  }
+            else if (tag == "MMRestRange") {
+                  MMRestRange* range = new MMRestRange(score());
+                  range->read(e);
+                  range->setTrack(e.track());
+                  add(range);
                   }
             else if (MeasureBase::readProperties(e))
                   ;
@@ -2505,16 +2594,21 @@ void Measure::scanElements(void* data, void (*func)(void*, Element*), bool all)
 
       int nstaves = score()->nstaves();
       for (int staffIdx = 0; staffIdx < nstaves; ++staffIdx) {
-            if (!all && !(visible(staffIdx) && score()->staff(staffIdx)->show()))
+            if (!all && !score()->staff(staffIdx)->show())
                   continue;
             MStaff* ms = _mstaves[staffIdx];
-            func(data, ms->lines());
+            // show spacers and measure number even on invisible measures (TO DO: also include Staff Type Changes)
             if (ms->vspacerUp())
                   func(data, ms->vspacerUp());
             if (ms->vspacerDown())
                   func(data, ms->vspacerDown());
             if (ms->noText())
                   func(data, ms->noText());
+            if (ms->mmRangeText())
+                  func(data, ms->mmRangeText());
+            // show staff lines only if measure is visible OR if it only has a courtesy clef for cutaway/ossias (short staff lines will be drawn if needed)
+            if (visible(staffIdx) || isCutawayClef(staffIdx))
+                  func(data, ms->lines());
             }
 
       for (Segment* s = first(); s; s = s->next()) {
@@ -2743,6 +2837,7 @@ bool Measure::isEmpty(int staffIdx) const
       {
       int strack;
       int etrack;
+      bool hasStaves = score()->staff(staffIdx)->part()->staves()->size() > 1; 
       if (staffIdx < 0) {
             strack = 0;
             etrack = score()->nstaves() * VOICES;
@@ -2756,6 +2851,19 @@ bool Measure::isEmpty(int staffIdx) const
                   Element* e = s->element(track);
                   if (e && !e->isRest())
                         return false;
+                  // Check for cross-staff chords
+                  if (hasStaves) {
+                        if (strack >= VOICES) {
+                              e = s->element(track - VOICES);
+                              if (e && !e->isRest() && e->vStaffIdx() == staffIdx)
+                                    return false;
+                              }
+                        if (etrack < score()->nstaves() * VOICES) {
+                              e = s->element(track + VOICES);
+                              if (e && !e->isRest() && e->vStaffIdx() == staffIdx)
+                                    return false;
+                              }
+                        }
                   }
             for (Element* a : s->annotations()) {
                   if (!a || a->systemFlag() || !a->visible() || a->isFermata())
@@ -2766,6 +2874,44 @@ bool Measure::isEmpty(int staffIdx) const
                   }
             }
       return true;
+      }
+
+//---------------------------------------------------------
+//   isCutawayClef
+///    Check for empty measure with only
+///    a Courtesy Clef before End Bar Line
+//---------------------------------------------------------
+
+bool Measure::isCutawayClef(int staffIdx) const
+      {
+      if (!isEmpty(staffIdx))
+            return false;
+      int strack;
+      int etrack;
+      if (staffIdx < 0) {
+            strack = 0;
+            etrack = score()->nstaves() * VOICES;
+            }
+      else {
+            strack = staffIdx * VOICES;
+            etrack = strack + VOICES;
+            }
+      // find segment before EndBarLine
+      Segment* s;
+      for (Segment* ls = last(); ls; ls = ls->prev()) {
+            if (ls->segmentType() ==  SegmentType::EndBarLine) {
+                  s = ls->prev();
+                  break;
+                  }
+            }
+      if (!s)
+            return false;
+      for (int track = strack; track < etrack; ++track) {
+            Element* e = s->element(track);
+            if (e && e->isClef() && (nextMeasure()->system() == system() || toClef(e)->showCourtesy()))
+                return true;
+            }            
+      return false;
       }
 
 //---------------------------------------------------------
@@ -3300,7 +3446,7 @@ Element* Measure::prevElementStaff(int staff)
 
 QString Measure::accessibleInfo() const
       {
-      return QString("%1: %2").arg(Element::accessibleInfo()).arg(QString::number(no() + 1));
+      return QString("%1: %2").arg(Element::accessibleInfo(), QString::number(no() + 1));
       }
 
 //-----------------------------------------------------------------------------
@@ -3399,11 +3545,11 @@ void Measure::stretchMeasure(qreal targetWidth)
                         //    x2 - right measure position of free space
 
                         Segment* s1;
-                        for (s1 = s.prev(); s1 && !s1->enabled(); s1 = s1->prev())
+                        for (s1 = s.prevActive(); s1 && s1->allElementsInvisible(); s1 = s1->prevActive())
                               ;
                         Segment* s2;
-                        for (s2 = s.next(); s2; s2 = s2->next()) {
-                              if (s2->enabled() && !s2->isChordRestType() && s2->element(staffIdx * VOICES))
+                        for (s2 = s.nextActive(); s2; s2 = s2->nextActive()) {
+                              if (!s2->isChordRestType() && s2->element(staffIdx * VOICES))
                                     break;
                               }
                         qreal x1 = s1 ? s1->x() + s1->minRight() : 0;
@@ -4281,12 +4427,14 @@ void Measure::computeMinWidth(Segment* s, qreal x, bool isSystemHeader)
 
       while (s) {
             s->rxpos() = x;
-            if (!s->enabled() || !s->visible()) {
+            if (!s->enabled() || !s->visible() || s->allElementsInvisible()) {
                   s->setWidth(0);
                   s = s->next();
                   continue;
                   }
             Segment* ns = s->nextActive();
+            while (ns && ns->allElementsInvisible())
+                  ns = ns->nextActive();
             // end barline might be disabled
             // but still consider it for spacing of previous segment
             if (!ns)
@@ -4325,7 +4473,6 @@ void Measure::computeMinWidth(Segment* s, qreal x, bool isSystemHeader)
 
                         if (ps == fs)
                               ww = std::max(ww, ns->minLeft(ls) - s->x());
-
                         if (ww > w) {
                               // overlap !
                               // distribute extra space between segments ps - ss;

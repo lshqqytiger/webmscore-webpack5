@@ -33,6 +33,8 @@
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
 #include "libmscore/textbase.h"
+#include "libmscore/element.h"
+#include "libmscore/bracket.h"
 
 #include "thirdparty/qzip/qzipreader_p.h"
 #include "thirdparty/qzip/qzipwriter_p.h"
@@ -127,6 +129,7 @@ const char* PaletteCell::translationContext() const
             case ElementType::BREATH:
             case ElementType::FERMATA:
             case ElementType::SYMBOL:
+            case ElementType::TIMESIG:
                   return "symUserNames"; // libmscore/sym.cpp, Sym::symUserNames
             case ElementType::CLEF:
                   return "clefTable"; // libmscore/clef.cpp, ClefInfo::clefTable[]
@@ -403,6 +406,12 @@ bool PalettePanel::read(XmlReader& e)
                   PaletteCellPtr cell(new PaletteCell);
                   if (!cell->read(e))
                         continue;
+
+                  auto cellHandler = cellHandlerByPaletteType(_type);
+
+                  if (cellHandler)
+                        cellHandler(cell.get());
+
                   cells.push_back(std::move(cell));
                   }
             else
@@ -641,6 +650,12 @@ PaletteCell* PalettePanel::insert(int idx, Element* e, const QString& name, QStr
       if (e)
             e->layout(); // layout may be important for comparing cells, e.g. filtering "More" popup content
       PaletteCell* cell = new PaletteCell(std::unique_ptr<Element>(e), name, tag, mag);
+
+      auto cellHandler = cellHandlerByPaletteType(_type);
+
+      if (cellHandler)
+            cellHandler(cell);
+
       cells.emplace(cells.begin() + idx, cell);
       return cell;
       }
@@ -654,6 +669,12 @@ PaletteCell* PalettePanel::append(Element* e, const QString& name, QString tag, 
       if (e)
             e->layout(); // layout may be important for comparing cells, e.g. filtering "More" popup content
       PaletteCell* cell = new PaletteCell(std::unique_ptr<Element>(e), name, tag, mag);
+
+      auto cellHandler = cellHandlerByPaletteType(_type);
+
+      if (cellHandler)
+            cellHandler(cell);
+
       cells.emplace_back(cell);
       return cell;
       }
@@ -848,6 +869,25 @@ PalettePanel::Type PalettePanel::guessType() const
             };
 
       return Type::Custom;
+      }
+
+std::function<void (PaletteCell*)> PalettePanel::cellHandlerByPaletteType(const PalettePanel::Type& type) const
+      {
+      switch (type) {
+            case Type::Bracket: return [](PaletteCell* cellPtr) {
+                  if (!cellPtr || !cellPtr->element || !cellPtr->element.get()->isBracket())
+                        return;
+
+                  Bracket* bracket = toBracket(cellPtr->element.get());
+
+                  if (bracket->bracketType() == BracketType::BRACE) {
+                        bracket->setStaffSpan(0, 1);
+                        cellPtr->mag = 1.2;
+                        }
+                  };
+            default:
+                  return nullptr;
+            }
       }
 
 //---------------------------------------------------------

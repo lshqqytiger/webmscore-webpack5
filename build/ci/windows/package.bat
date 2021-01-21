@@ -48,15 +48,19 @@ IF %BUILD_WIN_PORTABLE% == ON (
 :: Setup package type
 IF %BUILD_WIN_PORTABLE% == ON    ( SET PACKAGE_TYPE="portable") ELSE (
 IF %BUILD_MODE% == devel_build   ( SET PACKAGE_TYPE="7z") ELSE (
-IF %BUILD_MODE% == nightly_build ( SET PACKAGE_TYPE="msi") ELSE (
+IF %BUILD_MODE% == nightly_build ( SET PACKAGE_TYPE="7z") ELSE (
 IF %BUILD_MODE% == testing_build ( SET PACKAGE_TYPE="msi") ELSE (    
 IF %BUILD_MODE% == stable_build  ( SET PACKAGE_TYPE="msi") ELSE ( 
     ECHO "Unknown BUILD_MODE: %BUILD_MODE%"
     GOTO END_ERROR
 )))))
 
+SET NEED_SIGN=OFF 
+IF %PACKAGE_TYPE% == "msi"      ( SET NEED_SIGN=ON) 
+IF %PACKAGE_TYPE% == "portable" ( SET NEED_SIGN=ON) 
+
 SET DO_SIGN=OFF
-IF %PACKAGE_TYPE% == "msi" ( 
+IF %NEED_SIGN% == ON ( 
     SET DO_SIGN=ON
     IF %SIGN_CERTIFICATE_ENCRYPT_SECRET% == "" ( 
         SET DO_SIGN=OFF
@@ -84,29 +88,47 @@ ECHO "BUILD_DIR: %BUILD_DIR%"
 ECHO "INSTALL_DIR: %INSTALL_DIR%"
 ECHO "PACKAGE_TYPE: %PACKAGE_TYPE%"
 
-:: For MSI
+:: Tools
 SET SIGNTOOL="C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe"
+SET SIGNCERT="build\ci\windows\resources\musescore.p12"
+SET SIGNTIMESERVER="http://timestamp.globalsign.com/scripts/timstamp.dll"
 SET UUIDGEN="C:\Program Files (x86)\Windows Kits\10\bin\x64\uuidgen.exe"
 SET WIX_DIR=%WIX%
 
 IF %PACKAGE_TYPE% == "portable" ( GOTO PACK_PORTABLE) ELSE (
 IF %PACKAGE_TYPE% == "7z" ( GOTO PACK_7z ) ELSE (
 IF %PACKAGE_TYPE% == "msi" (  GOTO PACK_MSI ) ELSE (
+IF %PACKAGE_TYPE% == "dir" (  GOTO PACK_DIR ) ELSE (    
     ECHO "Unknown package type: %PACKAGE_TYPE%"
     GOTO END_ERROR
-)))
+))))
 
 :: ============================
 :: PACK_7z
 :: ============================
 :PACK_7z
 ECHO "Start 7z packing..."
-7z a MuseScore.7z %INSTALL_DIR%
+IF %BUILD_MODE% == nightly_build ( 
+    SET ARTIFACT_NAME=MuseScoreNightly-%BUILD_DATETIME%-%BUILD_BRANCH%-%BUILD_REVISION%-%TARGET_PROCESSOR_ARCH%
+) ELSE (
+    SET ARTIFACT_NAME=MuseScore-%BUILD_VERSION%-%TARGET_PROCESSOR_ARCH%
+)
 
-SET ARTIFACT_NAME=MuseScore-%BUILD_VERSION%-%TARGET_PROCESSOR_ARCH%.7z
-COPY MuseScore.7z %ARTIFACTS_DIR%\%ARTIFACT_NAME% /Y 
-bash ./build/ci/tools/make_artifact_name_env.sh %ARTIFACT_NAME%
+RENAME %INSTALL_DIR% %ARTIFACT_NAME%
+7z a %ARTIFACTS_DIR%\%ARTIFACT_NAME%.7z %ARTIFACT_NAME%
+
+bash ./build/ci/tools/make_artifact_name_env.sh %ARTIFACT_NAME%.7z
 ECHO "Finished 7z packing"
+GOTO END_SUCCESS
+
+:: ============================
+:: PACK_DIR
+:: ============================
+:PACK_DIR
+ECHO "Start dir packing..."
+MKDIR %ARTIFACTS_DIR%\MuseScore
+XCOPY %INSTALL_DIR% %ARTIFACTS_DIR%\MuseScore /E /S /Y
+ECHO "Finished dir packing"
 GOTO END_SUCCESS
 
 :: ============================
@@ -117,12 +139,12 @@ ECHO "Start msi packing..."
 :: sign dlls and exe files
 IF %DO_SIGN% == ON (
     where /q secure-file
-    IF ERRORLEVEL 1 ( choco install -y choco install -y --ignore-checksums secure-file )
+    IF ERRORLEVEL 1 ( choco install -y --ignore-checksums secure-file )
     secure-file -decrypt build\ci\windows\resources\musescore.p12.enc -secret %SIGN_CERTIFICATE_ENCRYPT_SECRET%
 
     for /f "delims=" %%f in ('dir /a-d /b /s "%INSTALL_DIR%\*.dll" "%INSTALL_DIR%\*.exe"') do (
         ECHO "Signing %%f"
-        %SIGNTOOL% sign /f "build\ci\windows\resources\musescore.p12" /t http://timestamp.verisign.com/scripts/timstamp.dll /p %SIGN_CERTIFICATE_PASSWORD% "%%f"
+        %SIGNTOOL% sign /f %SIGNCERT% /t %SIGNTIMESERVER% /p %SIGN_CERTIFICATE_PASSWORD% "%%f"
     )
 
 ) ELSE (
@@ -174,22 +196,16 @@ IF %BUILD_MODE% == nightly_build (
 )
 
 ECHO "Copy from %FILEPATH% to %ARTIFACT_NAME%"
-
 COPY %FILEPATH% %ARTIFACTS_DIR%\%ARTIFACT_NAME% /Y 
 SET ARTIFACT_PATH=%ARTIFACTS_DIR%\%ARTIFACT_NAME%
 
 IF %DO_SIGN% == ON (
-    %SIGNTOOL% sign /debug /f "build\ci\windows\resources\musescore.p12" /t http://timestamp.verisign.com/scripts/timstamp.dll /p %SIGN_CERTIFICATE_PASSWORD% /d %ARTIFACT_NAME% %ARTIFACT_PATH%
+    %SIGNTOOL% sign /debug /f %SIGNCERT% /t %SIGNTIMESERVER% /p %SIGN_CERTIFICATE_PASSWORD% /d %ARTIFACT_NAME% %ARTIFACT_PATH%
     :: verify signature
     %SIGNTOOL% verify /pa %ARTIFACT_PATH%
 )
 
 bash ./build/ci/tools/make_artifact_name_env.sh %ARTIFACT_NAME%
-bash ./build/ci/tools/make_publish_url_env.sh -p windows -a %ARTIFACT_NAME%
-
-SET /p PUBLISH_URL=<%ARTIFACTS_DIR%\env\publish_url.env
-
-bash ./build/ci/tools/sparkle_appcast_gen.sh -p windows -u %PUBLISH_URL%
 
 :: DEBUG SYM
 ECHO "Debug symbols generating.."
@@ -205,6 +221,21 @@ GOTO END_SUCCESS
 :: ============================
 :PACK_PORTABLE
 ECHO "Start portable packing..."
+
+:: sign dlls and exe files
+IF %DO_SIGN% == ON (
+    where /q secure-file
+    IF ERRORLEVEL 1 ( choco install -y --ignore-checksums secure-file )
+    secure-file -decrypt build\ci\windows\resources\musescore.p12.enc -secret %SIGN_CERTIFICATE_ENCRYPT_SECRET%
+
+    for /f "delims=" %%f in ('dir /a-d /b /s "%INSTALL_DIR%\*.dll" "%INSTALL_DIR%\*.exe"') do (
+        ECHO "Signing %%f"
+        %SIGNTOOL% sign /f %SIGNCERT% /t %SIGNTIMESERVER% /p %SIGN_CERTIFICATE_PASSWORD% "%%f"
+    )
+
+) ELSE (
+    ECHO "Sign disabled"
+)
 
 :: Create launcher
 CALL C:\portableappslauncher\Launcher\PortableApps.comLauncherGenerator.exe %CD%\%INSTALL_DIR%
@@ -223,6 +254,13 @@ SET ARTIFACT_NAME=MuseScore-%BUILD_VERSION%-%TARGET_PROCESSOR_ARCH%.paf.exe
 
 ECHO "Copy from %FILEPATH% to %ARTIFACT_NAME%"
 COPY %FILEPATH% %ARTIFACTS_DIR%\%ARTIFACT_NAME% /Y 
+SET ARTIFACT_PATH=%ARTIFACTS_DIR%\%ARTIFACT_NAME%
+
+IF %DO_SIGN% == ON (
+    %SIGNTOOL% sign /debug /f %SIGNCERT% /t %SIGNTIMESERVER% /p %SIGN_CERTIFICATE_PASSWORD% /d %ARTIFACT_NAME% %ARTIFACT_PATH%
+    :: verify signature
+    %SIGNTOOL% verify /pa %ARTIFACT_PATH%
+)
 
 bash ./build/ci/tools/make_artifact_name_env.sh %ARTIFACT_NAME%
 

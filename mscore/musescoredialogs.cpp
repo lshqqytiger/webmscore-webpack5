@@ -37,6 +37,24 @@ InsertMeasuresDialog::InsertMeasuresDialog(QWidget* parent)
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
       setModal(true);
       insmeasures->selectAll();
+      connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(buttonBoxClicked(QAbstractButton*)));
+      }
+
+//---------------------------------------------------------
+//   buttonBoxClicked
+//---------------------------------------------------------
+
+void InsertMeasuresDialog::buttonBoxClicked(QAbstractButton* button)
+      {
+      switch (buttonBox->buttonRole(button)) {
+            case QDialogButtonBox::AcceptRole:
+                  accept();
+                  // fall through
+            case QDialogButtonBox::RejectRole:
+                  close();
+            default:
+                  break;
+            }
       }
 
 //---------------------------------------------------------
@@ -72,6 +90,24 @@ MeasuresDialog::MeasuresDialog(QWidget* parent)
       setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
       setModal(true);
       measures->selectAll();
+      connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), SLOT(buttonBoxClicked(QAbstractButton*)));
+      }
+
+//---------------------------------------------------------
+//   buttonBoxClicked
+//---------------------------------------------------------
+
+void MeasuresDialog::buttonBoxClicked(QAbstractButton* button)
+      {
+      switch (buttonBox->buttonRole(button)) {
+            case QDialogButtonBox::AcceptRole:
+                  accept();
+                  // fall through
+            case QDialogButtonBox::RejectRole:
+                  close();
+            default:
+                  break;
+            }
       }
 
 //---------------------------------------------------------
@@ -118,7 +154,7 @@ AboutBoxDialog::AboutBoxDialog()
                                      .arg("</a>");
       visitAndDonateString += "\n\n";
 #endif
-      QString finalString = visitAndDonateString + tr("Copyright &copy; 1999-2020 MuseScore BVBA and others.\nPublished under the GNU General Public License.");
+      QString finalString = visitAndDonateString + tr("Copyright &copy; 1999-2021 MuseScore BVBA and others.\nPublished under the GNU General Public License.");
       finalString.replace("\n", "<br/>");
       copyrightLabel->setText(QString("<span style=\"font-size:10pt;\">%1</span>").arg(finalString));
       connect(copyRevisionButton, SIGNAL(clicked()), this, SLOT(copyRevisionToClipboard()));

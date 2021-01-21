@@ -9,12 +9,6 @@ include(build/functions.cmake) # library of CMake functions ("fn__" namespace)
 # Print Qt version or fail the build if Qt (qmake) is not in PATH.
 fn__require_program(QMAKE Qt --version "https://musescore.org/en/handbook/developers-handbook/compilation" qmake)
 
-set (CI $ENV{CI})
-if (CI)
-    SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-    SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
-endif (CI)
-
 # Libraries linked via full path no longer produce linker search paths.
 cmake_policy(SET CMP0003 NEW)
 
@@ -60,6 +54,20 @@ set(CMAKE_AUTOMOC     TRUE)
 
 set(USE_SSE           FALSE)
 SET (USE_WEBENGINE 0)
+
+set(MUSESCORE_REVISION "" CACHE STRING "Build revision")
+
+# Set revision for local builds
+# Before need run 'make revision' or 'msvc_build.bat revision'
+if (MUSESCORE_REVISION STREQUAL "")
+    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/local_build_revision.env")
+        file(READ "${CMAKE_CURRENT_LIST_DIR}/local_build_revision.env" MUSESCORE_REVISION)
+        STRING(REGEX REPLACE "\n" "" MUSESCORE_REVISION "${MUSESCORE_REVISION}")
+    endif()
+endif(MUSESCORE_REVISION STREQUAL "")
+message(STATUS "MUSESCORE_REVISION: ${MUSESCORE_REVISION}")
+
+add_definitions(-DMUSESCORE_REVISION="${MUSESCORE_REVISION}")
 
 # Setup version number and general build settings
 SET(MUSESCORE_BUILD_CONFIG "dev" CACHE STRING "Build config")
@@ -120,11 +128,21 @@ endif (EMBED_PRELOADS)
 set(_preload_files
     fonts/musejazz/MuseJazzText.woff2
     fonts/campania/Campania.woff2
+    fonts/edwin/Edwin-Roman.woff2
+    fonts/edwin/Edwin-Bold.woff2
+    fonts/edwin/Edwin-Italic.woff2
+    fonts/edwin/Edwin-BdIta.woff2
     fonts/mscoreTab.woff2
     fonts/mscore-BC.woff2
+    fonts/leland/LelandText.woff2
     fonts/bravura/BravuraText.woff2
     fonts/gootville/GootvilleText.woff2
     fonts/mscore/MScoreText.woff2
+    fonts/petaluma/PetalumaText.woff2
+    fonts/petaluma/PetalumaScript.woff2
+
+    fonts/leland/Leland.woff2
+    fonts/leland/metadata.json
 
     fonts/bravura/Bravura.woff2
     fonts/bravura/metadata.json
@@ -137,6 +155,9 @@ set(_preload_files
 
     fonts/musejazz/MuseJazz.woff2
     fonts/musejazz/metadata.json
+
+    fonts/petaluma/Petaluma.woff2
+    fonts/petaluma/metadata.json
 
     fonts/smufl/glyphnames.json
     fonts/fonts_tablature.xml

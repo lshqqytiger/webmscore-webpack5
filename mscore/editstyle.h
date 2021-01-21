@@ -64,22 +64,27 @@ class EditStyle : public QDialog, private Ui::EditStyleBase {
       QScrollArea* scrollArea = nullptr;
       bool isTooBig = false;
       bool hasShown = false;
+      bool needResetStyle = false;
 
       virtual void showEvent(QShowEvent*);
       virtual void hideEvent(QHideEvent*);
       QVariant getValue(Sid idx);
       void setValues();
 
+      void resetStyle(Score* score);
       void applyToAllParts();
       const StyleWidget& styleWidget(Sid) const;
 
       void adjustPagesStackSize(int currentPageIndex);
 
-      static const std::map<ElementType, EditStylePage> PAGES;
+      static EditStylePage pageForElement(Element*);
 
    private slots:
       void selectChordDescriptionFile();
       void setChordStyle(bool);
+      void enableStyleWidget(const Sid idx, bool enable);
+      void enableVerticalSpreadClicked(bool);
+      void disableVerticalSpreadClicked(bool);
       void toggleHeaderOddEven(bool);
       void toggleFooterOddEven(bool);
       void buttonClicked(QAbstractButton*);
@@ -96,6 +101,7 @@ class EditStyle : public QDialog, private Ui::EditStyleBase {
       void textStyleValueChanged(Pid, QVariant);
       void on_comboFBFont_currentIndexChanged(int index);
       void on_buttonTogglePagelist_clicked();
+      void on_resetStylesButton_clicked();
       void editUserStyleName();
       void endEditUserStyleName();
       void resetUserStyleName();
@@ -108,6 +114,10 @@ class EditStyle : public QDialog, private Ui::EditStyleBase {
       void gotoElement(Element* e);
       void gotoHeaderFooterPage();
       static bool elementHasPage(Element* e);
+      
+   public slots:
+      void accept();
+      void reject();
       };
 
 

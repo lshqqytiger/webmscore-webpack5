@@ -114,7 +114,7 @@ class Segment final : public Element {
 
       ChordRest* nextChordRest(int track, bool backwards = false) const;
 
-      Element* element(int track) const { return _elist[track];  }
+      Element* element(int track) const;
 
       // a variant of the above function, specifically designed to be called from QML
       //@ returns the element at track 'track' (null if none)
@@ -177,6 +177,7 @@ class Segment final : public Element {
       std::vector<Element*> findAnnotations(ElementType type, int minTrack, int maxTrack);
       bool hasElements() const;
       bool hasElements(int minTrack, int maxTrack) const;
+      bool allElementsInvisible() const;
 
       qreal dotPosX(int staffIdx) const          { return _dotPosX[staffIdx];  }
       void setDotPosX(int staffIdx, qreal val)   { _dotPosX[staffIdx] = val;   }

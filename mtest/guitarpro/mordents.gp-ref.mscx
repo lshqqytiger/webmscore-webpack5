@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<museScore version="3.01">
+<museScore version="3.02">
   <Score>
     <LayerTag id="0" tag="default"></LayerTag>
     <currentLayer>0</currentLayer>
     <Division>480</Division>
     <Style>
       <ArpeggioHiddenInStdIfTab>1</ArpeggioHiddenInStdIfTab>
-      <Spatium>1.76389</Spatium>
+      <Spatium>1.74978</Spatium>
       </Style>
     <showInvisible>1</showInvisible>
     <showUnprintable>1</showUnprintable>
@@ -84,7 +84,7 @@
             <linkedMain/>
             <durationType>quarter</durationType>
             <Articulation>
-              <subtype>ornamentMordent</subtype>
+              <subtype>ornamentShortTrill</subtype>
               <linkedMain/>
               </Articulation>
             <Note>
@@ -110,7 +110,7 @@
             <linkedMain/>
             <durationType>quarter</durationType>
             <Articulation>
-              <subtype>ornamentMordentInverted</subtype>
+              <subtype>ornamentMordent</subtype>
               <linkedMain/>
               </Articulation>
             <Note>
@@ -141,7 +141,7 @@
       <Division>480</Division>
       <Style>
         <ArpeggioHiddenInStdIfTab>1</ArpeggioHiddenInStdIfTab>
-        <Spatium>1.76389</Spatium>
+        <Spatium>1.74978</Spatium>
         </Style>
       <showInvisible>1</showInvisible>
       <showUnprintable>1</showUnprintable>
@@ -245,7 +245,7 @@
                 </linked>
               <durationType>quarter</durationType>
               <Articulation>
-                <subtype>ornamentMordent</subtype>
+                <subtype>ornamentShortTrill</subtype>
                 <linked>
                   </linked>
                 </Articulation>
@@ -276,7 +276,7 @@
                 </linked>
               <durationType>quarter</durationType>
               <Articulation>
-                <subtype>ornamentMordentInverted</subtype>
+                <subtype>ornamentMordent</subtype>
                 <linked>
                   </linked>
                 </Articulation>
@@ -320,7 +320,7 @@
                 </linked>
               <durationType>quarter</durationType>
               <Articulation>
-                <subtype>ornamentMordent</subtype>
+                <subtype>ornamentShortTrill</subtype>
                 <linked>
                   <indexDiff>5</indexDiff>
                   </linked>
@@ -353,7 +353,7 @@
                 </linked>
               <durationType>quarter</durationType>
               <Articulation>
-                <subtype>ornamentMordentInverted</subtype>
+                <subtype>ornamentMordent</subtype>
                 <linked>
                   </linked>
                 </Articulation>

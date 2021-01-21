@@ -61,7 +61,7 @@ bool areNotesSortedByOffTimeInAscOrder(
 bool areNotesSortedByOffTimeInAscOrder(const QList<MidiNote>& notes)
       {
       for (int i = 0; i != (int)notes.size() - 1; ++i) {
-            if (notes[i].offTime > notes[i].offTime)
+            if (notes[i].offTime > notes[i + 1].offTime)
                   return false;
             }
       return true;
@@ -293,7 +293,7 @@ bool hasIntersectionWithTuplets(
       {
       const auto foundTuplets = MidiTuplet::findTupletsForTimeRange(
                                           voice, onTime, offTime - onTime, tuplets, true);
-      for (const auto tupletIt: foundTuplets) {
+      for (const auto& tupletIt: foundTuplets) {
             const auto ins = findInsertedTuplet(tupletIt->first, voice, insertedTuplets);
             const bool belongsToInserted = (ins != insertedTuplets.end()
                                             && ins->first == tupletOnTime);

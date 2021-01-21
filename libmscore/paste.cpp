@@ -507,7 +507,7 @@ bool Score::pasteStaff(XmlReader& e, Segment* dst, int dstStaff, Fraction scale)
                   s = s->next1MM();
                   }
 
-            for (MuseScoreView* v : viewer)
+            for (MuseScoreView* v : qAsConst(viewer))
                   v->adjustCanvasPosition(el, false);
             if (!selection().isRange())
                   _selection.setState(SelState::RANGE);
@@ -638,6 +638,8 @@ void Score::pasteChordRest(ChordRest* cr, const Fraction& t, const Interval& src
                                     Tie* tie = new Tie(this);
                                     tie->setStartNote(nl1[i]);
                                     tie->setEndNote(nl2[i]);
+                                    tie->setTick(tie->startNote()->tick());
+                                    tie->setTick2(tie->endNote()->tick());
                                     tie->setTrack(c->track());
                                     Tie* tie2 = nl1[i]->tieFor();
                                     if (tie2) {

@@ -39,8 +39,6 @@ if (NOT MSVC)
 endif (NOT MSVC)
 include (${PROJECT_SOURCE_DIR}/build/CopyFilesMacros.cmake)
 
-SET_SOURCE_FILES_PROPERTIES(revision.h PROPERTIES GENERATED TRUE)
-
 include_directories(
       ${CMAKE_CURRENT_BINARY_DIR}
       ${PROJECT_SOURCE_DIR}
@@ -89,6 +87,7 @@ QT5_WRAP_UI (ui_headers
       note_groups.ui resourceManager.ui stafftypetemplates.ui
       startcenter.ui scorePreview.ui scoreBrowser.ui templateBrowser.ui
       breaksdialog.ui
+      exportdialog.ui
       toolbarEditor.ui workspacedialog.ui
 
       palette/createPalette.ui
@@ -104,6 +103,8 @@ if (APPLE)
 else (APPLE)
       QT5_ADD_RESOURCES (qrc_files musescore.qrc
             qml.qrc # TODO: replace with qtquick_compiler_add_resources on Qt >= 5.11
+            musescorefonts-Leland.qrc
+            musescorefonts-Edwin.qrc
             musescorefonts-MScore.qrc
             musescorefonts-Gootville.qrc
             musescorefonts-Bravura.qrc
@@ -111,6 +112,7 @@ else (APPLE)
             musescorefonts-Campania.qrc
             musescorefonts-FreeSerif.qrc
             musescorefonts-Free.qrc
+            musescorefonts-Petaluma.qrc
             shortcut.qrc)
 endif (APPLE)
 
@@ -134,10 +136,19 @@ endif (OMR)
 
 if (APPLE)
       file(GLOB_RECURSE INCS "*.h")
-      set(COCOABRIDGE "macos/cocoabridge.mm")
+      set(COCOABRIDGE "cocoabridge")
       if (SPARKLE_FOUND)
             set(MAC_SPARKLE_FILES "macos/SparkleAutoUpdater.mm")
       endif(SPARKLE_FOUND)
+      add_library (
+         cocoabridge STATIC
+         macos/cocoabridge.mm
+         )
+      set_target_properties (
+         cocoabridge
+         PROPERTIES
+         COMPILE_FLAGS "-g -Wall -Wextra -Winvalid-pch  -include ${PROJECT_SOURCE_DIR}/all.h"
+         )
 else (APPLE)
       set(INCS "")
       set(COCOABRIDGE "")
@@ -160,11 +171,11 @@ add_library(mscoreapp STATIC
       abstractdialog.h accessibletoolbutton.h albummanager.h
       analyse.h articulationprop.h
       bendcanvas.h breaksdialog.h
-      chordview.h click.h continuouspanel.h downloadUtils.h
-      drumroll.h drumtools.h drumview.h editdrumset.h
+      chordview.h click.h clickableLabel.h continuouspanel.h downloadUtils.h
+      drumroll.h drumtools.h drumview.h easeinoutcanvas.h editdrumset.h
       editinstrument.h editpitch.h editraster.h editstaff.h
       editstafftype.h editstringdata.h editstyle.h enableplayforwidget.h
-      exampleview.h excerptsdialog.h extension.h
+      exampleview.h excerptsdialog.h exportdialog.h extension.h
       file.h fotomode.h fretcanvas.h globals.h greendotbutton.h
       harmonycanvas.h harmonyedit.h help.h helpBrowser.h icons.h
       instrdialog.h instrwidget.h
@@ -176,19 +187,24 @@ add_library(mscoreapp STATIC
       pathlistdialog.h piano.h  pianotools.h
       openfilelocation.h
       playpanel.h preferences.h preferenceslistwidget.h prefsdialog.h
-      radiobuttongroupbox.h recordbutton.h resourceManager.h revision.h ruler.h scoreaccessibility.h
+      radiobuttongroupbox.h recordbutton.h resourceManager.h ruler.h scoreaccessibility.h
       scoreBrowser.h scoreInfo.h scorePreview.h scoretab.h scoreview.h searchComboBox.h
       selectdialog.h selectionwindow.h selectnotedialog.h selinstrument.h
       seq.h shortcut.h shortcutcapturedialog.h simplebutton.h splitstaff.h stafftextproperties.h
       startcenter.h startupWizard.h stringutils.h svggenerator.h symboldialog.h synthcontrol.h
       templateBrowser.h textcursor.h textpalette.h texttools.h timedialog.h timeline.h timesigproperties.h
       toolbarEditor.h toolbuttonmenu.h transposedialog.h tremolobarcanvas.h realizeharmonydialog.h
-      tupletdialog.h updatechecker.h waveview.h webpage.h workspace.h
+      tupletdialog.h updatechecker.h waveview.h webpage.h workspace.h migration/scoremigrationdialog.h
+      migration/scoremigrationdialogmodel.h migration/scoremigrator_3_6.h
+      migration/handlers/resetallelementspositionshandler.h
+      migration/handlers/styledefaultshandler.h migration/handlers/lelandstylehandler.h
+      migration/handlers/edwinstylehandler.h
 
       recordbutton.h greendotbutton prefsdialog.h prefsdialog.cpp
       stringutils.h stringutils.cpp
       scoreview.cpp editharmony.cpp editfiguredbass.cpp events.cpp
-      editinstrument.cpp editstyle.cpp
+      editinstrument.cpp editstyle.cpp easeinoutcanvas.cpp
+      clickableLabel.cpp
       icons.cpp
       instrdialog.cpp instrwidget.cpp
       debugger/debugger.cpp menus.cpp
@@ -204,6 +220,7 @@ add_library(mscoreapp STATIC
       editdrumset.cpp editstaff.cpp
       timesigproperties.cpp newwizard.cpp transposedialog.cpp
       excerptsdialog.cpp metaedit.cpp zoombox.cpp realizeharmonydialog.cpp
+      exportdialog.cpp
       exportaudio.cpp
       synthcontrol.cpp drumroll.cpp piano.cpp
       drumview.cpp scoretab.cpp keyedit.cpp harmonyedit.cpp
@@ -253,7 +270,11 @@ add_library(mscoreapp STATIC
       tourhandler.cpp
       script/script.cpp script/scriptentry.cpp script/testscript.cpp script/recorderwidget.cpp
       qml/msqmlengine.cpp qml/nativemenu.cpp qml/nativetooltip.cpp
-      qmldockwidget.cpp
+      qmldockwidget.cpp migration/scoremigrationdialog.cpp migration/scoremigrationdialogmodel.cpp
+      migration/scoremigrator_3_6.cpp
+      migration/handlers/resetallelementspositionshandler.cpp
+      migration/handlers/styledefaultshandler.cpp migration/handlers/lelandstylehandler.cpp
+      migration/handlers/edwinstylehandler.cpp
 
       ${CLOUD_SRC}
       ${IMPORTMIDIUI_SRC}
@@ -262,7 +283,6 @@ add_library(mscoreapp STATIC
       ${MSCORE_MIXER_SRC}
       ${PIANOROLL_SRC}
       ${WIDGETS_SOURCE_FILES}
-      ${COCOABRIDGE}
       ${OMR_FILES}
       ${PLUGIN_SRC}
       ${MAC_SPARKLE_FILES}
@@ -285,6 +305,7 @@ target_link_libraries(mscoreapp
       libmscore
       qzip
       importexport
+      ${COCOABRIDGE}
       )
 
 if (BUILD_CRASH_REPORTER)
