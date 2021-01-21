@@ -132,7 +132,7 @@ class EditData {
       bool vRaster                     { false };
 
       int key                          { 0     };
-      Qt::KeyboardModifiers modifiers  { 0     };
+      Qt::KeyboardModifiers modifiers  { /*0*/ };   // '0' initialized via default constructor, doing it here too results in compiler warning with Qt 5.15
       QString s;
 
       Qt::MouseButtons buttons         { Qt::NoButton };
@@ -298,7 +298,6 @@ class Element : public ScoreElement {
       void drawAt(QPainter*p, const QPointF& pt) const { p->translate(pt); draw(p); p->translate(-pt);}
 
       virtual void writeProperties(XmlWriter& xml) const;
-      void writeLinkProperties(XmlWriter& xml) const;
       virtual bool readProperties(XmlReader&);
 
       virtual void write(XmlWriter&) const;

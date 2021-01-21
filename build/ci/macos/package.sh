@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 echo "Package MuseScore"
+trap 'echo Package failed; exit 1' ERR
 
 ARTIFACTS_DIR="build.artifacts"
-SIGN_CERTIFICATE_ENCRYPT_SECRET=""
-SIGN_CERTIFICATE_PASSWORD=""
+SIGN_CERTIFICATE_ENCRYPT_SECRET="''"
+SIGN_CERTIFICATE_PASSWORD="''"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -30,7 +31,7 @@ mkdir -p applebuild/mscore.app/Contents/Frameworks
 cp -Rf ~/Library/Frameworks/Sparkle.framework applebuild/mscore.app/Contents/Frameworks
 
 # Setup keychain for code sign
-if [ -n "$SIGN_CERTIFICATE_ENCRYPT_SECRET" ]; then 
+if [ "$SIGN_CERTIFICATE_ENCRYPT_SECRET" != "''" ]; then 
 
     7z x -y ./build/ci/macos/resources/mac_musescore.p12.enc -o./build/ci/macos/resources/ -p${SIGN_CERTIFICATE_ENCRYPT_SECRET}
 
@@ -47,13 +48,20 @@ if [ -n "$SIGN_CERTIFICATE_ENCRYPT_SECRET" ]; then
     security set-key-partition-list -S apple-tool:,apple: -s -k ci $KEYCHAIN
 fi
 
-build/package_mac
+BUILD_MODE=$(cat $ARTIFACTS_DIR/env/build_mode.env)
+BUILD_VERSION=$(cat $ARTIFACTS_DIR/env/build_version.env)
+
+APP_LONGER_NAME="MuseScore 3"
+if [ "$BUILD_MODE" == "devel_build" ]; then APP_LONGER_NAME="MuseScore $BUILD_VERSION Devel"; fi
+if [ "$BUILD_MODE" == "nightly_build" ]; then APP_LONGER_NAME="MuseScore $BUILD_VERSION Nightly"; fi
+if [ "$BUILD_MODE" == "testing_build" ]; then APP_LONGER_NAME="MuseScore $BUILD_VERSION Testing"; fi
+if [ "$BUILD_MODE" == "stable_build" ]; then APP_LONGER_NAME="MuseScore 3"; fi
+
+build/package_mac --longer_name "$APP_LONGER_NAME"
 
 DMGFILE="$(ls applebuild/*.dmg)"
-
 echo "DMGFILE: $DMGFILE"
 
-BUILD_MODE=$(cat $ARTIFACTS_DIR/env/build_mode.env)
 if [ "$BUILD_MODE" == "nightly_build" ]; then
 
   BUILD_DATETIME=$(cat $ARTIFACTS_DIR/env/build_datetime.env)
@@ -63,7 +71,6 @@ if [ "$BUILD_MODE" == "nightly_build" ]; then
 
 else
 
-  BUILD_VERSION=$(cat $ARTIFACTS_DIR/env/build_version.env)
   ARTIFACT_NAME=MuseScore-${BUILD_VERSION}.dmg  
 
 fi
