@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+### Unreleased
+
+### Added 
+
+* Support importing different file formats into webmscore
+* Stream audio file exporting
+
+## 0.18.0 - 2021-01-20
+
+### Added 
+
+* Support MSCZ/MSCX internal file format version 3.02
+
+### Changed
+
+* Merge [upstream v3.6.0](https://github.com/musescore/MuseScore/releases/tag/v3.6) into webmscore, see the changelogs there
+
 ## 0.17.1 - 2021-01-12
 
 ### Changed
