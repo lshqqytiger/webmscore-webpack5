@@ -38,8 +38,9 @@ WebMscore.ready.then(async () => {
         console.log(`generated SVG page ${index}: ${f}`)
     }
 
-    fs.writeFileSync(`./${exportedPrefix}-2.png`, await score.savePng(2))
-    console.log(`generated PNG page 2: ./${exportedPrefix}-2.png`)
+    const lastPage = n - 1
+    fs.writeFileSync(`./${exportedPrefix}-${lastPage}.png`, await score.savePng(lastPage))
+    console.log(`generated PNG page ${lastPage}: ./${exportedPrefix}-${lastPage}.png`)
 
     fs.writeFileSync(`./${exportedPrefix}.pdf`, await score.savePdf())
     console.log(`generated PDF file: ./${exportedPrefix}.pdf`)
