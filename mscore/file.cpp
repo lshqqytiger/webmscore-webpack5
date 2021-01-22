@@ -95,7 +95,7 @@
 
 #include "libmscore/chordlist.h"
 #include "libmscore/mscore.h"
-#include "libmscore/exports.h"
+#include "libmscore/importexports.h"
 // #include "thirdparty/qzip/qzipreader_p.h"
 // #include "migration/scoremigrator_3_6.h"
 // #include "migration/handlers/styledefaultshandler.h"

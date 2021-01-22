@@ -61,7 +61,7 @@ add_executable (
       ../importexport/musicxml/musicxml.h ../importexport/musicxml/importxmlfirstpass.h ../importexport/musicxml/musicxmlfonthandler.h ../importexport/musicxml/musicxmlsupport.h 
       ../mscore/svggenerator.h
       ../audio/exports/exportmidi.h
-      exports.h
+      importexports.h
 
       segmentlist.cpp fingering.cpp accidental.cpp arpeggio.cpp
       fermata.cpp articulation.cpp barline.cpp beam.cpp bend.cpp box.cpp

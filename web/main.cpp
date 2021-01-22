@@ -2,7 +2,7 @@
 #include <emscripten/emscripten.h>
 
 #include "libmscore/excerpt.h"
-#include "libmscore/exports.h"
+#include "libmscore/importexports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
 #include "libmscore/text.h"
@@ -90,7 +90,7 @@ bool _addFont(const char* fontPath) {
 uintptr_t _load(const char* format, const char* data, const uint32_t size, bool doLayout) {
     using namespace Ms;
 
-    QString _format = QString::fromUtf8(format);  // file format of the data, ("mscz" or "mscx")
+    QString _format = QString::fromUtf8(format);  // file format of the data
 
     MasterScore* score = new MasterScore(MScore::baseStyle());
     score->setMovements(new Movements());
@@ -106,6 +106,7 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     QString name = tempfile.fileName(); // temporary filename
 
     // mtest/testutils.cpp#L108-L134 readCreatedScore
+    // mscore/file.cpp#L2320 readScore
     Score::FileError rv;
     if (_format == "mscz" || _format == "mscx")
         rv = score->loadMsc(name, true);
@@ -122,7 +123,7 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
         return char(rv);
     }
 
-    // mscore/file.cpp#L2278 readScore
+    // mscore/file.cpp#L2387 readScore
     score->rebuildMidiMapping();
     score->setSoloMute();
     for (auto s : score->scoreList()) {

@@ -422,7 +422,7 @@ class WebMscore {
             [fnptr, cancel]
         )
 
-        // struct SynthRes in exports.h
+        // struct SynthRes in synthres.h
         const done = Module.getValue(resptr + 0, 'i8')
         const startTime = +Module.getValue(resptr + 4, 'float')  // in seconds
         const endTime = +Module.getValue(resptr + 8, 'float')  // in seconds

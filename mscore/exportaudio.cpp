@@ -45,7 +45,7 @@
 #include "audio/midi/event.h"
 #include "audio/midi/fluid/fluid.h"
 
-#include "libmscore/exports.h"
+#include "libmscore/importexports.h"
 
 namespace Ms {
 
