@@ -1,6 +1,6 @@
 
-#ifndef __EXPORTS_H__
-#define __EXPORTS_H__
+#ifndef __IMPORTEXPORTS_H__
+#define __IMPORTEXPORTS_H__
 
 #include "score.h"
 #include "synthres.h"
@@ -9,6 +9,7 @@ namespace Ms {
 
     using NotesColors = QHash<int /* noteIndex */, QColor>;
 
+    // exports
     extern bool saveXml(Score*, QIODevice*);
     extern bool saveXml(Score*, const QString& name);
     extern bool saveMxl(Score*, const QString& name);
@@ -29,6 +30,19 @@ namespace Ms {
     QJsonObject savePositions(Score* score, bool segments);
 
     QJsonObject saveMetadataJSON(Score* score);
+
+    // imports
+    // mscore/musescore.h#L973-L982, mscore/file.cpp#L2320 readScore
+    extern Score::FileError importMidi(MasterScore*, const QString& name);
+    extern Score::FileError importGTP(MasterScore*, const QString& name);
+    extern Score::FileError importBww(MasterScore*, const QString& path);
+    extern Score::FileError importMusicXml(MasterScore*, const QString&);
+    extern Score::FileError importCompressedMusicXml(MasterScore*, const QString&);
+    extern Score::FileError importMuseData(MasterScore*, const QString& name);
+    extern Score::FileError importLilypond(MasterScore*, const QString& name);
+    extern Score::FileError importBB(MasterScore*, const QString& name);
+    extern Score::FileError importCapella(MasterScore*, const QString& name);
+    extern Score::FileError importCapXml(MasterScore*, const QString& name);
 }
 
 #endif

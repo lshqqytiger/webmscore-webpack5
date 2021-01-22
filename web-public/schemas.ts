@@ -238,3 +238,9 @@ export interface SynthRes {
      */
     chunk: Uint8Array;
 }
+
+export type InputFileFormat =
+    | 'mscz' 
+    | 'mscx'
+    | 'mxl' 
+    | 'musicxml' | 'xml'

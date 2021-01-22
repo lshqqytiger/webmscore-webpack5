@@ -26,6 +26,8 @@
 
 namespace Ms {
 
+#if 0
+
 //---------------------------------------------------------
 //   tupletAssert -- check assertions for tuplet handling
 //---------------------------------------------------------
@@ -94,7 +96,9 @@ static bool initMusicXmlSchema(QXmlSchema& schema)
       return true;
       }
 
+#endif
 
+#if 0 // no gui
 //---------------------------------------------------------
 //   musicXMLValidationErrorDialog
 //---------------------------------------------------------
@@ -118,6 +122,7 @@ static int musicXMLValidationErrorDialog(QString text, QString detailedText)
       }
 
 
+#endif
 //---------------------------------------------------------
 //   extractRootfile
 //---------------------------------------------------------
@@ -173,6 +178,7 @@ static bool extractRootfile(QFile* qf, QByteArray& data)
       return true;
       }
 
+#if 0
 
 //---------------------------------------------------------
 //   doValidate
@@ -236,6 +242,9 @@ static Score::FileError doValidateAndImport(Score* score, const QString& name, Q
       //qDebug("importMusicXml() return %d", int(res));
       return res;
       }
+#endif
+
+#define doValidateAndImport importMusicXMLfromBuffer 
 
 
 //---------------------------------------------------------

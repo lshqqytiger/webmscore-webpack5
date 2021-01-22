@@ -110,6 +110,10 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     Score::FileError rv;
     if (_format == "mscz" || _format == "mscx")
         rv = score->loadMsc(name, true);
+    else if (_format == "mxl")
+        rv = importCompressedMusicXml(score, name);
+    else if (_format == "xml" || _format == "musicxml")
+        rv = importMusicXml(score, name);
     else {
         qWarning("Invalid file format");
         rv = Score::FileError::FILE_UNKNOWN_TYPE;

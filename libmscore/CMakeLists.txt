@@ -38,6 +38,8 @@ include_directories(
       ${PROJECT_SOURCE_DIR}/global
       )
 
+include(${CMAKE_CURRENT_LIST_DIR}/../importexport/musicxml/musicxml.cmake) # set (MUSICXML_SRC ...
+
 add_executable (
    webmscore
       ${_all_h_file}
@@ -58,7 +60,6 @@ add_executable (
       stemslash.h stringdata.h style.h sym.h symbol.h synthesizerstate.h system.h systemdivider.h systemtext.h tempo.h
       tempotext.h text.h mmrestrange.h measurenumberbase.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h vibrato.h volta.h xml.h
-      ../importexport/musicxml/musicxml.h ../importexport/musicxml/importxmlfirstpass.h ../importexport/musicxml/musicxmlfonthandler.h ../importexport/musicxml/musicxmlsupport.h 
       ../mscore/svggenerator.h
       ../audio/exports/exportmidi.h
       importexports.h
@@ -107,14 +108,14 @@ add_executable (
       connector.cpp location.cpp skyline.cpp
       scorediff.cpp
       unrollrepeats.cpp
-      # ../synthesizer/event.cpp
-      ../importexport/musicxml/exportxml.cpp ../importexport/musicxml/importxmlfirstpass.cpp ../importexport/musicxml/musicxmlfonthandler.cpp ../importexport/musicxml/musicxmlsupport.cpp
       ../mscore/svggenerator.cpp
       ../audio/exports/exportmidi.cpp
       ../mscore/exportaudio.cpp
       ../mscore/savePositions.cpp
       ../mscore/file.cpp
       ../web/main.cpp
+
+      ${MUSICXML_SRC}
       )
 
 if (AVSOMR)
