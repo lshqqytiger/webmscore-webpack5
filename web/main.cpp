@@ -88,10 +88,12 @@ bool _addFont(const char* fontPath) {
  * load the score data (a MSCZ/MSCX file buffer)
  */
 uintptr_t _load(const char* format, const char* data, const uint32_t size, bool doLayout) {
+    using namespace Ms;
+
     QString _format = QString::fromUtf8(format);  // file format of the data, ("mscz" or "mscx")
 
-    Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
-    score->setMovements(new Ms::Movements());
+    MasterScore* score = new MasterScore(MScore::baseStyle());
+    score->setMovements(new Movements());
 
     // create a temporary file, and write `data` into it
     QTemporaryFile tempfile("XXXXXX." + _format);  // filename template for the temporary file
@@ -104,19 +106,19 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     QString name = tempfile.fileName(); // temporary filename
 
     // mtest/testutils.cpp#L108-L134 readCreatedScore
-    Ms::Score::FileError rv;
+    Score::FileError rv;
     if (_format == "mscz" || _format == "mscx")
         rv = score->loadMsc(name, true);
     else {
         qWarning("Invalid file format");
-        rv = Ms::Score::FileError::FILE_UNKNOWN_TYPE;
+        rv = Score::FileError::FILE_UNKNOWN_TYPE;
     }
 
     // delete the temporary file
     tempfile.remove();
 
     // handle exceptions
-    if (rv != Ms::Score::FileError::FILE_NO_ERROR) {
+    if (rv != Score::FileError::FILE_NO_ERROR) {
         return char(rv);
     }
 
@@ -125,7 +127,7 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     score->setSoloMute();
     for (auto s : score->scoreList()) {
         s->setPlaylistDirty();
-        s->addLayoutFlags(Ms::LayoutFlag::FIX_PITCH_VELO);
+        s->addLayoutFlags(LayoutFlag::FIX_PITCH_VELO);
         s->setLayoutAll();
     }
     score->updateChannel();
