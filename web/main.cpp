@@ -89,23 +89,35 @@ bool _addFont(const char* fontPath) {
  */
 uintptr_t _load(const char* format, const char* data, const uint32_t size, bool doLayout) {
     QString _format = QString::fromUtf8(format);  // file format of the data, ("mscz" or "mscx")
-    if (!(_format == "mscz" || _format == "mscx")) {
-        qWarning("Invalid file format");
-        return char(Ms::Score::FileError::FILE_UNKNOWN_TYPE);
-    }
-
-    QString filename = "temp." + _format;
-
-    QBuffer buffer;
-    buffer.setData(data, size);
-    buffer.open(QIODevice::ReadOnly);
 
     Ms::MasterScore* score = new Ms::MasterScore(Ms::MScore::baseStyle());
     score->setMovements(new Ms::Movements());
 
-    auto fileErr = score->loadMsc(filename, &buffer, true);
-    if (fileErr != Ms::Score::FileError::FILE_NO_ERROR) {
-        return char(fileErr);
+    // create a temporary file, and write `data` into it
+    QTemporaryFile tempfile("XXXXXX." + _format);  // filename template for the temporary file
+    if (!tempfile.open()) { // a QTemporaryFile will always be opened in `QIODevice::ReadWrite` mode
+        throw QString("Cannot create a temporary file");
+    } else {
+        tempfile.write(data, size);
+        tempfile.close(); // calls QFileDevice::flush() and closes the file
+    }
+    QString name = tempfile.fileName(); // temporary filename
+
+    // mtest/testutils.cpp#L108-L134 readCreatedScore
+    Ms::Score::FileError rv;
+    if (_format == "mscz" || _format == "mscx")
+        rv = score->loadMsc(name, true);
+    else {
+        qWarning("Invalid file format");
+        rv = Ms::Score::FileError::FILE_UNKNOWN_TYPE;
+    }
+
+    // delete the temporary file
+    tempfile.remove();
+
+    // handle exceptions
+    if (rv != Ms::Score::FileError::FILE_NO_ERROR) {
+        return char(rv);
     }
 
     // mscore/file.cpp#L2278 readScore
