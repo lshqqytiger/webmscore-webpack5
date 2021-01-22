@@ -7,6 +7,7 @@
 #include "libmscore/score.h"
 #include "libmscore/text.h"
 #include "libmscore/undo.h"
+#include "mscore/preferences.h"
 
 /**
  * helper functions
@@ -64,6 +65,8 @@ int _version() {
  */
 void _init(int argc, char** argv) {
     new QGuiApplication(argc, argv);
+
+    Ms::preferences.init();
 
     Ms::MScore::noGui = true;
     Ms::MScore::debugMode = true;

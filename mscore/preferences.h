@@ -197,7 +197,7 @@ class Preferences {
    public:
       Preferences();
       ~Preferences();
-      void init(bool storeInMemoryOnly = false);
+      void init(bool storeInMemoryOnly = true);
       void save();
       // set to true to let getters return default values instead of values from QSettings
       void setReturnDefaultValuesMode(bool returnDefaultValues) {_returnDefaultValues = returnDefaultValues;}
