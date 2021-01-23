@@ -295,7 +295,6 @@ add_compile_definitions(FT_CONFIG_OPTION_USE_BROTLI)
 include_directories(
    ${PROJECT_SOURCE_DIR}
    ${PROJECT_BINARY_DIR}
-   ${PROJECT_SOURCE_DIR}/audio
 #    ${ALSA_INCDIR}
 #    ${JACK_INCDIR}
 #    ${PORTAUDIO_INCDIR}
@@ -325,6 +324,7 @@ configure_file (
 subdirs(
       libmscore
       effects
+      audio
       audiofile
       thirdparty/qzip
       thirdparty/libsndfile/src

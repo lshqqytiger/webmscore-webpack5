@@ -38,8 +38,6 @@ include_directories(
       ${PROJECT_SOURCE_DIR}/global
       )
 
-include(${CMAKE_CURRENT_LIST_DIR}/../audio/midi/midi.cmake) # set (MIDI_SRC ...
-include(${CMAKE_CURRENT_LIST_DIR}/../audio/exports/exports.cmake) # set (EXPORTS_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../importexport/musicxml/musicxml.cmake) # set (MUSICXML_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../importexport/midiimport/midiimport.cmake) # set (MIDIIMPORT_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../importexport/guitarpro/guitarpro.cmake) # set (GUITARPRO_SRC ...
@@ -119,8 +117,6 @@ add_executable (
       ../mscore/file.cpp
       ../web/main.cpp
 
-      ${MIDI_SRC} # audio/midi
-      ${EXPORTS_SRC} # audio/exports/exportmidi
       ${MUSICXML_SRC}
       ${MIDIIMPORT_SRC}
       ${GUITARPRO_SRC}
@@ -174,6 +170,7 @@ target_link_libraries(webmscore
    ${QT_LIBRARIES}
    qzip
    effects
+   audio
    audiofile
    sndfile
    FLAC
