@@ -1196,12 +1196,14 @@ Score::FileError importMidi(MasterScore *score, const QString &name)
                   mf.read(&fp);
                   }
             catch (QString errorText) {
+#if 0
                   if (!MScore::noGui) {
                         QMessageBox::warning(0,
                            QWidget::tr("Load MIDI"),
                            QWidget::tr("Load failed: %1").arg(errorText),
                            QString(), QWidget::tr("Quit"), QString(), 0, 1);
                         }
+#endif
                   fp.close();
                   qDebug("importMidi: bad file format");
                   return Score::FileError::FILE_BAD_FORMAT;

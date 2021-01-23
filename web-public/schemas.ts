@@ -240,7 +240,6 @@ export interface SynthRes {
 }
 
 export type InputFileFormat =
-    | 'mscz' 
-    | 'mscx'
-    | 'mxl' 
-    | 'musicxml' | 'xml'
+    | 'mscz' | 'mscx'
+    | 'mxl' | 'musicxml' | 'xml'
+    | 'midi' | 'kar'

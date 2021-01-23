@@ -41,6 +41,7 @@ include_directories(
 include(${CMAKE_CURRENT_LIST_DIR}/../audio/midi/midi.cmake) # set (MIDI_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../audio/exports/exports.cmake) # set (EXPORTS_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../importexport/musicxml/musicxml.cmake) # set (MUSICXML_SRC ...
+include(${CMAKE_CURRENT_LIST_DIR}/../importexport/midiimport/midiimport.cmake) # set (MIDIIMPORT_SRC ...
 
 add_executable (
    webmscore
@@ -120,6 +121,7 @@ add_executable (
       ${MIDI_SRC} # audio/midi
       ${EXPORTS_SRC} # audio/exports/exportmidi
       ${MUSICXML_SRC}
+      ${MIDIIMPORT_SRC}
       )
 
 if (AVSOMR)
@@ -175,6 +177,7 @@ target_link_libraries(webmscore
    FLAC
    lame
    freetype
+   beatroot
 )
 
 set_target_properties (

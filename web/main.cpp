@@ -2,6 +2,7 @@
 #include <emscripten/emscripten.h>
 
 #include "libmscore/excerpt.h"
+#include "libmscore/part.h"
 #include "libmscore/importexports.h"
 #include "libmscore/mscore.h"
 #include "libmscore/score.h"
@@ -117,6 +118,8 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
         rv = importCompressedMusicXml(score, name);
     else if (_format == "xml" || _format == "musicxml")
         rv = importMusicXml(score, name);
+    else if (_format == "midi" || _format == "kar")
+        rv = importMidi(score, name);
     else {
         qWarning("Invalid file format");
         rv = Score::FileError::FILE_UNKNOWN_TYPE;
@@ -128,6 +131,12 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
     // handle exceptions
     if (rv != Score::FileError::FILE_NO_ERROR) {
         return char(rv);
+    }
+
+    // post processing for non-native formats
+    if (!(_format == "mscz" || _format == "mscx")) {
+        score->setMetaTag("originalFormat", _format);
+        score->connectTies();
     }
 
     // mscore/file.cpp#L2387 readScore

@@ -328,5 +328,6 @@ subdirs(
       audiofile
       thirdparty/qzip
       thirdparty/libsndfile/src
+      thirdparty/beatroot
       )
 
