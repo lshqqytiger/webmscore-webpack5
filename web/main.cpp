@@ -70,7 +70,7 @@ void _init(int argc, char** argv) {
     Ms::preferences.init();
 
     Ms::MScore::noGui = true;
-    Ms::MScore::debugMode = true;
+    Ms::MScore::debugMode = false;
     Ms::MScore::init();
 }
 
