@@ -240,6 +240,9 @@ export interface SynthRes {
 }
 
 export type InputFileFormat =
-    | 'mscz' | 'mscx'
-    | 'mxl' | 'musicxml' | 'xml'
-    | 'midi' | 'kar'
+    | 'mscz'             // compressed MuseScore native format
+    | 'mscx'             // uncompressed MuseScore native format
+    | 'mxl'              // compressed MusicXML
+    | 'musicxml' | 'xml' // uncompressed MusicXML
+    | 'midi'
+    | 'kar'              // unofficial extension of midi
