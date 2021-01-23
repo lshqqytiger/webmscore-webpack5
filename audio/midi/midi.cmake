@@ -57,7 +57,7 @@ endif (ZERBERUS)
 set (MIDI_SRC
 
     ${FLUID_SRC}
-    ${ZERBERUS_SRC}
+    # ${ZERBERUS_SRC}
 
     ${CMAKE_CURRENT_LIST_DIR}/event.cpp
     ${CMAKE_CURRENT_LIST_DIR}/event.h

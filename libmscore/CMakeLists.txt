@@ -38,6 +38,8 @@ include_directories(
       ${PROJECT_SOURCE_DIR}/global
       )
 
+include(${CMAKE_CURRENT_LIST_DIR}/../audio/midi/midi.cmake) # set (MIDI_SRC ...
+include(${CMAKE_CURRENT_LIST_DIR}/../audio/exports/exports.cmake) # set (EXPORTS_SRC ...
 include(${CMAKE_CURRENT_LIST_DIR}/../importexport/musicxml/musicxml.cmake) # set (MUSICXML_SRC ...
 
 add_executable (
@@ -62,7 +64,6 @@ add_executable (
       tempotext.h text.h mmrestrange.h measurenumberbase.h measurenumber.h textbase.h textedit.h textframe.h textline.h textlinebase.h tie.h tiemap.h timesig.h
       tremolo.h tremolobar.h trill.h tuplet.h tupletmap.h types.h undo.h utils.h vibrato.h volta.h xml.h
       ../mscore/svggenerator.h
-      ../audio/exports/exportmidi.h
       importexports.h
 
       ../mscore/preferences.cpp
@@ -111,12 +112,13 @@ add_executable (
       scorediff.cpp
       unrollrepeats.cpp
       ../mscore/svggenerator.cpp
-      ../audio/exports/exportmidi.cpp
       ../mscore/exportaudio.cpp
       ../mscore/savePositions.cpp
       ../mscore/file.cpp
       ../web/main.cpp
 
+      ${MIDI_SRC} # audio/midi
+      ${EXPORTS_SRC} # audio/exports/exportmidi
       ${MUSICXML_SRC}
       )
 
@@ -167,7 +169,6 @@ endif (NOT MSVC)
 target_link_libraries(webmscore  
    ${QT_LIBRARIES}
    qzip
-   audio
    effects
    audiofile
    sndfile
