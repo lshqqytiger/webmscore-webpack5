@@ -4,14 +4,24 @@ All notable changes to this project will be documented in this file.
 
 ### Unreleased
 
-### Added 
+### To be added
 
-* Support importing different file formats into webmscore
 * Stream audio file exporting
+* Python API
+
+## 0.19.0 - 2021-01-23
+
+### Added
+
+* Support loading MusicXML (`musicxml` or compressed `mxl`) and MIDI files into webmscore
+
+```js
+await WebMscore.load(format: 'musicxml' | 'mxl' | 'midi', data, fonts, doLayout)
+```
 
 ## 0.18.0 - 2021-01-20
 
-### Added 
+### Added
 
 * Support MSCZ/MSCX internal file format version 3.02
 
@@ -36,7 +46,7 @@ So those files will no longer appear in your `dist` directory, and the workaroun
 
 ## 0.16.0 - 2021-01-05
 
-### Added 
+### Added
 
 * Support raw PCM audio data export (for future internal use) 
 
