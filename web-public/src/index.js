@@ -75,6 +75,7 @@ class WebMscore {
      * @param {Uint8Array} data 
      * @param {Uint8Array[] | Promise<Uint8Array[]>} fonts load extra font files (CJK characters support)
      * @param {boolean} doLayout set to false if you only need the score metadata or the midi file (Super Fast, 3x faster than the musescore software)
+     * @returns {Promise<WebMscore>}
      */
     static async load(format, data, fonts = [], doLayout = true) {
         const [_fonts] = await Promise.all([
@@ -104,7 +105,17 @@ class WebMscore {
             throw new FileError(scoreptr)
         }
 
-        return new WebMscore(scoreptr)
+        const mscore = new WebMscore(scoreptr)
+
+        // temporary workaround for rendering pdf/images from a midi file
+        if (format === 'midi' || format === 'kar') {
+            // reload from a mscx file
+            const buf = await mscore.saveMsc('mscx')
+            mscore.destroy(true)
+            return this.load('mscx', buf, [], doLayout)
+        }
+
+        return mscore
     }
 
     /**
