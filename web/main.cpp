@@ -120,6 +120,8 @@ uintptr_t _load(const char* format, const char* data, const uint32_t size, bool 
         rv = importMusicXml(score, name);
     else if (_format == "midi" || _format == "kar")
         rv = importMidi(score, name);
+    else if (_format == "gtp" || _format == "gp3" || _format == "gp4" || _format == "gp5" || _format == "gpx" || _format == "gp" || _format == "ptb")
+        rv = importGTP(score, name);
     else {
         qWarning("Invalid file format");
         rv = Score::FileError::FILE_UNKNOWN_TYPE;

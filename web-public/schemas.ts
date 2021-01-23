@@ -246,3 +246,4 @@ export type InputFileFormat =
     | 'musicxml' | 'xml' // uncompressed MusicXML
     | 'midi'
     | 'kar'              // unofficial extension of midi
+    | 'gtp' | 'gp3' | 'gp4' | 'gp5' | 'gpx' | 'gp' | 'ptb' // Guitar Pro
