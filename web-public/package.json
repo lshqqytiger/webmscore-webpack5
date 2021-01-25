@@ -48,7 +48,7 @@
         "build": "npm run clean && npm run compile && npm run bundle && npm run d-ts",
         "build:js-only": "npm run clean:d-ts && npm run bundle && npm run d-ts",
         "bundle": "rollup -c",
-        "compile": "cd ../ && make release && cd - && rm webmscore.lib.wasm.js && mv webmscore.lib.js.mem webmscore.lib.mem.wasm",
+        "compile": "cd ../ && make release && cd - && mv webmscore.lib.js.mem webmscore.lib.mem.wasm",
         "clean": "npm run clean:d-ts && cd ../ && make clean",
         "clean:d-ts": "rm -f src/*.d.ts *.d.ts",
         "d-ts": "tsc --emitDeclarationOnly --declaration --allowJs --lib esnext --target esnext src/index.js",
