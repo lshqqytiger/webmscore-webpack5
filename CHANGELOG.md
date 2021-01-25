@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 
 * Emit detailed debug info (function names) in a separate `.symbols` file
 
-This saves 2.57 MB uncompressed (0.45 MB brotli'd) for the generated wasm file, compared to `v0.19.1`.
+This saves 2.45 MB uncompressed (0.42 MB brotli'd) for the generated wasm file, compared to `v0.19.1`.
 
 <details>
 
