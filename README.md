@@ -116,7 +116,7 @@ WebAssembly vs native C++ program!
 
 1. Install essential tools like `make`, `cmake`, `llvm`, etc.
 
-2. Install `emscripten` using `emsdk`
+2. Install `emscripten` v2.0.6 using `emsdk`
 https://emscripten.org/docs/getting_started/downloads.html
 
 3. Get and compile Qt5 for WebAssembly
@@ -137,6 +137,9 @@ make -j$CPUS
 
 # exclude unused Qt5Gui plugins
 sed -i -E "s/\s(\S+?Qt5Gui_)\*(Plugin)?(.*)\)/ \1QWasmIntegrationPlugin\3 \1QJpegPlugin\3)/" $QT_PATH/qtbase/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake
+
+# patch emcc.py to emit separate .mem files regardless of MEM_INIT_METHOD settings (MEM_INIT_METHOD won't work with wasm)
+sed -i -r "s/(shared.Settings.MEM_INIT_IN_WASM = )True/\1False/" "$(which emcc).py"
 ```
 
 4. Checkout submodules
