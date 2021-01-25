@@ -24,7 +24,9 @@ const moduleOptions = IS_NODE
         }
     }
 
-const Module = LibMscore(moduleOptions)
+/** @type {Promise<any>} */
+const ModulePromise = LibMscore(moduleOptions)
+let Module
 export { Module }
 
 /**
@@ -86,10 +88,11 @@ export const freePtr = (bufPtr) => {
  * this promise is resolved when the runtime is fully initialized
  */
 export const RuntimeInitialized = new Promise((resolve) => {
-    Module.onRuntimeInitialized = () => {
+    ModulePromise.then((_Module) => {
+        Module = _Module
         Module.ccall('init')  // init libmscore
         resolve()
-    }
+    })
 })
 
 /**

@@ -87,14 +87,14 @@ set(CMAKE_EXECUTABLE_SUFFIX ".lib.js")
 
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} --bind")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} --source-map-base ./")
+set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} --no-entry")
 # set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s WASM=0 -s SINGLE_FILE=1")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s WASM=2")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXPORT_ES6=1 -s USE_ES6_IMPORT_META=0 -s MODULARIZE=1")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s NODEJS_CATCH_EXIT=0 -s NODEJS_CATCH_REJECTION=0")
 set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s ALLOW_MEMORY_GROWTH=1")
 # set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s ASSERTIONS=1")
-# set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXPORTED_FUNCTIONS='[\"_test\"]'")  # use EMSCRIPTEN_KEEPALIVE instead
-set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\", \"stringToUTF8\", \"UTF8ToString\", \"getValue\", \"setValue\"]'")
+set(WASM_LINK_FLAGS         "${WASM_LINK_FLAGS} -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"_malloc\", \"_free\", \"ccall\", \"cwrap\", \"stringToUTF8\", \"UTF8ToString\", \"getValue\", \"setValue\"]'")
 
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -std=gnu++11 -fsigned-char")
 set(CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -fPIC")
