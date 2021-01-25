@@ -183,6 +183,10 @@ npm start  # Node.js example
 npm run start:browser  # browser example
 ```
 
+## Debugging
+
+See [How to look up function names in the .symbols file?](https://github.com/LibreScore/webmscore/blob/web/CHANGELOG.md#0192---2021-01-25)
+
 ---
 
 webmscore is part of the [LibreScore](https://github.com/LibreScore/) project.
