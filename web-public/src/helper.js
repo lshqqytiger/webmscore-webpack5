@@ -24,9 +24,9 @@ const moduleOptions = IS_NODE
         }
     }
 
+let Module = moduleOptions
 /** @type {Promise<any>} */
 const ModulePromise = LibMscore(moduleOptions)
-let Module
 export { Module }
 
 /**
