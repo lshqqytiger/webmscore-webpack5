@@ -9,6 +9,35 @@ All notable changes to this project will be documented in this file.
 * Stream audio file exporting
 * Python API
 
+## 0.19.2 - 2021-01-25
+
+### Changed
+
+* Emit detailed debug info (function names) in a separate `.symbols` file
+
+This saves 2.57 MB uncompressed (0.45 MB brotli'd) for the generated wasm file, compared to `v0.19.1`.
+
+<details>
+
+<summary>How to look up function names in the .symbols file?</summary>
+
+```log
+RuntimeError: function signature mismatch
+    at wasm-function[1078]:0x315ac
+    at wasm-function[28467]:0x99f067
+    ...
+```
+
+`webmscore.lib.symbols`
+
+```symbols
+1078:Ms::Element::abbox() const
+...
+28467:Ms::savePng(Ms::Score*, QIODevice*, int, bool, bool)
+```
+
+</details>
+
 ## 0.19.1 - 2021-01-25
 
 ### Added
