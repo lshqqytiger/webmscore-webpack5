@@ -9,6 +9,38 @@ All notable changes to this project will be documented in this file.
 * Stream audio file exporting
 * Python API
 
+## 0.19.1 - 2021-01-25
+
+### Added
+
+* Support loading Guitar Pro files into webmscore
+
+```js
+await WebMscore.load(format: 'gtp' | 'gp3' | 'gp4' | 'gp5' | 'gpx' | 'gp' | 'ptb', data, fonts, doLayout)
+```
+
+### Changed
+
+* Generate detailed debug info
+
+<details>
+
+```log
+// Before
+RuntimeError: function signature mismatch
+    at <anonymous>:wasm-function[1117]:0x359ec
+    at <anonymous>:wasm-function[28469]:0x99e040
+    ...
+
+// After
+RuntimeError: function signature mismatch
+    at Ms::Element::abbox() const (wasm-function[1117]:0x359ec)
+    at Ms::savePng(Ms::Score*, QIODevice*, int, bool, bool) (wasm-function[28469]:0x99e040)
+    ...
+```
+
+</details>
+
 ## 0.19.0 - 2021-01-23
 
 ### Added
