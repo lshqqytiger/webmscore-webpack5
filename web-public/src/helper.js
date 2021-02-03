@@ -24,6 +24,7 @@ const moduleOptions = IS_NODE
         }
     }
 
+/** @type {Record<string, any>} */
 let Module = moduleOptions
 /** @type {Promise<any>} */
 const ModulePromise = LibMscore(moduleOptions)
