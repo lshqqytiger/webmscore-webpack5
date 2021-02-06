@@ -4,6 +4,7 @@
         "node": "> 8.9.0"
     },
     "dependencies": {
+        "@librescore/fonts": "*",
         "webmscore": "../web-public"
     },
     "scripts": {
