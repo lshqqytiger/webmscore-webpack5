@@ -1,13 +1,13 @@
 
 import WebMscore from 'webmscore'
 import fs from 'fs'
+import * as FRONTS from '@librescore/fonts'
 
 // https://musescore.com/openscore/scores/4074271
 // public domain
 const name = 'Aequale_No_1.mscz'
 
 const exportedPrefix = 'exported'
-const fontPathPrefix = 'node_modules/@librescore/fonts'
 
 const filedata = fs.readFileSync(`./${name}`)
 
@@ -15,8 +15,8 @@ WebMscore.ready.then(async () => {
     console.log('supported file format version:', await WebMscore.version())
 
     const score = await WebMscore.load('mscz', filedata, [
-        fs.readFileSync(`${fontPathPrefix}/SourceHanSansCN.min.woff2`),  // only contains the CN variation (style) of Chinese characters (the range of GB18030), including traditional and simplified
-        fs.readFileSync(`${fontPathPrefix}/SourceHanSansKR.min.woff2`),  // to support hangul syllables
+        fs.readFileSync(FRONTS.CN),  // only contains the CN variation (style) of Chinese characters (the range of GB18030), including traditional and simplified
+        fs.readFileSync(FRONTS.KR),  // to support hangul syllables
     ])
     console.log(score)
     console.log()
