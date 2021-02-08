@@ -9,6 +9,19 @@ All notable changes to this project will be documented in this file.
 * Stream audio file exporting
 * Python API
 
+## 0.20.0 - 2021-02-08
+
+### Added
+
+* Synthesize audio frames in bulk (n * 512 frames)
+
+```js
+const fn = await score.synthAudioBatch(starttime, batchSize)
+for (...) {
+    const resArr = await fn(cancel?)
+}
+```
+
 ## 0.19.2 - 2021-01-25
 
 ### Changed
