@@ -385,7 +385,6 @@ class WebMscore {
      * 
      * `synthAudio` is single instance, i.e. you can't have multiple iterators. If you call `synthAudio` multiple times, it will reset the time offset of all iterators the function returned.
      * 
-     * @deprecated in favor of `synthAudioBatch`
      * @param {number} starttime The start time offset in seconds
      * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes>>} The iterator function, see `processSynth`
      */

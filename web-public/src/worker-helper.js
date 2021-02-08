@@ -278,7 +278,6 @@ class WebMscoreW {
 
     /**
      * Synthesize audio frames
-     * @deprecated in favor of `synthAudioBatch`
      * @param {number} starttime The start time offset in seconds
      * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes>>} The iterator function
      */
