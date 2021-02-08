@@ -146,7 +146,7 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
                   return new SynthRes{done, -1, -1, 0};
             }
 
-            auto res = (SynthRes*)malloc(sizeof(SynthRes) + SYNTH_BUFFER_SIZE); 
+            auto res = (SynthRes*)calloc(1, sizeof(SynthRes) + SYNTH_BUFFER_SIZE); 
             res->chunkSize = SYNTH_BUFFER_SIZE;
 
             // re-seek
