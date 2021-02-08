@@ -39,6 +39,22 @@ const rpcErr = (id, err) => {
     self.postMessage(res)
 }
 
+/**
+ * @typedef {import('../schemas').SynthRes | Uint8Array | undefined} Res
+ * @param {Res | Res[]} obj 
+ * @returns {Transferable[] | undefined}
+ */
+const getTransferable = (obj) => {
+    if (!obj) return
+    if (Array.isArray(obj)) {
+        return obj.reduce((p, c) => p.concat(getTransferable(c)), []).filter(Boolean)
+    } else if (obj instanceof Uint8Array) {
+        return [obj.buffer]
+    } else if (obj.chunk instanceof Uint8Array) {
+        return [obj.chunk.buffer]
+    }
+}
+
 self.onmessage = async (e) => {
     /** @type {RPCReq} */
     const req = e.data  // JSON-RPC
@@ -60,15 +76,7 @@ self.onmessage = async (e) => {
             default:
                 if (!score) { rpcErr(id, new Error('Score not loaded')) }
                 const result = await score[method].apply(score, params)
-                let transfer
-                if (result) {
-                    if (result instanceof Uint8Array) {
-                        transfer = [result.buffer]
-                    } else if (result.chunk instanceof Uint8Array) {
-                        transfer = [result.chunk.buffer]
-                    }
-                }
-                rpcRes(id, result, transfer)
+                rpcRes(id, result, getTransferable(result))
         }
     } catch (err) {
         rpcErr(id, err)

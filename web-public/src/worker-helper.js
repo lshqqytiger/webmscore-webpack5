@@ -86,7 +86,7 @@ class WebMscoreW {
      * Communicate with the worker thread with JSON-RPC
      * @private
      * @typedef {{ id: number; result?: any; error?: any; }} RPCRes
-     * @param {keyof import('./index').default | '_synthAudio' | 'processSynth' | 'load' | 'ready'} method 
+     * @param {keyof import('./index').default | '_synthAudio' | 'processSynth' | 'processSynthBatch' | 'load' | 'ready'} method 
      * @param {any[]} params 
      * @param {Transferable[]} transfer
      */
@@ -278,13 +278,27 @@ class WebMscoreW {
 
     /**
      * Synthesize audio frames
+     * @deprecated in favor of `synthAudioBatch`
      * @param {number} starttime The start time offset in seconds
      * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes>>} The iterator function
      */
     async synthAudio(starttime = 0) {
-        const fn = await this.rpc('_synthAudio', [starttime])
+        const fnptr = await this.rpc('_synthAudio', [starttime])
         return (cancel) => {
-            return this.rpc('processSynth', [fn, cancel])
+            return this.rpc('processSynth', [fnptr, cancel])
+        }
+    }
+
+    /**
+     * Synthesize audio frames in bulk
+     * @param {number} starttime - The start time offset in seconds
+     * @param {number} batchSize - max number of result SynthRes' (n * 512 frames)
+     * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes[]>>}
+     */
+    async synthAudioBatch(starttime, batchSize) {
+        const fnptr = await this.rpc('_synthAudio', [starttime])
+        return (cancel) => {
+            return this.rpc('processSynthBatch', [fnptr, batchSize, cancel])
         }
     }
 

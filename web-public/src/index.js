@@ -385,6 +385,7 @@ class WebMscore {
      * 
      * `synthAudio` is single instance, i.e. you can't have multiple iterators. If you call `synthAudio` multiple times, it will reset the time offset of all iterators the function returned.
      * 
+     * @deprecated in favor of `synthAudioBatch`
      * @param {number} starttime The start time offset in seconds
      * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes>>} The iterator function, see `processSynth`
      */
@@ -392,6 +393,19 @@ class WebMscore {
         const fn = await this._synthAudio(starttime)
         return (cancel) => {
             return this.processSynth(fn, cancel)
+        }
+    }
+
+    /**
+     * Synthesize audio frames in bulk
+     * @param {number} starttime - The start time offset in seconds
+     * @param {number} batchSize - max number of result SynthRes' (n * 512 frames)
+     * @returns {Promise<(cancel?: boolean) => Promise<import('../schemas').SynthRes[]>>}
+     */
+    async synthAudioBatch(starttime, batchSize) {
+        const fn = await this._synthAudio(starttime)
+        return (cancel) => {
+            return this.processSynthBatch(fn, batchSize, cancel)
         }
     }
 
@@ -452,6 +466,23 @@ class WebMscore {
             endTime,   // The current play time in seconds (the chunk's end time)
             chunk,     // The data chunk of audio frames, interleaved, 512 frames, 44100 Hz (44.1 kHz), 0.0116 s (512/44100)
         }
+    }
+
+    /**
+     * @private
+     * @param {number} fnptr - pointer to the iterator function
+     * @param {number} batchSize - see `synthAudioBatch`
+     * @param {boolean} cancel - cancel the audio synthesis worklet 
+     */
+    async processSynthBatch(fnptr, batchSize, cancel = false) {
+        /** @type {import('../schemas').SynthRes[]} */
+        const arr = []
+        for (let i = 0; i < batchSize; i++) {
+            const r = await this.processSynth(fnptr, cancel)
+            arr.push(r)
+            if (r.done || r.endTime < 0) break
+        }
+        return arr
     }
 
     /**
