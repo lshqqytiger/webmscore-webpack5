@@ -9,6 +9,12 @@ All notable changes to this project will be documented in this file.
 * Stream audio file exporting
 * Python API
 
+## 0.20.1 - 2021-02-08
+
+### Changed
+
+* Improve `synthAudioBatch` performance
+
 ## 0.20.0 - 2021-02-08
 
 ### Added
