@@ -1,6 +1,6 @@
 {
     "name": "webmscore",
-    "version": "0.20.2",
+    "version": "0.20.3",
     "description": "MuseScore's libmscore in WebAssembly! Read mscz data, and generate audio/MIDI/MusicXML/SVG/PNG/PDF sheets right in browsers",
     "type": "module",
     "types": "./src/index.d.ts",
@@ -47,6 +47,7 @@
     "scripts": {
         "build": "npm run clean && npm run compile && npm run bundle && npm run d-ts",
         "build:js-only": "npm run clean:d-ts && npm run bundle && npm run d-ts",
+        "version": "npm run build:js-only",
         "bundle": "rollup -c",
         "compile": "cd ../ && make release && cd - && mv webmscore.lib.js.mem webmscore.lib.mem.wasm && mv webmscore.lib.js.symbols webmscore.lib.symbols",
         "postcompile": "perl -pi -e 's/\\\\([0-9a-f]{2})/chr(hex($1))/eg' webmscore.lib.symbols",
