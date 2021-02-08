@@ -8,7 +8,7 @@ namespace Ms {
         float startTime; // the chunk's start time in seconds
         float endTime;   // the chunk's end time in seconds (playtime)
         unsigned chunkSize;
-        const char* chunkPtr;
+        char chunk[0 /* to be chunkSize */];
     };
 }
 

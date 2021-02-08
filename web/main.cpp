@@ -430,6 +430,16 @@ const char* _processSynth(uintptr_t fn_ptr, bool cancel) {
     return reinterpret_cast<const char*>(res);
 }
 
+const char* _processSynthBatch(uintptr_t fn_ptr, int batchSize, bool cancel) {
+    auto fn = reinterpret_cast<std::function<Ms::SynthRes*(bool)>*>(fn_ptr);
+    // qWarning("size of a pointer: %d", sizeof(Ms::SynthRes*));
+    auto resArr = (Ms::SynthRes**)calloc(batchSize, sizeof(Ms::SynthRes*)); // array of pointers to SynthRes data 
+    for (size_t i = 0; i < batchSize; i++) {
+        resArr[i] = (*fn)(cancel);
+    }
+    return reinterpret_cast<const char*>(resArr);
+}
+
 /**
  * save positions of measures or segments (if the `ofSegments` param == true) as JSON
  */
@@ -551,6 +561,11 @@ extern "C" {
     EMSCRIPTEN_KEEPALIVE
     const char* processSynth(uintptr_t fn_ptr, bool cancel = false) {
         return _processSynth(fn_ptr, cancel);
+    }
+
+    EMSCRIPTEN_KEEPALIVE
+    const char* processSynthBatch(uintptr_t fn_ptr, int batchSize, bool cancel = false) {
+        return _processSynthBatch(fn_ptr, batchSize, cancel);
     }
 
     EMSCRIPTEN_KEEPALIVE

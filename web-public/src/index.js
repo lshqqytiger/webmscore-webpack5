@@ -411,6 +411,7 @@ class WebMscore {
     /**
      * Synthesize audio frames
      * @private
+     * @todo GC this iterator function
      * @param {number} starttime The start time offset in seconds
      * @returns {Promise<number>} Pointer to the iterator function
      */
@@ -434,24 +435,18 @@ class WebMscore {
     }
 
     /**
+     * Parse struct SynthRes, then free its memory
      * @private
-     * @param {number} fnptr - pointer to the iterator function
-     * @param {boolean} cancel - cancel the audio synthesis worklet 
-     * @returns {Promise<import('../schemas').SynthRes>}
+     * @param {number} resptr - pointer to the SynthRes data
+     * @returns {import('../schemas').SynthRes}
      */
-    async processSynth(fnptr, cancel = false) {
-        const resptr = Module.ccall('processSynth',
-            'number',
-            ['number', 'boolean'],
-            [fnptr, cancel]
-        )
-
+    _parseSynthRes(resptr) {
         // struct SynthRes in synthres.h
         const done = Module.getValue(resptr + 0, 'i8')
         const startTime = +Module.getValue(resptr + 4, 'float')  // in seconds
         const endTime = +Module.getValue(resptr + 8, 'float')  // in seconds
         const chunkSize = Module.getValue(resptr + 12, 'i32')
-        const chunkPtr = Module.getValue(resptr + 16, '*')
+        const chunkPtr = resptr + 16
 
         const chunk = new Uint8Array(  // make a copy
             Module.HEAPU8.subarray(chunkPtr, chunkPtr + chunkSize)
@@ -470,17 +465,41 @@ class WebMscore {
     /**
      * @private
      * @param {number} fnptr - pointer to the iterator function
+     * @param {boolean} cancel - cancel the audio synthesis worklet 
+     * @returns {Promise<import('../schemas').SynthRes>}
+     */
+    async processSynth(fnptr, cancel = false) {
+        const resptr = Module.ccall('processSynth',
+            'number',
+            ['number', 'boolean'],
+            [fnptr, cancel]
+        )
+        return this._parseSynthRes(resptr)
+    }
+
+    /**
+     * @private
+     * @param {number} fnptr - pointer to the iterator function
      * @param {number} batchSize - see `synthAudioBatch`
      * @param {boolean} cancel - cancel the audio synthesis worklet 
      */
     async processSynthBatch(fnptr, batchSize, cancel = false) {
+        const resArrPtr = Module.ccall('processSynthBatch',
+            'number',
+            ['number', 'number', 'boolean'],
+            [fnptr, batchSize, cancel]
+        )
+
         /** @type {import('../schemas').SynthRes[]} */
         const arr = []
         for (let i = 0; i < batchSize; i++) {
-            const r = await this.processSynth(fnptr, cancel)
+            // visit the array of pointers to SynthRes data
+            const resptr = Module.getValue(resArrPtr + 4 * i, '*') // 32bit WASM, so one pointer is 4 bytes long
+            const r = this._parseSynthRes(resptr)
             arr.push(r)
-            if (r.done || r.endTime < 0) break
         }
+
+        freePtr(resArrPtr)
         return arr
     }
 

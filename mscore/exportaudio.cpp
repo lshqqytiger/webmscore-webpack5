@@ -140,12 +140,14 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
       }
 
       bool done = false;
-      float buffer[SYNTH_FRAMES * 2];
 
       auto synthIterator = [=](bool cancel = false) mutable -> SynthRes* { 
             if (done) {
-                  return new SynthRes{done, -1, -1, 0, nullptr};
+                  return new SynthRes{done, -1, -1, 0};
             }
+
+            auto res = (SynthRes*)malloc(sizeof(SynthRes) + SYNTH_BUFFER_SIZE); 
+            res->chunkSize = SYNTH_BUFFER_SIZE;
 
             // re-seek
             playPos = events.cbegin();
@@ -157,10 +159,9 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
             //
             // collect events for one segment
             //
-            memset(buffer, 0, SYNTH_BUFFER_SIZE);
             int startTime = playTime;
             int endTime = playTime + frames;
-            float* p = buffer;
+            float* p = (float*)res->chunk;
 
             for (; playPos != events.cend(); ++playPos, ++posIndex) {
                   int f = score->utick2utime(playPos->first) * MScore::sampleRate;
@@ -199,13 +200,9 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
                   done = true;
             }
 
-            auto res = new SynthRes{
-                  done,
-                  float(startTime) / MScore::sampleRate,
-                  float(endTime) / MScore::sampleRate,
-                  SYNTH_BUFFER_SIZE,
-                  reinterpret_cast<const char*>(buffer)
-            };
+            res->done = done;
+            res->startTime = float(startTime) / MScore::sampleRate;
+            res->endTime = float(endTime) / MScore::sampleRate;
 
             return res;
       };
