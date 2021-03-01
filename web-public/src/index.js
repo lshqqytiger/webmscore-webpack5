@@ -458,7 +458,7 @@ class WebMscore {
             done: !!done,
             startTime, // The chunk's start time in seconds
             endTime,   // The current play time in seconds (the chunk's end time)
-            chunk,     // The data chunk of audio frames, interleaved, 512 frames, 44100 Hz (44.1 kHz), 0.0116 s (512/44100)
+            chunk,     // The data chunk of audio frames, non-interleaved float32 PCM, 512 frames, 44100 Hz (44.1 kHz), 0.0116 s (512/44100)
         }
     }
 
