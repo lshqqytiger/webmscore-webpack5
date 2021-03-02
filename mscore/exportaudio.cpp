@@ -80,13 +80,10 @@ static const unsigned SYNTH_BUFFER_SIZE = sizeof(float) * SYNTH_FRAMES * 2;
  * https://v8.dev/features/simd
  * https://emscripten.org/docs/porting/simd.html
  */
-void deinterleave(float* dest, float* src, size_t framesLen) {
-      auto channelA = dest;
-      auto channelB = dest + framesLen;
-
+void deinterleave(float* dest, const float* src, size_t framesLen) {
       for (size_t i = 0, j = 0; i < framesLen; i++, j+=2) {
-            channelA[i] = src[j];
-            channelB[i] = src[j+1];
+            dest[i] = src[j];
+            dest[framesLen + i] = src[j+1];
       }
 }
 
@@ -180,7 +177,9 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
             //
             int startTime = playTime;
             int endTime = playTime + frames;
-            float* p = (float*)calloc(1, SYNTH_BUFFER_SIZE);
+            
+            float buffer[SYNTH_FRAMES * 2] = {};
+            float* p = buffer;
 
             for (; playPos != events.cend(); ++playPos, ++posIndex) {
                   int f = score->utick2utime(playPos->first) * MScore::sampleRate;
@@ -219,8 +218,7 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
                   done = true;
             }
 
-            deinterleave((float*)res->chunk, p, SYNTH_FRAMES);
-            free(p);
+            deinterleave((float*)res->chunk, buffer, SYNTH_FRAMES);
 
             res->done = done;
             res->startTime = float(startTime) / MScore::sampleRate;
