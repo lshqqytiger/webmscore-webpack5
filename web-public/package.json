@@ -55,6 +55,6 @@
         "clean:d-ts": "rm -f src/*.d.ts *.d.ts",
         "d-ts": "tsc --emitDeclarationOnly --declaration --allowJs --lib esnext --target esnext src/index.js",
         "prepack": "cp ../README.md . && cp ../CHANGELOG.md .",
-        "install:webpack": "node -e \"fs.linkSync('webmscore.lib.wasm', 'webmscore.lib.wasm-')\" || true # workaround for Webpack 4"
+        "install:webpack": "node -e \"fs.linkSync('webmscore.lib.wasm', 'webmscore.lib.wasm-');fs.linkSync('webmscore.lib.mem.wasm', 'webmscore.lib.mem-')\" || true # workaround for Webpack 4"
     }
 }
