@@ -233,7 +233,7 @@ export interface SynthRes {
     endTime: number;
 
     /**
-     * The data chunk of audio frames (interleaved, 512 frames)  
+     * The data chunk of audio frames (non-interleaved float32 PCM, 512 frames)  
      * 44100 Hz (44.1 kHz), 0.0116 s (`512 / 44100`)
      */
     chunk: Uint8Array;

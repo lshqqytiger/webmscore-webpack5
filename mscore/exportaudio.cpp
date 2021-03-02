@@ -71,6 +71,22 @@ MasterSynthesizer* synthesizerFactory() {
 static const unsigned SYNTH_FRAMES = 512;
 static const unsigned SYNTH_BUFFER_SIZE = sizeof(float) * SYNTH_FRAMES * 2;
 
+/**
+ * De-interleave audio channels
+ * 
+ * dest: [ channelA #len frames, channelB #len frames ]
+ * 
+ * TODO: use WebAssembly SIMD instructions 
+ * https://v8.dev/features/simd
+ * https://emscripten.org/docs/porting/simd.html
+ */
+void deinterleave(float* dest, const float* src, size_t framesLen) {
+      for (size_t i = 0, j = 0; i < framesLen; i++, j+=2) {
+            dest[i] = src[j];
+            dest[framesLen + i] = src[j+1];
+      }
+}
+
 std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) {
       EventMap events;
 
@@ -161,7 +177,9 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
             //
             int startTime = playTime;
             int endTime = playTime + frames;
-            float* p = (float*)res->chunk;
+            
+            float buffer[SYNTH_FRAMES * 2] = {};
+            float* p = buffer;
 
             for (; playPos != events.cend(); ++playPos, ++posIndex) {
                   int f = score->utick2utime(playPos->first) * MScore::sampleRate;
@@ -199,6 +217,8 @@ std::function<SynthRes*(bool)> synthAudioWorklet(Score* score, float starttime) 
                   delete synth;
                   done = true;
             }
+
+            deinterleave((float*)res->chunk, buffer, SYNTH_FRAMES);
 
             res->done = done;
             res->startTime = float(startTime) / MScore::sampleRate;

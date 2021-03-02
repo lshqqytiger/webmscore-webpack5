@@ -78,12 +78,11 @@
                 const res = await fn()
                 const frames = new Float32Array(res.chunk.buffer)
 
-                // audio frames are interleaved 
-                for (let d = 0; d < FRAME_LENGTH; d++) {
-                    for (let c = 0; c < CHANNELS; c++) {
-                        const p = d * CHANNELS + c
-                        audioBuf.copyToChannel(frames.slice(p, p + 1), c, i + d)
-                    }
+                // audio frames are non-interleaved
+                // Float32Array[ channelA 512 frames, channelB 512 frames ]
+                for (let c = 0; c < CHANNELS; c++) {
+                    const buf = frames.subarray(c * FRAME_LENGTH, (c + 1) * FRAME_LENGTH)
+                    audioBuf.copyToChannel(buf, c, i)
                 }
 
                 if (res.done) {
