@@ -9,6 +9,22 @@ All notable changes to this project will be documented in this file.
 * Stream audio file exporting
 * Python API
 
+## 0.21.0 - 2020-03-02
+
+### BREAKING CHANGE
+
+* [`SynthRes.chunk`](https://github.com/LibreScore/webmscore/blob/web/web-public/schemas.ts#L239) becomes **non-interleaved** float32 PCM data
+
+```
+SynthRes.chunk = Float32Array[ channelA 512 frames, channelB 512 frames ]
+```
+
+## 0.20.4 - 2020-03-01
+
+### Fixed
+
+* Webpack import
+
 ## 0.20.2 - 2021-02-08
 
 ### Changed
