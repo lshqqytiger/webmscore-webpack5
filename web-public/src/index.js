@@ -112,7 +112,7 @@ class WebMscore {
             // reload from a mscx file
             const buf = await mscore.saveMsc('mscx')
             mscore.destroy(true)
-            return this.load('mscx', buf, [], doLayout)
+            return WebMscore.load('mscx', buf, [], doLayout)
         }
 
         return mscore
